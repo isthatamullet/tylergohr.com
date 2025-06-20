@@ -35,7 +35,7 @@ const nextConfig = {
       ...config.resolve.alias,
     }
     
-    // Tree shake unused CSS
+    // CSS optimization - preserve modern CSS features
     if (!isServer) {
       config.optimization.splitChunks = {
         ...config.optimization.splitChunks,
@@ -49,6 +49,10 @@ const nextConfig = {
           },
         },
       }
+      
+      // Don't remove CSS properties that might seem unused
+      config.optimization.usedExports = false
+      config.optimization.sideEffects = false
     }
     
     return config

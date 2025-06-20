@@ -251,9 +251,8 @@
 
 /* Glassmorphism Card */
 .glassCard {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  /* Fallback background for browsers without backdrop-filter support */
+  background: rgba(26, 26, 26, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-xl);
   padding: var(--space-12);
@@ -267,6 +266,15 @@
   will-change: transform;
 }
 
+/* Modern glassmorphism for supporting browsers */
+@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+  .glassCard {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
+
 .glassCard:hover {
   /* Sophisticated morphing with 3D perspective */
   transform: translateY(-0.75rem) scale(1.03) perspective(1000px) rotateY(2deg);
@@ -278,11 +286,17 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.25),
     inset 0 -1px 0 rgba(22, 163, 74, 0.1);
   border-color: rgba(22, 163, 74, 0.4);
-  /* Enhanced backdrop blur on hover */
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
   /* Morphing border radius */
   border-radius: calc(var(--radius-xl) * 1.3);
+}
+
+/* Enhanced glassmorphism hover effects for supporting browsers */
+@supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+  .glassCard:hover {
+    /* Enhanced backdrop blur on hover */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
 }
 
 /* Section Typography */
