@@ -103,7 +103,6 @@ jobs:
     needs: validate
 
     outputs:
-      image-url: ${{ steps.image-output.outputs.image-url }}
       image-digest: ${{ steps.build.outputs.image-digest }}
 
     steps:
@@ -137,12 +136,6 @@ jobs:
             NODE_ENV=production
             NEXT_TELEMETRY_DISABLED=1
 
-      - name: 'Output Image Details'
-        id: image-output
-        run: |
-          IMAGE_URL="${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ needs.validate.outputs.version }}"
-          echo "image-url=${IMAGE_URL}" >> $GITHUB_OUTPUT
-          echo "Built and pushed: ${IMAGE_URL}"
 
   # Job 3: Deploy to Cloud Run
   deploy:
@@ -171,7 +164,7 @@ jobs:
         with:
           service: ${{ env.SERVICE_NAME }}
           region: ${{ env.REGION }}
-          image: ${{ needs.build.outputs.image-url }}
+          image: ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ needs.validate.outputs.version }}
           flags: |
             --port=3000
             --memory=2Gi
