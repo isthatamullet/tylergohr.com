@@ -1,8 +1,8 @@
 /* Homepage CSS Module - Cutting-Edge CSS Grid & Subgrid */
 
 .main {
-  /* Enable smooth scroll snap */
-  scroll-snap-type: y mandatory;
+  /* Enable smooth scroll snap - temporarily disabled for debugging */
+  /* scroll-snap-type: y mandatory; */
   overflow-y: scroll;
   container-type: inline-size;
 }
@@ -14,7 +14,7 @@
   padding-block: var(--space-16);
   position: relative;
   overflow: hidden;
-  scroll-snap-align: start;
+  /* scroll-snap-align: start; */
   /* CSS Grid Subgrid for perfect alignment */
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
@@ -226,11 +226,12 @@
 /* New Sections */
 .aboutSection,
 .projectSection {
-  min-height: 100vh;
+  /* min-height: 100vh; - temporarily adjusted for debugging */
+  min-height: auto;
   display: grid;
   place-items: center;
   padding-block: var(--space-20);
-  scroll-snap-align: start;
+  /* scroll-snap-align: start; */
   position: relative;
 }
 
