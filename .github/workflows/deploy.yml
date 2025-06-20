@@ -146,8 +146,8 @@ jobs:
     environment: ${{ needs.validate.outputs.environment }}
 
     outputs:
-      service-url: ${{ steps.deploy.outputs.service-url }}
-      revision: ${{ steps.deploy.outputs.revision }}
+      service-url: ${{ steps.get-url.outputs.service-url }}
+      revision: ${{ steps.get-url.outputs.revision }}
 
     steps:
       - name: 'Authenticate to Google Cloud'
@@ -182,10 +182,27 @@ jobs:
           # Note: Traffic is automatically configured by deploy-cloudrun action
           echo "Traffic allocation handled by deploy action - skipping manual configuration"
 
-      - name: 'Output Deployment Details'
+      - name: 'Get Service URL and Set Outputs'
+        id: get-url
         run: |
-          echo "Deployed revision: ${{ steps.deploy.outputs.revision }}"
-          echo "Service URL: ${{ steps.deploy.outputs.service-url }}"
+          # Get the service URL from gcloud (more reliable than action outputs)
+          SERVICE_URL=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --format="value(status.url)")
+          
+          echo "service-url=${SERVICE_URL}" >> $GITHUB_OUTPUT
+          echo "Deployed service URL: ${SERVICE_URL}"
+          
+          # Also try to get revision from action output, fallback to latest
+          REVISION="${{ steps.deploy.outputs.revision }}"
+          if [ -z "${REVISION}" ]; then
+            REVISION=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
+              --region=${{ env.REGION }} \
+              --format="value(status.latestCreatedRevisionName)")
+          fi
+          
+          echo "revision=${REVISION}" >> $GITHUB_OUTPUT
+          echo "Deployed revision: ${REVISION}"
 
   # Job 4: Health checks and validation
   health-check:
