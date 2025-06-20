@@ -103,7 +103,7 @@ jobs:
     needs: validate
 
     outputs:
-      image-url: ${{ steps.build.outputs.image-url }}
+      image-url: ${{ steps.image-output.outputs.image-url }}
       image-digest: ${{ steps.build.outputs.image-digest }}
 
     steps:
@@ -138,6 +138,7 @@ jobs:
             NEXT_TELEMETRY_DISABLED=1
 
       - name: 'Output Image Details'
+        id: image-output
         run: |
           IMAGE_URL="${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ needs.validate.outputs.version }}"
           echo "image-url=${IMAGE_URL}" >> $GITHUB_OUTPUT
