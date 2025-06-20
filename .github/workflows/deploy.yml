@@ -260,18 +260,22 @@ jobs:
           
           HEADERS=$(curl -sI "${SERVICE_URL}")
           
-          # Check required security headers
-          if echo "${HEADERS}" | grep -q "X-Content-Type-Options: nosniff"; then
+          # Check required security headers (case-insensitive)
+          if echo "${HEADERS}" | grep -qi "x-content-type-options: nosniff"; then
             echo "✅ X-Content-Type-Options header present"
           else
             echo "❌ Missing X-Content-Type-Options header"
+            echo "Available headers:"
+            echo "${HEADERS}"
             exit 1
           fi
           
-          if echo "${HEADERS}" | grep -q "X-Frame-Options: DENY"; then
+          if echo "${HEADERS}" | grep -qi "x-frame-options: deny"; then
             echo "✅ X-Frame-Options header present"
           else
             echo "❌ Missing X-Frame-Options header"
+            echo "Available headers:"
+            echo "${HEADERS}"
             exit 1
           fi
 
