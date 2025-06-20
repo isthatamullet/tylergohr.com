@@ -87,6 +87,8 @@
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.05em;
+  /* Fallback color for browsers that don't support background-clip */
+  color: var(--portfolio-text-primary);
   background: linear-gradient(
     135deg, 
     var(--portfolio-text-primary) 0%, 
@@ -98,6 +100,15 @@
   -webkit-text-fill-color: transparent;
   /* Animation preparation */
   animation: fadeInUp 1s ease-out;
+}
+
+/* Fallback for browsers that don't support background-clip: text */
+@supports not (background-clip: text) {
+  .heroTitle {
+    background: none;
+    color: var(--portfolio-text-primary);
+    -webkit-text-fill-color: unset;
+  }
 }
 
 .heroSubtitle {
