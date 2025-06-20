@@ -179,10 +179,8 @@ jobs:
 
       - name: 'Configure Traffic Allocation'
         run: |
-          # Deploy with 0% traffic initially for health checks
-          gcloud run services update-traffic ${{ env.SERVICE_NAME }} \
-            --region=${{ env.REGION }} \
-            --to-revisions=${{ steps.deploy.outputs.revision }}=0
+          # Note: Traffic is automatically configured by deploy-cloudrun action
+          echo "Traffic allocation handled by deploy action - skipping manual configuration"
 
       - name: 'Output Deployment Details'
         run: |
