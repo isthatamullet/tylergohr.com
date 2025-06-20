@@ -79,6 +79,11 @@ web_modules/
 .env.production.local
 .env.local
 
+# Google Cloud service account keys
+*-sa-key.json
+github-actions-sa-key.json
+service-account*.json
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache

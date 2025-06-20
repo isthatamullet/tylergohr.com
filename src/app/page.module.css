@@ -1,0 +1,432 @@
+/* Homepage CSS Module - Cutting-Edge CSS Grid & Subgrid */
+
+.main {
+  /* Enable smooth scroll snap */
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  container-type: inline-size;
+}
+
+.heroSection {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding-block: var(--space-16);
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+  /* CSS Grid Subgrid for perfect alignment */
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+
+/* Multi-layered Parallax Background */
+.parallaxBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  z-index: -1;
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.parallaxLayer1,
+.parallaxLayer2,
+.parallaxLayer3 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.1;
+  /* Hardware acceleration for smooth animations */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.parallaxLayer1 {
+  background: radial-gradient(circle, var(--portfolio-accent-green) 0%, transparent 70%);
+  top: 10%;
+  left: -20%;
+  width: 40%;
+  height: 40%;
+  animation: float1 20s ease-in-out infinite;
+}
+
+.parallaxLayer2 {
+  background: radial-gradient(circle, var(--portfolio-interactive) 0%, transparent 70%);
+  top: 60%;
+  right: -20%;
+  width: 50%;
+  height: 50%;
+  animation: float2 25s ease-in-out infinite reverse;
+}
+
+.parallaxLayer3 {
+  background: radial-gradient(circle, var(--portfolio-accent-red) 0%, transparent 70%);
+  top: 30%;
+  left: 60%;
+  width: 30%;
+  height: 30%;
+  animation: float3 15s ease-in-out infinite;
+}
+
+.heroContent {
+  display: grid;
+  gap: var(--space-6);
+  text-align: center;
+  max-width: 50rem;
+  container-type: inline-size;
+}
+
+.heroTitle {
+  font-size: clamp(var(--font-size-4xl), 8vw, var(--font-size-6xl));
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+  background: linear-gradient(
+    135deg, 
+    var(--portfolio-text-primary) 0%, 
+    var(--portfolio-accent-green) 50%,
+    var(--portfolio-interactive) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* Animation preparation */
+  animation: fadeInUp 1s ease-out;
+}
+
+.heroSubtitle {
+  font-size: clamp(var(--font-size-lg), 4vw, var(--font-size-2xl));
+  color: var(--portfolio-text-primary);
+  font-weight: 600;
+  animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.heroDescription {
+  font-size: clamp(var(--font-size-base), 2.5vw, var(--font-size-lg));
+  color: var(--portfolio-text-secondary);
+  line-height: 1.7;
+  max-width: 42rem;
+  margin-inline: auto;
+  animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+/* Container Query Responsive Enhancements */
+@container (min-width: 48rem) {
+  .heroContent {
+    gap: var(--space-8);
+  }
+  
+  .heroTitle {
+    letter-spacing: -0.08em;
+  }
+}
+
+@container (min-width: 64rem) {
+  .heroSection {
+    padding-block: var(--space-24);
+  }
+  
+  .heroContent {
+    gap: var(--space-10);
+  }
+}
+
+/* CSS Grid Subgrid Layout for Complex Sections */
+.portfolioGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-4);
+  margin-block: var(--space-16);
+}
+
+@container (min-width: 48rem) {
+  .portfolioGrid {
+    gap: var(--space-6);
+  }
+}
+
+@container (min-width: 64rem) {
+  .portfolioGrid {
+    gap: var(--space-8);
+  }
+}
+
+/* Subgrid for perfect alignment across complex layouts */
+.portfolioItem {
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: subgrid;
+  gap: inherit;
+  padding: var(--space-6);
+  background: var(--portfolio-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--portfolio-border);
+  transition: all var(--transition-normal);
+}
+
+@container (min-width: 48rem) {
+  .portfolioItem {
+    grid-column: span 6;
+  }
+}
+
+@container (min-width: 64rem) {
+  .portfolioItem {
+    grid-column: span 4;
+  }
+}
+
+.portfolioItem:hover {
+  transform: translateY(-0.25rem);
+  background: var(--portfolio-surface-hover);
+  border-color: var(--portfolio-accent-green);
+  box-shadow: 0 0.5rem 2rem var(--portfolio-shadow);
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll-driven animations preparation */
+@supports (animation-timeline: scroll()) {
+  .heroTitle {
+    animation-timeline: scroll();
+    animation-range: entry 0% entry 50%;
+  }
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+  .heroTitle {
+    background: var(--portfolio-text-primary);
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+  }
+  
+  .portfolioItem {
+    border-width: 2px;
+  }
+}
+
+/* New Sections */
+.aboutSection,
+.projectSection {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding-block: var(--space-20);
+  scroll-snap-align: start;
+  position: relative;
+}
+
+.aboutSection {
+  background: linear-gradient(135deg, 
+    rgba(26, 26, 26, 0.8) 0%, 
+    rgba(10, 10, 10, 0.9) 100%
+  );
+}
+
+.projectSection {
+  background: linear-gradient(135deg,
+    rgba(10, 10, 10, 0.95) 0%,
+    rgba(26, 26, 26, 0.8) 100%
+  );
+}
+
+/* Glassmorphism Card */
+.glassCard {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-xl);
+  padding: var(--space-12);
+  max-width: 42rem;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all var(--transition-normal);
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.glassCard:hover {
+  /* Sophisticated morphing with 3D perspective */
+  transform: translateY(-0.75rem) scale(1.03) perspective(1000px) rotateY(2deg);
+  /* Multi-layered morphing shadows */
+  box-shadow: 
+    0 20px 80px rgba(0, 0, 0, 0.5),
+    0 10px 40px rgba(22, 163, 74, 0.2),
+    0 5px 20px rgba(37, 99, 235, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(22, 163, 74, 0.1);
+  border-color: rgba(22, 163, 74, 0.4);
+  /* Enhanced backdrop blur on hover */
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  /* Morphing border radius */
+  border-radius: calc(var(--radius-xl) * 1.3);
+}
+
+/* Section Typography */
+.sectionTitle {
+  font-size: clamp(var(--font-size-3xl), 6vw, var(--font-size-5xl));
+  margin-bottom: var(--space-6);
+  background: linear-gradient(135deg, 
+    var(--portfolio-text-primary) 0%, 
+    var(--portfolio-accent-green) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sectionDescription {
+  font-size: var(--font-size-lg);
+  line-height: 1.8;
+  color: var(--portfolio-text-secondary);
+}
+
+/* Project Grid */
+.projectGrid {
+  display: grid;
+  gap: var(--space-8);
+  max-width: 64rem;
+  width: 100%;
+}
+
+.projectCard {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  transition: all var(--transition-normal);
+  /* Hardware acceleration */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.projectCard:hover {
+  transform: translateY(-0.25rem);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 
+    0 12px 48px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.projectTitle {
+  font-size: var(--font-size-2xl);
+  color: var(--portfolio-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.projectDescription {
+  font-size: var(--font-size-base);
+  color: var(--portfolio-text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--space-6);
+}
+
+/* Tech Stack */
+.techStack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.techItem {
+  background: rgba(22, 163, 74, 0.1);
+  color: var(--portfolio-accent-green);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  border: 1px solid rgba(22, 163, 74, 0.2);
+  transition: all var(--transition-fast);
+}
+
+.techItem:hover {
+  background: rgba(22, 163, 74, 0.2);
+  border-color: rgba(22, 163, 74, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Floating Animations */
+@keyframes float1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -30px) rotate(120deg); }
+  66% { transform: translate(-20px, 20px) rotate(240deg); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-40px, -20px) rotate(180deg); }
+}
+
+@keyframes float3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -40px) scale(1.1); }
+}
+
+/* Container Query Responsive Enhancements */
+@container (min-width: 48rem) {
+  .glassCard {
+    padding: var(--space-16);
+  }
+  
+  .projectGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@container (min-width: 64rem) {
+  .aboutSection,
+  .projectSection {
+    padding-block: var(--space-24);
+  }
+}
+
+/* Motion preferences respect */
+@media (prefers-reduced-motion: reduce) {
+  .heroTitle,
+  .heroSubtitle,
+  .heroDescription {
+    animation: none;
+  }
+  
+  .portfolioItem:hover,
+  .glassCard:hover,
+  .projectCard:hover,
+  .techItem:hover {
+    transform: none;
+  }
+  
+  .parallaxLayer1,
+  .parallaxLayer2,
+  .parallaxLayer3 {
+    animation: none;
+  }
+  
+  .main {
+    scroll-snap-type: none;
+  }
+}

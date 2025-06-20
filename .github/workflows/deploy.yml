@@ -1,0 +1,446 @@
+# Tyler Gohr Portfolio - Production Deployment Pipeline
+# Automated deployment to Google Cloud Run with health checks and rollback capability
+
+name: 'Deploy - Production Pipeline'
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '*.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - staging
+          - production
+      force_deploy:
+        description: 'Force deployment (skip health checks)'
+        required: false
+        default: false
+        type: boolean
+
+# Concurrency control for deployments
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+# Minimal required permissions
+permissions:
+  contents: read
+  id-token: write
+  pull-requests: write
+
+env:
+  NODE_VERSION: '18'
+  REGISTRY: gcr.io
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  SERVICE_NAME: tylergohr-portfolio
+  REGION: us-central1
+
+jobs:
+  # Job 1: Pre-deployment validation
+  validate:
+    name: 'Pre-deployment Validation'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      environment: ${{ steps.env.outputs.environment }}
+
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+
+      - name: 'Setup Node.js'
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 'Install Dependencies'
+        run: npm ci
+
+      - name: 'Run Quality Gates'
+        run: |
+          npm run typecheck
+          npm run lint
+          npm run build
+
+      - name: 'Generate Version'
+        id: version
+        run: |
+          VERSION=$(date +%Y%m%d)-${GITHUB_SHA::7}
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "Generated version: ${VERSION}"
+
+      - name: 'Determine Environment'
+        id: env
+        run: |
+          if [[ "${{ github.event.inputs.environment }}" != "" ]]; then
+            ENVIRONMENT="${{ github.event.inputs.environment }}"
+          elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            ENVIRONMENT="production"
+          else
+            ENVIRONMENT="staging"
+          fi
+          echo "environment=${ENVIRONMENT}" >> $GITHUB_OUTPUT
+          echo "Deployment environment: ${ENVIRONMENT}"
+
+  # Job 2: Build and push container
+  build:
+    name: 'Build & Push Container'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: validate
+
+    outputs:
+      image-url: ${{ steps.build.outputs.image-url }}
+      image-digest: ${{ steps.build.outputs.image-digest }}
+
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+
+      - name: 'Authenticate to Google Cloud'
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: 'Configure Docker for GCR'
+        run: gcloud auth configure-docker
+
+      - name: 'Setup Docker Buildx'
+        uses: docker/setup-buildx-action@v3
+
+      - name: 'Build and Push Container'
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ needs.validate.outputs.version }}
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+          build-args: |
+            NODE_ENV=production
+            NEXT_TELEMETRY_DISABLED=1
+
+      - name: 'Output Image Details'
+        run: |
+          IMAGE_URL="${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:${{ needs.validate.outputs.version }}"
+          echo "image-url=${IMAGE_URL}" >> $GITHUB_OUTPUT
+          echo "Built and pushed: ${IMAGE_URL}"
+
+  # Job 3: Deploy to Cloud Run
+  deploy:
+    name: 'Deploy to Cloud Run'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [validate, build]
+    environment: ${{ needs.validate.outputs.environment }}
+
+    outputs:
+      service-url: ${{ steps.deploy.outputs.service-url }}
+      revision: ${{ steps.deploy.outputs.revision }}
+
+    steps:
+      - name: 'Authenticate to Google Cloud'
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: 'Setup Cloud SDK'
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: 'Deploy to Cloud Run'
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ env.SERVICE_NAME }}
+          region: ${{ env.REGION }}
+          image: ${{ needs.build.outputs.image-url }}
+          flags: |
+            --port=3000
+            --memory=2Gi
+            --cpu=1
+            --min-instances=0
+            --max-instances=10
+            --concurrency=100
+            --timeout=300
+            --allow-unauthenticated
+            --set-env-vars="NODE_ENV=production,NEXT_TELEMETRY_DISABLED=1"
+          tag: ${{ needs.validate.outputs.version }}
+
+      - name: 'Configure Traffic Allocation'
+        run: |
+          # Deploy with 0% traffic initially for health checks
+          gcloud run services update-traffic ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --to-revisions=${{ steps.deploy.outputs.revision }}=0
+
+      - name: 'Output Deployment Details'
+        run: |
+          echo "Deployed revision: ${{ steps.deploy.outputs.revision }}"
+          echo "Service URL: ${{ steps.deploy.outputs.service-url }}"
+
+  # Job 4: Health checks and validation
+  health-check:
+    name: 'Health Check & Validation'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [validate, build, deploy]
+
+    steps:
+      - name: 'Wait for Service Availability'
+        run: sleep 30
+
+      - name: 'Health Check - API Endpoint'
+        id: health-api
+        run: |
+          HEALTH_URL="${{ needs.deploy.outputs.service-url }}/api/health"
+          echo "Testing health endpoint: ${HEALTH_URL}"
+          
+          for i in {1..5}; do
+            if curl -sSf "${HEALTH_URL}" > /dev/null; then
+              echo "✅ Health check passed (attempt ${i})"
+              curl -s "${HEALTH_URL}" | jq .
+              break
+            else
+              echo "❌ Health check failed (attempt ${i})"
+              if [ $i -eq 5 ]; then
+                echo "Health checks failed after 5 attempts"
+                exit 1
+              fi
+              sleep 10
+            fi
+          done
+
+      - name: 'Performance Validation'
+        run: |
+          SERVICE_URL="${{ needs.deploy.outputs.service-url }}"
+          echo "Running performance validation on: ${SERVICE_URL}"
+          
+          # Test response time
+          RESPONSE_TIME=$(curl -o /dev/null -s -w '%{time_total}' "${SERVICE_URL}")
+          echo "Response time: ${RESPONSE_TIME}s"
+          
+          # Validate response time < 3s
+          if (( $(echo "${RESPONSE_TIME} < 3.0" | bc -l) )); then
+            echo "✅ Performance check passed"
+          else
+            echo "❌ Performance check failed: ${RESPONSE_TIME}s > 3s"
+            exit 1
+          fi
+
+      - name: 'Security Headers Check'
+        run: |
+          SERVICE_URL="${{ needs.deploy.outputs.service-url }}"
+          echo "Validating security headers..."
+          
+          HEADERS=$(curl -sI "${SERVICE_URL}")
+          
+          # Check required security headers
+          if echo "${HEADERS}" | grep -q "X-Content-Type-Options: nosniff"; then
+            echo "✅ X-Content-Type-Options header present"
+          else
+            echo "❌ Missing X-Content-Type-Options header"
+            exit 1
+          fi
+          
+          if echo "${HEADERS}" | grep -q "X-Frame-Options: DENY"; then
+            echo "✅ X-Frame-Options header present"
+          else
+            echo "❌ Missing X-Frame-Options header"
+            exit 1
+          fi
+
+  # Job 5: Traffic migration
+  traffic-migration:
+    name: 'Traffic Migration'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [validate, deploy, health-check]
+    if: ${{ !github.event.inputs.force_deploy || github.event.inputs.force_deploy == 'false' }}
+
+    steps:
+      - name: 'Authenticate to Google Cloud'
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: 'Setup Cloud SDK'
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: 'Gradual Traffic Migration'
+        run: |
+          REVISION="${{ needs.deploy.outputs.revision }}"
+          
+          # Start with 10% traffic
+          echo "🚀 Migrating 10% traffic to new revision..."
+          gcloud run services update-traffic ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --to-revisions="${REVISION}=10"
+          
+          sleep 60
+          
+          # Increase to 50% traffic
+          echo "🚀 Migrating 50% traffic to new revision..."
+          gcloud run services update-traffic ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --to-revisions="${REVISION}=50"
+          
+          sleep 60
+          
+          # Full traffic migration
+          echo "🚀 Migrating 100% traffic to new revision..."
+          gcloud run services update-traffic ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --to-revisions="${REVISION}=100"
+          
+          echo "✅ Traffic migration completed successfully"
+
+      - name: 'Final Health Check'
+        run: |
+          SERVICE_URL="${{ needs.deploy.outputs.service-url }}"
+          
+          # Wait for traffic to stabilize
+          sleep 30
+          
+          # Final health check
+          if curl -sSf "${SERVICE_URL}/api/health" > /dev/null; then
+            echo "✅ Final health check passed"
+            curl -s "${SERVICE_URL}/api/health" | jq .
+          else
+            echo "❌ Final health check failed - initiating rollback"
+            exit 1
+          fi
+
+  # Job 6: Cleanup and notification
+  cleanup:
+    name: 'Cleanup & Notification'
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [validate, build, deploy, health-check, traffic-migration]
+
+    steps:
+      - name: 'Authenticate to Google Cloud'
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+        if: needs.deploy.result == 'success'
+
+      - name: 'Setup Cloud SDK'
+        uses: google-github-actions/setup-gcloud@v2
+        if: needs.deploy.result == 'success'
+
+      - name: 'Cleanup Old Revisions'
+        run: |
+          # Keep only the 5 most recent revisions
+          gcloud run revisions list \
+            --service=${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --format="value(metadata.name)" \
+            --sort-by="~metadata.creationTimestamp" \
+            --limit=100 | tail -n +6 | while read revision; do
+              echo "Deleting old revision: ${revision}"
+              gcloud run revisions delete "${revision}" \
+                --region=${{ env.REGION }} \
+                --quiet
+            done
+        if: needs.deploy.result == 'success'
+
+      - name: 'Deployment Summary'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deploymentStatus = '${{ needs.deploy.result }}' === 'success' ? '✅ Successful' : '❌ Failed';
+            const healthStatus = '${{ needs.health-check.result }}' === 'success' ? '✅ Healthy' : '❌ Unhealthy';
+            const trafficStatus = '${{ needs.traffic-migration.result }}' === 'success' ? '✅ Completed' : '❌ Failed';
+            
+            const summary = `## 🚀 Deployment Summary
+            
+            **Environment**: ${{ needs.validate.outputs.environment }}
+            **Version**: ${{ needs.validate.outputs.version }}
+            **Service URL**: ${{ needs.deploy.outputs.service-url }}
+            
+            ### Status
+            - **Deployment**: ${deploymentStatus}
+            - **Health Checks**: ${healthStatus}
+            - **Traffic Migration**: ${trafficStatus}
+            
+            ### Details
+            - **Revision**: ${{ needs.deploy.outputs.revision }}
+            - **Image**: ${{ needs.build.outputs.image-url }}
+            - **Commit**: ${context.sha.substring(0, 7)}
+            
+            ---
+            *Automated deployment completed at ${new Date().toISOString()}*
+            `;
+            
+            console.log(summary);
+
+  # Job 7: Rollback on failure
+  rollback:
+    name: 'Emergency Rollback'
+    runs-on: ubuntu-latest
+    if: failure() && needs.deploy.result == 'success'
+    needs: [validate, deploy, health-check, traffic-migration]
+
+    steps:
+      - name: 'Authenticate to Google Cloud'
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: 'Setup Cloud SDK'
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: 'Rollback to Previous Revision'
+        run: |
+          echo "🔄 Initiating emergency rollback..."
+          
+          # Get the previous stable revision
+          PREVIOUS_REVISION=$(gcloud run revisions list \
+            --service=${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --format="value(metadata.name)" \
+            --filter="status.conditions.type=Ready AND status.conditions.status=True" \
+            --sort-by="~metadata.creationTimestamp" \
+            --limit=2 | tail -n 1)
+          
+          if [ -n "${PREVIOUS_REVISION}" ]; then
+            echo "Rolling back to revision: ${PREVIOUS_REVISION}"
+            gcloud run services update-traffic ${{ env.SERVICE_NAME }} \
+              --region=${{ env.REGION }} \
+              --to-revisions="${PREVIOUS_REVISION}=100"
+            echo "✅ Rollback completed"
+          else
+            echo "❌ No previous revision found for rollback"
+            exit 1
+          fi
+
+      - name: 'Verify Rollback'
+        run: |
+          sleep 30
+          SERVICE_URL=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --format="value(status.url)")
+          
+          if curl -sSf "${SERVICE_URL}/api/health" > /dev/null; then
+            echo "✅ Rollback verification successful"
+          else
+            echo "❌ Rollback verification failed"
+            exit 1
+          fi
