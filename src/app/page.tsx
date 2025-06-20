@@ -5,6 +5,8 @@ import styles from './page.module.css'
 import ParallaxSection from '@/components/ParallaxSection'
 import ProjectShowcase from '@/components/ProjectShowcase'
 import ProjectDeepDive from '@/components/ProjectDeepDive'
+import SkillsSection from '@/components/SkillsSection'
+import ContactSection from '@/components/ContactSection'
 import { projects } from '@/lib/projects'
 import { Project } from '@/lib/types'
 
@@ -80,6 +82,9 @@ export default function HomePage() {
         </div>
       </ParallaxSection>
 
+      {/* Skills Section */}
+      <SkillsSection />
+
       {/* Project Showcase Section */}
       <section 
         role="region" 
@@ -94,6 +99,9 @@ export default function HomePage() {
           limit={3}
         />
       </section>
+
+      {/* Contact Section */}
+      <ContactSection />
     </main>
   )
 }

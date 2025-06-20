@@ -10,6 +10,12 @@
   --portfolio-text-secondary: #94a3b8;
   --portfolio-interactive: #2563eb;
   
+  /* RGB Color Values for Alpha Transparency */
+  --portfolio-accent-green-rgb: 22, 163, 74;
+  --portfolio-accent-red-rgb: 220, 38, 38;
+  --portfolio-text-primary-rgb: 248, 250, 252;
+  --portfolio-interactive-rgb: 37, 99, 235;
+  
   /* Advanced Color System */
   --portfolio-surface: #1a1a1a;
   --portfolio-surface-hover: #262626;

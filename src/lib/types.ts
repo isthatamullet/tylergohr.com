@@ -51,8 +51,8 @@ export interface Project {
   longDescription: string
   
   // Project categorization
-  category: 'saas' | 'web-app' | 'api' | 'tool' | 'library'
-  industry: 'fintech' | 'saas' | 'e-commerce' | 'productivity' | 'other'
+  category: 'saas' | 'web-app' | 'ecommerce' | 'api' | 'tool' | 'library'
+  industry: 'fintech' | 'saas' | 'e-commerce' | 'productivity' | 'proptech' | 'retail' | 'other'
   status: 'completed' | 'in-progress' | 'concept'
   featured: boolean
   

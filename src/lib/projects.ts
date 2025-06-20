@@ -52,6 +52,31 @@ export const techStackItems: Record<string, TechStack> = {
     category: 'backend',
     color: '#ea4335',
   },
+  supabase: {
+    name: 'Supabase',
+    category: 'cloud',
+    color: '#3ecf8e',
+  },
+  tailwind: {
+    name: 'Tailwind CSS',
+    category: 'frontend',
+    color: '#06b6d4',
+  },
+  framermotion: {
+    name: 'Framer Motion',
+    category: 'frontend',
+    color: '#bb4b96',
+  },
+  vite: {
+    name: 'Vite',
+    category: 'frontend',
+    color: '#646cff',
+  },
+  zustand: {
+    name: 'Zustand',
+    category: 'frontend',
+    color: '#ff6b35',
+  },
 }
 
 // Featured Project: Invoice Chaser
@@ -309,8 +334,527 @@ export class PaymentNotificationService {
   }
 }
 
+// Home Property Management Project
+export const homePropertyProject: Project = {
+  id: 'home-property-management',
+  title: 'Home',
+  subtitle: 'Property Management Platform',
+  description: 'Comprehensive property management solution streamlining tenant applications, rent collection, and maintenance workflows with automated screening and real-time dashboards.',
+  longDescription: 'A full-featured property management platform that revolutionizes how landlords and property managers handle their operations. From automated tenant screening to maintenance coordination, Home provides a complete digital solution for modern property management.',
+  
+  category: 'saas',
+  industry: 'proptech',
+  status: 'completed',
+  featured: true,
+  
+  techStack: [
+    techStackItems.react,
+    techStackItems.typescript,
+    techStackItems.tailwind,
+    techStackItems.framermotion,
+    techStackItems.supabase,
+    techStackItems.stripe,
+    techStackItems.gcp,
+    techStackItems.vite,
+  ],
+  
+  architecture: [
+    {
+      id: 'frontend',
+      label: 'React Frontend',
+      type: 'frontend',
+      description: 'Modern React application with TypeScript, Tailwind CSS, and Framer Motion animations',
+      technologies: ['React 19', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+      position: { x: 100, y: 100 },
+      connections: ['supabase-backend', 'stripe-payments']
+    },
+    {
+      id: 'supabase-backend',
+      label: 'Supabase Backend',
+      type: 'backend',
+      description: 'PostgreSQL database with real-time subscriptions, authentication, and row-level security',
+      technologies: ['Supabase', 'PostgreSQL', 'Row Level Security'],
+      position: { x: 300, y: 100 },
+      connections: ['external-services']
+    },
+    {
+      id: 'stripe-payments',
+      label: 'Payment Processing',
+      type: 'backend',
+      description: 'Stripe integration for rent collection and automated payment scheduling',
+      technologies: ['Stripe API', 'Webhooks', 'Recurring Payments'],
+      position: { x: 500, y: 100 },
+      connections: []
+    },
+    {
+      id: 'external-services',
+      label: 'Third-party APIs',
+      type: 'external',
+      description: 'Background checks, credit reports, and property listing syndication',
+      technologies: ['Screening APIs', 'Credit Check', 'MLS Integration'],
+      position: { x: 300, y: 250 },
+      connections: []
+    }
+  ],
+  
+  challenges: [
+    {
+      title: 'Multi-tenant Role Management',
+      description: 'Complex permission system supporting landlords, tenants, property managers, and maintenance staff.',
+      solution: 'Implemented row-level security in Supabase with dynamic role-based access control and context-aware UI rendering.',
+      technologies: ['Supabase RLS', 'TypeScript', 'React Context']
+    },
+    {
+      title: 'Real-time Application Tracking',
+      description: 'Instant updates for application status changes across multiple user types.',
+      solution: 'Leveraged Supabase real-time subscriptions with optimistic UI updates and conflict resolution.',
+      technologies: ['Supabase Realtime', 'React Query', 'WebSocket']
+    },
+    {
+      title: 'Automated Screening Workflow',
+      description: 'Orchestrating background checks, credit reports, and income verification seamlessly.',
+      solution: 'Built state machine-driven workflow engine with email notifications and automated decision triggers.',
+      technologies: ['State Machines', 'Email APIs', 'Webhook Processing']
+    }
+  ],
+  
+  codeExamples: [
+    {
+      id: 'rls-policies',
+      title: 'Row Level Security Implementation',
+      description: 'Dynamic tenant access control with Supabase RLS',
+      language: 'sql',
+      code: `-- Row Level Security for tenant applications
+CREATE POLICY "Users can view applications for their properties" 
+ON applications FOR SELECT 
+USING (
+  property_id IN (
+    SELECT id FROM properties 
+    WHERE owner_id = auth.uid() 
+    OR manager_id = auth.uid()
+  )
+  OR applicant_id = auth.uid()
+);
+
+-- Dynamic role-based access
+CREATE POLICY "Property managers can update applications" 
+ON applications FOR UPDATE 
+USING (
+  EXISTS (
+    SELECT 1 FROM user_roles ur 
+    JOIN properties p ON p.id = applications.property_id
+    WHERE ur.user_id = auth.uid() 
+    AND ur.role IN ('manager', 'owner')
+    AND (p.owner_id = auth.uid() OR p.manager_id = auth.uid())
+  )
+);`,
+      highlightLines: [2, 10, 15],
+      explanation: 'Supabase RLS policies ensure users only access data they have permission to see, with dynamic role checking.'
+    },
+    {
+      id: 'realtime-updates',
+      title: 'Real-time Application Updates',
+      description: 'Live application status updates across user dashboards',
+      language: 'typescript',
+      code: `// Real-time application status updates
+export const useApplicationUpdates = (propertyId: string) => {
+  const [applications, setApplications] = useState<Application[]>([]);
+  
+  useEffect(() => {
+    const subscription = supabase
+      .channel(\`applications_\${propertyId}\`)
+      .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'applications',
+        filter: \`property_id=eq.\${propertyId}\`
+      }, (payload) => {
+        if (payload.eventType === 'UPDATE') {
+          setApplications(prev => 
+            prev.map(app => 
+              app.id === payload.new.id 
+                ? { ...app, ...payload.new }
+                : app
+            )
+          );
+          
+          // Show toast notification for status changes
+          if (payload.old.status !== payload.new.status) {
+            toast.success(\`Application \${payload.new.status}\`);
+          }
+        }
+      })
+      .subscribe();
+      
+    return () => subscription.unsubscribe();
+  }, [propertyId]);
+  
+  return applications;
+};`,
+      highlightLines: [6, 15, 21],
+      explanation: 'Supabase real-time subscriptions provide instant updates with optimistic UI and user notifications.'
+    }
+  ],
+  
+  metrics: [
+    {
+      label: 'Application Processing',
+      value: '75',
+      unit: '%',
+      improvement: 'faster than manual review',
+      color: 'var(--portfolio-accent-green)'
+    },
+    {
+      label: 'Tenant Satisfaction',
+      value: '4.8',
+      unit: '/5',
+      improvement: 'average rating',
+      color: 'var(--portfolio-interactive)'
+    },
+    {
+      label: 'Payment Collection',
+      value: '95',
+      unit: '%',
+      improvement: 'on-time payments',
+      color: 'var(--portfolio-accent-green)'
+    },
+    {
+      label: 'Maintenance Response',
+      value: '<24',
+      unit: 'hrs',
+      improvement: 'average response time',
+      color: 'var(--portfolio-accent-red)'
+    }
+  ],
+  
+  timeline: {
+    started: '2024-01',
+    completed: '2024-09',
+    duration: '9 months'
+  },
+  
+  images: [],
+  githubUrl: 'https://github.com/tylergohr/home-property-management',
+  
+  deepDive: {
+    problemStatement: 'Property managers struggle with manual tenant screening, rent collection, and maintenance coordination, leading to inefficiencies and poor tenant experiences.',
+    solutionOverview: 'Home automates the entire property management lifecycle from tenant acquisition through lease management, with integrated payments and maintenance workflows.',
+    technicalJourney: [
+      'Requirements analysis: Researched property management pain points and regulatory requirements',
+      'Database design: Created multi-tenant schema with proper security and relationship modeling',
+      'Authentication system: Implemented role-based access with Supabase RLS for data security',
+      'Real-time features: Added live application tracking and maintenance request updates',
+      'Payment integration: Built automated rent collection with Stripe recurring payments',
+      'Cloud deployment: Deployed to Google Cloud with automated CI/CD pipeline'
+    ],
+    keyInnovations: [
+      'Dynamic role-based access control using Supabase Row Level Security',
+      'Real-time application tracking with instant status updates',
+      'Automated tenant screening workflow with third-party integrations',
+      'Smart maintenance routing based on urgency and technician availability'
+    ],
+    lessonsLearned: [
+      'Multi-tenant applications require careful security architecture from the start',
+      'Real-time features significantly improve user engagement and satisfaction',
+      'Automated workflows need robust error handling and fallback mechanisms',
+      'Property management regulations vary significantly by jurisdiction'
+    ],
+    futureEnhancements: [
+      'AI-powered tenant screening recommendations',
+      'IoT integration for smart home monitoring',
+      'Advanced analytics and reporting dashboard',
+      'Mobile app for tenants and maintenance staff'
+    ]
+  }
+}
+
+// Grow Plant Store Project
+export const growPlantProject: Project = {
+  id: 'grow-plant-store',
+  title: 'Grow',
+  subtitle: 'Modern Plant E-commerce Platform',
+  description: 'Beautiful e-commerce platform for plant enthusiasts featuring dynamic product catalogs, intelligent search, and seamless checkout experiences with modern animations.',
+  longDescription: 'A sophisticated e-commerce platform designed specifically for plant lovers, combining beautiful design with powerful functionality. Features real-time inventory, smart search capabilities, and an intuitive shopping experience.',
+  
+  category: 'ecommerce',
+  industry: 'retail',
+  status: 'completed',
+  featured: true,
+  
+  techStack: [
+    techStackItems.react,
+    techStackItems.typescript,
+    techStackItems.tailwind,
+    techStackItems.framermotion,
+    techStackItems.supabase,
+    techStackItems.stripe,
+    techStackItems.zustand,
+    techStackItems.vite,
+  ],
+  
+  architecture: [
+    {
+      id: 'frontend',
+      label: 'React Frontend',
+      type: 'frontend',
+      description: 'Modern React application with TypeScript, Tailwind CSS, and smooth animations',
+      technologies: ['React 19', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+      position: { x: 100, y: 100 },
+      connections: ['state-management', 'backend-services']
+    },
+    {
+      id: 'state-management',
+      label: 'Zustand Store',
+      type: 'frontend',
+      description: 'Lightweight state management for cart, wishlist, and user preferences',
+      technologies: ['Zustand', 'LocalStorage', 'Optimistic Updates'],
+      position: { x: 300, y: 100 },
+      connections: ['backend-services']
+    },
+    {
+      id: 'backend-services',
+      label: 'Supabase Backend',
+      type: 'backend',
+      description: 'PostgreSQL database with authentication, real-time updates, and image storage',
+      technologies: ['Supabase', 'PostgreSQL', 'Storage Buckets'],
+      position: { x: 500, y: 100 },
+      connections: ['external-apis']
+    },
+    {
+      id: 'external-apis',
+      label: 'External Services',
+      type: 'external',
+      description: 'Pixabay API for plant images and Stripe for payment processing',
+      technologies: ['Pixabay API', 'Stripe Checkout', 'Image CDN'],
+      position: { x: 300, y: 250 },
+      connections: []
+    }
+  ],
+  
+  challenges: [
+    {
+      title: 'Dynamic Product Catalog',
+      description: 'Creating flexible product categories and filtering system for diverse plant inventory.',
+      solution: 'Implemented dynamic taxonomy system with faceted search and intelligent categorization.',
+      technologies: ['PostgreSQL', 'Full-text Search', 'React Query']
+    },
+    {
+      title: 'Image Performance Optimization',
+      description: 'Handling high-quality plant images without compromising page load times.',
+      solution: 'Built progressive image loading with WebP format conversion and CDN optimization.',
+      technologies: ['Image CDN', 'WebP', 'Lazy Loading']
+    },
+    {
+      title: 'Shopping Cart Persistence',
+      description: 'Maintaining cart state across sessions and devices for better user experience.',
+      solution: 'Implemented hybrid local/cloud storage with automatic sync and conflict resolution.',
+      technologies: ['Zustand', 'Supabase', 'LocalStorage']
+    }
+  ],
+  
+  codeExamples: [
+    {
+      id: 'product-search',
+      title: 'Intelligent Plant Search',
+      description: 'Full-text search with category filtering and relevance scoring',
+      language: 'typescript',
+      code: `// Advanced plant search with Supabase full-text search
+export const useProductSearch = () => {
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const searchProducts = useCallback(async (
+    query: string, 
+    filters: SearchFilters
+  ) => {
+    setIsLoading(true);
+    
+    let searchQuery = supabase
+      .from('products')
+      .select('*, categories(*), inventory(*)')
+      .eq('status', 'active')
+      .order('popularity_score', { ascending: false });
+    
+    // Full-text search on multiple fields
+    if (query) {
+      searchQuery = searchQuery.or(\`
+        name.ilike.%\${query}%,
+        description.ilike.%\${query}%,
+        care_instructions.ilike.%\${query}%,
+        categories.name.ilike.%\${query}%
+      \`);
+    }
+    
+    // Apply dynamic filters
+    if (filters.category) {
+      searchQuery = searchQuery.eq('category_id', filters.category);
+    }
+    
+    if (filters.priceRange) {
+      searchQuery = searchQuery
+        .gte('price', filters.priceRange.min)
+        .lte('price', filters.priceRange.max);
+    }
+    
+    const { data, error } = await searchQuery;
+    
+    if (!error && data) {
+      setSearchResults(data);
+    }
+    
+    setIsLoading(false);
+  }, []);
+  
+  return { searchProducts, searchResults, isLoading };
+};`,
+      highlightLines: [11, 18, 25],
+      explanation: 'Combines full-text search with dynamic filtering for intelligent product discovery.'
+    },
+    {
+      id: 'cart-management',
+      title: 'Persistent Shopping Cart',
+      description: 'Zustand store with cloud sync and offline support',
+      language: 'typescript',
+      code: `// Shopping cart store with persistence and sync
+interface CartStore {
+  items: CartItem[];
+  addItem: (product: Product, quantity: number) => void;
+  updateQuantity: (productId: string, quantity: number) => void;
+  syncWithCloud: () => Promise<void>;
+}
+
+export const useCartStore = create<CartStore>()(
+  persist(
+    (set, get) => ({
+      items: [],
+      
+      addItem: (product, quantity) => {
+        const items = get().items;
+        const existingItem = items.find(item => item.productId === product.id);
+        
+        if (existingItem) {
+          set({
+            items: items.map(item =>
+              item.productId === product.id
+                ? { ...item, quantity: item.quantity + quantity }
+                : item
+            )
+          });
+        } else {
+          set({
+            items: [...items, {
+              productId: product.id,
+              product,
+              quantity,
+              addedAt: new Date()
+            }]
+          });
+        }
+        
+        // Optimistically sync to cloud
+        get().syncWithCloud();
+      },
+      
+      syncWithCloud: async () => {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+        
+        const items = get().items;
+        await supabase
+          .from('user_carts')
+          .upsert({
+            user_id: user.id,
+            cart_data: items,
+            updated_at: new Date()
+          });
+      }
+    }),
+    {
+      name: 'grow-cart-storage',
+      storage: createJSONStorage(() => localStorage)
+    }
+  )
+);`,
+      highlightLines: [9, 28, 35],
+      explanation: 'Zustand store provides seamless cart persistence with automatic cloud synchronization.'
+    }
+  ],
+  
+  metrics: [
+    {
+      label: 'Conversion Rate',
+      value: '3.2',
+      unit: '%',
+      improvement: 'above industry average',
+      color: 'var(--portfolio-accent-green)'
+    },
+    {
+      label: 'Page Load Speed',
+      value: '<2',
+      unit: 's',
+      improvement: 'average load time',
+      color: 'var(--portfolio-interactive)'
+    },
+    {
+      label: 'Cart Abandonment',
+      value: '12',
+      unit: '%',
+      improvement: 'below industry average',
+      color: 'var(--portfolio-accent-green)'
+    },
+    {
+      label: 'Customer Satisfaction',
+      value: '4.6',
+      unit: '/5',
+      improvement: 'average rating',
+      color: 'var(--portfolio-accent-red)'
+    }
+  ],
+  
+  timeline: {
+    started: '2024-03',
+    completed: '2024-07',
+    duration: '5 months'
+  },
+  
+  images: [],
+  githubUrl: 'https://github.com/tylergohr/grow-plant-store',
+  
+  deepDive: {
+    problemStatement: 'Plant enthusiasts struggle to find quality plants online due to poor product presentation, limited care information, and unreliable shopping experiences.',
+    solutionOverview: 'Grow provides a beautiful, intuitive platform specifically designed for plant lovers, with detailed care guides, high-quality imagery, and seamless purchasing.',
+    technicalJourney: [
+      'Market research: Analyzed existing plant e-commerce platforms and identified UX gaps',
+      'Design system: Created plant-focused design language with natural colors and smooth animations',
+      'Product catalog: Built flexible taxonomy system for diverse plant categories and attributes',
+      'Search optimization: Implemented intelligent search with plant-specific filters and suggestions',
+      'Payment integration: Added Stripe checkout with inventory management and order tracking',
+      'Performance optimization: Optimized images and implemented progressive loading'
+    ],
+    keyInnovations: [
+      'Plant-specific search with care requirements and growing conditions',
+      'Visual plant care calendar with automated reminders',
+      'Community-driven plant care tips and reviews',
+      'Smart wishlist with availability notifications'
+    ],
+    lessonsLearned: [
+      'E-commerce UX requires careful attention to product discovery and trust signals',
+      'Image optimization is critical for product-heavy applications',
+      'State management complexity grows quickly with cart and user features',
+      'Plant community engagement drives retention and sales'
+    ],
+    futureEnhancements: [
+      'AR plant placement visualization for home decoration',
+      'Plant health tracking with photo recognition',
+      'Subscription service for plant care supplies',
+      'Social features for plant care community'
+    ]
+  }
+}
+
 // All projects array (expandable for future projects)
 export const projects: Project[] = [
   invoiceChaserProject,
-  // Future projects will be added here
+  homePropertyProject,
+  growPlantProject,
 ]
