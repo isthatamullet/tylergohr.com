@@ -41,7 +41,7 @@
   height: 100%;
   border-radius: 50%;
   filter: blur(100px);
-  opacity: 0.1;
+  opacity: 0.15;
   /* Hardware acceleration for smooth animations */
   transform: translateZ(0);
   will-change: transform;
@@ -98,8 +98,14 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* Animation preparation */
-  animation: fadeInUp 1s ease-out;
+  /* Enhanced Safari compatibility for gradient text */
+  -webkit-background-size: 100% 100%;
+  background-size: 100% 100%;
+  /* Force hardware acceleration for smoother rendering */
+  transform: translateZ(0);
+  will-change: transform;
+  /* Safari-safe animation - transform only, no opacity conflict */
+  animation: heroTitleSlideIn 1s ease-out;
 }
 
 /* Fallback for browsers that don't support background-clip: text */
@@ -212,9 +218,20 @@
   }
 }
 
+/* Safari-safe hero title animation - no opacity conflicts with gradient text */
+@keyframes heroTitleSlideIn {
+  from {
+    transform: translateY(1.5rem) scale(0.95);
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* Scroll-driven animations preparation */
 @supports (animation-timeline: scroll()) {
   .heroTitle {
+    animation: heroTitleSlideIn linear;
     animation-timeline: scroll();
     animation-range: entry 0% entry 50%;
   }
