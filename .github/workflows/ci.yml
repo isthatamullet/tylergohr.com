@@ -170,10 +170,10 @@ jobs:
           flags: |
             --port=3000
             --memory=512Mi
-            --cpu=0.5
+            --cpu=1
             --min-instances=0
             --max-instances=2
-            --concurrency=50
+            --concurrency=10
             --timeout=300
             --allow-unauthenticated
             --set-env-vars="NODE_ENV=production,NEXT_TELEMETRY_DISABLED=1"
