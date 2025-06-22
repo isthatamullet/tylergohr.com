@@ -21,6 +21,15 @@ on:
         options:
           - staging
           - production
+      pipeline_strategy:
+        description: 'Pipeline strategy override'
+        required: false
+        default: 'auto'
+        type: choice
+        options:
+          - auto
+          - fast-track
+          - full-pipeline
       force_deploy:
         description: 'Force deployment (skip health checks)'
         required: false
@@ -45,8 +54,108 @@ env:
   SERVICE_NAME: tylergohr-portfolio
   REGION: us-central1
 
+# Smart pipeline optimization based on change types
+# Fast-track: content, styling, docs (2-3 min)
+# Full pipeline: code, dependencies, infrastructure (8-12 min)
+
 jobs:
-  # Job 1: Pre-deployment validation
+  # Job 1: Change Detection & Strategy
+  detect-changes:
+    name: 'Pipeline Strategy Detection'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    
+    outputs:
+      fast-track: ${{ steps.changes.outputs.fast-track }}
+      full-pipeline: ${{ steps.changes.outputs.full-pipeline }}
+      manual-override: ${{ steps.changes.outputs.manual-override }}
+      
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          
+      - name: 'Detect Change Strategy'
+        id: changes
+        run: |
+          # Check for manual override via workflow dispatch
+          MANUAL_STRATEGY="${{ github.event.inputs.pipeline_strategy }}"
+          
+          if [[ "$MANUAL_STRATEGY" == "full-pipeline" ]]; then
+            echo "🔄 Manual override: forcing full pipeline"
+            echo "fast-track=false" >> $GITHUB_OUTPUT
+            echo "full-pipeline=true" >> $GITHUB_OUTPUT
+            echo "manual-override=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          if [[ "$MANUAL_STRATEGY" == "fast-track" ]]; then
+            echo "⚡ Manual override: forcing fast-track"
+            echo "fast-track=true" >> $GITHUB_OUTPUT
+            echo "full-pipeline=false" >> $GITHUB_OUTPUT
+            echo "manual-override=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Check for commit message overrides
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          
+          if [[ "$COMMIT_MSG" == *"[full-pipeline]"* ]]; then
+            echo "🔄 Commit message override: forcing full pipeline"
+            echo "fast-track=false" >> $GITHUB_OUTPUT
+            echo "full-pipeline=true" >> $GITHUB_OUTPUT
+            echo "manual-override=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          if [[ "$COMMIT_MSG" == *"[fast-track]"* ]]; then
+            echo "⚡ Commit message override: forcing fast-track"
+            echo "fast-track=true" >> $GITHUB_OUTPUT
+            echo "full-pipeline=false" >> $GITHUB_OUTPUT
+            echo "manual-override=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Get changed files
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD || echo "")
+          echo "Changed files: $CHANGED_FILES"
+          
+          # Check for code/infrastructure changes requiring full pipeline
+          FULL_PIPELINE_PATTERNS=(
+            "src/"
+            "pages/"
+            "components/"
+            "package.json"
+            "package-lock.json"
+            "Dockerfile"
+            "next.config.js"
+            "tsconfig.json"
+            ".github/workflows/"
+            "jest.config.js"
+          )
+          
+          NEEDS_FULL_PIPELINE=false
+          for pattern in "${FULL_PIPELINE_PATTERNS[@]}"; do
+            if echo "$CHANGED_FILES" | grep -q "$pattern"; then
+              echo "🚨 Found changes in $pattern - requires full pipeline"
+              NEEDS_FULL_PIPELINE=true
+              break
+            fi
+          done
+          
+          if [ "$NEEDS_FULL_PIPELINE" = "true" ]; then
+            echo "full-pipeline=true" >> $GITHUB_OUTPUT
+            echo "fast-track=false" >> $GITHUB_OUTPUT
+          else
+            echo "⚡ Only safe changes detected - using fast-track"
+            echo "fast-track=true" >> $GITHUB_OUTPUT
+            echo "full-pipeline=false" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "manual-override=false" >> $GITHUB_OUTPUT
+
+  # Job 2: Pre-deployment validation
   validate:
     name: 'Pre-deployment Validation'
     runs-on: ubuntu-latest
@@ -100,7 +209,8 @@ jobs:
     name: 'Build & Push Container'
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    needs: validate
+    needs: [detect-changes, validate]
+    if: needs.detect-changes.outputs.full-pipeline == 'true'
 
     outputs:
       image-digest: ${{ steps.build.outputs.image-digest }}
@@ -137,12 +247,77 @@ jobs:
             NEXT_TELEMETRY_DISABLED=1
 
 
-  # Job 3: Deploy to Cloud Run
+  # Job 3A: Fast-Track Deployment (no new container build)
+  deploy-fast:
+    name: 'Fast-Track Deploy'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    needs: [detect-changes, validate]
+    if: needs.detect-changes.outputs.fast-track == 'true'
+
+    outputs:
+      service-url: ${{ steps.get-url.outputs.service-url }}
+      revision: ${{ steps.get-url.outputs.revision }}
+
+    steps:
+      - name: 'Authenticate to Google Cloud'
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: 'Setup Cloud SDK'
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: 'Deploy with Latest Container'
+        id: deploy
+        run: |
+          echo "⚡ Fast-track deployment using existing container image"
+          
+          # Get the latest successful image
+          LATEST_IMAGE="${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.SERVICE_NAME }}:latest"
+          
+          # Deploy to Cloud Run with existing image
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --image="${LATEST_IMAGE}" \
+            --region=${{ env.REGION }} \
+            --port=3000 \
+            --memory=2Gi \
+            --cpu=1 \
+            --min-instances=0 \
+            --max-instances=10 \
+            --concurrency=100 \
+            --timeout=300 \
+            --allow-unauthenticated \
+            --set-env-vars="NODE_ENV=production,NEXT_TELEMETRY_DISABLED=1" \
+            --tag=${{ needs.validate.outputs.version }} \
+            --traffic=100
+          
+          echo "✅ Fast-track deployment completed"
+
+      - name: 'Get Service URL and Set Outputs'
+        id: get-url
+        run: |
+          SERVICE_URL=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --format="value(status.url)")
+          
+          echo "service-url=${SERVICE_URL}" >> $GITHUB_OUTPUT
+          echo "Fast-track deployed service URL: ${SERVICE_URL}"
+          
+          REVISION=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --format="value(status.latestCreatedRevisionName)")
+          
+          echo "revision=${REVISION}" >> $GITHUB_OUTPUT
+          echo "Fast-track deployed revision: ${REVISION}"
+
+  # Job 3B: Full Pipeline Deployment (with new container)
   deploy:
-    name: 'Deploy to Cloud Run'
+    name: 'Full Pipeline Deploy'
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    needs: [validate, build]
+    needs: [detect-changes, validate, build]
+    if: needs.detect-changes.outputs.full-pipeline == 'true' && needs.build.result == 'success'
     environment: ${{ needs.validate.outputs.environment }}
 
     outputs:
@@ -209,7 +384,8 @@ jobs:
     name: 'Health Check & Validation'
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    needs: [validate, build, deploy]
+    needs: [detect-changes, validate, build, deploy, deploy-fast]
+    if: always() && (needs.deploy.result == 'success' || needs.deploy-fast.result == 'success')
 
     steps:
       - name: 'Wait for Service Availability'
@@ -218,7 +394,16 @@ jobs:
       - name: 'Health Check - API Endpoint'
         id: health-api
         run: |
-          HEALTH_URL="${{ needs.deploy.outputs.service-url }}/api/health"
+          # Get service URL from whichever deployment ran
+          if [ "${{ needs.deploy-fast.result }}" = "success" ]; then
+            SERVICE_URL="${{ needs.deploy-fast.outputs.service-url }}"
+            echo "⚡ Using fast-track deployment URL"
+          else
+            SERVICE_URL="${{ needs.deploy.outputs.service-url }}"
+            echo "🔄 Using full pipeline deployment URL"
+          fi
+          
+          HEALTH_URL="${SERVICE_URL}/api/health"
           echo "Testing health endpoint: ${HEALTH_URL}"
           
           for i in {1..5}; do
@@ -238,7 +423,12 @@ jobs:
 
       - name: 'Performance Validation'
         run: |
-          SERVICE_URL="${{ needs.deploy.outputs.service-url }}"
+          # Get service URL from whichever deployment ran
+          if [ "${{ needs.deploy-fast.result }}" = "success" ]; then
+            SERVICE_URL="${{ needs.deploy-fast.outputs.service-url }}"
+          else
+            SERVICE_URL="${{ needs.deploy.outputs.service-url }}"
+          fi
           echo "Running performance validation on: ${SERVICE_URL}"
           
           # Test response time
@@ -255,7 +445,12 @@ jobs:
 
       - name: 'Security Headers Check'
         run: |
-          SERVICE_URL="${{ needs.deploy.outputs.service-url }}"
+          # Get service URL from whichever deployment ran
+          if [ "${{ needs.deploy-fast.result }}" = "success" ]; then
+            SERVICE_URL="${{ needs.deploy-fast.outputs.service-url }}"
+          else
+            SERVICE_URL="${{ needs.deploy.outputs.service-url }}"
+          fi
           echo "Validating security headers..."
           
           HEADERS=$(curl -sI "${SERVICE_URL}")
@@ -284,8 +479,8 @@ jobs:
     name: 'Traffic Migration'
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    needs: [validate, deploy, health-check]
-    if: ${{ !github.event.inputs.force_deploy || github.event.inputs.force_deploy == 'false' }}
+    needs: [detect-changes, validate, deploy, health-check]
+    if: needs.detect-changes.outputs.full-pipeline == 'true' && needs.deploy.result == 'success' && (!github.event.inputs.force_deploy || github.event.inputs.force_deploy == 'false')
 
     steps:
       - name: 'Authenticate to Google Cloud'
@@ -345,18 +540,18 @@ jobs:
     name: 'Cleanup & Notification'
     runs-on: ubuntu-latest
     if: always()
-    needs: [validate, build, deploy, health-check, traffic-migration]
+    needs: [detect-changes, validate, build, deploy, deploy-fast, health-check, traffic-migration]
 
     steps:
       - name: 'Authenticate to Google Cloud'
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
-        if: needs.deploy.result == 'success'
+        if: needs.deploy.result == 'success' || needs.deploy-fast.result == 'success'"
 
       - name: 'Setup Cloud SDK'
         uses: google-github-actions/setup-gcloud@v2
-        if: needs.deploy.result == 'success'
+        if: needs.deploy.result == 'success' || needs.deploy-fast.result == 'success'"
 
       - name: 'Cleanup Old Revisions'
         run: |
@@ -372,21 +567,26 @@ jobs:
                 --region=${{ env.REGION }} \
                 --quiet
             done
-        if: needs.deploy.result == 'success'
+        if: needs.deploy.result == 'success' || needs.deploy-fast.result == 'success'"
 
       - name: 'Deployment Summary'
         uses: actions/github-script@v7
         with:
           script: |
-            const deploymentStatus = '${{ needs.deploy.result }}' === 'success' ? '✅ Successful' : '❌ Failed';
+            const deploymentType = '${{ needs.deploy-fast.result }}' === 'success' ? 'Fast-Track' : 'Full Pipeline';
+            const deploymentStatus = ('${{ needs.deploy.result }}' === 'success' || '${{ needs.deploy-fast.result }}' === 'success') ? '✅ Successful' : '❌ Failed';
             const healthStatus = '${{ needs.health-check.result }}' === 'success' ? '✅ Healthy' : '❌ Unhealthy';
             const trafficStatus = '${{ needs.traffic-migration.result }}' === 'success' ? '✅ Completed' : '❌ Failed';
+            
+            const serviceUrl = '${{ needs.deploy-fast.result }}' === 'success' ? '${{ needs.deploy-fast.outputs.service-url }}' : '${{ needs.deploy.outputs.service-url }}';
+            const revision = '${{ needs.deploy-fast.result }}' === 'success' ? '${{ needs.deploy-fast.outputs.revision }}' : '${{ needs.deploy.outputs.revision }}';
             
             const summary = `## 🚀 Deployment Summary
             
             **Environment**: ${{ needs.validate.outputs.environment }}
+            **Deployment Type**: ${deploymentType}
             **Version**: ${{ needs.validate.outputs.version }}
-            **Service URL**: ${{ needs.deploy.outputs.service-url }}
+            **Service URL**: ${serviceUrl}
             
             ### Status
             - **Deployment**: ${deploymentStatus}
@@ -394,8 +594,8 @@ jobs:
             - **Traffic Migration**: ${trafficStatus}
             
             ### Details
-            - **Revision**: ${{ needs.deploy.outputs.revision }}
-            - **Image**: ${{ needs.build.outputs.image-url }}
+            - **Revision**: ${revision}
+            - **Strategy**: ${{ needs.detect-changes.outputs.fast-track == 'true' && 'Content-only changes detected' || 'Code changes detected' }}
             - **Commit**: ${context.sha.substring(0, 7)}
             
             ---
