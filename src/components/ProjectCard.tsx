@@ -1,41 +1,46 @@
-import { Project } from '@/lib/types'
-import styles from './ProjectCard.module.css'
+import { Project } from "@/lib/types";
+import styles from "./ProjectCard.module.css";
 
 interface ProjectCardProps {
-  project: Project
-  onViewDetails?: (project: Project) => void
-  className?: string
+  project: Project;
+  onViewDetails?: (project: Project) => void;
+  className?: string;
 }
 
-export default function ProjectCard({ project, onViewDetails, className = '' }: ProjectCardProps) {
+export default function ProjectCard({
+  project,
+  onViewDetails,
+  className = "",
+}: ProjectCardProps) {
   const handleClick = () => {
     if (onViewDetails) {
-      onViewDetails(project)
+      onViewDetails(project);
     }
-  }
+  };
 
   return (
-    <article 
+    <article
       className={`${styles.projectCard} ${className} fade-in-on-scroll`}
       onClick={handleClick}
-      role={onViewDetails ? 'button' : undefined}
+      role={onViewDetails ? "button" : undefined}
       tabIndex={onViewDetails ? 0 : undefined}
       onKeyDown={(e) => {
-        if (onViewDetails && (e.key === 'Enter' || e.key === ' ')) {
-          e.preventDefault()
-          handleClick()
+        if (onViewDetails && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault();
+          handleClick();
         }
       }}
     >
       {/* Project Status Badge */}
       <div className={styles.statusBadge}>
         <span className={`${styles.status} ${styles[project.status]}`}>
-          {project.status === 'completed' ? 'Live' : 
-           project.status === 'in-progress' ? 'In Development' : 'Concept'}
+          {project.status === "completed"
+            ? "Live"
+            : project.status === "in-progress"
+              ? "In Development"
+              : "Concept"}
         </span>
-        {project.featured && (
-          <span className={styles.featured}>Featured</span>
-        )}
+        {project.featured && <span className={styles.featured}>Featured</span>}
       </div>
 
       {/* Project Header */}
@@ -52,10 +57,10 @@ export default function ProjectCard({ project, onViewDetails, className = '' }: 
       {/* Tech Stack */}
       <div className={styles.techStack}>
         {project.techStack.slice(0, 4).map((tech) => (
-          <span 
+          <span
             key={tech.name}
             className={styles.techItem}
-            style={{ '--tech-color': tech.color } as React.CSSProperties}
+            style={{ "--tech-color": tech.color } as React.CSSProperties}
           >
             {tech.name}
           </span>
@@ -72,9 +77,12 @@ export default function ProjectCard({ project, onViewDetails, className = '' }: 
         <div className={styles.metricsPreview}>
           <div className={styles.metric}>
             <span className={styles.metricValue}>
-              {project.metrics[0].value}{project.metrics[0].unit}
+              {project.metrics[0].value}
+              {project.metrics[0].unit}
             </span>
-            <span className={styles.metricLabel}>{project.metrics[0].label}</span>
+            <span className={styles.metricLabel}>
+              {project.metrics[0].label}
+            </span>
           </div>
         </div>
       )}
@@ -83,10 +91,10 @@ export default function ProjectCard({ project, onViewDetails, className = '' }: 
       {onViewDetails && (
         <div className={styles.actionIndicator}>
           <span className={styles.viewDetails}>View Details</span>
-          <svg 
-            className={styles.arrow} 
-            width="16" 
-            height="16" 
+          <svg
+            className={styles.arrow}
+            width="16"
+            height="16"
             viewBox="0 0 16 16"
             fill="currentColor"
           >
@@ -95,5 +103,5 @@ export default function ProjectCard({ project, onViewDetails, className = '' }: 
         </div>
       )}
     </article>
-  )
+  );
 }

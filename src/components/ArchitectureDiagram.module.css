@@ -282,11 +282,11 @@
   .diagramWrapper {
     flex-direction: column;
   }
-  
+
   .legend {
     min-width: unset;
   }
-  
+
   .legendItems {
     flex-direction: row;
     flex-wrap: wrap;
@@ -297,7 +297,7 @@
   .architectureContainer {
     padding: var(--space-4);
   }
-  
+
   .diagram {
     min-height: 300px;
   }
@@ -321,15 +321,15 @@
   .nodeGroup.selected {
     transform: none;
   }
-  
+
   .connectionTag:hover {
     transform: none;
   }
-  
+
   .nodeDetails {
     animation: none;
   }
-  
+
   .connectionLine,
   .nodeBackground,
   .nodeGroup,
@@ -345,16 +345,16 @@
     border-width: 2px;
     background: rgba(255, 255, 255, 0.1);
   }
-  
+
   .diagram {
     border-width: 2px;
   }
-  
+
   .nodeBackground {
     fill: rgba(255, 255, 255, 0.1);
     stroke-width: 2;
   }
-  
+
   .connectionLine {
     stroke-width: 3;
   }

@@ -2,7 +2,8 @@
 
 .projectShowcase {
   padding-block: var(--space-20);
-  background: linear-gradient(135deg,
+  background: linear-gradient(
+    135deg,
     rgba(10, 10, 10, 0.98) 0%,
     rgba(26, 26, 26, 0.95) 50%,
     rgba(10, 10, 10, 0.98) 100%
@@ -21,8 +22,9 @@
   font-size: clamp(var(--font-size-3xl), 6vw, var(--font-size-5xl));
   font-weight: 800;
   margin-bottom: var(--space-4);
-  background: linear-gradient(135deg, 
-    var(--portfolio-text-primary) 0%, 
+  background: linear-gradient(
+    135deg,
+    var(--portfolio-text-primary) 0%,
     var(--portfolio-accent-green) 50%,
     var(--portfolio-interactive) 100%
   );
@@ -151,12 +153,12 @@
     /* Enhanced medium container spacing */
     gap: clamp(var(--space-6), 3cqw, var(--space-10));
   }
-  
+
   /* Dynamic typography scaling based on container width */
   .showcaseTitle {
     font-size: clamp(var(--font-size-3xl), 5cqw, var(--font-size-5xl));
   }
-  
+
   .showcaseSubtitle {
     font-size: clamp(var(--font-size-lg), 2.5cqw, var(--font-size-xl));
   }
@@ -177,7 +179,7 @@
     max-width: 80rem;
     margin-inline: auto;
   }
-  
+
   /* Enhanced typography for large containers */
   .showcaseTitle {
     font-size: clamp(var(--font-size-4xl), 6cqw, var(--font-size-6xl));
@@ -230,11 +232,11 @@
     flex-direction: column;
     gap: var(--space-4);
   }
-  
+
   .filterGroup {
     min-width: unset;
   }
-  
+
   .clearFilters {
     align-self: stretch;
   }
@@ -244,7 +246,7 @@
   .showcaseHeader {
     margin-bottom: var(--space-20);
   }
-  
+
   .filtersSection {
     margin-bottom: var(--space-16);
   }
@@ -271,12 +273,12 @@
     -webkit-background-clip: unset;
     -webkit-text-fill-color: unset;
   }
-  
+
   .filters {
     border-width: 2px;
     background: rgba(255, 255, 255, 0.1);
   }
-  
+
   .filterSelect {
     border-width: 2px;
   }

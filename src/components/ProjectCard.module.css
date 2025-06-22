@@ -22,7 +22,7 @@
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(37, 99, 235, 0.4);
   /* Multi-layered, color-shifting shadows */
-  box-shadow: 
+  box-shadow:
     0 25px 80px rgba(0, 0, 0, 0.5),
     0 10px 40px rgba(37, 99, 235, 0.2),
     0 5px 20px rgba(22, 163, 74, 0.1),
@@ -72,7 +72,11 @@
 }
 
 .featured {
-  background: linear-gradient(135deg, var(--portfolio-accent-green), var(--portfolio-interactive));
+  background: linear-gradient(
+    135deg,
+    var(--portfolio-accent-green),
+    var(--portfolio-interactive)
+  );
   color: white;
   padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-md);
@@ -136,15 +140,16 @@
 }
 
 .techItem::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 255, 255, 0.2), 
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
     transparent
   );
   transition: left var(--transition-normal);
@@ -155,7 +160,7 @@
   border-color: rgba(var(--tech-color-rgb, 37, 99, 235), 0.4);
   transform: translateY(-2px) scale(1.05);
   /* Magnetic hover effect */
-  box-shadow: 
+  box-shadow:
     0 4px 12px rgba(var(--tech-color-rgb, 37, 99, 235), 0.3),
     0 2px 6px rgba(0, 0, 0, 0.2);
 }
@@ -212,15 +217,16 @@
 }
 
 .actionIndicator::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, 
-    transparent, 
-    var(--portfolio-interactive), 
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--portfolio-interactive),
     var(--portfolio-accent-green),
     transparent
   );
@@ -236,7 +242,7 @@
 }
 
 .viewDetails::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -272,11 +278,11 @@
   .projectCard {
     padding: clamp(var(--space-4), 2cqw, var(--space-6));
   }
-  
+
   .projectTitle {
     font-size: clamp(var(--font-size-lg), 4cqw, var(--font-size-xl));
   }
-  
+
   .techStack {
     gap: clamp(var(--space-1), 1cqw, var(--space-3));
   }
@@ -286,11 +292,11 @@
   .projectCard {
     padding: clamp(var(--space-5), 2.5cqw, var(--space-7));
   }
-  
+
   .statusBadge {
     gap: clamp(var(--space-2), 1.5cqw, var(--space-3));
   }
-  
+
   .projectDescription {
     font-size: clamp(var(--font-size-sm), 3cqw, var(--font-size-base));
   }
@@ -300,12 +306,12 @@
   .projectCard {
     padding: clamp(var(--space-6), 3cqw, var(--space-8));
   }
-  
+
   .projectTitle {
     font-size: clamp(var(--font-size-xl), 5cqw, var(--font-size-2xl));
     line-height: 1.2;
   }
-  
+
   .projectSubtitle {
     font-size: clamp(var(--font-size-sm), 2.5cqw, var(--font-size-base));
   }
@@ -315,15 +321,15 @@
   .projectCard {
     padding: clamp(var(--space-7), 3.5cqw, var(--space-10));
   }
-  
+
   .projectHeader {
     margin-bottom: clamp(var(--space-4), 2cqw, var(--space-6));
   }
-  
+
   .projectContent {
     margin-bottom: clamp(var(--space-6), 3cqw, var(--space-8));
   }
-  
+
   .techStack {
     margin-bottom: clamp(var(--space-6), 3cqw, var(--space-8));
   }
@@ -334,18 +340,19 @@
     /* Optimal spacing for larger cards */
     padding: clamp(var(--space-8), 4cqw, var(--space-12));
   }
-  
+
   .projectTitle {
     font-size: clamp(var(--font-size-2xl), 6cqw, var(--font-size-3xl));
   }
-  
+
   .actionIndicator {
     padding-top: clamp(var(--space-4), 2cqw, var(--space-6));
   }
-  
+
   /* Enhanced tech item spacing for larger containers */
   .techItem {
-    padding: clamp(var(--space-1), 1cqw, var(--space-2)) clamp(var(--space-3), 2cqw, var(--space-4));
+    padding: clamp(var(--space-1), 1cqw, var(--space-2))
+      clamp(var(--space-3), 2cqw, var(--space-4));
     font-size: clamp(var(--font-size-xs), 2cqw, var(--font-size-sm));
   }
 }
@@ -355,15 +362,15 @@
   .projectCard:hover {
     transform: none;
   }
-  
+
   .techItem:hover {
     transform: none;
   }
-  
+
   .arrow {
     transition: none;
   }
-  
+
   .projectCard:hover .arrow {
     transform: none;
   }
@@ -375,7 +382,7 @@
     border-width: 2px;
     background: rgba(255, 255, 255, 0.1);
   }
-  
+
   .status {
     border-width: 2px;
   }
