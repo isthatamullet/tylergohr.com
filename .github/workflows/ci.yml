@@ -1,11 +1,12 @@
-# Tyler Gohr Portfolio - Simple PR Quality Gates
-# Fast feedback pipeline based on working deployment pipeline patterns
+# Tyler Gohr Portfolio - PR Quality Gates & Preview Deployments
+# Fast feedback pipeline with automatic preview environment deployment
 
-name: 'CI - Quality Gates & Validation'
+name: 'CI - Quality Gates & Preview Deployment'
 
 on:
   pull_request:
     branches: [ main, develop ]
+    types: [opened, synchronize, reopened, closed]
     paths-ignore:
       - '*.md'
       - 'docs/**'
@@ -18,14 +19,18 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-# Minimal permissions
+# Enhanced permissions for preview deployments
 permissions:
   contents: read
   pull-requests: write
   checks: write
+  id-token: write
 
 env:
   NODE_VERSION: '18'
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  REGISTRY: gcr.io
+  REGION: us-central1
 
 jobs:
   # Job 1: Essential Quality Gates (Based on Working Deploy Pipeline)
@@ -93,35 +98,230 @@ jobs:
         run: |
           npm run test -- --coverage --watchAll=false --passWithNoTests
 
-  # Job 3: PR Summary
-  summary:
-    name: 'PR Summary'
+  # Job 3: Preview Deployment (Conditional)
+  preview-deployment:
+    name: 'Deploy Preview Environment'
     runs-on: ubuntu-latest
-    if: always()
-    needs: [quality-gates, testing]
+    timeout-minutes: 15
+    needs: [quality-gates]
+    if: github.event.action != 'closed' && needs.quality-gates.result == 'success'
+    
+    outputs:
+      preview-url: ${{ steps.deploy.outputs.preview-url }}
+      service-name: ${{ steps.service-name.outputs.service-name }}
+    
+    steps:
+      - name: 'Checkout PR Branch'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+      
+      - name: 'Generate Service Name'
+        id: service-name
+        run: |
+          # Create safe service name from PR number and branch
+          BRANCH_SAFE=$(echo "${{ github.head_ref }}" | sed 's/[^a-zA-Z0-9]/-/g' | head -c 20)
+          SERVICE_NAME="portfolio-pr-${{ github.event.number }}-${BRANCH_SAFE}"
+          echo "service-name=${SERVICE_NAME}" >> $GITHUB_OUTPUT
+          echo "Preview service: ${SERVICE_NAME}"
+      
+      - name: 'Setup Node.js'
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: 'Install Dependencies'
+        run: npm ci
+      
+      - name: 'Authenticate to Google Cloud'
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      
+      - name: 'Configure Docker for GCR'
+        run: gcloud auth configure-docker
+      
+      - name: 'Setup Docker Buildx'
+        uses: docker/setup-buildx-action@v3
+      
+      - name: 'Build and Push Preview Container'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ steps.service-name.outputs.service-name }}:latest
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ steps.service-name.outputs.service-name }}:pr-${{ github.event.number }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+          build-args: |
+            NODE_ENV=production
+            NEXT_TELEMETRY_DISABLED=1
+      
+      - name: 'Deploy to Cloud Run Preview'
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ steps.service-name.outputs.service-name }}
+          region: ${{ env.REGION }}
+          image: ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ steps.service-name.outputs.service-name }}:pr-${{ github.event.number }}
+          flags: |
+            --port=3000
+            --memory=512Mi
+            --cpu=0.5
+            --min-instances=0
+            --max-instances=2
+            --concurrency=50
+            --timeout=300
+            --allow-unauthenticated
+            --set-env-vars="NODE_ENV=production,NEXT_TELEMETRY_DISABLED=1"
+          tag: pr-${{ github.event.number }}
+      
+      - name: 'Get Preview URL'
+        id: get-url
+        run: |
+          PREVIEW_URL=$(gcloud run services describe ${{ steps.service-name.outputs.service-name }} \
+            --region=${{ env.REGION }} \
+            --format="value(status.url)")
+          echo "preview-url=${PREVIEW_URL}" >> $GITHUB_OUTPUT
+          echo "Preview URL: ${PREVIEW_URL}"
+      
+      - name: 'Health Check Preview'
+        run: |
+          PREVIEW_URL="${{ steps.get-url.outputs.preview-url }}"
+          echo "🧪 Testing preview health endpoint..."
+          
+          # Wait for service to be ready
+          sleep 15
+          
+          for i in {1..3}; do
+            if curl -sSf "${PREVIEW_URL}/api/health" > /dev/null; then
+              echo "✅ Preview health check passed"
+              break
+            else
+              echo "⏳ Health check attempt ${i} failed, retrying..."
+              if [ $i -eq 3 ]; then
+                echo "⚠️ Health checks failed, but preview may still be accessible"
+              fi
+              sleep 10
+            fi
+          done
+
+  # Job 4: Cleanup Preview (When PR is Closed)
+  cleanup-preview:
+    name: 'Cleanup Preview Environment'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event.action == 'closed'
+    
+    steps:
+      - name: 'Generate Service Name'
+        id: service-name
+        run: |
+          BRANCH_SAFE=$(echo "${{ github.head_ref }}" | sed 's/[^a-zA-Z0-9]/-/g' | head -c 20)
+          SERVICE_NAME="portfolio-pr-${{ github.event.number }}-${BRANCH_SAFE}"
+          echo "service-name=${SERVICE_NAME}" >> $GITHUB_OUTPUT
+          echo "Cleaning up service: ${SERVICE_NAME}"
+      
+      - name: 'Authenticate to Google Cloud'
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      
+      - name: 'Delete Preview Service'
+        run: |
+          SERVICE_NAME="${{ steps.service-name.outputs.service-name }}"
+          
+          # Check if service exists before trying to delete
+          if gcloud run services describe "${SERVICE_NAME}" --region=${{ env.REGION }} &>/dev/null; then
+            echo "🗑️ Deleting preview service: ${SERVICE_NAME}"
+            gcloud run services delete "${SERVICE_NAME}" \
+              --region=${{ env.REGION }} \
+              --quiet
+            echo "✅ Preview service deleted"
+          else
+            echo "ℹ️ Preview service ${SERVICE_NAME} not found (may have been already deleted)"
+          fi
+      
+      - name: 'Delete Container Images'
+        run: |
+          SERVICE_NAME="${{ steps.service-name.outputs.service-name }}"
+          
+          # List and delete container images for this service
+          echo "🗑️ Cleaning up container images..."
+          gcloud container images list-tags ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${SERVICE_NAME} \
+            --format="get(digest)" --limit=10 | while read digest; do
+              if [ ! -z "$digest" ]; then
+                echo "Deleting image: ${digest}"
+                gcloud container images delete ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${SERVICE_NAME}@${digest} \
+                  --quiet --force-delete-tags || echo "Failed to delete ${digest}"
+              fi
+            done
+          echo "✅ Container images cleaned up"
+
+  # Job 5: PR Summary
+  summary:
+    name: 'PR Summary & Notification'
+    runs-on: ubuntu-latest
+    if: always() && github.event.action != 'closed'
+    needs: [quality-gates, testing, preview-deployment]
 
     steps:
       - name: 'Generate PR Summary'
         uses: actions/github-script@v7
         with:
           script: |
-            const summary = `## 🚀 PR Quality Gates Results
+            const qualityStatus = '${{ needs.quality-gates.result }}' === 'success' ? '✅ Passed' : '❌ Failed';
+            const testingStatus = '${{ needs.testing.result }}' === 'success' ? '✅ Passed' : 
+                                 '${{ needs.testing.result }}' === 'failure' ? '❌ Failed' : '⚠️ Skipped';
+            const previewStatus = '${{ needs.preview-deployment.result }}' === 'success' ? '✅ Deployed' : 
+                                  '${{ needs.preview-deployment.result }}' === 'failure' ? '❌ Failed' : 
+                                  '${{ needs.preview-deployment.result }}' === 'skipped' ? '⏭️ Skipped' : '⏳ Running';
+            const previewUrl = '${{ needs.preview-deployment.outputs.preview-url }}';
+            
+            let summary = `## 🚀 PR Quality Gates & Preview Results
             
             ### ✅ Essential Quality Gates
-            - **TypeScript**: ${{ needs.quality-gates.result == 'success' && '✅ Passed' || '❌ Failed' }}
-            - **ESLint**: ${{ needs.quality-gates.result == 'success' && '✅ Passed' || '❌ Failed' }}
-            - **Build**: ${{ needs.quality-gates.result == 'success' && '✅ Passed' || '❌ Failed' }}
-            - **Bundle Size**: ${{ needs.quality-gates.result == 'success' && '✅ Within Budget' || '⚠️ Check Required' }}
+            - **TypeScript**: ${qualityStatus}
+            - **ESLint**: ${qualityStatus}  
+            - **Build**: ${qualityStatus}
+            - **Bundle Size**: ${qualityStatus === '✅ Passed' ? '✅ Within Budget' : '⚠️ Check Required'}
             
             ### 🧪 Testing Results
-            - **Unit Tests**: ${{ needs.testing.result == 'success' && '✅ Passed' || needs.testing.result == 'failure' && '❌ Failed' || '⚠️ Skipped' }}
+            - **Unit Tests**: ${testingStatus}
+            
+            ### 🌐 Preview Environment
+            - **Deployment**: ${previewStatus}`;
+            
+            if (previewUrl && previewUrl !== '') {
+              summary += `
+            - **Preview URL**: ${previewUrl}
+            - **Health Check**: ${previewUrl}/api/health
+            
+            ### 🎯 Testing Guide
+            1. **🔗 [Open Preview Site](${previewUrl})** - Click to test changes
+            2. **📱 Test Navigation** - Verify top navigation works on desktop and mobile
+            3. **🔄 Check Responsive Design** - Test mobile hamburger menu
+            4. **⚡ Verify Performance** - Page loads quickly and animations are smooth
+            
+            💡 This preview environment will be automatically deleted when the PR is closed.`;
+            } else if (previewStatus.includes('Failed')) {
+              summary += `
+            - **Error**: Preview deployment failed. Check workflow logs for details.`;
+            } else if (previewStatus.includes('Skipped')) {
+              summary += `
+            - **Note**: Preview deployment skipped (quality gates may have failed).`;
+            }
+            
+            summary += `
             
             ---
             
-            **Status**: ${{ needs.quality-gates.result == 'success' && '🎉 Ready for Review' || '⚠️ Requires Attention' }}
+            **Overall Status**: ${qualityStatus === '✅ Passed' ? '🎉 Ready for Review' : '⚠️ Requires Attention'}
             
-            *This PR follows the professional development workflow from Issue #6*
-            `;
+            *This PR follows the professional development workflow from Issue #6*`;
             
             // Find existing comment or create new one
             const { data: comments } = await github.rest.issues.listComments({
@@ -131,7 +331,7 @@ jobs:
             });
             
             const botComment = comments.find(comment => 
-              comment.user.type === 'Bot' && comment.body.includes('PR Quality Gates Results')
+              comment.user.type === 'Bot' && comment.body.includes('PR Quality Gates')
             );
             
             if (botComment) {
@@ -149,3 +349,36 @@ jobs:
                 body: summary
               });
             }
+
+  # Job 6: Cleanup Notification
+  cleanup-notification:
+    name: 'Cleanup Notification'
+    runs-on: ubuntu-latest
+    needs: [cleanup-preview]
+    if: always() && github.event.action == 'closed'
+    
+    steps:
+      - name: 'Post Cleanup Summary'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const cleanupStatus = '${{ needs.cleanup-preview.result }}' === 'success' ? '✅ Completed' : '❌ Failed';
+            
+            const summary = `## 🧹 Preview Environment Cleanup ${cleanupStatus}
+            
+            The preview environment for this PR has been automatically cleaned up:
+            - **Cloud Run Service**: Deleted
+            - **Container Images**: Removed  
+            - **Resources**: Released
+            
+            ${cleanupStatus.includes('Failed') ? '⚠️ Some cleanup operations may have failed. Check workflow logs.' : '✅ All preview resources have been successfully removed.'}
+            
+            ---
+            *Automatic cleanup completed*`;
+            
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: summary
+            });
