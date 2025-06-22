@@ -657,3 +657,28 @@ section[id] {
   top: 6px;
   outline: 2px solid var(--portfolio-text-primary);
 }
+
+/* Navigation Visibility Protection - Defensive CSS Rules */
+/* Ensure the top navigation is never hidden by other elements */
+nav[role="navigation"]:first-of-type,
+.navigation {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Prevent any element from overlaying the navigation area */
+* {
+  /* Ensure no element gets higher z-index than navigation */
+  --max-z-index: 99998;
+}
+
+/* Additional defensive rules for navigation container */
+body > nav:first-of-type {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 99999 !important;
+}
