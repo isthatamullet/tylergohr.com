@@ -11,12 +11,20 @@ jest.mock("@/lib/projects", () => {
     postgresql: { name: "PostgreSQL", category: "database", color: "#336791" },
     gcp: { name: "Google Cloud", category: "cloud", color: "#4285f4" },
     tailwind: { name: "Tailwind CSS", category: "frontend", color: "#06b6d4" },
-    framermotion: { name: "Framer Motion", category: "frontend", color: "#bb4b96" },
+    framermotion: {
+      name: "Framer Motion",
+      category: "frontend",
+      color: "#bb4b96",
+    },
     vite: { name: "Vite", category: "frontend", color: "#646cff" },
     zustand: { name: "Zustand", category: "frontend", color: "#ff6b35" },
     socketio: { name: "Socket.IO", category: "backend", color: "#010101" },
     stripe: { name: "Stripe", category: "backend", color: "#635bff" },
-    quickbooks: { name: "QuickBooks API", category: "backend", color: "#0077c5" },
+    quickbooks: {
+      name: "QuickBooks API",
+      category: "backend",
+      color: "#0077c5",
+    },
     gmail: { name: "Gmail API", category: "backend", color: "#ea4335" },
     supabase: { name: "Supabase", category: "cloud", color: "#3ecf8e" },
     firebase: { name: "Firebase", category: "cloud", color: "#ffca28" },
@@ -28,8 +36,10 @@ jest.mock("@/lib/projects", () => {
         id: "invoice-chaser",
         title: "Invoice Chaser",
         subtitle: "Automated Payment Collection SaaS",
-        description: "SaaS application that automates payment collection, reducing payment times by 25-40% through intelligent automation and real-time tracking.",
-        longDescription: "A comprehensive SaaS solution that transforms how businesses manage accounts receivable.",
+        description:
+          "SaaS application that automates payment collection, reducing payment times by 25-40% through intelligent automation and real-time tracking.",
+        longDescription:
+          "A comprehensive SaaS solution that transforms how businesses manage accounts receivable.",
         category: "saas",
         industry: "fintech",
         status: "completed",
@@ -137,7 +147,9 @@ describe("HomePage", () => {
 
     // Wait for project deep dive to appear (shows "coming soon" message)
     await waitFor(() => {
-      expect(screen.getByText("Detailed case study coming soon...")).toBeInTheDocument();
+      expect(
+        screen.getByText("Detailed case study coming soon..."),
+      ).toBeInTheDocument();
     });
   });
 
@@ -146,13 +158,17 @@ describe("HomePage", () => {
     render(<HomePage />);
 
     // Open project deep dive first
-    const projectButton = screen.getByRole("button", { name: /invoice chaser/i });
+    const projectButton = screen.getByRole("button", {
+      name: /invoice chaser/i,
+    });
     await user.click(projectButton);
 
     // Since the deep dive shows "coming soon", we'll just verify the behavior exists
     // In a real implementation, there would be a close button
     await waitFor(() => {
-      expect(screen.getByText("Detailed case study coming soon...")).toBeInTheDocument();
+      expect(
+        screen.getByText("Detailed case study coming soon..."),
+      ).toBeInTheDocument();
     });
 
     // Test passes if we can open the deep dive (close functionality would be tested when implemented)
@@ -185,7 +201,7 @@ describe("HomePage", () => {
     // Check that tabpanel elements exist (from SkillsSection)
     const tabpanels = screen.getAllByRole("tabpanel");
     expect(tabpanels.length).toBeGreaterThan(0);
-    
+
     // Check for proper tab structure
     const tabs = screen.getAllByRole("tab");
     expect(tabs.length).toBeGreaterThan(0);
