@@ -12,11 +12,11 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding-block: var(--space-16);
   position: relative;
   overflow: hidden;
-  /* Account for fixed navigation height */
-  padding-top: calc(var(--space-16) + 70px);
+  /* True vertical centering - account for navigation height in the centering calculation */
+  padding-top: 70px; /* Navigation height offset */
+  margin-top: -35px; /* Pull back half the navigation height for true center */
   /* scroll-snap-align: start; */
 }
 
