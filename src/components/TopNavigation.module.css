@@ -114,6 +114,20 @@
   border-radius: 4px;
 }
 
+/* Active state for navigation links */
+.navLink.active {
+  color: var(--portfolio-text-primary);
+}
+
+.navLink.active::after {
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--portfolio-accent-green),
+    var(--portfolio-interactive)
+  );
+}
+
 /* Mobile Menu Button */
 .mobileMenuButton {
   display: none;
@@ -211,6 +225,13 @@
 
 .mobileNavLink:last-child {
   border-bottom: none;
+}
+
+/* Active state for mobile navigation links */
+.mobileNavLink.active {
+  color: var(--portfolio-text-primary);
+  border-left: 3px solid var(--portfolio-accent-green);
+  padding-left: 1rem;
 }
 
 /* Mobile Overlay */

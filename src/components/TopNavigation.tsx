@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import styles from "./TopNavigation.module.css";
 
 interface NavigationProps {
@@ -10,28 +10,112 @@ interface NavigationProps {
 export default function TopNavigation({ className = "" }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("about");
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  // Navigation height for offset calculation
+  const NAV_HEIGHT = 70;
+
+  // Throttled scroll handler for performance
+  const throttledScrollHandler = useCallback(() => {
+    let ticking = false;
+    
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+      ticking = false;
+    };
+
+    return () => {
+      if (!ticking) {
+        requestAnimationFrame(handleScroll);
+        ticking = true;
+      }
+    };
+  }, []);
+
+  // Enhanced smooth scroll to section with proper offset
+  const scrollToSection = useCallback((sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - NAV_HEIGHT;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+
+      // Update URL hash
+      window.history.pushState(null, "", `#${sectionId}`);
+      
+      // Update active section immediately for responsive feedback
+      setActiveSection(sectionId);
+    }
+    setIsMenuOpen(false); // Close mobile menu after navigation
+  }, []);
 
   // Handle scroll effect for navigation background
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const scrollHandler = throttledScrollHandler();
+    window.addEventListener("scroll", scrollHandler, { passive: true });
+    return () => window.removeEventListener("scroll", scrollHandler);
+  }, [throttledScrollHandler]);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Smooth scroll to section
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+  // Handle initial URL hash on page load
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash && ["about", "skills", "projects", "contact"].includes(hash)) {
+      setActiveSection(hash);
+      // Small delay to ensure DOM is ready
+      setTimeout(() => scrollToSection(hash), 100);
     }
-    setIsMenuOpen(false); // Close mobile menu after navigation
-  };
+  }, [scrollToSection]);
+
+  // Intersection Observer for active section detection
+  useEffect(() => {
+    const sections = ["about", "skills", "projects", "contact"];
+    
+    // Clean up previous observer
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.id;
+            if (sections.includes(sectionId)) {
+              setActiveSection(sectionId);
+              
+              // Update URL hash without causing scroll
+              if (window.location.hash !== `#${sectionId}`) {
+                window.history.replaceState(null, "", `#${sectionId}`);
+              }
+            }
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: `-${NAV_HEIGHT}px 0px -60% 0px`,
+      }
+    );
+
+    // Observe all sections
+    sections.forEach((sectionId) => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        observerRef.current?.observe(element);
+      }
+    });
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
 
   // Handle mobile menu toggle
   const toggleMenu = () => {
@@ -68,8 +152,9 @@ export default function TopNavigation({ className = "" }: NavigationProps) {
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className={styles.navLink}
+              className={`${styles.navLink} ${activeSection === link.id ? styles.active : ""}`}
               aria-label={`Navigate to ${link.label} section`}
+              aria-current={activeSection === link.id ? "page" : undefined}
             >
               {link.label}
             </button>
@@ -107,9 +192,10 @@ export default function TopNavigation({ className = "" }: NavigationProps) {
             <button
               key={link.id}
               onClick={() => scrollToSection(link.id)}
-              className={styles.mobileNavLink}
+              className={`${styles.mobileNavLink} ${activeSection === link.id ? styles.active : ""}`}
               tabIndex={isMenuOpen ? 0 : -1}
               aria-label={`Navigate to ${link.label} section`}
+              aria-current={activeSection === link.id ? "page" : undefined}
             >
               {link.label}
             </button>
