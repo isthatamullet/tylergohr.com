@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { userEvent } from '@testing-library/user-event'
 import ContactSection from '@/components/ContactSection'
 
@@ -69,8 +69,6 @@ describe('ContactSection', () => {
 
   it('displays subject options correctly', () => {
     render(<ContactSection />)
-    
-    const subjectSelect = screen.getByLabelText('Subject')
     
     // Check default option
     expect(screen.getByRole('option', { name: 'Select a subject' })).toBeInTheDocument()
