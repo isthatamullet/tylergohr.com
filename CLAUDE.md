@@ -59,8 +59,14 @@ npm test                   # Jest testing framework (Phase 5.5 complete)
 # Automated via GitHub Actions → Google Cloud Run
 # Manual: git push origin main (triggers CI/CD)
 
+# Preview environments (✅ Enterprise-grade PR preview system)
+./scripts/monitor-preview.sh    # Monitor active preview deployments
+./scripts/cost-monitor.sh       # Check resource usage and costs
+./scripts/deploy-staging.sh     # Manual staging deployment
+
 # Documentation & Status
 # Reference docs/DEPLOYMENT.md for deployment procedures
+# Reference docs/PREVIEW-DEPLOYMENTS.md for preview system
 # Check GitHub issue #5 for latest deployment details
 ```
 
@@ -125,6 +131,7 @@ npm test                   # Jest testing framework (Phase 5.5 complete)
 - **Cloud Infrastructure**: Google Cloud Run setup and DevOps pipeline
 - **Database Design**: PostgreSQL schema and optimization strategies
 - **Security Implementation**: Authentication and API protection methods
+- **DevOps Automation**: Enterprise-grade PR preview deployment system with automatic staging environments
 
 ## Creative Interactive Elements
 
@@ -329,6 +336,7 @@ cat CLAUDE.md               # For project context and structure
 **Status**: ✅ Production Ready - Modern Next.js portfolio deployed on Google Cloud Run  
 **Last Major Update**: Phase 5.5 Complete (Jest Testing Framework + Domain Setup)  
 **Pipeline Optimization**: ⚡ Fast-track deployment for content changes implemented  
+**Preview System**: 🌐 Enterprise-grade PR preview deployments with automatic Cloud Run staging  
 **Next Development**: Check GitHub issues for current priorities
 
 This dynamic documentation system ensures Claude always has access to current, accurate project information while maintaining comprehensive technical references for all deployment and development procedures.

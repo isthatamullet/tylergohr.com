@@ -368,13 +368,18 @@ gcloud run services update-traffic tylergohr-portfolio \
 
 ## 📋 Pipeline Architecture
 
-### PR Validation Workflow (`ci.yml`)
+### PR Validation & Preview Workflow (`ci.yml`)
 - **Code Quality**: TypeScript checking, ESLint, Prettier formatting
 - **Security**: Dependency audit, license compliance checking
 - **Build Validation**: Bundle size analysis, Docker image building
 - **Testing**: Unit tests, component tests, accessibility validation
+- **Preview Deployment**: Automatic Cloud Run preview environment for every PR
+- **Health Monitoring**: Automated service verification and status reporting
 - **Performance**: Lighthouse CI integration with budget enforcement
 - **Docker Security**: Container vulnerability scanning, structure testing
+- **Automatic Cleanup**: Resource cleanup when PRs are closed or merged
+
+> 📖 **Detailed Preview Documentation**: See [PREVIEW-DEPLOYMENTS.md](PREVIEW-DEPLOYMENTS.md) for complete preview deployment system documentation.
 
 ### Deployment Workflow (`deploy.yml`)
 - **Pre-deployment Validation**: Quality gates, version generation
@@ -383,6 +388,44 @@ gcloud run services update-traffic tylergohr-portfolio \
 - **Traffic Migration**: Gradual traffic shifting (10% → 50% → 100%)
 - **Health Monitoring**: Comprehensive health checks and performance validation
 - **Rollback Capability**: Automatic rollback on deployment failures
+
+## 🌐 Preview Environments
+
+### Automatic PR Preview Deployments
+
+Every pull request automatically gets its own isolated preview environment hosted on Google Cloud Run. This enterprise-grade system enables safe testing of changes before production deployment.
+
+#### How It Works
+1. **Create/Update PR** → Automatic preview deployment triggers
+2. **Quality Gates Pass** → TypeScript, ESLint, tests must pass
+3. **Container Deployment** → Unique Cloud Run service created
+4. **PR Comment Posted** → Preview URL and testing guide provided
+5. **Automatic Cleanup** → Resources deleted when PR is closed/merged
+
+#### Preview URL Pattern
+```
+https://portfolio-pr-{number}-{branch-name}-{hash}.us-central1.run.app
+```
+
+#### Key Features
+- **Isolated Environments**: Each PR gets its own Cloud Run service
+- **Production-Like**: Same container and runtime as production
+- **Cost-Optimized**: Auto-scaling and automatic cleanup
+- **Developer-Friendly**: Automatic PR comments with testing guides
+
+#### Managing Preview Environments
+```bash
+# Monitor active preview deployments
+./scripts/monitor-preview.sh
+
+# Check resource usage and costs
+./scripts/cost-monitor.sh
+
+# Manual staging deployment (if needed)
+./scripts/deploy-staging.sh [branch-name]
+```
+
+> 📖 **Complete Documentation**: See [PREVIEW-DEPLOYMENTS.md](PREVIEW-DEPLOYMENTS.md) for detailed technical documentation, troubleshooting, and cost management.
 
 ## 🔐 Required GitHub Secrets
 
