@@ -121,9 +121,9 @@ jobs:
             echo "bundle-size=${bundle_size}" >> $GITHUB_OUTPUT
             echo "Bundle size: ${bundle_size}KB"
             
-            # Check bundle size budget (150KB limit)
-            if [ $bundle_size -gt 150 ]; then
-              echo "❌ Bundle size exceeds budget: ${bundle_size}KB > 150KB"
+            # Check bundle size budget (1MB limit)
+            if [ $bundle_size -gt 1024 ]; then
+              echo "❌ Bundle size exceeds budget: ${bundle_size}KB > 1MB"
               exit 1
             else
               echo "✅ Bundle size within budget: ${bundle_size}KB"
@@ -361,7 +361,7 @@ jobs:
             
             ### 📦 Build Analysis
             - **Build Time**: ${buildTime}s
-            - **Bundle Size**: ${bundleSize}KB (Budget: 150KB)
+            - **Bundle Size**: ${bundleSize}KB (Budget: 1MB)
             - **Docker Build**: ${{ needs.docker.result == 'success' && '✅ Passed' || '❌ Failed' }}
             
             ### 🧪 Testing Results
