@@ -8,16 +8,16 @@
 }
 
 .heroSection {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 100vh;
   padding-block: var(--space-16);
   position: relative;
   overflow: hidden;
+  /* Account for fixed navigation height */
+  padding-top: calc(var(--space-16) + 70px);
   /* scroll-snap-align: start; */
-  /* CSS Grid Subgrid for perfect alignment */
-  grid-template-columns: subgrid;
-  grid-column: 1 / -1;
 }
 
 /* Multi-layered Parallax Background */
@@ -86,11 +86,43 @@
   animation: float3 15s ease-in-out infinite;
 }
 
+/* Hero-specific container for perfect centering on all screen sizes */
+.heroContainer {
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+  padding-inline: var(--space-4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: inherit;
+}
+
+/* Responsive padding for hero container */
+@media (min-width: 640px) {
+  .heroContainer {
+    padding-inline: var(--space-6);
+  }
+}
+
+@media (min-width: 768px) {
+  .heroContainer {
+    padding-inline: var(--space-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .heroContainer {
+    padding-inline: var(--space-12);
+  }
+}
+
 .heroContent {
   display: grid;
   gap: var(--space-6);
   text-align: center;
   max-width: 50rem;
+  width: 100%;
   container-type: inline-size;
 }
 

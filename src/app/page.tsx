@@ -48,7 +48,7 @@ export default function HomePage() {
           <div className={styles.parallaxLayer2}></div>
           <div className={styles.parallaxLayer3}></div>
         </div>
-        <div className="container">
+        <div className={styles.heroContainer}>
           <div className={styles.heroContent}>
             <h1 id="hero-title" className={styles.heroTitle}>
               Tyler Gohr
