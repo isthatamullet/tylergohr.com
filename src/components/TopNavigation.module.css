@@ -1,15 +1,27 @@
 /* Tyler Gohr Portfolio - Top Navigation Component */
 
 .navigation {
-  position: fixed;
-  top: 0;
+  position: fixed !important;
+  top: 0 !important;
   left: 0;
   right: 0;
-  z-index: 1000;
+  width: 100%;
+  z-index: 9999;
   background: rgba(10, 10, 10, 0.8);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(var(--portfolio-text-primary-rgb), 0.1);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Force hardware acceleration and create stacking context */
+  transform: translateZ(0);
+  will-change: background, box-shadow;
+}
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(12px)) {
+  .navigation {
+    background: rgba(10, 10, 10, 0.95);
+  }
 }
 
 .navigation.scrolled {

@@ -17,20 +17,16 @@ export default function TopNavigation({ className = "" }: NavigationProps) {
   const NAV_HEIGHT = 70;
 
   // Throttled scroll handler for performance
+  const tickingRef = useRef(false);
+  
   const throttledScrollHandler = useCallback(() => {
-    let ticking = false;
-    
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-      ticking = false;
-    };
-
-    return () => {
-      if (!ticking) {
-        requestAnimationFrame(handleScroll);
-        ticking = true;
-      }
-    };
+    if (!tickingRef.current) {
+      requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 50);
+        tickingRef.current = false;
+      });
+      tickingRef.current = true;
+    }
   }, []);
 
   // Enhanced smooth scroll to section with proper offset
@@ -56,9 +52,8 @@ export default function TopNavigation({ className = "" }: NavigationProps) {
 
   // Handle scroll effect for navigation background
   useEffect(() => {
-    const scrollHandler = throttledScrollHandler();
-    window.addEventListener("scroll", scrollHandler, { passive: true });
-    return () => window.removeEventListener("scroll", scrollHandler);
+    window.addEventListener("scroll", throttledScrollHandler, { passive: true });
+    return () => window.removeEventListener("scroll", throttledScrollHandler);
   }, [throttledScrollHandler]);
 
   // Handle initial URL hash on page load
@@ -86,6 +81,7 @@ export default function TopNavigation({ className = "" }: NavigationProps) {
           if (entry.isIntersecting) {
             const sectionId = entry.target.id;
             if (sections.includes(sectionId)) {
+              console.log(`Setting active section: ${sectionId}`); // Debug log
               setActiveSection(sectionId);
               
               // Update URL hash without causing scroll
