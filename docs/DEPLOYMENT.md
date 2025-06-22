@@ -1,8 +1,362 @@
 # Tyler Gohr Portfolio - Deployment Guide
 
-## 🚀 CI/CD Pipeline Overview
+## Overview
 
-This portfolio uses a sophisticated GitHub Actions CI/CD pipeline for automated testing, building, and deployment to Google Cloud Run. The pipeline ensures code quality, security, and performance before any deployment.
+This guide documents the complete deployment process for the Tyler Gohr portfolio website from development to production on Google Cloud Run with custom domain setup.
+
+## Architecture
+
+- **Framework**: Next.js 14+ with App Router and TypeScript
+- **Hosting**: Google Cloud Run (Container-based deployment)
+- **Domain**: tylergohr.com (Custom domain with SSL)
+- **CI/CD**: GitHub Actions with automated quality gates
+- **DNS**: Squarespace DNS management
+
+## Prerequisites
+
+### Required Tools
+- Node.js 18+
+- Docker
+- Google Cloud CLI (`gcloud`)
+- GitHub CLI (`gh`)
+
+### Required Accounts
+- Google Cloud Project with Cloud Run enabled
+- GitHub repository with Actions enabled
+- Domain provider (Squarespace) access
+
+### Environment Setup
+```bash
+# Install dependencies
+npm install
+
+# Verify build works locally
+npm run build
+npm run start
+```
+
+## Local Development
+
+### Development Server
+```bash
+npm run dev
+# Access at http://localhost:3000
+```
+
+### Quality Gates (Run before deployment)
+```bash
+npm run typecheck  # TypeScript validation
+npm run lint       # ESLint validation
+npm run build      # Production build test
+npm test           # Jest test suite
+```
+
+## Docker Containerization
+
+### Dockerfile Configuration
+The project uses a multi-stage Docker build optimized for production:
+
+```dockerfile
+# Multi-stage build: deps → builder → runner
+# Final image: ~192MB Alpine Linux with Node.js 18
+# Security: Non-root user (nextjs:nodejs)
+# Next.js: Standalone output for minimal container size
+```
+
+### Build & Test Container Locally
+```bash
+# Build container
+docker build -t tylergohr-portfolio .
+
+# Test container locally
+docker run -p 3000:3000 tylergohr-portfolio
+
+# Verify health endpoint
+curl http://localhost:3000/api/health
+```
+
+## Google Cloud Run Deployment
+
+### Service Configuration
+- **Service Name**: `tylergohr-portfolio`
+- **Region**: `us-central1`
+- **Memory**: 2GB
+- **CPU**: 1 vCPU
+- **Concurrency**: 100 requests per instance
+- **Scaling**: 0-10 instances (auto-scaling)
+
+### Manual Deployment Commands
+```bash
+# Build and deploy to Cloud Run
+gcloud run deploy tylergohr-portfolio \
+  --source . \
+  --region us-central1 \
+  --memory 2Gi \
+  --cpu 1 \
+  --min-instances 0 \
+  --max-instances 10 \
+  --concurrency 100 \
+  --port 3000
+
+# Verify deployment
+gcloud run services list --region us-central1
+```
+
+### Health Check Endpoint
+The service includes a comprehensive health check at `/api/health`:
+
+```bash
+# Test health endpoint
+curl https://tylergohr-portfolio-386594369911.us-central1.run.app/api/health
+```
+
+**Health Check Response:**
+```json
+{
+  "status": "healthy",
+  "timestamp": "2025-06-22T01:00:00.000Z",
+  "server": {
+    "uptime": 3600,
+    "memory": {
+      "rss": "75 MB",
+      "heapUsed": "24 MB"
+    }
+  }
+}
+```
+
+## Custom Domain Setup
+
+### Step 1: Domain Mapping in Cloud Run
+```bash
+# Create domain mapping
+gcloud run domain-mappings create \
+  --service tylergohr-portfolio \
+  --domain tylergohr.com \
+  --region us-central1
+
+# Verify domain mapping
+gcloud beta run domain-mappings describe \
+  --domain tylergohr.com \
+  --region us-central1
+```
+
+### Step 2: DNS Configuration
+Configure the following DNS records in your domain provider (Squarespace):
+
+**A Records (IPv4):**
+```
+@ A 216.239.32.21
+@ A 216.239.34.21
+@ A 216.239.36.21
+@ A 216.239.38.21
+```
+
+**AAAA Records (IPv6):**
+```
+@ AAAA 2001:4860:4802:32::15
+@ AAAA 2001:4860:4802:34::15
+@ AAAA 2001:4860:4802:36::15
+@ AAAA 2001:4860:4802:38::15
+```
+
+**Important Notes:**
+- Use the exact IPv6 format shown above
+- DNS providers may display IPv6 in expanded format (`:0:0:0:` instead of `::`) - this is normal
+- TTL of 4 hours is recommended for production
+
+### Step 3: SSL Certificate
+SSL certificates are automatically provisioned by Google Cloud Run:
+- Certificate type: Google-managed
+- Automatic renewal
+- Supports both IPv4 and IPv6
+
+## CI/CD Pipeline (GitHub Actions)
+
+### Pipeline Overview
+The project uses two main workflows:
+
+1. **PR Validation** (`ci.yml`): Quality gates for pull requests
+2. **Production Deployment** (`deploy.yml`): Automated deployment to Cloud Run
+
+### Quality Gates
+All deployments must pass:
+- ✅ TypeScript compilation
+- ✅ ESLint validation
+- ✅ Jest test suite
+- ✅ Production build
+- ✅ Docker container build
+- ✅ Security vulnerability scan
+
+### Deployment Process
+1. **Code Push**: Developer pushes to `main` branch
+2. **Quality Gates**: All tests and validation must pass
+3. **Container Build**: Docker image built and pushed to GCR
+4. **Cloud Run Deploy**: Automated deployment with health checks
+5. **Traffic Migration**: Gradual rollout (0% → 10% → 50% → 100%)
+6. **Health Verification**: Automated health checks at each stage
+7. **Rollback**: Automatic rollback if health checks fail
+
+### Manual Deployment
+```bash
+# Trigger manual deployment
+gh workflow run deploy.yml
+
+# Monitor deployment status
+gh run list --workflow=deploy.yml
+```
+
+## Monitoring & Verification
+
+### Service Health
+```bash
+# Check service status
+gcloud run services describe tylergohr-portfolio --region us-central1
+
+# Check domain mapping status
+gcloud beta run domain-mappings describe --domain tylergohr.com --region us-central1
+
+# View service logs
+gcloud logs read "resource.type=cloud_run_revision" --limit 50
+```
+
+### DNS Verification
+```bash
+# Test DNS resolution
+nslookup tylergohr.com
+nslookup tylergohr.com 8.8.8.8
+
+# Test specific record types
+nslookup -type=A tylergohr.com
+nslookup -type=AAAA tylergohr.com
+
+# Test HTTP response
+curl -I https://tylergohr.com
+```
+
+### Expected Health Indicators
+- **Domain Mapping**: `Ready`, `CertificateProvisioned`, `DomainRoutable` all `True`
+- **Service Health**: `Ready`, `ConfigurationsReady`, `RoutesReady` all `True`
+- **DNS Resolution**: Returns correct Cloud Run IP addresses
+- **HTTPS**: SSL certificate valid and working
+- **Response Headers**: `Server: Google Frontend`, Next.js cache headers
+
+## Troubleshooting
+
+### Common Issues
+
+#### 1. Domain Not Loading (404 from GitHub)
+**Symptoms**: tylergohr.com shows GitHub Pages 404
+**Cause**: GitHub Pages still configured for domain
+**Solution**:
+```bash
+# Check for GitHub Pages configuration in old repositories
+# Remove custom domain from GitHub Pages settings
+# Wait 10-30 minutes for DNS propagation
+```
+
+#### 2. DNS Not Resolving to Cloud Run
+**Symptoms**: DNS returns wrong IP addresses
+**Cause**: DNS records not updated or propagation delay
+**Solution**:
+```bash
+# Verify DNS records are correct
+dig +short tylergohr.com
+# Wait for TTL to expire (4 hours max)
+# Clear local DNS cache
+```
+
+#### 3. SSL Certificate Issues
+**Symptoms**: SSL warnings or certificate errors
+**Cause**: Certificate not yet provisioned
+**Solution**:
+```bash
+# Check certificate status
+gcloud beta run domain-mappings describe --domain tylergohr.com --region us-central1
+# Wait for provisioning (usually 10-15 minutes)
+```
+
+#### 4. Service Not Responding
+**Symptoms**: 500 errors or timeouts
+**Cause**: Application startup issues
+**Solution**:
+```bash
+# Check service logs
+gcloud logs read "resource.type=cloud_run_revision" --limit 50
+# Verify container health locally
+docker run -p 3000:3000 tylergohr-portfolio
+```
+
+### Diagnostic Commands
+
+```bash
+# Complete health check
+gcloud run services describe tylergohr-portfolio --region us-central1 \
+  --format="value(status.conditions[].type,status.conditions[].status)"
+
+# DNS resolution test
+for dns in 8.8.8.8 1.1.1.1 208.67.222.222; do
+  echo "Testing DNS: $dns"
+  nslookup tylergohr.com $dns
+done
+
+# HTTP connectivity test
+curl -v https://tylergohr.com 2>&1 | grep -E "HTTP|SSL|Certificate"
+```
+
+## Performance Optimization
+
+### Monitoring Metrics
+- **Core Web Vitals**: LCP <2.5s, INP <200ms, CLS <0.1
+- **Lighthouse Scores**: 90+ for Performance, Accessibility, Best Practices, SEO
+- **Response Time**: <500ms average
+- **Uptime**: 99.9% availability target
+
+### Performance Features
+- **Container Optimization**: 192MB Alpine Linux base image
+- **Cold Start Optimization**: Standalone Next.js build
+- **CDN**: Google's global edge network
+- **Caching**: Aggressive static asset caching
+- **Compression**: Automatic gzip/brotli compression
+
+## Security
+
+### Container Security
+- **Non-root User**: Container runs as `nextjs:nodejs`
+- **Minimal Base Image**: Alpine Linux with only required packages
+- **Vulnerability Scanning**: Automated scanning in CI/CD
+- **Secret Management**: Environment variables via Cloud Run
+
+### Network Security
+- **HTTPS Enforced**: Automatic HTTP → HTTPS redirects
+- **Security Headers**: CSP, HSTS, X-Frame-Options
+- **CORS Configuration**: Appropriate cross-origin policies
+- **Rate Limiting**: Cloud Run automatic DDoS protection
+
+## Rollback Procedures
+
+### Automatic Rollback
+The CI/CD pipeline includes automatic rollback:
+- Health check failures trigger immediate rollback
+- Previous revision receives 100% traffic
+- Manual verification of rollback success
+
+### Manual Rollback
+```bash
+# List available revisions
+gcloud run revisions list --service tylergohr-portfolio --region us-central1
+
+# Rollback to specific revision
+gcloud run services update-traffic tylergohr-portfolio \
+  --to-revisions REVISION-NAME=100 \
+  --region us-central1
+```
+
+---
+
+**Last Updated**: 2025-06-22  
+**Document Version**: 1.0  
+**Deployment Status**: ✅ Production Ready
 
 ## 📋 Pipeline Architecture
 
