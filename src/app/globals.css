@@ -76,6 +76,8 @@ html {
   -webkit-text-size-adjust: 100%;
   /* Enable CSS scroll-driven animations */
   scroll-timeline: --page-scroll block;
+  /* Prevent horizontal overflow that could affect navigation */
+  overflow-x: hidden;
 }
 
 body {
@@ -681,4 +683,20 @@ body > nav:first-of-type {
   left: 0 !important;
   right: 0 !important;
   z-index: 99999 !important;
+}
+
+/* Scroll Container Protection - Prevent interference with fixed navigation */
+/* Ensure no scroll containers break fixed positioning */
+#app-root {
+  /* Prevent this container from creating scroll context that affects navigation */
+  position: relative;
+  overflow: visible;
+}
+
+/* Additional protection against scroll container stacking context issues */
+main {
+  /* Ensure main content doesn't interfere with fixed navigation */
+  position: relative;
+  /* Remove any overflow that could create scroll containers */
+  overflow: visible !important;
 }

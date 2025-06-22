@@ -3,7 +3,7 @@
 .main {
   /* Enable smooth scroll snap - temporarily disabled for debugging */
   /* scroll-snap-type: y mandatory; */
-  overflow-y: scroll;
+  /* Removed overflow-y: scroll to fix navigation positioning */
   container-type: inline-size;
 }
 

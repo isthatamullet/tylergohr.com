@@ -18,6 +18,14 @@
   /* Defensive positioning to prevent any layout interference */
   isolation: isolate;
   contain: layout style;
+  /* Additional viewport-relative positioning protection */
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  /* Ensure navigation is always visible and interactive */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 /* Fallback for browsers without backdrop-filter support */
