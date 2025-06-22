@@ -355,8 +355,17 @@ jobs:
 
       - name: 'Configure Traffic Allocation'
         run: |
-          # Note: Traffic is automatically configured by deploy-cloudrun action
-          echo "Traffic allocation handled by deploy action - skipping manual configuration"
+          # Ensure new revision gets 100% traffic immediately
+          REVISION="${{ steps.deploy.outputs.revision }}"
+          if [ -n "${REVISION}" ]; then
+            echo "🚀 Allocating 100% traffic to revision: ${REVISION}"
+            gcloud run services update-traffic ${{ env.SERVICE_NAME }} \
+              --region=${{ env.REGION }} \
+              --to-revisions="${REVISION}=100"
+            echo "✅ Traffic allocation completed"
+          else
+            echo "⚠️ No revision found, traffic allocation may have been handled by deploy action"
+          fi
 
       - name: 'Get Service URL and Set Outputs'
         id: get-url
@@ -475,13 +484,13 @@ jobs:
             exit 1
           fi
 
-  # Job 5: Traffic migration
+  # Job 5: Traffic migration (now simplified - main allocation handled in deploy step)
   traffic-migration:
     name: 'Traffic Migration'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     needs: [detect-changes, validate, deploy, health-check]
-    if: needs.detect-changes.outputs.full-pipeline == 'true' && needs.deploy.result == 'success' && (!github.event.inputs.force_deploy || github.event.inputs.force_deploy == 'false')
+    if: needs.detect-changes.outputs.full-pipeline == 'true' && needs.deploy.result == 'success'
 
     steps:
       - name: 'Authenticate to Google Cloud'
@@ -492,33 +501,24 @@ jobs:
       - name: 'Setup Cloud SDK'
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: 'Gradual Traffic Migration'
+      - name: 'Verify Traffic Allocation'
         run: |
           REVISION="${{ needs.deploy.outputs.revision }}"
           
-          # Start with 10% traffic
-          echo "🚀 Migrating 10% traffic to new revision..."
-          gcloud run services update-traffic ${{ env.SERVICE_NAME }} \
+          echo "🔍 Verifying traffic allocation for revision: ${REVISION}"
+          
+          # Check current traffic allocation
+          gcloud run services describe ${{ env.SERVICE_NAME }} \
             --region=${{ env.REGION }} \
-            --to-revisions="${REVISION}=10"
+            --format="table(status.traffic[].revisionName,status.traffic[].percent)"
           
-          sleep 60
-          
-          # Increase to 50% traffic
-          echo "🚀 Migrating 50% traffic to new revision..."
-          gcloud run services update-traffic ${{ env.SERVICE_NAME }} \
-            --region=${{ env.REGION }} \
-            --to-revisions="${REVISION}=50"
-          
-          sleep 60
-          
-          # Full traffic migration
-          echo "🚀 Migrating 100% traffic to new revision..."
+          # Ensure this revision has 100% traffic (failsafe)
+          echo "🚀 Ensuring 100% traffic allocation..."
           gcloud run services update-traffic ${{ env.SERVICE_NAME }} \
             --region=${{ env.REGION }} \
             --to-revisions="${REVISION}=100"
           
-          echo "✅ Traffic migration completed successfully"
+          echo "✅ Traffic verification and allocation completed"
 
       - name: 'Final Health Check'
         run: |
