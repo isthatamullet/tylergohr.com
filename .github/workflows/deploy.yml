@@ -540,7 +540,7 @@ jobs:
   cleanup:
     name: 'Cleanup & Notification'
     runs-on: ubuntu-latest
-    if: always()
+    if: always() && (needs.deploy.result == 'success' || needs.deploy-fast.result == 'success')
     needs: [detect-changes, validate, build, deploy, deploy-fast, health-check, traffic-migration]
 
     steps:
@@ -556,18 +556,41 @@ jobs:
 
       - name: 'Cleanup Old Revisions'
         run: |
-          # Keep only the 5 most recent revisions
+          # Keep only the 5 most recent revisions, but skip actively serving ones
+          echo "🧹 Cleaning up old revisions (keeping 5 most recent)..."
+          
+          # Get currently serving revisions to avoid deleting them
+          SERVING_REVISIONS=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --format="value(status.traffic[].revisionName)" | tr ',' '\n' | sort | uniq)
+          
+          echo "🚦 Currently serving revisions:"
+          echo "${SERVING_REVISIONS}"
+          
+          # Get old revisions to delete (beyond the 5 most recent)
           gcloud run revisions list \
             --service=${{ env.SERVICE_NAME }} \
             --region=${{ env.REGION }} \
             --format="value(metadata.name)" \
             --sort-by="~metadata.creationTimestamp" \
             --limit=100 | tail -n +6 | while read revision; do
-              echo "Deleting old revision: ${revision}"
-              gcloud run revisions delete "${revision}" \
-                --region=${{ env.REGION }} \
-                --quiet
+              
+              # Check if this revision is actively serving traffic
+              if echo "${SERVING_REVISIONS}" | grep -q "^${revision}$"; then
+                echo "⚠️  Skipping actively serving revision: ${revision}"
+              else
+                echo "🗑️  Deleting old revision: ${revision}"
+                if gcloud run revisions delete "${revision}" \
+                  --region=${{ env.REGION }} \
+                  --quiet; then
+                  echo "✅ Successfully deleted: ${revision}"
+                else
+                  echo "❌ Failed to delete: ${revision} (continuing...)"
+                fi
+              fi
             done
+          
+          echo "🧹 Cleanup completed"
         if: needs.deploy.result == 'success' || needs.deploy-fast.result == 'success'
 
       - name: 'Deployment Summary'
