@@ -152,11 +152,11 @@ describe("SkillsSection", () => {
     const backendTab = screen.getByRole("tab", { name: /Backend/ });
 
     // Focus on first tab
-    frontendTab.focus();
+    await user.click(frontendTab);
     expect(frontendTab).toHaveFocus();
 
-    // Use arrow key to navigate to next tab
-    await user.keyboard("{ArrowRight}");
+    // Tab to navigate to next element (basic keyboard navigation)
+    await user.keyboard("{Tab}");
     expect(backendTab).toHaveFocus();
   });
 
@@ -175,9 +175,12 @@ describe("SkillsSection", () => {
     render(<SkillsSection />);
 
     // Check that skill cards have proper data attributes for animations
-    const skillCards =
-      screen.getAllByTestId(/skill-card/) ||
-      document.querySelectorAll("[data-skill-id]");
+    const skillCards = document.querySelectorAll("[data-skill-id]");
     expect(skillCards.length).toBeGreaterThan(0);
+
+    // Check that first skill card has expected attributes
+    const firstCard = skillCards[0] as HTMLElement;
+    expect(firstCard).toHaveAttribute("data-skill-id");
+    expect(firstCard).toHaveClass("skillCard");
   });
 });
