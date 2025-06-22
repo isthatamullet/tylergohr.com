@@ -547,11 +547,11 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY }}
-        if: needs.deploy.result == 'success' || needs.deploy-fast.result == 'success'"
+        if: needs.deploy.result == 'success' || needs.deploy-fast.result == 'success'
 
       - name: 'Setup Cloud SDK'
         uses: google-github-actions/setup-gcloud@v2
-        if: needs.deploy.result == 'success' || needs.deploy-fast.result == 'success'"
+        if: needs.deploy.result == 'success' || needs.deploy-fast.result == 'success'
 
       - name: 'Cleanup Old Revisions'
         run: |
@@ -567,7 +567,7 @@ jobs:
                 --region=${{ env.REGION }} \
                 --quiet
             done
-        if: needs.deploy.result == 'success' || needs.deploy-fast.result == 'success'"
+        if: needs.deploy.result == 'success' || needs.deploy-fast.result == 'success'
 
       - name: 'Deployment Summary'
         uses: actions/github-script@v7
