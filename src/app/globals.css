@@ -9,19 +9,19 @@
   --portfolio-text-primary: #f8fafc;
   --portfolio-text-secondary: #94a3b8;
   --portfolio-interactive: #2563eb;
-  
+
   /* RGB Color Values for Alpha Transparency */
   --portfolio-accent-green-rgb: 22, 163, 74;
   --portfolio-accent-red-rgb: 220, 38, 38;
   --portfolio-text-primary-rgb: 248, 250, 252;
   --portfolio-interactive-rgb: 37, 99, 235;
-  
+
   /* Advanced Color System */
   --portfolio-surface: #1a1a1a;
   --portfolio-surface-hover: #262626;
   --portfolio-border: #333333;
   --portfolio-shadow: rgba(0, 0, 0, 0.5);
-  
+
   /* Typography Scale */
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -33,7 +33,7 @@
   --font-size-4xl: 2.25rem;
   --font-size-5xl: 3rem;
   --font-size-6xl: 3.75rem;
-  
+
   /* Spacing System */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -47,12 +47,12 @@
   --space-16: 4rem;
   --space-20: 5rem;
   --space-24: 6rem;
-  
+
   /* Animation & Transition */
   --transition-fast: 150ms ease-out;
   --transition-normal: 250ms ease-out;
   --transition-slow: 350ms ease-out;
-  
+
   /* Border Radius */
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
@@ -61,8 +61,8 @@
 }
 
 /* Modern CSS Reset */
-*, 
-*::before, 
+*,
+*::before,
 *::after {
   box-sizing: border-box;
   margin: 0;
@@ -81,7 +81,12 @@ html {
 body {
   background-color: var(--portfolio-dark);
   color: var(--portfolio-text-primary);
-  font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    "Roboto",
+    sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -193,7 +198,12 @@ body {
 }
 
 /* Performance-Optimized Typography System */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.025em;
@@ -252,7 +262,7 @@ p {
 }
 
 /* Interactive Elements */
-button, 
+button,
 [role="button"] {
   cursor: pointer;
   border: none;
@@ -297,8 +307,8 @@ a:focus-visible {
 .hero-title {
   font-size: var(--font-size-5xl);
   background: linear-gradient(
-    135deg, 
-    var(--portfolio-text-primary) 0%, 
+    135deg,
+    var(--portfolio-text-primary) 0%,
     var(--portfolio-accent-green) 100%
   );
   background-clip: text;
@@ -326,7 +336,7 @@ a:focus-visible {
   .hero-title {
     font-size: var(--font-size-6xl);
   }
-  
+
   .hero-subtitle {
     font-size: var(--font-size-2xl);
   }
@@ -345,12 +355,12 @@ a:focus-visible {
     scroll-behavior: auto !important;
     transform: none !important;
   }
-  
+
   html {
     scroll-behavior: auto;
     timeline-scope: none;
   }
-  
+
   body {
     scroll-timeline: none;
   }
@@ -367,22 +377,25 @@ a:focus-visible {
     --portfolio-accent-red: #ff0000;
     --portfolio-interactive: #0080ff;
   }
-  
+
   /* High contrast button styles */
-  button, [role="button"] {
+  button,
+  [role="button"] {
     border: 2px solid currentColor !important;
     background: var(--portfolio-dark) !important;
     color: var(--portfolio-text-primary) !important;
   }
-  
+
   /* High contrast link styles */
   a {
     color: var(--portfolio-interactive) !important;
     text-decoration: underline !important;
   }
-  
+
   /* Enhanced form control visibility */
-  input, select, textarea {
+  input,
+  select,
+  textarea {
     border: 2px solid var(--portfolio-text-primary) !important;
     background: var(--portfolio-dark) !important;
     color: var(--portfolio-text-primary) !important;
@@ -491,7 +504,7 @@ textarea:focus-visible {
     outline-offset: 3px !important;
     background: rgba(0, 128, 255, 0.2) !important;
   }
-  
+
   button:focus-visible,
   [role="button"]:focus-visible {
     outline: 4px solid var(--portfolio-interactive) !important;
@@ -500,18 +513,17 @@ textarea:focus-visible {
   }
 }
 
-
 /* CSS Scroll-Driven Animations - 2025 Cutting-Edge */
 @supports (animation-timeline: scroll()) {
   /* Global scroll timeline */
   html {
     timeline-scope: --page-scroll;
   }
-  
+
   body {
     scroll-timeline: --page-scroll block;
   }
-  
+
   /* Fade in on scroll animations - FIXED FOR VISIBILITY */
   .fade-in-on-scroll {
     opacity: 1; /* Changed from 0 to 1 for immediate visibility */
@@ -520,7 +532,7 @@ textarea:focus-visible {
     animation-timeline: view();
     animation-range: entry 0% entry 50%; */
   }
-  
+
   /* Scale in on scroll - FIXED FOR VISIBILITY */
   .scale-in-on-scroll {
     opacity: 1; /* Changed from 0 to 1 for immediate visibility */
@@ -529,7 +541,7 @@ textarea:focus-visible {
     animation-timeline: view();
     animation-range: entry 0% entry 60%; */
   }
-  
+
   /* Slide in from left - FIXED FOR VISIBILITY */
   .slide-in-left {
     opacity: 1; /* Changed from 0 to 1 for immediate visibility */
@@ -538,7 +550,7 @@ textarea:focus-visible {
     animation-timeline: view();
     animation-range: entry 0% entry 50%; */
   }
-  
+
   /* Slide in from right - FIXED FOR VISIBILITY */
   .slide-in-right {
     opacity: 1; /* Changed from 0 to 1 for immediate visibility */
@@ -601,11 +613,11 @@ textarea:focus-visible {
     transform: none !important;
     animation: none !important;
   }
-  
+
   html {
     timeline-scope: none;
   }
-  
+
   body {
     scroll-timeline: none;
   }

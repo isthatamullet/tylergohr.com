@@ -30,7 +30,11 @@
 
 /* TG Logo */
 .logo {
-  background: linear-gradient(135deg, var(--portfolio-accent-green), var(--portfolio-accent-red));
+  background: linear-gradient(
+    135deg,
+    var(--portfolio-accent-green),
+    var(--portfolio-accent-red)
+  );
   border: none;
   border-radius: 8px;
   padding: 0.5rem 0.75rem;
@@ -81,13 +85,17 @@
 }
 
 .navLink::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--portfolio-accent-green), var(--portfolio-accent-red));
+  background: linear-gradient(
+    90deg,
+    var(--portfolio-accent-green),
+    var(--portfolio-accent-red)
+  );
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
