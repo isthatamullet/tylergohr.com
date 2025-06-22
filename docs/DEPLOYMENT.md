@@ -4,6 +4,14 @@
 
 This guide documents the complete deployment process for the Tyler Gohr portfolio website from development to production on Google Cloud Run with custom domain setup.
 
+## ⚡ Pipeline Optimization
+
+The deployment pipeline now includes intelligent optimization for faster development velocity:
+
+- **Fast-Track Pipeline (2-3 minutes)**: Content, documentation, and styling changes
+- **Full Pipeline (8-12 minutes)**: Code, dependencies, and infrastructure changes
+- **Smart Detection**: Automatically chooses appropriate pipeline based on file changes
+
 ## Architecture
 
 - **Framework**: Next.js 14+ with App Router and TypeScript
