@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import PerformanceOptimizations from '@/components/PerformanceOptimizations'
 import WebVitals from '@/components/WebVitals'
+import TopNavigation from '@/components/TopNavigation'
 
 export const metadata: Metadata = {
   title: 'Tyler Gohr - Full-Stack Developer & Creative Problem Solver',
@@ -144,6 +145,9 @@ export default function RootLayout({
         
         {/* Web Vitals monitoring */}
         <WebVitals />
+        
+        {/* Top Navigation */}
+        <TopNavigation />
         
         {/* Main application content */}
         <div id="app-root">

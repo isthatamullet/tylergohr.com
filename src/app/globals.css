@@ -610,3 +610,38 @@ textarea:focus-visible {
     scroll-timeline: none;
   }
 }
+
+/* Navigation-specific styles */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset scrolling to account for fixed navigation */
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Ensure fixed navigation doesn't cover content */
+#app-root {
+  position: relative;
+}
+
+/* Skip navigation link for accessibility */
+.skip-nav {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--portfolio-accent-green);
+  color: var(--portfolio-dark);
+  padding: 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  z-index: 1001;
+  transition: top 0.3s ease;
+}
+
+.skip-nav:focus {
+  top: 6px;
+  outline: 2px solid var(--portfolio-text-primary);
+}

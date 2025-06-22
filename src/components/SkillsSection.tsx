@@ -87,7 +87,7 @@ export default function SkillsSection() {
   const activeSkills = skillCategories.find(cat => cat.name === activeCategory)?.skills || []
 
   return (
-    <section className={styles.skillsSection} aria-labelledby="skills-title">
+    <section id="skills" className={styles.skillsSection} aria-labelledby="skills-title">
       <div className="container">
         <div className={styles.skillsHeader}>
           <h2 id="skills-title" className={styles.sectionTitle}>

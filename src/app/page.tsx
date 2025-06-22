@@ -34,6 +34,7 @@ export default function HomePage() {
     <main id="main-content" className={styles.main} role="main">
       {/* Hero Section with Parallax Background */}
       <section 
+        id="about"
         className={styles.heroSection}
         aria-labelledby="hero-title"
         role="banner"
@@ -87,6 +88,7 @@ export default function HomePage() {
 
       {/* Project Showcase Section */}
       <section 
+        id="projects"
         role="region" 
         aria-labelledby="projects-title"
         aria-describedby="projects-description"

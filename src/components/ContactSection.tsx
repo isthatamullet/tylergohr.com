@@ -58,7 +58,7 @@ export default function ContactSection() {
                      formData.message.trim()
 
   return (
-    <section className={styles.contactSection} aria-labelledby="contact-title">
+    <section id="contact" className={styles.contactSection} aria-labelledby="contact-title">
       <div className="container">
         <div className={styles.contactHeader}>
           <h2 id="contact-title" className={styles.sectionTitle}>
