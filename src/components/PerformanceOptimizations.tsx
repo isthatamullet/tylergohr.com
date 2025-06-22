@@ -58,8 +58,9 @@ export default function PerformanceOptimizations() {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const img = entry.target as HTMLImageElement
-              if (img.getAttribute('data-src')) {
-                img.src = img.getAttribute('data-src')!
+              const dataSrc = img.getAttribute('data-src')
+              if (dataSrc && (dataSrc.startsWith('http://') || dataSrc.startsWith('https://') || dataSrc.startsWith('/'))) {
+                img.src = dataSrc
                 img.removeAttribute('data-src')
               }
               imageObserver.unobserve(img)

@@ -78,6 +78,8 @@ jobs:
           
       - name: 'Detect Change Strategy'
         id: changes
+        env:
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
         run: |
           # Check for manual override via workflow dispatch
           MANUAL_STRATEGY="${{ github.event.inputs.pipeline_strategy }}"
@@ -98,8 +100,7 @@ jobs:
             exit 0
           fi
           
-          # Check for commit message overrides
-          COMMIT_MSG="${{ github.event.head_commit.message }}"
+          # Check for commit message overrides (secure: using env var instead of direct interpolation)
           
           if [[ "$COMMIT_MSG" == *"[full-pipeline]"* ]]; then
             echo "🔄 Commit message override: forcing full pipeline"
