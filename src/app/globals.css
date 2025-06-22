@@ -642,22 +642,31 @@ section[id] {
 
 /* Skip navigation link for accessibility */
 .skip-nav {
-  position: absolute;
-  top: -40px;
-  left: 6px;
+  position: fixed;
+  top: -50px;
+  left: 8px;
   background: var(--portfolio-accent-green);
   color: var(--portfolio-dark);
-  padding: 8px;
-  border-radius: 4px;
+  padding: 10px 16px;
+  border-radius: 6px;
   text-decoration: none;
   font-weight: 600;
-  z-index: 1001;
+  font-size: 14px;
+  z-index: 100000;
   transition: top 0.3s ease;
+  /* Ensure it only appears on keyboard focus, never during scroll */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
 }
 
 .skip-nav:focus {
-  top: 6px;
-  outline: 2px solid var(--portfolio-text-primary);
+  top: 8px;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  outline: 3px solid var(--portfolio-text-primary);
+  outline-offset: 2px;
 }
 
 /* Navigation Visibility Protection - Defensive CSS Rules */
