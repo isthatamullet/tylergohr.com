@@ -1,0 +1,14 @@
+# Dependabot configuration for tylergohr.com portfolio
+# Using 2025 best practices for Next.js/TypeScript projects
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    # Enable security updates (2025 best practice)
+    security-updates:
+      enabled: true
+    reviewers:
+      - "isthatamullet"
