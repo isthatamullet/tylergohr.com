@@ -677,6 +677,12 @@ nav[role="navigation"]:first-of-type,
   visibility: visible !important;
   opacity: 1 !important;
   pointer-events: auto !important;
+  /* CRITICAL: Isolate navigation from scroll-driven animations */
+  timeline-scope: none !important;
+  animation-timeline: none !important;
+  scroll-timeline: none !important;
+  /* Prevent any scroll context from affecting navigation */
+  contain: layout style !important;
 }
 
 /* Prevent any element from overlaying the navigation area */
