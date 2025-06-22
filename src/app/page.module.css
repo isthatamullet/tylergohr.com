@@ -48,7 +48,11 @@
 }
 
 .parallaxLayer1 {
-  background: radial-gradient(circle, var(--portfolio-accent-green) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    var(--portfolio-accent-green) 0%,
+    transparent 70%
+  );
   top: 10%;
   left: -20%;
   width: 40%;
@@ -57,7 +61,11 @@
 }
 
 .parallaxLayer2 {
-  background: radial-gradient(circle, var(--portfolio-interactive) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    var(--portfolio-interactive) 0%,
+    transparent 70%
+  );
   top: 60%;
   right: -20%;
   width: 50%;
@@ -66,7 +74,11 @@
 }
 
 .parallaxLayer3 {
-  background: radial-gradient(circle, var(--portfolio-accent-red) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    var(--portfolio-accent-red) 0%,
+    transparent 70%
+  );
   top: 30%;
   left: 60%;
   width: 30%;
@@ -90,8 +102,8 @@
   /* Fallback color for browsers that don't support background-clip */
   color: var(--portfolio-text-primary);
   background: linear-gradient(
-    135deg, 
-    var(--portfolio-text-primary) 0%, 
+    135deg,
+    var(--portfolio-text-primary) 0%,
     var(--portfolio-accent-green) 50%,
     var(--portfolio-interactive) 100%
   );
@@ -138,7 +150,7 @@
   .heroContent {
     gap: var(--space-8);
   }
-  
+
   .heroTitle {
     letter-spacing: -0.08em;
   }
@@ -148,7 +160,7 @@
   .heroSection {
     padding-block: var(--space-24);
   }
-  
+
   .heroContent {
     gap: var(--space-10);
   }
@@ -245,7 +257,7 @@
     -webkit-background-clip: unset;
     -webkit-text-fill-color: unset;
   }
-  
+
   .portfolioItem {
     border-width: 2px;
   }
@@ -264,14 +276,16 @@
 }
 
 .aboutSection {
-  background: linear-gradient(135deg, 
-    rgba(26, 26, 26, 0.8) 0%, 
+  background: linear-gradient(
+    135deg,
+    rgba(26, 26, 26, 0.8) 0%,
     rgba(10, 10, 10, 0.9) 100%
   );
 }
 
 .projectSection {
-  background: linear-gradient(135deg,
+  background: linear-gradient(
+    135deg,
     rgba(10, 10, 10, 0.95) 0%,
     rgba(26, 26, 26, 0.8) 100%
   );
@@ -285,7 +299,7 @@
   border-radius: var(--radius-xl);
   padding: var(--space-12);
   max-width: 42rem;
-  box-shadow: 
+  box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   transition: all var(--transition-normal);
@@ -307,7 +321,7 @@
   /* Sophisticated morphing with 3D perspective */
   transform: translateY(-0.75rem) scale(1.03) perspective(1000px) rotateY(2deg);
   /* Multi-layered morphing shadows */
-  box-shadow: 
+  box-shadow:
     0 20px 80px rgba(0, 0, 0, 0.5),
     0 10px 40px rgba(22, 163, 74, 0.2),
     0 5px 20px rgba(37, 99, 235, 0.1),
@@ -331,8 +345,9 @@
 .sectionTitle {
   font-size: clamp(var(--font-size-3xl), 6vw, var(--font-size-5xl));
   margin-bottom: var(--space-6);
-  background: linear-gradient(135deg, 
-    var(--portfolio-text-primary) 0%, 
+  background: linear-gradient(
+    135deg,
+    var(--portfolio-text-primary) 0%,
     var(--portfolio-accent-green) 100%
   );
   background-clip: text;
@@ -371,7 +386,7 @@
   transform: translateY(-0.25rem);
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(37, 99, 235, 0.4);
-  box-shadow: 
+  box-shadow:
     0 12px 48px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
@@ -415,19 +430,36 @@
 
 /* Floating Animations */
 @keyframes float1 {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  33% { transform: translate(30px, -30px) rotate(120deg); }
-  66% { transform: translate(-20px, 20px) rotate(240deg); }
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(30px, -30px) rotate(120deg);
+  }
+  66% {
+    transform: translate(-20px, 20px) rotate(240deg);
+  }
 }
 
 @keyframes float2 {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  50% { transform: translate(-40px, -20px) rotate(180deg); }
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate(-40px, -20px) rotate(180deg);
+  }
 }
 
 @keyframes float3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(20px, -40px) scale(1.1); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -40px) scale(1.1);
+  }
 }
 
 /* Container Query Responsive Enhancements */
@@ -435,7 +467,7 @@
   .glassCard {
     padding: var(--space-16);
   }
-  
+
   .projectGrid {
     grid-template-columns: 1fr;
   }
@@ -455,20 +487,20 @@
   .heroDescription {
     animation: none;
   }
-  
+
   .portfolioItem:hover,
   .glassCard:hover,
   .projectCard:hover,
   .techItem:hover {
     transform: none;
   }
-  
+
   .parallaxLayer1,
   .parallaxLayer2,
   .parallaxLayer3 {
     animation: none;
   }
-  
+
   .main {
     scroll-snap-type: none;
   }

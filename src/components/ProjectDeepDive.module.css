@@ -2,7 +2,8 @@
 
 .deepDive {
   min-height: 100vh;
-  background: linear-gradient(135deg,
+  background: linear-gradient(
+    135deg,
     rgba(10, 10, 10, 0.98) 0%,
     rgba(26, 26, 26, 0.95) 50%,
     rgba(10, 10, 10, 0.98) 100%
@@ -24,14 +25,23 @@
 }
 
 .deepDiveHeader::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(22, 163, 74, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 70% 80%, rgba(37, 99, 235, 0.1) 0%, transparent 50%);
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      rgba(22, 163, 74, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 70% 80%,
+      rgba(37, 99, 235, 0.1) 0%,
+      transparent 50%
+    );
   z-index: -1;
 }
 
@@ -52,8 +62,9 @@
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: var(--space-4);
-  background: linear-gradient(135deg, 
-    var(--portfolio-text-primary) 0%, 
+  background: linear-gradient(
+    135deg,
+    var(--portfolio-text-primary) 0%,
     var(--portfolio-accent-green) 50%,
     var(--portfolio-interactive) 100%
   );
@@ -138,7 +149,11 @@
 }
 
 .navTab.active {
-  background: linear-gradient(135deg, var(--portfolio-accent-green), var(--portfolio-interactive));
+  background: linear-gradient(
+    135deg,
+    var(--portfolio-accent-green),
+    var(--portfolio-interactive)
+  );
   color: white;
   border-color: transparent;
 }
@@ -205,7 +220,11 @@
 }
 
 .stepNumber {
-  background: linear-gradient(135deg, var(--portfolio-accent-green), var(--portfolio-interactive));
+  background: linear-gradient(
+    135deg,
+    var(--portfolio-accent-green),
+    var(--portfolio-interactive)
+  );
   color: white;
   width: 2rem;
   height: 2rem;
@@ -424,11 +443,11 @@
     flex-direction: column;
     gap: var(--space-6);
   }
-  
+
   .closeButton {
     align-self: end;
   }
-  
+
   .navTabs {
     justify-content: start;
   }
@@ -438,11 +457,11 @@
   .deepDiveHeader {
     padding-block: var(--space-24);
   }
-  
+
   .content {
     padding-block: var(--space-20);
   }
-  
+
   .techCategories {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -465,11 +484,11 @@
     -webkit-background-clip: unset;
     -webkit-text-fill-color: unset;
   }
-  
+
   .navigation {
     border-bottom-width: 2px;
   }
-  
+
   .challengeCard,
   .solution,
   .innovationCard,

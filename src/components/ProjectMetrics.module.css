@@ -29,9 +29,9 @@
 .metricCard:hover {
   transform: translateY(-0.25rem) scale(1.02);
   border-color: var(--metric-color, var(--portfolio-interactive));
-  box-shadow: 
+  box-shadow:
     0 12px 32px rgba(0, 0, 0, 0.3),
-    0 0 0 1px var(--metric-color, var(--portfolio-interactive))20;
+    0 0 0 1px var(--metric-color, var(--portfolio-interactive)) 20;
 }
 
 .metricContent {
@@ -102,7 +102,8 @@
 }
 
 @keyframes pulseAccent {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.05;
     transform: scale(1);
   }
@@ -150,7 +151,7 @@
   .metricsContainer {
     padding: var(--space-12);
   }
-  
+
   .metricsGrid {
     gap: var(--space-8);
   }
@@ -203,31 +204,41 @@
 }
 
 /* Stagger the entrance animations */
-.metricCard:nth-child(1) { animation-delay: 0ms; }
-.metricCard:nth-child(2) { animation-delay: 100ms; }
-.metricCard:nth-child(3) { animation-delay: 200ms; }
-.metricCard:nth-child(4) { animation-delay: 300ms; }
-.metricCard:nth-child(5) { animation-delay: 400ms; }
+.metricCard:nth-child(1) {
+  animation-delay: 0ms;
+}
+.metricCard:nth-child(2) {
+  animation-delay: 100ms;
+}
+.metricCard:nth-child(3) {
+  animation-delay: 200ms;
+}
+.metricCard:nth-child(4) {
+  animation-delay: 300ms;
+}
+.metricCard:nth-child(5) {
+  animation-delay: 400ms;
+}
 
 /* Motion preferences */
 @media (prefers-reduced-motion: reduce) {
   .metricCard:hover {
     transform: none;
   }
-  
+
   .metricAccent {
     animation: none;
     opacity: 0.1;
   }
-  
+
   .metricCard {
     animation: none;
   }
-  
+
   .value {
     transition: none;
   }
-  
+
   .metricCard.loading .value {
     animation: none;
   }
@@ -239,9 +250,9 @@
     border-width: 2px;
     background: rgba(255, 255, 255, 0.1);
   }
-  
+
   .metricCard:hover {
-    box-shadow: 
+    box-shadow:
       0 12px 32px rgba(0, 0, 0, 0.5),
       0 0 0 3px var(--metric-color, var(--portfolio-interactive));
   }
@@ -253,11 +264,11 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
   }
-  
+
   .metricCard:hover {
-    box-shadow: 
+    box-shadow:
       0 20px 40px rgba(0, 0, 0, 0.4),
-      0 0 0 1px var(--metric-color, var(--portfolio-interactive))30,
+      0 0 0 1px var(--metric-color, var(--portfolio-interactive)) 30,
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 }

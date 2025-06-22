@@ -1,71 +1,83 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import styles from './ContactSection.module.css'
+import { useState } from "react";
+import styles from "./ContactSection.module.css";
 
 interface ContactFormData {
-  name: string
-  email: string
-  subject: string
-  message: string
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
 }
 
 const initialFormData: ContactFormData = {
-  name: '',
-  email: '',
-  subject: '',
-  message: ''
-}
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+};
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState<ContactFormData>(initialFormData)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [formData, setFormData] = useState<ContactFormData>(initialFormData);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
-    }))
-  }
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus('idle')
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
 
     try {
       // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      // Here you would integrate with your preferred form handling service
-      console.log('Form submitted:', formData)
-      
-      setSubmitStatus('success')
-      setFormData(initialFormData)
-    } catch (error) {
-      console.error('Form submission error:', error)
-      setSubmitStatus('error')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const isFormValid = formData.name.trim() && 
-                     formData.email.trim() && 
-                     formData.subject.trim() && 
-                     formData.message.trim()
+      // Here you would integrate with your preferred form handling service
+      console.log("Form submitted:", formData);
+
+      setSubmitStatus("success");
+      setFormData(initialFormData);
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const isFormValid =
+    formData.name.trim() &&
+    formData.email.trim() &&
+    formData.subject.trim() &&
+    formData.message.trim();
 
   return (
-    <section className={styles.contactSection} aria-labelledby="contact-title">
+    <section
+      id="contact"
+      className={styles.contactSection}
+      aria-labelledby="contact-title"
+    >
       <div className="container">
         <div className={styles.contactHeader}>
           <h2 id="contact-title" className={styles.sectionTitle}>
             Let&apos;s Connect
           </h2>
           <p className={styles.sectionSubtitle}>
-            Ready to discuss your next project or explore collaboration opportunities?
+            Ready to discuss your next project or explore collaboration
+            opportunities?
           </p>
         </div>
 
@@ -121,8 +133,12 @@ export default function ContactSection() {
                 >
                   <option value="">Select a subject</option>
                   <option value="project-inquiry">New Project Inquiry</option>
-                  <option value="collaboration">Collaboration Opportunity</option>
-                  <option value="technical-discussion">Technical Discussion</option>
+                  <option value="collaboration">
+                    Collaboration Opportunity
+                  </option>
+                  <option value="technical-discussion">
+                    Technical Discussion
+                  </option>
                   <option value="other">Other</option>
                 </select>
               </div>
@@ -147,28 +163,31 @@ export default function ContactSection() {
               <div className={styles.formActions}>
                 <button
                   type="submit"
-                  className={`${styles.submitButton} ${isSubmitting ? styles.submitting : ''}`}
+                  className={`${styles.submitButton} ${isSubmitting ? styles.submitting : ""}`}
                   disabled={!isFormValid || isSubmitting}
                   aria-describedby="submit-status"
                 >
                   {isSubmitting ? (
                     <>
-                      <span className={styles.loadingSpinner} aria-hidden="true" />
+                      <span
+                        className={styles.loadingSpinner}
+                        aria-hidden="true"
+                      />
                       Sending...
                     </>
                   ) : (
-                    'Send Message'
+                    "Send Message"
                   )}
                 </button>
               </div>
 
-              {submitStatus === 'success' && (
+              {submitStatus === "success" && (
                 <div className={styles.successMessage} role="alert">
                   ✨ Message sent successfully! I&apos;ll get back to you soon.
                 </div>
               )}
 
-              {submitStatus === 'error' && (
+              {submitStatus === "error" && (
                 <div className={styles.errorMessage} role="alert">
                   ❌ There was an error sending your message. Please try again.
                 </div>
@@ -186,7 +205,7 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.infoLink}
-                  aria-label="Visit Tyler&apos;s GitHub profile"
+                  aria-label="Visit Tyler's GitHub profile"
                 >
                   <span className={styles.linkIcon}>🔗</span>
                   <span className={styles.linkText}>
@@ -253,5 +272,5 @@ export default function ContactSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

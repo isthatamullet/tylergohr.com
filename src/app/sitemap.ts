@@ -1,13 +1,13 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://tylergohr.com'
-  
+  const baseUrl = "https://tylergohr.com";
+
   return [
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: "monthly",
       priority: 1,
     },
     // Add more pages as they are created
@@ -29,5 +29,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     //   changeFrequency: 'monthly',
     //   priority: 0.6,
     // },
-  ]
+  ];
 }
