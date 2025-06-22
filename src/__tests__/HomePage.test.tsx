@@ -52,7 +52,15 @@ jest.mock("@/lib/projects", () => {
         architecture: [],
         challenges: [],
         codeExamples: [],
-        metrics: [],
+        metrics: [
+          {
+            label: "Performance Boost",
+            value: "40",
+            unit: "%",
+            improvement: "faster processing",
+            color: "var(--portfolio-accent-green)",
+          },
+        ],
         timeline: {
           started: "2023-01",
           completed: "2023-08",

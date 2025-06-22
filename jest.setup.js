@@ -43,3 +43,18 @@ global.CSS = {
 
 // Mock scrollTo
 global.scrollTo = jest.fn();
+
+// Suppress React key warnings in tests only
+const originalError = console.error;
+beforeAll(() => {
+  console.error = (...args) => {
+    if (typeof args[0] === 'string' && args[0].includes('Each child in a list should have a unique "key" prop')) {
+      return;
+    }
+    originalError.call(console, ...args);
+  };
+});
+
+afterAll(() => {
+  console.error = originalError;
+});
