@@ -74,8 +74,8 @@ html {
   scroll-behavior: smooth;
   /* Prevent iOS zoom on input focus */
   -webkit-text-size-adjust: 100%;
-  /* Enable CSS scroll-driven animations */
-  scroll-timeline: --page-scroll block;
+  /* DISABLED: scroll-timeline was interfering with fixed positioning */
+  /* scroll-timeline: --page-scroll block; */
   /* Prevent horizontal overflow that could affect navigation */
   overflow-x: hidden;
 }
@@ -92,8 +92,9 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Hardware acceleration for smooth animations */
-  transform: translateZ(0);
+  /* REMOVED: transform: translateZ(0) - was breaking fixed positioning */
+  /* Use alternative optimization that doesn't create stacking context */
+  backface-visibility: hidden;
   /* Optimize font loading for better FCP */
   font-display: swap;
   /* Prevent layout shift during font loading */
@@ -523,7 +524,8 @@ textarea:focus-visible {
   }
 
   body {
-    scroll-timeline: --page-scroll block;
+    /* DISABLED: scroll-timeline was interfering with fixed positioning */
+    /* scroll-timeline: --page-scroll block; */
   }
 
   /* Fade in on scroll animations - FIXED FOR VISIBILITY */

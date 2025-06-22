@@ -113,9 +113,10 @@
   /* Enhanced Safari compatibility for gradient text */
   -webkit-background-size: 100% 100%;
   background-size: 100% 100%;
-  /* Force hardware acceleration for smoother rendering */
-  transform: translateZ(0);
-  will-change: transform;
+  /* REMOVED: transform: translateZ(0) - was creating stacking context issues */
+  /* Use alternative optimization that doesn't create stacking context */
+  backface-visibility: hidden;
+  will-change: auto;
   /* Safari-safe animation - transform only, no opacity conflict */
   animation: heroTitleSlideIn 1s ease-out;
 }
@@ -240,14 +241,14 @@
   }
 }
 
-/* Scroll-driven animations preparation */
-@supports (animation-timeline: scroll()) {
+/* Scroll-driven animations preparation - DISABLED to fix navigation */
+/* @supports (animation-timeline: scroll()) {
   .heroTitle {
     animation: heroTitleSlideIn linear;
     animation-timeline: scroll();
     animation-range: entry 0% entry 50%;
   }
-}
+} */
 
 /* High contrast mode adjustments */
 @media (prefers-contrast: high) {
