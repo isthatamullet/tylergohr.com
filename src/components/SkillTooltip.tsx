@@ -53,7 +53,7 @@ export default function SkillTooltip({
   return (
     <div
       ref={tooltipRef}
-      className={`${styles.tooltip} ${isVisible ? styles.visible : ""}`}
+      className={`${styles.tooltip} ${styles.visible}`}
       style={
         {
           "--tooltip-x": `${adjustedPosition.x}px`,
