@@ -16,7 +16,7 @@
   overflow: hidden;
   /* True vertical centering - account for navigation height in the centering calculation */
   padding-top: 70px; /* Navigation height offset */
-  margin-top: -35px; /* Pull back half the navigation height for true center */
+  margin-top: -110px; /* Adjusted to move hero section up by ~1 inch (75px more) */
   /* scroll-snap-align: start; */
 }
 
@@ -96,6 +96,13 @@
   justify-content: center;
   align-items: center;
   min-height: inherit;
+}
+
+/* Mobile-specific hero positioning for better visibility */
+@media (max-width: 639px) {
+  .heroSection {
+    margin-top: -150px; /* More aggressive positioning on mobile for visible change */
+  }
 }
 
 /* Responsive padding for hero container */
