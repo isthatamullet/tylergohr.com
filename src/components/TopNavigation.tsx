@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import Link from "next/link";
 import styles from "./TopNavigation.module.css";
 
 interface NavigationProps {
@@ -120,10 +121,11 @@ export default function TopNavigation({ className = "" }: NavigationProps) {
 
   // Navigation links configuration
   const navLinks = [
-    { id: "about", label: "About", href: "#about" },
-    { id: "skills", label: "Technical", href: "#skills" },
-    { id: "projects", label: "Projects", href: "#projects" },
-    { id: "contact", label: "Contact", href: "#contact" },
+    { id: "about", label: "About", href: "#about", type: "section" },
+    { id: "skills", label: "Technical", href: "#skills", type: "section" },
+    { id: "projects", label: "Projects", href: "#projects", type: "section" },
+    { id: "blog", label: "Blog", href: "/blog", type: "page" },
+    { id: "contact", label: "Contact", href: "#contact", type: "section" },
   ];
 
   return (
@@ -145,15 +147,26 @@ export default function TopNavigation({ className = "" }: NavigationProps) {
         {/* Desktop Navigation Links */}
         <div className={styles.desktopNav}>
           {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => scrollToSection(link.id)}
-              className={`${styles.navLink} ${activeSection === link.id ? styles.active : ""}`}
-              aria-label={`Navigate to ${link.label} section`}
-              aria-current={activeSection === link.id ? "page" : undefined}
-            >
-              {link.label}
-            </button>
+            link.type === "page" ? (
+              <Link
+                key={link.id}
+                href={link.href}
+                className={styles.navLink}
+                aria-label={`Navigate to ${link.label} page`}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <button
+                key={link.id}
+                onClick={() => scrollToSection(link.id)}
+                className={`${styles.navLink} ${activeSection === link.id ? styles.active : ""}`}
+                aria-label={`Navigate to ${link.label} section`}
+                aria-current={activeSection === link.id ? "page" : undefined}
+              >
+                {link.label}
+              </button>
+            )
           ))}
         </div>
 
@@ -185,16 +198,29 @@ export default function TopNavigation({ className = "" }: NavigationProps) {
           aria-hidden={!isMenuOpen}
         >
           {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => scrollToSection(link.id)}
-              className={`${styles.mobileNavLink} ${activeSection === link.id ? styles.active : ""}`}
-              tabIndex={isMenuOpen ? 0 : -1}
-              aria-label={`Navigate to ${link.label} section`}
-              aria-current={activeSection === link.id ? "page" : undefined}
-            >
-              {link.label}
-            </button>
+            link.type === "page" ? (
+              <Link
+                key={link.id}
+                href={link.href}
+                className={styles.mobileNavLink}
+                tabIndex={isMenuOpen ? 0 : -1}
+                aria-label={`Navigate to ${link.label} page`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <button
+                key={link.id}
+                onClick={() => scrollToSection(link.id)}
+                className={`${styles.mobileNavLink} ${activeSection === link.id ? styles.active : ""}`}
+                tabIndex={isMenuOpen ? 0 : -1}
+                aria-label={`Navigate to ${link.label} section`}
+                aria-current={activeSection === link.id ? "page" : undefined}
+              >
+                {link.label}
+              </button>
+            )
           ))}
         </div>
 
