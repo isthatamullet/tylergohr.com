@@ -1,6 +1,11 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import TopNavigation from '@/components/TopNavigation';
 
+// Mock Next.js usePathname hook
+jest.mock('next/navigation', () => ({
+  usePathname: () => '/',
+}));
+
 // Mock scrollIntoView
 Object.defineProperty(window, 'scrollTo', {
   value: jest.fn(),
@@ -24,7 +29,7 @@ describe('TopNavigation', () => {
   it('renders navigation with TG logo', () => {
     render(<TopNavigation />);
     
-    const logo = screen.getByRole('button', { name: /tyler gohr - return to top/i });
+    const logo = screen.getByRole('button', { name: /tyler gohr - return to homepage/i });
     expect(logo).toBeInTheDocument();
     expect(logo).toHaveTextContent('TG');
   });
@@ -35,6 +40,7 @@ describe('TopNavigation', () => {
     expect(screen.getByRole('button', { name: /navigate to about section/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /navigate to technical section/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /navigate to projects section/i })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /navigate to blog page/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /navigate to contact section/i })).toBeInTheDocument();
   });
 
