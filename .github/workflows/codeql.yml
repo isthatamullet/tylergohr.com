@@ -33,8 +33,12 @@ jobs:
       uses: github/codeql-action/init@v3
       with:
         languages: ${{ matrix.language }}
-        # Use default CodeQL query suite for comprehensive analysis
-        queries: security-and-quality
+        # Enhanced query suite for comprehensive security analysis
+        queries: +security-extended,security-and-quality
+        # Include additional security packs for JavaScript/TypeScript
+        packs: |
+          codeql/javascript-queries:security-experimental
+          codeql/javascript-queries:security-and-quality
 
     - name: Autobuild
       uses: github/codeql-action/autobuild@v3
