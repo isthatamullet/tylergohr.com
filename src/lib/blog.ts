@@ -84,6 +84,10 @@ async function parseMarkdownFile(filePath: string): Promise<BlogPost | null> {
         featured: Boolean(data.featured),
         author: data.author,
         readTime: data.readTime || '5 min read',
+        image: data.image,
+        imageAlt: data.imageAlt,
+        imageFocalPoint: data.imageFocalPoint || 'center',
+        thumbnailFocalPoint: data.thumbnailFocalPoint || data.imageFocalPoint || 'center',
       } as BlogPostFrontmatter,
       content: processedContent,
       filePath,
@@ -114,6 +118,10 @@ export async function getAllPosts(): Promise<BlogPostMetadata[]> {
         author: post.frontmatter.author,
         readTime: post.frontmatter.readTime,
         filePath: post.filePath,
+        image: post.frontmatter.image,
+        imageAlt: post.frontmatter.imageAlt,
+        imageFocalPoint: post.frontmatter.imageFocalPoint,
+        thumbnailFocalPoint: post.frontmatter.thumbnailFocalPoint,
       });
     }
   }

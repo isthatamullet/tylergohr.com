@@ -147,6 +147,28 @@
   transform: translateY(-1px);
 }
 
+/* Featured Image - 16:9 between tags and content */
+.featuredImageContainer {
+  margin: 2rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(var(--portfolio-text-primary-rgb), 0.02);
+  border: 1px solid rgba(var(--portfolio-text-primary-rgb), 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.featuredImage {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.featuredImageContainer:hover .featuredImage {
+  transform: scale(1.02);
+}
+
 /* Main Content */
 .main {
   max-width: 800px;
