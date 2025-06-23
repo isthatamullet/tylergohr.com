@@ -98,6 +98,13 @@
   min-height: inherit;
 }
 
+/* Mobile-specific hero positioning for better visibility */
+@media (max-width: 639px) {
+  .heroSection {
+    margin-top: -150px; /* More aggressive positioning on mobile for visible change */
+  }
+}
+
 /* Responsive padding for hero container */
 @media (min-width: 640px) {
   .heroContainer {
