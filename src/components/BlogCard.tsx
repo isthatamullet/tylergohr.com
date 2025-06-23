@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogPostMetadata } from '@/lib/blog-types';
@@ -11,6 +12,8 @@ interface BlogCardProps {
 }
 
 export default function BlogCard({ post, formattedDate }: BlogCardProps) {
+  const [imageError, setImageError] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
   // Convert focal point to CSS object-position value
   const getObjectPosition = (focalPoint?: string): string => {
     switch (focalPoint) {
@@ -32,7 +35,7 @@ export default function BlogCard({ post, formattedDate }: BlogCardProps) {
       <Link href={`/blog/${post.slug}`} className={styles.cardLink}>
         <div className={styles.postContent}>
           {/* Thumbnail image */}
-          {post.image && (
+          {post.image && !imageError && (
             <div className={styles.thumbnailContainer}>
               <Image
                 src={post.image}
@@ -44,7 +47,17 @@ export default function BlogCard({ post, formattedDate }: BlogCardProps) {
                 }}
                 sizes="120px"
                 loading="lazy"
+                onError={() => {
+                  console.warn(`Failed to load image for blog post: ${post.slug}`);
+                  setImageError(true);
+                }}
+                onLoad={() => setImageLoading(false)}
               />
+              {imageLoading && (
+                <div className={styles.thumbnailPlaceholder} aria-hidden="true">
+                  <div className={styles.loadingSpinner}></div>
+                </div>
+              )}
             </div>
           )}
 

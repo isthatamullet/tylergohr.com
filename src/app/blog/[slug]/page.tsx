@@ -2,8 +2,8 @@
 
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { getPostBySlug, getAllPosts, getRelatedPosts, formatPostDate } from '@/lib/blog';
+import BlogFeaturedImage from '@/components/BlogFeaturedImage';
 import styles from './page.module.css';
 import type { Metadata } from 'next';
 
@@ -126,28 +126,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* Featured image - between tags and content */}
           {post.frontmatter.image && (
-            <div className={styles.featuredImageContainer}>
-              <Image
-                src={post.frontmatter.image}
-                alt={post.frontmatter.imageAlt || `${post.frontmatter.title} featured image`}
-                width={1200}
-                height={675} // 16:9 aspect ratio
-                className={styles.featuredImage}
-                style={{
-                  objectPosition: post.frontmatter.imageFocalPoint === 'top' ? 'center top' :
-                                   post.frontmatter.imageFocalPoint === 'bottom' ? 'center bottom' :
-                                   post.frontmatter.imageFocalPoint === 'left' ? 'left center' :
-                                   post.frontmatter.imageFocalPoint === 'right' ? 'right center' :
-                                   post.frontmatter.imageFocalPoint === 'top-left' ? 'left top' :
-                                   post.frontmatter.imageFocalPoint === 'top-right' ? 'right top' :
-                                   post.frontmatter.imageFocalPoint === 'bottom-left' ? 'left bottom' :
-                                   post.frontmatter.imageFocalPoint === 'bottom-right' ? 'right bottom' :
-                                   'center center'
-                }}
-                priority
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-              />
-            </div>
+            <BlogFeaturedImage
+              src={post.frontmatter.image}
+              alt={post.frontmatter.imageAlt || `${post.frontmatter.title} featured image`}
+              focalPoint={post.frontmatter.imageFocalPoint}
+              postSlug={post.frontmatter.slug}
+            />
           )}
         </div>
       </header>

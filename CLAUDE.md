@@ -470,6 +470,7 @@ gh issue list --label "next-phase" --state open
 ### 🔗 Key Documentation Sources
 - **GitHub Issues**: Primary source for current status and detailed work logs
 - **docs/DEPLOYMENT.md**: Complete technical deployment procedures and troubleshooting
+- **docs/BLOG-IMAGES.md**: Comprehensive blog image system documentation with focal point controls
 - **CLAUDE.md** (this file): Core project structure and reference system
 - **README.md**: Public project overview and setup instructions
 
@@ -488,6 +489,7 @@ gh issue list --state open   # Current priorities
 
 # Reference technical procedures
 cat docs/DEPLOYMENT.md       # When working on deployment/infrastructure
+cat docs/BLOG-IMAGES.md      # When working on blog images and focal points
 cat CLAUDE.md               # For project context and structure
 ```
 
