@@ -10,12 +10,18 @@ interface ExpandableSkillCardProps {
   category: HierarchicalSkillCategory;
   isVisible: boolean;
   animationDelay: number;
+  hoveredSkill?: string | null;
+  relatedSkills?: Set<string>;
+  onSkillHover?: (skillName: string | null) => void;
 }
 
 export default function ExpandableSkillCard({
   category,
   isVisible,
   animationDelay,
+  hoveredSkill = null,
+  relatedSkills = new Set(),
+  onSkillHover,
 }: ExpandableSkillCardProps) {
   const [expandedSubcategory, setExpandedSubcategory] = useState<string | null>(null);
   const [focusedSkill, setFocusedSkill] = useState<string | null>(null);
@@ -50,6 +56,11 @@ export default function ExpandableSkillCard({
 
   // Tooltip event handlers (desktop/mouse only)
   const handleSkillMouseEnter = (skillName: string, event: React.MouseEvent) => {
+    // Handle relationship highlighting
+    if (onSkillHover) {
+      onSkillHover(skillName);
+    }
+
     // Only show tooltips on devices with precise pointing (not touch)
     if (window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
       // Clear any existing timeout
@@ -71,6 +82,11 @@ export default function ExpandableSkillCard({
   };
 
   const handleSkillMouseLeave = () => {
+    // Clear relationship highlighting
+    if (onSkillHover) {
+      onSkillHover(null);
+    }
+
     // Clear timeout if mouse leaves before tooltip shows
     if (tooltipTimeoutRef.current) {
       clearTimeout(tooltipTimeoutRef.current);
@@ -180,12 +196,19 @@ export default function ExpandableSkillCard({
 
               {/* Skills Grid */}
               <div className={styles.skillsGrid}>
-                {subcategory.skills.map((skill, skillIndex) => (
+                {subcategory.skills.map((skill, skillIndex) => {
+                  const isHovered = hoveredSkill === skill.name;
+                  const isRelated = relatedSkills.has(skill.name);
+                  const isDimmed = hoveredSkill && !isHovered && !isRelated;
+                  
+                  return (
                   <button
                     key={skill.name}
                     className={`${styles.skillItem} ${
                       focusedSkill === skill.name ? styles.focused : ""
-                    }`}
+                    } ${isHovered ? styles.hovered : ""} ${
+                      isRelated ? styles.related : ""
+                    } ${isDimmed ? styles.dimmed : ""}`}
                     onClick={() => handleSkillFocus(skill.name)}
                     onMouseEnter={(e) => handleSkillMouseEnter(skill.name, e)}
                     onMouseLeave={handleSkillMouseLeave}
@@ -218,7 +241,8 @@ export default function ExpandableSkillCard({
                       />
                     </div>
                   </button>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Code Example */}

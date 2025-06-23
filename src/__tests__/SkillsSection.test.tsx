@@ -75,13 +75,15 @@ describe("SkillsSection", () => {
   it("renders hierarchical skill categories", () => {
     render(<SkillsSection />);
 
-    // Check that skill category cards are present
-    expect(screen.getByText("Frontend Mastery")).toBeInTheDocument();
-    expect(screen.getByText("Backend Architecture")).toBeInTheDocument();
+    // Check that skill category cards are present - use heading role to be specific
+    expect(screen.getByRole("heading", { name: "Frontend Mastery" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Backend Architecture" })).toBeInTheDocument();
     
-    // Check that emojis are rendered
-    expect(screen.getByText("🎯")).toBeInTheDocument();
-    expect(screen.getByText("⚡")).toBeInTheDocument();
+    // Check that emojis are rendered (multiple instances due to filters)
+    const frontendEmojis = screen.getAllByText("🎯");
+    expect(frontendEmojis.length).toBeGreaterThanOrEqual(1); // Filter chip + category icon
+    const backendEmojis = screen.getAllByText("⚡");
+    expect(backendEmojis.length).toBeGreaterThanOrEqual(1); // Filter chip + category icon
     
     // Check category descriptions
     expect(screen.getByText("Modern client-side technologies and user experience frameworks")).toBeInTheDocument();
@@ -164,9 +166,12 @@ describe("SkillsSection", () => {
     expect(mainSection).toBeDefined();
     expect(mainSection).toHaveAttribute("aria-labelledby", "skills-title");
 
-    // Check that expandable buttons have proper ARIA attributes
-    const expandableButtons = screen.getAllByRole("button");
-    expandableButtons.forEach(button => {
+    // Check that subcategory expandable buttons have proper ARIA attributes
+    const subcategoryButtons = screen.getAllByRole("button").filter(button => 
+      button.getAttribute("aria-expanded") !== null
+    );
+    expect(subcategoryButtons.length).toBeGreaterThan(0);
+    subcategoryButtons.forEach(button => {
       expect(button).toHaveAttribute("aria-expanded");
       expect(button).toHaveAttribute("aria-controls");
     });
@@ -180,7 +185,7 @@ describe("SkillsSection", () => {
     expect(summarySection).toBeInTheDocument();
     
     // Check individual stat items within the summary
-    expect(summarySection).toHaveTextContent("5+");
+    expect(summarySection).toHaveTextContent("5+"); // 5 skills total in mock data (2 React + 1 Tailwind + 2 Node)
     expect(summarySection).toHaveTextContent("Technologies");
     expect(summarySection).toHaveTextContent("2");
     expect(summarySection).toHaveTextContent("Skill Categories");
@@ -213,12 +218,13 @@ describe("SkillsSection", () => {
     expect(skillCounts.length).toBeGreaterThan(0);
 
     // Frontend Mastery: 2 skills in React Ecosystem + 1 in Modern CSS = 3 total
-    const frontendSection = screen.getByText("Frontend Mastery").closest("[role='region']");
+    // Use more specific selector to avoid filter chip conflict
+    const frontendSection = screen.getByRole("heading", { name: "Frontend Mastery" }).closest("[role='region']");
     expect(frontendSection).toBeInTheDocument();
     expect(frontendSection).toHaveTextContent("3");
 
     // Backend Architecture: 2 skills in Node.js & Express = 2 total  
-    const backendSection = screen.getByText("Backend Architecture").closest("[role='region']");
+    const backendSection = screen.getByRole("heading", { name: "Backend Architecture" }).closest("[role='region']");
     expect(backendSection).toBeInTheDocument();
     expect(backendSection).toHaveTextContent("2");
   });
@@ -236,5 +242,69 @@ describe("SkillsSection", () => {
     
     expect(frontendCard).toBeInTheDocument();
     expect(backendCard).toBeInTheDocument();
+  });
+
+  it("renders filter interface", () => {
+    render(<SkillsSection />);
+
+    // Check that filter section is present
+    expect(screen.getByText("Filter by Category")).toBeInTheDocument();
+    expect(screen.getByText("Filter by Technology Type")).toBeInTheDocument();
+
+    // Check that filter chips are present
+    expect(screen.getByRole("button", { name: /Frontend Mastery/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Backend Architecture/ })).toBeInTheDocument();
+    
+    // Check technology type filters
+    expect(screen.getByRole("button", { name: /Frontend/ })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Backend/ })).toBeInTheDocument();
+  });
+
+  it("filters categories when filter chips are clicked", async () => {
+    const user = userEvent.setup();
+    render(<SkillsSection />);
+
+    // Initially both categories should be visible
+    expect(screen.getByRole("heading", { name: "Frontend Mastery" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Backend Architecture" })).toBeInTheDocument();
+
+    // Click on Frontend Mastery filter chip
+    const frontendChip = screen.getByRole("button", { name: /Frontend Mastery/ });
+    await user.click(frontendChip);
+
+    // Only Frontend Mastery should be visible
+    expect(screen.getByRole("heading", { name: "Frontend Mastery" })).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: "Backend Architecture" })).not.toBeInTheDocument();
+
+    // Clear filters button should appear
+    await waitFor(() => {
+      const clearButton = screen.getByRole("button", { name: /Clear Filters/ });
+      expect(clearButton).toBeInTheDocument();
+    });
+
+    // Click clear filters
+    const clearButton = screen.getByRole("button", { name: /Clear Filters/ });
+    await user.click(clearButton);
+
+    // Both categories should be visible again
+    await waitFor(() => {
+      expect(screen.getByRole("heading", { name: "Frontend Mastery" })).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: "Backend Architecture" })).toBeInTheDocument();
+    });
+  });
+
+  it("filters by technology type", async () => {
+    const user = userEvent.setup();
+    render(<SkillsSection />);
+
+    // Click on Frontend technology type filter
+    const frontendTypeChip = screen.getByRole("button", { name: /^Frontend$/ });
+    await user.click(frontendTypeChip);
+
+    // Only Frontend Mastery should be visible (has frontend skills)
+    await waitFor(() => {
+      expect(screen.getByRole("heading", { name: "Frontend Mastery" })).toBeInTheDocument();
+      expect(screen.queryByRole("heading", { name: "Backend Architecture" })).not.toBeInTheDocument();
+    });
   });
 });

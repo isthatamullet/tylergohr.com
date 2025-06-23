@@ -42,61 +42,145 @@ export const techStackItems: Record<string, TechStack> = {
     name: "PostgreSQL",
     category: "database",
     color: "#336791",
+    tooltip: {
+      context: "Advanced open-source relational database with robust ACID compliance, complex queries, and extensibility for mission-critical applications.",
+      useCases: ["Invoice Chaser primary data store", "Customer relationship management", "Financial transaction tracking", "Real-time analytics"],
+      experience: "4+ years designing complex schemas, optimizing queries, and managing production databases with high transaction volumes.",
+      keyFeatures: ["ACID compliance", "Complex joins", "JSON support", "Advanced indexing"],
+      relatedTech: ["Prisma ORM", "Node.js", "Express.js", "Redis"]
+    }
   },
   socketio: {
     name: "Socket.IO",
     category: "backend",
     color: "#010101",
+    tooltip: {
+      context: "Real-time bidirectional event-based communication library enabling live updates between clients and servers with automatic fallback support.",
+      useCases: ["Invoice Chaser live payment notifications", "Real-time dashboard updates", "Multi-user collaboration", "Live status tracking"],
+      experience: "3+ years implementing real-time features for financial applications with room-based broadcasting and scalable connection management.",
+      keyFeatures: ["Real-time communication", "Automatic reconnection", "Room-based broadcasting", "Cross-platform support"],
+      relatedTech: ["Node.js", "Express.js", "Redis", "React.js"]
+    }
   },
   stripe: {
     name: "Stripe",
     category: "backend",
     color: "#635bff",
+    tooltip: {
+      context: "Comprehensive payment processing platform providing secure, reliable infrastructure for online transactions with extensive API coverage.",
+      useCases: ["Invoice Chaser payment processing", "Subscription billing", "Webhook payment notifications", "Financial reconciliation"],
+      experience: "3+ years integrating complex payment flows, handling webhooks, and managing subscription-based billing systems for SaaS applications.",
+      keyFeatures: ["Secure payment processing", "Webhook system", "Subscription management", "Global compliance"],
+      relatedTech: ["Node.js", "Express.js", "Webhooks", "PostgreSQL"]
+    }
   },
   firebase: {
     name: "Firebase",
     category: "cloud",
     color: "#ffca28",
+    tooltip: {
+      context: "Google's mobile and web application development platform providing authentication, real-time database, and hosting solutions.",
+      useCases: ["Invoice Chaser user authentication", "Real-time data synchronization", "Push notifications", "Static hosting"],
+      experience: "3+ years implementing Firebase Auth, Firestore, and Cloud Functions for rapid application development and user management.",
+      keyFeatures: ["Authentication system", "Real-time database", "Cloud functions", "Analytics"],
+      relatedTech: ["Google Cloud", "React.js", "Node.js", "JWT"]
+    }
   },
   gcp: {
     name: "Google Cloud",
     category: "cloud",
     color: "#4285f4",
+    tooltip: {
+      context: "Enterprise-grade cloud computing platform offering scalable infrastructure, containerization, and managed services for modern applications.",
+      useCases: ["Invoice Chaser production deployment", "Container orchestration", "Managed databases", "CI/CD pipelines"],
+      experience: "2+ years deploying production applications using Cloud Run, Cloud Build, and managed PostgreSQL for scalable, cost-effective solutions.",
+      keyFeatures: ["Cloud Run containers", "Managed services", "Auto-scaling", "Global infrastructure"],
+      relatedTech: ["Firebase", "PostgreSQL", "Node.js", "Docker"]
+    }
   },
   quickbooks: {
     name: "QuickBooks API",
     category: "backend",
     color: "#0077c5",
+    tooltip: {
+      context: "Comprehensive accounting API enabling seamless integration with QuickBooks for automated financial data synchronization and business process automation.",
+      useCases: ["Invoice Chaser invoice synchronization", "Customer data import", "Payment tracking", "Financial reporting automation"],
+      experience: "2+ years implementing complex OAuth flows, handling rate limits, and synchronizing financial data for automated accounting workflows.",
+      keyFeatures: ["OAuth 2.0 integration", "Invoice management", "Customer sync", "Real-time updates"],
+      relatedTech: ["OAuth 2.0", "Node.js", "Express.js", "PostgreSQL"]
+    }
   },
   gmail: {
     name: "Gmail API",
     category: "backend",
     color: "#ea4335",
+    tooltip: {
+      context: "Google's email API providing programmatic access to Gmail for automated email management, sending, and integration with business workflows.",
+      useCases: ["Invoice Chaser automated follow-ups", "Payment reminder emails", "Customer communication", "Email template management"],
+      experience: "3+ years building email automation systems with template rendering, delivery tracking, and intelligent follow-up sequences.",
+      keyFeatures: ["Automated email sending", "Template management", "Delivery tracking", "OAuth integration"],
+      relatedTech: ["Google Cloud", "OAuth 2.0", "Node.js", "Email APIs"]
+    }
   },
   supabase: {
     name: "Supabase",
     category: "cloud",
     color: "#3ecf8e",
+    tooltip: {
+      context: "Open-source Firebase alternative providing instant APIs, real-time subscriptions, and authentication with PostgreSQL foundation.",
+      useCases: ["Rapid prototyping", "Real-time applications", "User authentication", "Database management"],
+      experience: "2+ years using Supabase for rapid application development with real-time features and simplified backend architecture.",
+      keyFeatures: ["Instant APIs", "Real-time subscriptions", "Built-in auth", "PostgreSQL backend"],
+      relatedTech: ["PostgreSQL", "React.js", "TypeScript", "Firebase"]
+    }
   },
   tailwind: {
     name: "Tailwind CSS",
     category: "frontend",
     color: "#06b6d4",
+    tooltip: {
+      context: "Utility-first CSS framework providing low-level utility classes for rapidly building custom designs without writing custom CSS.",
+      useCases: ["Rapid UI prototyping", "Consistent design systems", "Responsive layouts", "Component styling"],
+      experience: "3+ years building production interfaces with Tailwind's utility classes and custom design systems for efficient development.",
+      keyFeatures: ["Utility-first approach", "Responsive design", "Custom design systems", "Built-in optimization"],
+      relatedTech: ["React.js", "TypeScript", "Vite", "CSS Modules"]
+    }
   },
   framermotion: {
     name: "Framer Motion",
     category: "frontend",
     color: "#bb4b96",
+    tooltip: {
+      context: "Production-ready motion library for React providing declarative animations, gestures, and layout animations with excellent performance.",
+      useCases: ["Interactive UI animations", "Page transitions", "Gesture handling", "Layout animations"],
+      experience: "2+ years creating engaging user experiences with complex animations, micro-interactions, and smooth transitions for modern web applications.",
+      keyFeatures: ["Declarative animations", "Gesture support", "Layout animations", "Performance optimized"],
+      relatedTech: ["React.js", "TypeScript", "CSS Modules", "Zustand"]
+    }
   },
   vite: {
     name: "Vite",
     category: "frontend",
     color: "#646cff",
+    tooltip: {
+      context: "Next-generation frontend build tool providing instant dev server startup and lightning-fast hot module replacement for modern web development.",
+      useCases: ["Modern build tooling", "Development server", "Bundle optimization", "Plugin ecosystem"],
+      experience: "2+ years leveraging Vite's fast development experience and optimized builds for React applications with complex dependencies.",
+      keyFeatures: ["Instant dev server", "Hot module replacement", "Optimized builds", "Plugin ecosystem"],
+      relatedTech: ["React.js", "TypeScript", "Tailwind CSS", "Framer Motion"]
+    }
   },
   zustand: {
     name: "Zustand",
     category: "frontend",
     color: "#ff6b35",
+    tooltip: {
+      context: "Lightweight state management solution for React applications providing simple, scalable patterns without boilerplate complexity.",
+      useCases: ["Global state management", "Complex form state", "User preferences", "Application data"],
+      experience: "2+ years implementing clean state architecture with Zustand for maintainable React applications and shared component state.",
+      keyFeatures: ["Minimal boilerplate", "TypeScript support", "Devtools integration", "Flexible patterns"],
+      relatedTech: ["React.js", "TypeScript", "Framer Motion", "Vite"]
+    }
   },
   // Missing Invoice Chaser Technologies
   express: {
@@ -115,36 +199,85 @@ export const techStackItems: Record<string, TechStack> = {
     name: "JWT",
     category: "backend",
     color: "#000000",
+    tooltip: {
+      context: "JSON Web Token standard for securely transmitting information between parties as compact, URL-safe tokens with cryptographic signatures.",
+      useCases: ["Invoice Chaser user authentication", "API authorization", "Stateless sessions", "Secure data transmission"],
+      experience: "4+ years implementing JWT-based authentication systems with refresh tokens, role-based access, and secure token management.",
+      keyFeatures: ["Stateless authentication", "Cryptographic signatures", "Compact format", "Cross-domain support"],
+      relatedTech: ["OAuth 2.0", "Express.js", "Firebase", "Node.js"]
+    }
   },
   oauth: {
     name: "OAuth 2.0",
     category: "backend",
     color: "#eb5424",
+    tooltip: {
+      context: "Industry-standard authorization framework enabling secure third-party access to user resources without exposing credentials.",
+      useCases: ["QuickBooks API integration", "Google services access", "Third-party authentication", "Secure API access"],
+      experience: "3+ years implementing complex OAuth flows for financial APIs, handling refresh tokens, and managing multi-provider authentication.",
+      keyFeatures: ["Secure authorization", "Token-based access", "Refresh mechanisms", "Provider agnostic"],
+      relatedTech: ["JWT", "QuickBooks API", "Gmail API", "Express.js"]
+    }
   },
   prisma: {
     name: "Prisma ORM",
     category: "database",
     color: "#2d3748",
+    tooltip: {
+      context: "Next-generation ORM providing type-safe database access, intuitive data modeling, and powerful migration system for modern applications.",
+      useCases: ["Invoice Chaser data modeling", "Type-safe queries", "Database migrations", "Relation management"],
+      experience: "2+ years building robust data layers with Prisma's schema-first approach and type-safe query builder for PostgreSQL applications.",
+      keyFeatures: ["Type safety", "Auto-generated client", "Migration system", "Introspection"],
+      relatedTech: ["PostgreSQL", "TypeScript", "Node.js", "Express.js"]
+    }
   },
   redis: {
     name: "Redis",
     category: "backend",
     color: "#dc382d",
+    tooltip: {
+      context: "In-memory data structure store used as database, cache, and message broker providing exceptional performance for real-time applications.",
+      useCases: ["Invoice Chaser session caching", "Socket.IO scaling", "Rate limiting", "Real-time data store"],
+      experience: "3+ years leveraging Redis for caching strategies, session management, and scaling real-time applications with pub/sub patterns.",
+      keyFeatures: ["In-memory storage", "Pub/Sub messaging", "Data structures", "High performance"],
+      relatedTech: ["Socket.IO", "Node.js", "PostgreSQL", "Express.js"]
+    }
   },
   webhooks: {
     name: "Webhooks",
     category: "backend",
     color: "#6366f1",
+    tooltip: {
+      context: "HTTP callbacks enabling real-time event notifications between systems, allowing applications to react immediately to external changes.",
+      useCases: ["Stripe payment notifications", "QuickBooks data sync", "Real-time integrations", "Event-driven architecture"],
+      experience: "3+ years building robust webhook systems with retry logic, signature verification, and event processing for financial integrations.",
+      keyFeatures: ["Real-time notifications", "Event-driven", "Signature verification", "Retry mechanisms"],
+      relatedTech: ["Stripe", "Express.js", "Queue Systems", "Node.js"]
+    }
   },
   emailapis: {
     name: "Email APIs",
     category: "backend",
     color: "#ea4335",
+    tooltip: {
+      context: "Programmatic email services enabling automated communication, template rendering, and delivery tracking for business applications.",
+      useCases: ["Invoice Chaser automated reminders", "Transactional emails", "Marketing campaigns", "Customer notifications"],
+      experience: "3+ years building email automation systems with template engines, delivery tracking, and intelligent follow-up sequences.",
+      keyFeatures: ["Template rendering", "Delivery tracking", "Automation", "Analytics"],
+      relatedTech: ["Gmail API", "Node.js", "Queue Systems", "Webhooks"]
+    }
   },
   queuesystems: {
     name: "Queue Systems",
     category: "backend",
     color: "#ff6b35",
+    tooltip: {
+      context: "Asynchronous message processing systems enabling reliable background job execution, load balancing, and system decoupling.",
+      useCases: ["Invoice Chaser background processing", "Email sending", "Data synchronization", "Batch operations"],
+      experience: "2+ years implementing queue-based architectures for reliable background processing and system scalability with job retry mechanisms.",
+      keyFeatures: ["Asynchronous processing", "Job queuing", "Retry logic", "Load balancing"],
+      relatedTech: ["Redis", "Node.js", "Email APIs", "Webhooks"]
+    }
   },
 };
 

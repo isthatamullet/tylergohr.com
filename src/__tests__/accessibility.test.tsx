@@ -49,6 +49,40 @@ jest.mock("@/lib/projects", () => ({
     supabase: { name: "Supabase", category: "Database", color: "#3ECF8E" },
     firebase: { name: "Firebase", category: "Cloud", color: "#FFCA28" },
   },
+  hierarchicalSkillCategories: [
+    {
+      name: "Frontend Mastery",
+      emoji: "🎯",
+      description: "Modern client-side technologies and user experience frameworks",
+      color: "var(--portfolio-interactive)",
+      subcategories: [
+        {
+          name: "React Ecosystem",
+          description: "Component-based architecture with modern React patterns",
+          skills: [
+            { name: "React.js", category: "frontend", color: "#61dafb" },
+            { name: "TypeScript", category: "frontend", color: "#3178c6" },
+          ],
+        },
+      ],
+    },
+    {
+      name: "Backend Architecture",
+      emoji: "⚡",
+      description: "Server-side systems, APIs, and microservices architecture",
+      color: "var(--portfolio-accent-green)",
+      subcategories: [
+        {
+          name: "Node.js & Express",
+          description: "RESTful APIs, middleware, and server architecture",
+          skills: [
+            { name: "Node.js", category: "backend", color: "#339933" },
+            { name: "Express.js", category: "backend", color: "#000000" },
+          ],
+        },
+      ],
+    },
+  ],
 }));
 
 describe("Accessibility Tests", () => {
