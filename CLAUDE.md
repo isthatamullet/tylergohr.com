@@ -19,7 +19,8 @@
 
 ### 📋 Issue-Based Status System
 - **Primary Planning**: #1 - High-End Portfolio Website Implementation (overall roadmap)
-- **Latest Completion**: #5 - Phase 5.5 Jest Testing Framework & Domain Setup (reference for deployment)
+- **Latest Completion**: #13 - Professional PR Workflow with Staging Previews (enterprise-grade CI/CD)
+- **Previous Milestone**: #5 - Phase 5.5 Jest Testing Framework & Domain Setup
 - **Current Work**: Check most recent GitHub issues for active development
 - **Next Priorities**: Reference open issues labeled with phase numbers
 
@@ -55,19 +56,24 @@ npm run typecheck          # TypeScript validation
 npm run lint               # ESLint validation
 npm test                   # Jest testing framework (Phase 5.5 complete)
 
-# Production deployment (✅ Active)
+# Production deployment (✅ Active - PR-based workflow)
 # Automated via GitHub Actions → Google Cloud Run
-# Manual: git push origin main (triggers CI/CD)
+# PREFERRED: Use PR workflow for all changes (see PR Workflow section below)
 
-# Preview environments (✅ Enterprise-grade PR preview system)
-./scripts/monitor-preview.sh    # Monitor active preview deployments
-./scripts/cost-monitor.sh       # Check resource usage and costs
-./scripts/deploy-staging.sh     # Manual staging deployment
+# PR Workflow Commands (✅ Enterprise-grade preview system operational)
+gh pr create --title "Feature description" --body "PR details"  # Create PR with preview
+gh pr view 19 --web                                            # View PR in browser
+gh pr merge 19 --squash --delete-branch                        # Merge to production
+
+# Preview URL Testing (✅ Real browser testing on Cloud Run)
+# Preview URLs automatically generated for each PR
+# Test cross-device: iPhone, iPad, desktop browsers
+# Mobile-specific responsive validation essential
 
 # Documentation & Status
-# Reference docs/DEPLOYMENT.md for deployment procedures
+# Reference docs/DEPLOYMENT.md for deployment procedures  
 # Reference docs/PREVIEW-DEPLOYMENTS.md for preview system
-# Check GitHub issue #5 for latest deployment details
+# Check GitHub issue #13 for latest PR workflow implementation
 ```
 
 ## Development Protocols
@@ -113,6 +119,75 @@ npm test                   # Jest testing framework (Phase 5.5 complete)
 - **ALWAYS commit ALL pending files**: Include all related changes in single commits
 - **Document Creative Features**: Clear commit messages explaining interactive implementations
 - **Performance Tracking**: Note performance improvements in commit messages
+
+## 🚀 PR Workflow & Preview System (✅ Operational)
+
+### **Enterprise-Grade Development Workflow**
+**Status**: Fully implemented and production-tested (Issue #13 complete)
+
+### 🌟 **PR-Based Development Process**
+1. **Create Feature Branch**: `git checkout -b feature/descriptive-name`
+2. **Develop & Commit**: Make changes with clear commit messages
+3. **Push Branch**: `git push -u origin feature/descriptive-name`
+4. **Create PR**: `gh pr create --title "Clear title" --body "Description"`
+5. **Preview URL Generated**: Automatic Cloud Run deployment (~5 minutes)
+6. **Cross-Device Testing**: Test on iPhone, iPad, desktop browsers
+7. **Merge to Production**: `gh pr merge --squash --delete-branch`
+
+### 🌐 **Preview URL System**
+**Live Example**: `https://portfolio-pr-19-feature-hero-up-gizje4k4na-uc.a.run.app`
+
+**Features**:
+- ✅ **Automatic Generation**: Every PR gets unique Cloud Run preview URL
+- ✅ **Real Browser Testing**: Actual device testing, not just dev tools
+- ✅ **Cross-Device Validation**: Essential for responsive design issues
+- ✅ **Performance Testing**: Production-like environment with real metrics
+- ✅ **Automatic Cleanup**: Preview environments deleted on PR close/merge
+
+### ⚡ **CI/CD Pipeline Performance**
+**Complete Enterprise Pipeline**: ~5 minutes total
+1. **Quality Gates** (53s): TypeScript, ESLint, build validation
+2. **Testing Suite** (27s): Jest component testing
+3. **Preview Deployment** (2m34s): Docker build, Cloud Run deployment
+4. **Security Analysis** (58s): Container vulnerability scanning
+5. **PR Summary** (4s): GitHub notification and results
+
+### 📱 **Cross-Device Testing Protocol**
+**Essential Discovery**: Mobile responsive issues only found through actual device testing
+
+**Testing Requirements**:
+- **iPhone**: Test mobile-specific responsive behavior
+- **iPad**: Validate tablet experience and touch interactions  
+- **Desktop**: Confirm desktop functionality and performance
+- **Cross-Browser**: Chrome, Firefox, Safari compatibility
+
+**Mobile Considerations**:
+- Viewport height differences affect visual positioning
+- Touch interactions vs mouse behaviors
+- Mobile-specific CSS media queries may be needed
+- Navigation behavior varies between devices
+
+### 🏗️ **Branch Naming Best Practices**
+**Docker Tag Compatibility**: Branch names affect CI/CD pipeline
+
+**Guidelines**:
+- **Keep Under 20 Characters**: Avoid Docker tag truncation issues
+- **Use Descriptive Names**: `feature/hero-positioning` vs `feature/adjust-hero-positioning`
+- **Avoid Special Characters**: Stick to letters, numbers, hyphens
+- **Examples**: `feature/nav-fix`, `feature/mobile-responsive`, `feature/animation-polish`
+
+### 🛠️ **Troubleshooting Common Issues**
+**Docker Tag Failures**: Branch name too long or ends with hyphen after sanitization
+- **Solution**: Use shorter, descriptive branch names
+- **Example**: `feature/hero-up` instead of `feature/adjust-hero-positioning`
+
+**Preview URL Not Updating**: Code changes not reflecting in preview
+- **Check**: Ensure you're testing preview URL, not production (tylergohr.com)
+- **Wait**: Allow 5 minutes for complete CI/CD pipeline completion
+
+**Mobile Differences**: Change visible on desktop but not mobile
+- **Solution**: Add mobile-specific CSS with media queries
+- **Test**: Use actual devices, not just browser dev tools
 
 ## Featured Project Integration
 
@@ -284,25 +359,30 @@ gh issue list --label "next-phase" --state open
 
 ## Quick Development Workflows
 
-### Starting a Development Session
-1. Use TodoRead to understand current creative objectives
-2. Review GitHub issue #1 for specific feature requirements
-3. Check TypeScript and build status before implementing new features
-4. Plan interactive features with TodoWrite for complex animations
+### Starting a Development Session (PR-Based)
+1. **Check Current Status**: Use `gh issue list` and TodoRead for priorities
+2. **Create Feature Branch**: `git checkout -b feature/descriptive-name`
+3. **Review Requirements**: Check relevant GitHub issues for specifications
+4. **Run Quality Gates**: Verify `npm run typecheck` and `npm run lint` pass
+5. **Plan Complex Features**: Use TodoWrite for multi-step implementations
 
-### Implementing Interactive Features
-1. Start with mobile-first responsive foundation
-2. Layer in cutting-edge CSS features incrementally
-3. Test performance impact of animations and interactions
-4. Ensure accessibility compliance throughout development
-5. Document creative technical decisions for portfolio storytelling
+### PR-Based Development Process
+1. **Start with mobile-first responsive foundation**
+2. **Layer in cutting-edge CSS features incrementally**
+3. **Commit changes with descriptive messages**
+4. **Create PR**: `gh pr create` with clear title and description
+5. **Wait for preview URL**: ~5 minutes for complete CI/CD pipeline
+6. **Cross-device testing**: iPhone, iPad, desktop validation
+7. **Iterate if needed**: Push updates, preview URL auto-updates
+8. **Merge when satisfied**: `gh pr merge --squash --delete-branch`
 
-### Performance & Quality Assurance
-1. Monitor Core Web Vitals during development
-2. Test across devices and browsers continuously
-3. Validate accessibility with tools and real user testing
-4. Optimize bundle size and loading performance
-5. Ensure smooth 60fps animations on all devices
+### Cross-Device Testing & Quality Assurance
+1. **Preview URL Testing**: Use actual devices, not just dev tools
+2. **Mobile Responsive Validation**: Check iPhone-specific behavior
+3. **Performance Monitoring**: Core Web Vitals in production-like environment
+4. **Accessibility Testing**: WCAG 2.1 AA compliance across devices
+5. **Animation Performance**: Ensure 60fps smooth interactions on all devices
+6. **Cross-Browser Compatibility**: Chrome, Firefox, Safari validation
 
 ## 📚 Documentation & Reference System
 
