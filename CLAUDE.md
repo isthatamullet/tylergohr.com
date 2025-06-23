@@ -87,10 +87,21 @@ gh pr merge <PR_NUMBER> --squash --delete-branch               # Merge to produc
 6. **Document Work** - Create GitHub issues for significant features or fixes
 
 ### 🚨 MANDATORY Pre-Commit Quality Gates
-**CRITICAL**: Always run this complete sequence before committing to prevent CI/CD failures:
+**CRITICAL**: Always run `npm run validate` BEFORE committing to prevent GitHub Actions failures and wasted CI/CD time:
 
 ```bash
-# Complete quality validation sequence - ALL must pass:
+# REQUIRED before every commit - prevents CI/CD failures:
+npm run validate    # Runs: typecheck && lint && test && build (ALL must pass)
+```
+
+**When to Run:**
+- ✅ **Before `git commit`** - Catches issues locally before pushing
+- ✅ **After significant changes** - Especially component updates or new features  
+- ✅ **Before creating PRs** - Ensures clean CI/CD pipeline runs
+- ❌ **Never skip this step** - GitHub Actions failures waste time and resources
+
+**Individual Commands (if needed for debugging):**
+```bash
 npm run typecheck    # TypeScript validation (Server/Client component compatibility)
 npm run lint         # ESLint code quality standards  
 npm test            # Jest test suite (component integration)
@@ -103,16 +114,19 @@ npm run build       # 🔥 CRITICAL: Production build validation (SSG/SSR compat
 - **`npm test`**: Validates component behavior, prevents regressions
 - **`npm run build`**: 🔥 **MOST CRITICAL** - Catches Next.js SSG/SSR serialization errors that only surface in production builds
 
-**Golden Rule**: `npm run dev` success ≠ production build success. Always validate with `npm run build` before committing, especially when:
+**Golden Rule**: `npm run dev` success ≠ production build success. Always validate with `npm run validate` before committing, especially when:
 - Adding event handlers to components
 - Mixing Server Components with Client Components  
 - Working with Next.js SSG/SSR features
 - Passing functions between components
 
-**Quick Pre-Commit Validation:**
+**Workflow Integration:**
 ```bash
-# Single command validation (add to package.json scripts)
-npm run validate    # Runs: typecheck && lint && test && build
+# Recommended development workflow:
+git add .
+npm run validate     # 🔥 CRITICAL: Run before commit
+git commit -m "Your commit message"
+git push
 ```
 
 ### 🎨 Creative Design Principles
@@ -155,13 +169,26 @@ npm run validate    # Runs: typecheck && lint && test && build
 **Status**: Fully implemented and production-tested (Issue #13 complete)
 
 ### 🌟 **PR-Based Development Process**
-1. **Create Feature Branch**: `git checkout -b feature/descriptive-name`
+1. **Create Feature Branch**: `git checkout -b feature/short-name` (≤15 chars total)
 2. **Develop & Commit**: Make changes with clear commit messages
-3. **Push Branch**: `git push -u origin feature/descriptive-name`
-4. **Create PR**: `gh pr create --title "Clear title" --body "Description"`
-5. **Preview URL Generated**: Automatic Cloud Run deployment (~5 minutes)
-6. **Cross-Device Testing**: Test on iPhone, iPad, desktop browsers
-7. **Merge to Production**: `gh pr merge --squash --delete-branch`
+3. **🔥 CRITICAL: Run Validation**: `npm run validate` before pushing
+4. **Push Branch**: `git push -u origin feature/short-name`
+5. **Create PR**: `gh pr create --title "Clear title" --body "Description"`
+6. **Preview URL Generated**: Automatic Cloud Run deployment (~5 minutes)
+7. **Cross-Device Testing**: Test on iPhone, iPad, desktop browsers
+8. **Merge to Production**: `gh pr merge --squash --delete-branch`
+
+**Quality Gate Integration:**
+```bash
+# Complete workflow with validation:
+git checkout -b feature/blog-img    # Short branch name
+# ... make changes ...
+git add .
+npm run validate                    # 🔥 PREVENT CI/CD FAILURES
+git commit -m "Your changes"
+git push -u origin feature/blog-img
+gh pr create --title "Your PR"
+```
 
 ### 🌐 **Preview URL System**
 **URL Format**: `https://portfolio-pr-<NUMBER>-<BRANCH-NAME>-<HASH>.a.run.app`
@@ -197,18 +224,42 @@ npm run validate    # Runs: typecheck && lint && test && build
 - Navigation behavior varies between devices
 
 ### 🏗️ **Branch Naming Best Practices**
-**Docker Tag Compatibility**: Branch names affect CI/CD pipeline
+**Docker Tag Compatibility**: Branch names directly affect CI/CD pipeline Docker tag generation
 
-**Guidelines**:
-- **Keep Under 20 Characters**: Avoid Docker tag truncation issues
-- **Use Descriptive Names**: `feature/hero-positioning` vs `feature/adjust-hero-positioning`
-- **Avoid Special Characters**: Stick to letters, numbers, hyphens
-- **Examples**: `feature/nav-fix`, `feature/mobile-responsive`, `feature/animation-polish`
+**CRITICAL Requirements**:
+- **Keep Under 15 Characters Total**: Docker tag generation has strict limits
+- **Use Ultra-Short Names**: `feature/blog-img` vs `feature/blog-images-phase1`
+- **Avoid Special Characters**: Stick to letters, numbers, hyphens only
+- **No Trailing Hyphens**: Docker sanitization can cause tag format errors
+
+**Safe Examples**:
+- ✅ `feature/nav-fix` (14 chars)
+- ✅ `feature/blog-img` (16 chars) 
+- ✅ `fix/mobile-ui` (13 chars)
+- ❌ `feature/blog-images-phase1` (26 chars - causes Docker tag failure)
+- ❌ `feature/adjust-hero-positioning` (31 chars - causes Docker tag failure)
+
+**Docker Tag Pattern**: `portfolio-pr-<NUMBER>-<BRANCH-NAME>:<tag>`
+- Total length must stay within Docker tag limits
+- Branch name gets sanitized and can cause truncation issues
 
 ### 🛠️ **Troubleshooting Common Issues**
-**Docker Tag Failures**: Branch name too long or ends with hyphen after sanitization
-- **Solution**: Use shorter, descriptive branch names
-- **Example**: `feature/hero-up` instead of `feature/adjust-hero-positioning`
+
+**Docker Tag Failures**: Most common CI/CD pipeline failure
+```
+ERROR: invalid tag "gcr.io/***/portfolio-pr-XX-feature-blog-images-:latest": invalid reference format
+```
+
+**Root Cause**: Branch name too long causes Docker tag truncation with trailing hyphen
+- **Problem Pattern**: Tags ending with `-:latest` (notice trailing hyphen)
+- **Solution**: Use branch names under 15 characters total
+- **Quick Fix**: Create new branch with shorter name, close failed PR, create new PR
+
+**Testing Branch Names**: 
+```bash
+# Test your branch name length before creating PR:
+echo "feature/your-branch-name" | wc -c  # Should be ≤ 15 characters
+```
 
 **Preview URL Not Updating**: Code changes not reflecting in preview
 - **Check**: Ensure you're testing preview URL, not production (tylergohr.com)
@@ -390,20 +441,21 @@ gh issue list --label "next-phase" --state open
 
 ### Starting a Development Session (PR-Based)
 1. **Check Current Status**: Use `gh issue list` and TodoRead for priorities
-2. **Create Feature Branch**: `git checkout -b feature/descriptive-name`
+2. **Create Feature Branch**: `git checkout -b feature/short-name` (≤15 chars total)
 3. **Review Requirements**: Check relevant GitHub issues for specifications
-4. **Run Quality Gates**: Verify `npm run typecheck` and `npm run lint` pass
+4. **Run Initial Quality Check**: Verify current state with `npm run validate`
 5. **Plan Complex Features**: Use TodoWrite for multi-step implementations
 
 ### PR-Based Development Process
 1. **Start with mobile-first responsive foundation**
 2. **Layer in cutting-edge CSS features incrementally**
-3. **Commit changes with descriptive messages**
-4. **Create PR**: `gh pr create` with clear title and description
-5. **Wait for preview URL**: ~5 minutes for complete CI/CD pipeline
-6. **Cross-device testing**: iPhone, iPad, desktop validation
-7. **Iterate if needed**: Push updates, preview URL auto-updates
-8. **Merge when satisfied**: `gh pr merge --squash --delete-branch`
+3. **Validate before committing**: `npm run validate` (MANDATORY)
+4. **Commit changes with descriptive messages**
+5. **Create PR**: `gh pr create` with clear title and description
+6. **Wait for preview URL**: ~5 minutes for complete CI/CD pipeline
+7. **Cross-device testing**: iPhone, iPad, desktop validation
+8. **Iterate if needed**: Push updates (run validate again), preview URL auto-updates
+9. **Merge when satisfied**: `gh pr merge --squash --delete-branch`
 
 ### Cross-Device Testing & Quality Assurance
 1. **Preview URL Testing**: Use actual devices, not just dev tools
@@ -449,3 +501,21 @@ cat CLAUDE.md               # For project context and structure
 **Next Development**: Check GitHub issues for current priorities
 
 This dynamic documentation system ensures Claude always has access to current, accurate project information while maintaining comprehensive technical references for all deployment and development procedures.
+
+## 🔥 CRITICAL REMINDERS - Prevent CI/CD Failures
+
+### Before Every Commit:
+```bash
+npm run validate    # MANDATORY - Prevents GitHub Actions failures
+```
+
+### Branch Naming Rules:
+- ✅ **≤15 characters total** (e.g., `feature/blog-img`)
+- ❌ **>15 characters** causes Docker tag failures
+
+### Quality Gate Timing:
+- **BEFORE committing** - Catch issues locally
+- **BEFORE pushing** - Prevent CI/CD waste
+- **BEFORE creating PRs** - Ensure clean pipeline runs
+
+Following these rules prevents 90% of CI/CD failures and saves significant development time.
