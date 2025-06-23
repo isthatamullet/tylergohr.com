@@ -1,4 +1,4 @@
-import { Project, TechStack } from "./types";
+import { Project, TechStack, HierarchicalSkillCategory } from "./types";
 
 // Tech Stack Definitions
 export const techStackItems: Record<string, TechStack> = {
@@ -6,16 +6,37 @@ export const techStackItems: Record<string, TechStack> = {
     name: "React.js",
     category: "frontend",
     color: "#61dafb",
+    tooltip: {
+      context: "Component-based UI library powering modern web applications with efficient virtual DOM and declarative programming patterns.",
+      useCases: ["Invoice Chaser real-time dashboard", "Interactive portfolio components", "Complex form state management"],
+      experience: "3+ years building production React applications with advanced patterns like custom hooks, context optimization, and performance tuning.",
+      keyFeatures: ["Virtual DOM optimization", "Component reusability", "Modern hooks pattern", "TypeScript integration"],
+      relatedTech: ["TypeScript", "Zustand", "Framer Motion"]
+    }
   },
   nodejs: {
     name: "Node.js",
     category: "backend",
     color: "#339933",
+    tooltip: {
+      context: "JavaScript runtime built on Chrome's V8 engine, enabling scalable server-side applications with event-driven, non-blocking I/O model.",
+      useCases: ["Invoice Chaser API backend", "Real-time payment processing", "Email automation systems", "Webhook handling"],
+      experience: "4+ years developing high-performance APIs, microservices, and automation systems with focus on scalability and security.",
+      keyFeatures: ["Event-driven architecture", "NPM ecosystem", "Concurrent request handling", "Cross-platform deployment"],
+      relatedTech: ["Express.js", "Socket.IO", "Redis", "PostgreSQL"]
+    }
   },
   typescript: {
     name: "TypeScript",
     category: "frontend",
     color: "#3178c6",
+    tooltip: {
+      context: "Strongly typed superset of JavaScript providing compile-time error detection and enhanced developer experience for large-scale applications.",
+      useCases: ["Type-safe React components", "API contract enforcement", "Complex business logic validation", "Team collaboration enhancement"],
+      experience: "3+ years leveraging TypeScript for enterprise applications with advanced types, generics, and strict mode configurations.",
+      keyFeatures: ["Static type checking", "IntelliSense support", "Refactoring safety", "Interface contracts"],
+      relatedTech: ["React.js", "Node.js", "Express.js", "Prisma ORM"]
+    }
   },
   postgresql: {
     name: "PostgreSQL",
@@ -77,7 +98,262 @@ export const techStackItems: Record<string, TechStack> = {
     category: "frontend",
     color: "#ff6b35",
   },
+  // Missing Invoice Chaser Technologies
+  express: {
+    name: "Express.js",
+    category: "backend",
+    color: "#000000",
+    tooltip: {
+      context: "Fast, unopinionated web framework for Node.js providing robust set of features for web and mobile applications with flexible middleware architecture.",
+      useCases: ["Invoice Chaser REST API", "Authentication middleware", "Payment webhook processing", "Real-time dashboard endpoints"],
+      experience: "3+ years building production APIs with custom middleware, authentication systems, and complex routing for financial applications.",
+      keyFeatures: ["Middleware pipeline", "RESTful routing", "Template engine integration", "Error handling"],
+      relatedTech: ["Node.js", "JWT", "PostgreSQL", "Socket.IO"]
+    }
+  },
+  jwt: {
+    name: "JWT",
+    category: "backend",
+    color: "#000000",
+  },
+  oauth: {
+    name: "OAuth 2.0",
+    category: "backend",
+    color: "#eb5424",
+  },
+  prisma: {
+    name: "Prisma ORM",
+    category: "database",
+    color: "#2d3748",
+  },
+  redis: {
+    name: "Redis",
+    category: "backend",
+    color: "#dc382d",
+  },
+  webhooks: {
+    name: "Webhooks",
+    category: "backend",
+    color: "#6366f1",
+  },
+  emailapis: {
+    name: "Email APIs",
+    category: "backend",
+    color: "#ea4335",
+  },
+  queuesystems: {
+    name: "Queue Systems",
+    category: "backend",
+    color: "#ff6b35",
+  },
 };
+
+// Hierarchical Skills Structure for Interactive Display
+export const hierarchicalSkillCategories: HierarchicalSkillCategory[] = [
+  {
+    name: "Frontend Mastery",
+    emoji: "🎯",
+    description: "Modern client-side technologies and user experience frameworks",
+    color: "var(--portfolio-interactive)",
+    subcategories: [
+      {
+        name: "React Ecosystem",
+        description: "Component-based architecture with modern React patterns",
+        skills: [techStackItems.react, techStackItems.typescript],
+        codeExample: {
+          id: "react-hook-example",
+          title: "Custom React Hook",
+          description: "State management with TypeScript",
+          language: "typescript",
+          code: `const useSkillsAnimation = (trigger: boolean) => {
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    if (trigger) {
+      setIsVisible(true);
+    }
+  }, [trigger]);
+  
+  return { isVisible, setIsVisible };
+};`,
+          highlightLines: [2, 5]
+        }
+      },
+      {
+        name: "Modern CSS",
+        description: "Cutting-edge styling with animations and responsive design",
+        skills: [techStackItems.tailwind],
+        codeExample: {
+          id: "css-animation-example",
+          title: "CSS Grid Subgrid",
+          description: "Advanced layout with container queries",
+          language: "css",
+          code: `.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: subgrid;
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .skill-card {
+    grid-column: span 2;
+  }
+}`,
+          highlightLines: [3, 7]
+        }
+      },
+      {
+        name: "State Management",
+        description: "Efficient client-side state handling and data flow",
+        skills: [techStackItems.zustand]
+      },
+      {
+        name: "Build Tools & Animation",
+        description: "Modern development tooling and smooth user interactions",
+        skills: [techStackItems.vite, techStackItems.framermotion]
+      }
+    ]
+  },
+  {
+    name: "Backend Architecture",
+    emoji: "⚡",
+    description: "Server-side systems, APIs, and microservices architecture",
+    color: "var(--portfolio-accent-green)",
+    subcategories: [
+      {
+        name: "Node.js & Express",
+        description: "RESTful APIs, middleware, and server architecture",
+        skills: [techStackItems.nodejs, techStackItems.express],
+        codeExample: {
+          id: "express-middleware-example",
+          title: "Custom Express Middleware",
+          description: "Authentication and error handling",
+          language: "typescript",
+          code: `const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+    if (!token) throw new Error('No token provided');
+    
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: 'Authentication failed' });
+  }
+};`,
+          highlightLines: [3, 5, 6]
+        }
+      },
+      {
+        name: "Authentication Systems",
+        description: "Secure user authentication and authorization protocols",
+        skills: [techStackItems.jwt, techStackItems.oauth]
+      },
+      {
+        name: "Real-time Systems",
+        description: "WebSocket connections, caching, and live data updates",
+        skills: [techStackItems.socketio, techStackItems.redis],
+        codeExample: {
+          id: "socket-example",
+          title: "Real-time Notifications",
+          description: "Socket.IO with Redis scaling",
+          language: "typescript",
+          code: `io.on('connection', (socket) => {
+  socket.on('join:company', (companyId) => {
+    socket.join(\`company_\${companyId}\`);
+  });
+  
+  socket.on('payment:update', async (data) => {
+    // Cache update in Redis
+    await redis.setex(\`payment:\${data.id}\`, 3600, JSON.stringify(data));
+    
+    // Broadcast to company users
+    io.to(\`company_\${data.companyId}\`).emit('payment:received', data);
+  });
+});`,
+          highlightLines: [2, 7, 10]
+        }
+      },
+      {
+        name: "API Integration",
+        description: "Third-party services, webhooks, and automation systems",
+        skills: [
+          techStackItems.webhooks,
+          techStackItems.emailapis,
+          techStackItems.queuesystems,
+          techStackItems.stripe,
+          techStackItems.quickbooks,
+          techStackItems.gmail
+        ]
+      }
+    ]
+  },
+  {
+    name: "Database & Storage",
+    emoji: "🗄️",
+    description: "Data persistence, querying, and storage optimization",
+    color: "var(--portfolio-accent-red)",
+    subcategories: [
+      {
+        name: "SQL Databases",
+        description: "Relational database design and advanced querying",
+        skills: [techStackItems.postgresql],
+        codeExample: {
+          id: "sql-query-example",
+          title: "Advanced PostgreSQL Query",
+          description: "Complex joins with performance optimization",
+          language: "sql",
+          code: `SELECT 
+  u.name,
+  COUNT(i.id) as invoice_count,
+  SUM(i.amount) as total_amount,
+  AVG(DATE_PART('day', i.paid_at - i.created_at)) as avg_payment_days
+FROM users u
+LEFT JOIN invoices i ON u.id = i.user_id
+WHERE i.created_at >= NOW() - INTERVAL '90 days'
+GROUP BY u.id, u.name
+HAVING COUNT(i.id) > 0
+ORDER BY total_amount DESC;`,
+          highlightLines: [4, 7, 9]
+        }
+      },
+      {
+        name: "ORM & Query Builders",
+        description: "Type-safe database interactions and schema management",
+        skills: [techStackItems.prisma]
+      },
+      {
+        name: "Cloud Storage",
+        description: "Distributed storage and real-time database solutions",
+        skills: [techStackItems.supabase]
+      }
+    ]
+  },
+  {
+    name: "Cloud & DevOps",
+    emoji: "☁️",
+    description: "Cloud infrastructure, deployment, and scalable system operations",
+    color: "var(--portfolio-text-secondary)",
+    subcategories: [
+      {
+        name: "Google Cloud Platform",
+        description: "Container orchestration and cloud-native deployment",
+        skills: [techStackItems.gcp]
+      },
+      {
+        name: "Authentication Services",
+        description: "Managed authentication and user identity solutions",
+        skills: [techStackItems.firebase]
+      },
+      {
+        name: "Backend-as-a-Service",
+        description: "Managed database and API services for rapid development",
+        skills: [techStackItems.supabase]
+      }
+    ]
+  }
+];
 
 // Featured Project: Invoice Chaser
 export const invoiceChaserProject: Project = {

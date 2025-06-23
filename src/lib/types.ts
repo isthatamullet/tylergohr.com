@@ -1,10 +1,19 @@
 // Project Portfolio - TypeScript Interfaces
 
+export interface SkillTooltip {
+  context: string;
+  useCases: string[];
+  experience: string;
+  keyFeatures: string[];
+  relatedTech: string[];
+}
+
 export interface TechStack {
   name: string;
   category: "frontend" | "backend" | "database" | "cloud" | "tool";
   color: string;
   icon?: string;
+  tooltip?: SkillTooltip;
 }
 
 export interface ProjectMetric {
@@ -106,4 +115,20 @@ export interface ProjectShowcaseProps {
   filter?: ProjectFilter;
   limit?: number;
   showFeatured?: boolean;
+}
+
+// Hierarchical Skills Structure
+export interface SkillSubcategory {
+  name: string;
+  description: string;
+  skills: TechStack[];
+  codeExample?: CodeExample;
+}
+
+export interface HierarchicalSkillCategory {
+  name: string;
+  emoji: string;
+  description: string;
+  color: string;
+  subcategories: SkillSubcategory[];
 }

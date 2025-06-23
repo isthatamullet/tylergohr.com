@@ -2,33 +2,49 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import SkillsSection from "@/components/SkillsSection";
 
-// Mock the tech stack data
+// Mock the hierarchical skills data
 jest.mock("@/lib/projects", () => ({
-  techStackItems: {
-    react: { name: "React", category: "Frontend", color: "#61DAFB" },
-    typescript: { name: "TypeScript", category: "Frontend", color: "#3178C6" },
-    nodejs: { name: "Node.js", category: "Backend", color: "#339933" },
-    postgresql: { name: "PostgreSQL", category: "Database", color: "#336791" },
-    gcp: { name: "Google Cloud", category: "Cloud", color: "#4285F4" },
-    tailwind: { name: "Tailwind CSS", category: "Frontend", color: "#06B6D4" },
-    framermotion: {
-      name: "Framer Motion",
-      category: "Frontend",
-      color: "#0055FF",
+  hierarchicalSkillCategories: [
+    {
+      name: "Frontend Mastery",
+      emoji: "🎯",
+      description: "Modern client-side technologies and user experience frameworks",
+      color: "var(--portfolio-interactive)",
+      subcategories: [
+        {
+          name: "React Ecosystem",
+          description: "Component-based architecture with modern React patterns",
+          skills: [
+            { name: "React.js", category: "frontend", color: "#61dafb" },
+            { name: "TypeScript", category: "frontend", color: "#3178c6" },
+          ],
+        },
+        {
+          name: "Modern CSS",
+          description: "Cutting-edge styling with animations and responsive design",
+          skills: [
+            { name: "Tailwind CSS", category: "frontend", color: "#06b6d4" },
+          ],
+        },
+      ],
     },
-    vite: { name: "Vite", category: "Frontend", color: "#646CFF" },
-    zustand: { name: "Zustand", category: "Frontend", color: "#FF6B35" },
-    socketio: { name: "Socket.IO", category: "Backend", color: "#010101" },
-    stripe: { name: "Stripe", category: "Backend", color: "#635BFF" },
-    quickbooks: {
-      name: "QuickBooks API",
-      category: "Backend",
-      color: "#0077C5",
+    {
+      name: "Backend Architecture",
+      emoji: "⚡",
+      description: "Server-side systems, APIs, and microservices architecture",
+      color: "var(--portfolio-accent-green)",
+      subcategories: [
+        {
+          name: "Node.js & Express",
+          description: "RESTful APIs, middleware, and server architecture",
+          skills: [
+            { name: "Node.js", category: "backend", color: "#339933" },
+            { name: "Express.js", category: "backend", color: "#000000" },
+          ],
+        },
+      ],
     },
-    gmail: { name: "Gmail API", category: "Backend", color: "#EA4335" },
-    supabase: { name: "Supabase", category: "Database", color: "#3ECF8E" },
-    firebase: { name: "Firebase", category: "Cloud", color: "#FFCA28" },
-  },
+  ],
 }));
 
 describe("SkillsSection", () => {
@@ -43,7 +59,7 @@ describe("SkillsSection", () => {
     global.IntersectionObserver = mockIntersectionObserver;
   });
 
-  it("renders section title and subtitle", () => {
+  it("renders section title and updated subtitle", () => {
     render(<SkillsSection />);
 
     expect(
@@ -51,136 +67,174 @@ describe("SkillsSection", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Modern technologies and frameworks powering innovative solutions",
+        "Interactive showcase of modern technologies and development expertise",
       ),
     ).toBeInTheDocument();
   });
 
-  it("renders all skill categories as tabs", () => {
+  it("renders hierarchical skill categories", () => {
     render(<SkillsSection />);
 
-    // Check that all category tabs are present
-    expect(screen.getByRole("tab", { name: /Frontend/ })).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: /Backend/ })).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: /Database/ })).toBeInTheDocument();
-    expect(
-      screen.getByRole("tab", { name: /Cloud & DevOps/ }),
-    ).toBeInTheDocument();
+    // Check that skill category cards are present
+    expect(screen.getByText("Frontend Mastery")).toBeInTheDocument();
+    expect(screen.getByText("Backend Architecture")).toBeInTheDocument();
+    
+    // Check that emojis are rendered
+    expect(screen.getByText("🎯")).toBeInTheDocument();
+    expect(screen.getByText("⚡")).toBeInTheDocument();
+    
+    // Check category descriptions
+    expect(screen.getByText("Modern client-side technologies and user experience frameworks")).toBeInTheDocument();
+    expect(screen.getByText("Server-side systems, APIs, and microservices architecture")).toBeInTheDocument();
   });
 
-  it("has Frontend category active by default", () => {
+  it("displays expandable subcategories", () => {
     render(<SkillsSection />);
 
-    const frontendTab = screen.getByRole("tab", { name: /Frontend/ });
-    expect(frontendTab).toHaveAttribute("aria-selected", "true");
-    expect(frontendTab).toHaveClass("active");
+    // Check that subcategory buttons are present
+    const reactEcosystemButton = screen.getByRole("button", { name: /React Ecosystem/ });
+    const nodeExpressButton = screen.getByRole("button", { name: /Node.js & Express/ });
+    
+    expect(reactEcosystemButton).toBeInTheDocument();
+    expect(nodeExpressButton).toBeInTheDocument();
+    
+    // Check that subcategory descriptions are present
+    expect(screen.getByText("Component-based architecture with modern React patterns")).toBeInTheDocument();
+    expect(screen.getByText("RESTful APIs, middleware, and server architecture")).toBeInTheDocument();
   });
 
-  it("switches categories when tabs are clicked", async () => {
+  it("expands and collapses subcategories when clicked", async () => {
     const user = userEvent.setup();
     render(<SkillsSection />);
 
-    // Click on Backend tab
-    const backendTab = screen.getByRole("tab", { name: /Backend/ });
-    await user.click(backendTab);
-
-    // Check that Backend tab is now active
-    expect(backendTab).toHaveAttribute("aria-selected", "true");
-    expect(backendTab).toHaveClass("active");
-
-    // Check that Frontend tab is no longer active
-    const frontendTab = screen.getByRole("tab", { name: /Frontend/ });
-    expect(frontendTab).toHaveAttribute("aria-selected", "false");
+    const reactEcosystemButton = screen.getByRole("button", { name: /React Ecosystem/ });
+    
+    // Initially collapsed - aria-expanded should be false
+    expect(reactEcosystemButton).toHaveAttribute("aria-expanded", "false");
+    
+    // Click to expand
+    await user.click(reactEcosystemButton);
+    
+    // Should be expanded - aria-expanded should be true
+    expect(reactEcosystemButton).toHaveAttribute("aria-expanded", "true");
+    
+    // Click again to collapse
+    await user.click(reactEcosystemButton);
+    
+    // Should be collapsed again
+    expect(reactEcosystemButton).toHaveAttribute("aria-expanded", "false");
   });
 
-  it("displays correct skills for each category", async () => {
+  it("displays individual skills within subcategories", async () => {
     const user = userEvent.setup();
     render(<SkillsSection />);
 
-    // Frontend should be active by default - check for React
-    expect(screen.getByText("React")).toBeInTheDocument();
-    expect(screen.getByText("TypeScript")).toBeInTheDocument();
+    // Expand React Ecosystem subcategory
+    const reactEcosystemButton = screen.getByRole("button", { name: /React Ecosystem/ });
+    await user.click(reactEcosystemButton);
 
-    // Switch to Backend tab
-    const backendTab = screen.getByRole("tab", { name: /Backend/ });
-    await user.click(backendTab);
+    // Check for individual skills
+    await waitFor(() => {
+      expect(screen.getByText("React.js")).toBeInTheDocument();
+      expect(screen.getByText("TypeScript")).toBeInTheDocument();
+    });
 
-    // Check for Backend skills
+    // Expand Node.js & Express subcategory
+    const nodeExpressButton = screen.getByRole("button", { name: /Node.js & Express/ });
+    await user.click(nodeExpressButton);
+
+    // Check for backend skills
     await waitFor(() => {
       expect(screen.getByText("Node.js")).toBeInTheDocument();
-      expect(screen.getByText("Socket.IO")).toBeInTheDocument();
+      expect(screen.getByText("Express.js")).toBeInTheDocument();
     });
   });
 
-  it("has proper accessibility attributes", () => {
+  it("has proper accessibility attributes for hierarchical structure", () => {
     render(<SkillsSection />);
 
-    // Check section has proper labeling
-    const section = screen.getByRole("region");
-    expect(section).toHaveAttribute("aria-labelledby", "skills-title");
+    // Check that category regions exist (main section + category cards)
+    const categoryRegions = screen.getAllByRole("region");
+    expect(categoryRegions.length).toBeGreaterThan(1); // Main section + category cards
 
-    // Check tablist role
-    const tablist = screen.getByRole("tablist");
-    expect(tablist).toBeInTheDocument();
+    // Check main section has proper labeling (first region should be the main section)
+    const mainSection = categoryRegions.find(region => 
+      region.getAttribute("aria-labelledby") === "skills-title"
+    );
+    expect(mainSection).toBeDefined();
+    expect(mainSection).toHaveAttribute("aria-labelledby", "skills-title");
 
-    // Check tabpanel has proper attributes
-    const tabpanel = screen.getByRole("tabpanel");
-    expect(tabpanel).toHaveAttribute("id", "skills-panel-frontend");
-    expect(tabpanel).toHaveAttribute("aria-labelledby", "skills-title");
+    // Check that expandable buttons have proper ARIA attributes
+    const expandableButtons = screen.getAllByRole("button");
+    expandableButtons.forEach(button => {
+      expect(button).toHaveAttribute("aria-expanded");
+      expect(button).toHaveAttribute("aria-controls");
+    });
   });
 
-  it("displays summary statistics", () => {
+  it("displays correct summary statistics for hierarchical structure", () => {
     render(<SkillsSection />);
 
-    // Check summary stats
-    expect(screen.getByText("15+")).toBeInTheDocument();
-    expect(screen.getByText("Technologies")).toBeInTheDocument();
-    expect(screen.getByText("5+")).toBeInTheDocument();
-    expect(screen.getByText("Years Experience")).toBeInTheDocument();
-    expect(screen.getByText("Major Projects")).toBeInTheDocument();
-
-    // Check that we have the specific "3" in the Major Projects stat (there may be multiple "3"s for category counts)
-    const statValues = screen.getAllByText("3");
-    expect(statValues.length).toBeGreaterThan(0);
+    // Check summary stats by targeting the summary section specifically
+    const summarySection = document.querySelector(".skillsSummary");
+    expect(summarySection).toBeInTheDocument();
+    
+    // Check individual stat items within the summary
+    expect(summarySection).toHaveTextContent("5+");
+    expect(summarySection).toHaveTextContent("Technologies");
+    expect(summarySection).toHaveTextContent("2");
+    expect(summarySection).toHaveTextContent("Skill Categories");
+    expect(summarySection).toHaveTextContent("Years Experience");
+    expect(summarySection).toHaveTextContent("Major Projects");
   });
 
-  it("handles keyboard navigation between tabs", async () => {
+  it("handles keyboard navigation for accessibility", async () => {
     const user = userEvent.setup();
     render(<SkillsSection />);
 
-    const frontendTab = screen.getByRole("tab", { name: /Frontend/ });
-    const backendTab = screen.getByRole("tab", { name: /Backend/ });
+    const expandableButtons = screen.getAllByRole("button");
+    expect(expandableButtons.length).toBeGreaterThan(0);
 
-    // Focus on first tab
-    await user.click(frontendTab);
-    expect(frontendTab).toHaveFocus();
+    // Focus on first expandable button
+    const firstButton = expandableButtons[0];
+    await user.click(firstButton);
+    expect(firstButton).toHaveFocus();
 
-    // Tab to navigate to next element (basic keyboard navigation)
-    await user.keyboard("{Tab}");
-    expect(backendTab).toHaveFocus();
+    // Test escape key functionality (component should handle this)
+    await user.keyboard("{Escape}");
+    // The component handles escape to close expanded sections
   });
 
-  it("shows skill count for each category", () => {
+  it("displays technology counts correctly in category headers", () => {
     render(<SkillsSection />);
 
-    // Check that category buttons show skill counts
-    const frontendTab = screen.getByRole("tab", { name: /Frontend/ });
-    expect(frontendTab).toHaveTextContent("6"); // Based on mocked data
+    // Check that technology counts are displayed in the category stats
+    const skillCounts = screen.getAllByText("Technologies");
+    expect(skillCounts.length).toBeGreaterThan(0);
 
-    const backendTab = screen.getByRole("tab", { name: /Backend/ });
-    expect(backendTab).toHaveTextContent("5"); // Based on mocked data
+    // Frontend Mastery: 2 skills in React Ecosystem + 1 in Modern CSS = 3 total
+    const frontendSection = screen.getByText("Frontend Mastery").closest("[role='region']");
+    expect(frontendSection).toBeInTheDocument();
+    expect(frontendSection).toHaveTextContent("3");
+
+    // Backend Architecture: 2 skills in Node.js & Express = 2 total  
+    const backendSection = screen.getByText("Backend Architecture").closest("[role='region']");
+    expect(backendSection).toBeInTheDocument();
+    expect(backendSection).toHaveTextContent("2");
   });
 
-  it("applies correct styling and animations", () => {
+  it("applies correct data attributes for card animations", () => {
     render(<SkillsSection />);
 
     // Check that skill cards have proper data attributes for animations
-    const skillCards = document.querySelectorAll("[data-skill-id]");
-    expect(skillCards.length).toBeGreaterThan(0);
+    const categoryCards = document.querySelectorAll("[data-card-id]");
+    expect(categoryCards.length).toBe(2); // Frontend Mastery + Backend Architecture
 
-    // Check that first skill card has expected attributes
-    const firstCard = skillCards[0] as HTMLElement;
-    expect(firstCard).toHaveAttribute("data-skill-id");
-    expect(firstCard).toHaveClass("skillCard");
+    // Check that cards have expected data attributes
+    const frontendCard = document.querySelector("[data-card-id='Frontend Mastery']");
+    const backendCard = document.querySelector("[data-card-id='Backend Architecture']");
+    
+    expect(frontendCard).toBeInTheDocument();
+    expect(backendCard).toBeInTheDocument();
   });
 });

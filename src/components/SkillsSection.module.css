@@ -67,7 +67,7 @@
   z-index: 1;
 }
 
-/* Category Filters */
+/* Legacy Category Filters - Commented out for hierarchical structure
 .categoryFilters {
   display: flex;
   justify-content: center;
@@ -75,85 +75,19 @@
   margin-bottom: 3rem;
   flex-wrap: wrap;
 }
+*/
 
-.categoryFilter {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background: rgba(var(--portfolio-text-primary-rgb), 0.05);
-  border: 2px solid transparent;
-  border-radius: 2rem;
-  color: var(--portfolio-text-secondary);
-  font-weight: 500;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(10px);
-  position: relative;
-  overflow: hidden;
-}
-
-.categoryFilter::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(var(--portfolio-text-primary-rgb), 0.1),
-    transparent
-  );
-  transition: left 0.5s ease;
-}
-
-.categoryFilter:hover::before {
-  left: 100%;
-}
-
-.categoryFilter:hover {
-  border-color: var(--category-color);
-  color: var(--portfolio-text-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(var(--category-color-rgb), 0.2);
-}
-
-.categoryFilter.active {
-  background: var(--category-color);
-  color: var(--portfolio-dark);
-  border-color: var(--category-color);
-  box-shadow: 0 4px 20px rgba(var(--category-color-rgb), 0.3);
-}
-
-.categoryName {
-  font-weight: 600;
-}
-
-.categoryCount {
-  background: rgba(0, 0, 0, 0.2);
-  color: inherit;
-  padding: 0.25rem 0.5rem;
-  border-radius: 1rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  min-width: 1.5rem;
-  text-align: center;
-}
-
-.categoryFilter.active .categoryCount {
-  background: rgba(0, 0, 0, 0.15);
-}
-
-/* Skills Grid */
+/* Hierarchical Skills Grid */
 .skillsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
   margin-bottom: 4rem;
-  min-height: 300px;
+  container-type: inline-size;
+}
+
+.skillCardContainer {
+  position: relative;
 }
 
 .skillCard {
@@ -348,26 +282,14 @@
     padding: 4rem 0;
   }
 
-  .categoryFilters {
-    gap: 0.5rem;
-  }
-
-  .categoryFilter {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-  }
-
   .skillsGrid {
     grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .skillCard {
-    padding: 1.25rem;
+    gap: 1.5rem;
   }
 
   .summaryStats {
     gap: 2rem;
+    flex-direction: column;
   }
 
   .statValue {
@@ -376,13 +298,30 @@
 }
 
 @media (max-width: 480px) {
-  .categoryFilters {
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
+  .skillsSection {
+    padding: 3rem 0;
   }
 
-  .categoryFilter {
-    flex-shrink: 0;
+  .skillsGrid {
+    gap: 1rem;
+  }
+
+  .summaryStats {
+    gap: 1.5rem;
+  }
+
+  .statValue {
+    font-size: 1.25rem;
+  }
+
+  .statLabel {
+    font-size: 0.8rem;
+  }
+}
+
+/* Container Queries for Hierarchical Cards */
+@container (max-width: 500px) {
+  .skillsGrid {
+    grid-template-columns: 1fr;
   }
 }
