@@ -62,8 +62,8 @@ npm test                   # Jest testing framework (Phase 5.5 complete)
 
 # PR Workflow Commands (✅ Enterprise-grade preview system operational)
 gh pr create --title "Feature description" --body "PR details"  # Create PR with preview
-gh pr view 19 --web                                            # View PR in browser
-gh pr merge 19 --squash --delete-branch                        # Merge to production
+gh pr view <PR_NUMBER> --web                                   # View PR in browser
+gh pr merge <PR_NUMBER> --squash --delete-branch               # Merge to production
 
 # Preview URL Testing (✅ Real browser testing on Cloud Run)
 # Preview URLs automatically generated for each PR
@@ -135,7 +135,7 @@ gh pr merge 19 --squash --delete-branch                        # Merge to produc
 7. **Merge to Production**: `gh pr merge --squash --delete-branch`
 
 ### 🌐 **Preview URL System**
-**Live Example**: `https://portfolio-pr-19-feature-hero-up-gizje4k4na-uc.a.run.app`
+**URL Format**: `https://portfolio-pr-<NUMBER>-<BRANCH-NAME>-<HASH>.a.run.app`
 
 **Features**:
 - ✅ **Automatic Generation**: Every PR gets unique Cloud Run preview URL
