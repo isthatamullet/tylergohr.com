@@ -209,7 +209,63 @@ jobs:
             fi
           done
 
-  # Job 4: Cleanup Preview (When PR is Closed)
+  # Job 4: Container Security Scan (When Preview is Built)
+  container-security:
+    name: 'Container Security Analysis'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [preview-deployment]
+    if: needs.preview-deployment.result == 'success'
+    continue-on-error: true  # Don't block CI if container scanning fails
+    
+    steps:
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+      
+      - name: 'Authenticate to Google Cloud'
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      
+      - name: 'Configure Docker for GCR'
+        run: gcloud auth configure-docker
+      
+      - name: 'Container Vulnerability Scan with Trivy'
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ needs.preview-deployment.outputs.service-name }}:pr-${{ github.event.number }}
+          format: 'sarif'
+          output: 'container-scan-results.sarif'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+          exit-code: 0  # Don't fail CI on vulnerabilities, just report
+      
+      - name: 'Upload Container Scan Results'
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'container-scan-results.sarif'
+          category: 'container-security'
+      
+      - name: 'Container Security Summary'
+        run: |
+          echo "🔍 Container Security Analysis Complete"
+          echo "📋 Results uploaded to GitHub Security tab"
+          echo "🎯 Image scanned: ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ needs.preview-deployment.outputs.service-name }}:pr-${{ github.event.number }}"
+          
+          # Also run Trivy with table output for immediate feedback
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock \
+            aquasec/trivy:latest image --format table --severity CRITICAL,HIGH \
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ needs.preview-deployment.outputs.service-name }}:pr-${{ github.event.number }} || true
+      
+      - name: 'Upload Security Report Artifact'
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: container-security-report-${{ github.event.number }}
+          path: container-scan-results.sarif
+          retention-days: 30
+
+  # Job 5: Cleanup Preview (When PR is Closed)
   cleanup-preview:
     name: 'Cleanup Preview Environment'
     runs-on: ubuntu-latest
@@ -261,12 +317,12 @@ jobs:
             done
           echo "✅ Container images cleaned up"
 
-  # Job 5: PR Summary
+  # Job 6: PR Summary
   summary:
     name: 'PR Summary & Notification'
     runs-on: ubuntu-latest
     if: always() && github.event.action != 'closed'
-    needs: [quality-gates, testing, preview-deployment]
+    needs: [quality-gates, testing, preview-deployment, container-security]
 
     steps:
       - name: 'Generate PR Summary'
@@ -350,7 +406,7 @@ jobs:
               });
             }
 
-  # Job 6: Cleanup Notification
+  # Job 7: Cleanup Notification
   cleanup-notification:
     name: 'Cleanup Notification'
     runs-on: ubuntu-latest
