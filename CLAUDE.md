@@ -86,6 +86,35 @@ gh pr merge <PR_NUMBER> --squash --delete-branch               # Merge to produc
 5. **Read Before Edit** - Never blind edit files, always Read first
 6. **Document Work** - Create GitHub issues for significant features or fixes
 
+### 🚨 MANDATORY Pre-Commit Quality Gates
+**CRITICAL**: Always run this complete sequence before committing to prevent CI/CD failures:
+
+```bash
+# Complete quality validation sequence - ALL must pass:
+npm run typecheck    # TypeScript validation (Server/Client component compatibility)
+npm run lint         # ESLint code quality standards  
+npm test            # Jest test suite (component integration)
+npm run build       # 🔥 CRITICAL: Production build validation (SSG/SSR compatibility)
+```
+
+**Why Each Step Matters:**
+- **`npm run typecheck`**: Catches TypeScript errors, Server/Client component mismatches
+- **`npm run lint`**: Enforces code standards, catches potential issues
+- **`npm test`**: Validates component behavior, prevents regressions
+- **`npm run build`**: 🔥 **MOST CRITICAL** - Catches Next.js SSG/SSR serialization errors that only surface in production builds
+
+**Golden Rule**: `npm run dev` success ≠ production build success. Always validate with `npm run build` before committing, especially when:
+- Adding event handlers to components
+- Mixing Server Components with Client Components  
+- Working with Next.js SSG/SSR features
+- Passing functions between components
+
+**Quick Pre-Commit Validation:**
+```bash
+# Single command validation (add to package.json scripts)
+npm run validate    # Runs: typecheck && lint && test && build
+```
+
 ### 🎨 Creative Design Principles
 - **Dark Theme Sophistication**: High-contrast design with professional aesthetics
 - **Strategic Color Usage**: Green/red accents representing business logic and accounting principles
