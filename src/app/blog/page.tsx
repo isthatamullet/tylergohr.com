@@ -3,6 +3,7 @@
 import { getAllPosts, getAllTags, formatPostDate } from '@/lib/blog';
 import styles from './page.module.css';
 import Link from 'next/link';
+import BlogCard from '@/components/BlogCard';
 
 export const metadata = {
   title: 'Technical Blog | Tyler Gohr',
@@ -70,53 +71,11 @@ export default async function BlogPage() {
           ) : (
             <div className={styles.postsGrid}>
               {posts.map((post) => (
-                <article key={post.slug} className={styles.postCard}>
-                  <Link href={`/blog/${post.slug}`} className={styles.cardLink}>
-                    <div className={styles.postContent}>
-                      {/* Post metadata */}
-                      <div className={styles.postMeta}>
-                        <time dateTime={post.date} className={styles.postDate}>
-                          {formatPostDate(post.date)}
-                        </time>
-                        <span className={styles.readTime}>{post.readTime}</span>
-                        {post.featured && (
-                          <span className={styles.featuredBadge} aria-label="Featured post">
-                            Featured
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Post title and excerpt */}
-                      <h3 className={styles.postTitle}>
-                        {post.title}
-                      </h3>
-                      
-                      <p className={styles.postExcerpt}>{post.excerpt}</p>
-
-                      {/* Post tags */}
-                      {post.tags.length > 0 && (
-                        <div className={styles.postTags}>
-                          {post.tags.map((tag) => (
-                            <Link
-                              key={tag}
-                              href={`/blog?tag=${encodeURIComponent(tag)}`}
-                              className={styles.postTag}
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              {tag}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-
-                      {/* Read more indicator */}
-                      <div className={styles.readMore}>
-                        Read Article
-                        <span className={styles.readMoreArrow}>→</span>
-                      </div>
-                    </div>
-                  </Link>
-                </article>
+                <BlogCard 
+                  key={post.slug} 
+                  post={post} 
+                  formattedDate={formatPostDate(post.date)} 
+                />
               ))}
             </div>
           )}
