@@ -16,7 +16,7 @@
   overflow: hidden;
   /* True vertical centering - account for navigation height in the centering calculation */
   padding-top: 70px; /* Navigation height offset */
-  margin-top: -35px; /* Pull back half the navigation height for true center */
+  margin-top: -110px; /* Adjusted to move hero section up by ~1 inch (75px more) */
   /* scroll-snap-align: start; */
 }
 
