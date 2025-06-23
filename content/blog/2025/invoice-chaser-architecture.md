@@ -7,6 +7,10 @@ tags: ["react", "nodejs", "postgresql", "real-time", "automation", "fintech"]
 featured: true
 author: "Tyler Gohr"
 readTime: "8 min read"
+image: "/images/blog/invoice-chaser-architecture-featured.jpeg"
+imageAlt: "Automated invoice processing workflow with conveyor belt system and status indicators showing business automation in action"
+imageFocalPoint: "center"
+thumbnailFocalPoint: "center"
 ---
 
 # Building Invoice Chaser: A Technical Deep-Dive

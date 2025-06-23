@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run copy-blog-assets && next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
@@ -17,6 +17,7 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
+    "copy-blog-assets": "node scripts/copy-blog-assets.js",
     "validate": "npm run typecheck && npm run lint && npm run test && npm run build",
     "pre-commit": "npm run validate"
   },
