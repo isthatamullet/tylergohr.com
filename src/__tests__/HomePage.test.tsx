@@ -240,12 +240,12 @@ describe("HomePage", () => {
     const regions = screen.getAllByRole("region");
     expect(regions.length).toBeGreaterThan(0);
 
-    // Check that tabpanel elements exist (from SkillsSection)
-    const tabpanels = screen.getAllByRole("tabpanel");
-    expect(tabpanels.length).toBeGreaterThan(0);
+    // Check for proper banner landmarks
+    const banners = screen.getAllByRole("banner");
+    expect(banners.length).toBeGreaterThan(0);
 
-    // Check for proper tab structure
-    const tabs = screen.getAllByRole("tab");
-    expect(tabs.length).toBeGreaterThan(0);
+    // Check main landmark exists
+    const main = screen.getByRole("main");
+    expect(main).toBeInTheDocument();
   });
 });
