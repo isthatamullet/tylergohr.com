@@ -219,6 +219,10 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
+.postCard:hover .thumbnail {
+  transform: scale(1.05);
+}
+
 .postCard:hover::before {
   opacity: 1;
 }
@@ -236,6 +240,49 @@
 .postContent {
   position: relative;
   z-index: 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto auto; /* Content area, tags, read more */
+  gap: 1rem;
+  min-height: 140px; /* Ensure consistent card height */
+}
+
+/* When no image is present, use single column */
+.postContent:not(:has(.thumbnailContainer)) {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+}
+
+/* Thumbnail container */
+.thumbnailContainer {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
+  overflow: hidden;
+  grid-area: 1 / 1 / 2 / 2; /* First row, first column */
+  background: rgba(var(--portfolio-text-primary-rgb), 0.05);
+  border: 1px solid rgba(var(--portfolio-text-primary-rgb), 0.1);
+}
+
+.thumbnail {
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Content area - shifts to second column when image present */
+.contentArea {
+  grid-area: 1 / 2 / 2 / 3; /* First row, second column */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 120px;
+}
+
+/* When no image, content area takes full width */
+.postContent:not(:has(.thumbnailContainer)) .contentArea {
+  grid-area: 1 / 1 / 2 / 2;
 }
 
 /* Post Metadata */
@@ -288,12 +335,19 @@
   margin: 0 0 1.5rem 0;
 }
 
-/* Post Tags */
+/* Post Tags - full width across both columns */
 .postTags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
+  grid-area: 2 / 1 / 3 / 3; /* Full width, second row */
+}
+
+/* When no image, tags in normal flow */
+.postContent:not(:has(.thumbnailContainer)) .postTags {
+  grid-area: auto;
+  margin-top: auto;
 }
 
 .postTag {
@@ -313,7 +367,7 @@
   transform: translateY(-1px);
 }
 
-/* Read More Link */
+/* Read More Link - full width */
 .readMore {
   display: inline-flex;
   align-items: center;
@@ -325,6 +379,13 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   transition: all 0.3s ease;
+  grid-area: 3 / 1 / 4 / 3; /* Full width, third row */
+  margin-top: auto;
+}
+
+/* When no image, read more in normal flow */
+.postContent:not(:has(.thumbnailContainer)) .readMore {
+  grid-area: auto;
 }
 
 .readMore:hover {
@@ -375,6 +436,17 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+  }
+  
+  /* Mobile thumbnail adjustments */
+  .thumbnailContainer {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .postContent {
+    gap: 0.75rem;
+    min-height: 100px;
   }
 }
 

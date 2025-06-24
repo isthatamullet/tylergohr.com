@@ -7,6 +7,10 @@ tags: ["css", "frontend", "responsive-design", "web-development"]
 featured: false
 author: "Tyler Gohr"
 readTime: "5 min read"
+image: "/images/blog/modern-css-techniques-2025-featured.jpeg"
+imageAlt: "3D visualization of responsive design grid with devices and CSS layout elements showcasing modern web development techniques"
+imageFocalPoint: "center"
+thumbnailFocalPoint: "center"
 ---
 
 # Modern CSS Techniques in 2025: Container Queries & CSS Grid Subgrid

@@ -9,6 +9,10 @@ export interface BlogPostFrontmatter {
   featured: boolean;
   author: string;
   readTime: string;
+  image?: string;
+  imageAlt?: string;
+  imageFocalPoint?: string;
+  thumbnailFocalPoint?: string;
 }
 
 export interface BlogPost {
@@ -27,6 +31,10 @@ export interface BlogPostMetadata {
   author: string;
   readTime: string;
   filePath: string;
+  image?: string;
+  imageAlt?: string;
+  imageFocalPoint?: string;
+  thumbnailFocalPoint?: string;
 }
 
 export interface BlogListingProps {

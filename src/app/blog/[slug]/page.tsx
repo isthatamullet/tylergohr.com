@@ -3,6 +3,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getPostBySlug, getAllPosts, getRelatedPosts, formatPostDate } from '@/lib/blog';
+import BlogFeaturedImage from '@/components/BlogFeaturedImage';
 import styles from './page.module.css';
 import type { Metadata } from 'next';
 
@@ -121,6 +122,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </Link>
               ))}
             </div>
+          )}
+
+          {/* Featured image - between tags and content */}
+          {post.frontmatter.image && (
+            <BlogFeaturedImage
+              src={post.frontmatter.image}
+              alt={post.frontmatter.imageAlt || `${post.frontmatter.title} featured image`}
+              focalPoint={post.frontmatter.imageFocalPoint}
+              postSlug={post.frontmatter.slug}
+            />
           )}
         </div>
       </header>
