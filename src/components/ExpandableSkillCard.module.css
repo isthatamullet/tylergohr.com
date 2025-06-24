@@ -313,7 +313,6 @@
 }
 
 .subcategory.expanded .subcategoryContent {
-  background: rgba(255, 255, 255, 0.06);
   max-height: 1000px;
   overflow: hidden;
 }
