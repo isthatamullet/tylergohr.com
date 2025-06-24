@@ -257,6 +257,7 @@
   animation: slideInFromLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   animation-delay: var(--subcategory-delay);
   animation-fill-mode: both;
+  border-radius: inherit;
 }
 
 .subcategoryButton:hover {
@@ -267,6 +268,10 @@
   outline: none;
   background: rgba(255, 255, 255, 0.08);
   box-shadow: 0 0 0 2px var(--category-color);
+}
+
+.subcategory.expanded .subcategoryButton {
+  border-radius: 12px 12px 0 0;
 }
 
 .subcategoryHeader {
@@ -310,9 +315,6 @@
 
 .subcategory.expanded .subcategoryContent {
   border-radius: 0 0 12px 12px;
-}
-
-.subcategory.expanded .subcategoryContent {
   max-height: 1000px;
 }
 
