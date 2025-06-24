@@ -8,7 +8,6 @@ import ExpandableSkillCard from "./ExpandableSkillCard";
 export default function SkillsSection() {
   const [visibleCards, setVisibleCards] = useState<Set<string>>(new Set());
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
-  const [relatedSkills, setRelatedSkills] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -32,40 +31,9 @@ export default function SkillsSection() {
   }, []);
 
 
-  // Relationship highlighting logic
+  // Simple hover state for tooltips
   const handleSkillHover = (skillName: string | null) => {
     setHoveredSkill(skillName);
-    
-    if (!skillName) {
-      setRelatedSkills(new Set());
-      return;
-    }
-
-    // Find the skill and its related technologies
-    const allSkills = hierarchicalSkillCategories.flatMap(category =>
-      category.subcategories.flatMap(subcategory => subcategory.skills)
-    );
-    
-    const hoveredSkillData = allSkills.find(skill => skill.name === skillName);
-    
-    if (hoveredSkillData?.tooltip?.relatedTech) {
-      const related = new Set<string>();
-      
-      // Add directly related technologies
-      hoveredSkillData.tooltip.relatedTech.forEach(techName => {
-        related.add(techName);
-        
-        // Find bidirectional relationships - if A relates to B, highlight B when hovering A
-        const relatedSkillData = allSkills.find(skill => skill.name === techName);
-        if (relatedSkillData?.tooltip?.relatedTech?.includes(skillName)) {
-          related.add(techName);
-        }
-      });
-      
-      setRelatedSkills(related);
-    } else {
-      setRelatedSkills(new Set());
-    }
   };
 
   const getTotalTechnologies = () => {
@@ -106,7 +74,6 @@ export default function SkillsSection() {
                   isVisible={visibleCards.has(category.name)}
                   animationDelay={index * 200}
                   hoveredSkill={hoveredSkill}
-                  relatedSkills={relatedSkills}
                   onSkillHover={handleSkillHover}
                 />
               </div>

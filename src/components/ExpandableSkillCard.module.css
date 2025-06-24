@@ -364,7 +364,6 @@
 .skillItem:hover {
   background: rgba(255, 255, 255, 0.06);
   border-color: var(--skill-color);
-  transform: translateX(0) scale(1.02);
 }
 
 .skillItem:focus {
@@ -924,17 +923,15 @@
   }
 }
 
-/* Relationship Highlighting System */
+/* Simplified Hover Highlighting */
 .skillItem.hovered {
   background: var(--skill-color) !important;
   color: var(--portfolio-dark) !important;
-  transform: translateY(-2px) scale(1.02);
+  border-color: var(--skill-color);
   box-shadow: 
-    0 8px 32px rgba(var(--skill-color-rgb, 56, 189, 248), 0.4),
+    0 4px 16px rgba(var(--skill-color-rgb, 56, 189, 248), 0.3),
     0 0 0 1px var(--skill-color),
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  z-index: 10;
-  position: relative;
 }
 
 .skillItem.hovered .skillColorDot {
@@ -952,128 +949,35 @@
   opacity: 0.8;
 }
 
-.skillItem.related {
-  background: rgba(var(--skill-color-rgb, 56, 189, 248), 0.15) !important;
-  border: 1px solid rgba(var(--skill-color-rgb, 56, 189, 248), 0.3);
-  transform: translateY(-1px) scale(1.01);
-  box-shadow: 
-    0 4px 16px rgba(var(--skill-color-rgb, 56, 189, 248), 0.2),
-    0 0 0 1px rgba(var(--skill-color-rgb, 56, 189, 248), 0.2);
-  z-index: 5;
-  position: relative;
-}
-
-.skillItem.related .skillColorDot {
-  box-shadow: 
-    0 0 12px rgba(var(--skill-color-rgb, 56, 189, 248), 0.6),
-    0 2px 4px rgba(0, 0, 0, 0.1);
-  animation: pulseGlow 2s ease-in-out infinite;
-}
-
-.skillItem.related .skillName {
-  color: var(--portfolio-text-primary);
-  font-weight: 600;
-}
-
-.skillItem.related .skillProgressBar {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.skillItem.dimmed {
-  opacity: 0.3 !important;
-  transform: scale(0.98);
-  filter: grayscale(0.5) blur(0.5px);
-  transition: all var(--transition-smooth);
-}
-
-.skillItem.dimmed .skillColorDot {
-  opacity: 0.4;
-  box-shadow: none;
-}
-
-.skillItem.dimmed .skillName {
-  color: var(--portfolio-text-secondary);
-}
-
-.skillItem.dimmed .skillProgressBar {
-  opacity: 0.2;
-}
-
-/* Smooth transitions for relationship states */
+/* Smooth transitions for hover states */
 .skillItem {
-  transition: all var(--transition-smooth), 
-              background-color var(--transition-fast),
-              border-color var(--transition-fast),
-              box-shadow var(--transition-smooth),
-              filter var(--transition-smooth);
+  transition: all 0.2s ease;
 }
 
 .skillItem .skillColorDot {
-  transition: all var(--transition-smooth);
+  transition: all 0.2s ease;
 }
 
 .skillItem .skillName {
-  transition: color var(--transition-fast), font-weight var(--transition-fast);
+  transition: color 0.2s ease, font-weight 0.2s ease;
 }
 
 .skillItem .skillProgressBar {
-  transition: all var(--transition-smooth);
+  transition: all 0.2s ease;
 }
 
-/* Enhanced relationship animations */
-@keyframes relationshipPulse {
-  0%, 100% {
-    box-shadow: 
-      0 4px 16px rgba(var(--skill-color-rgb, 56, 189, 248), 0.2),
-      0 0 0 1px rgba(var(--skill-color-rgb, 56, 189, 248), 0.2);
-  }
-  50% {
-    box-shadow: 
-      0 6px 24px rgba(var(--skill-color-rgb, 56, 189, 248), 0.3),
-      0 0 0 1px rgba(var(--skill-color-rgb, 56, 189, 248), 0.4);
-  }
-}
-
-.skillItem.related {
-  animation: relationshipPulse 3s ease-in-out infinite;
-}
-
-/* Mobile relationship highlighting */
+/* Mobile hover highlighting */
 @media (hover: none) and (pointer: coarse) {
-  .skillItem.hovered,
-  .skillItem.related,
-  .skillItem.dimmed {
-    transform: none;
-  }
-  
   .skillItem.hovered {
-    transform: scale(1.01);
-  }
-  
-  .skillItem.related {
-    animation: none;
-    background: rgba(var(--skill-color-rgb, 56, 189, 248), 0.2) !important;
-  }
-  
-  .skillItem.dimmed {
-    opacity: 0.5 !important;
-    filter: grayscale(0.3);
+    /* No transform changes on mobile for stability */
   }
 }
 
-/* Reduced motion for relationships */
+/* Reduced motion for hover states */
 @media (prefers-reduced-motion: reduce) {
-  .skillItem.hovered,
-  .skillItem.related,
-  .skillItem.dimmed {
+  .skillItem.hovered {
     transition: opacity 0.2s ease, background-color 0.2s ease;
-    transform: none;
     animation: none;
     filter: none;
-  }
-  
-  .skillItem.related .skillColorDot {
-    animation: none;
   }
 }
