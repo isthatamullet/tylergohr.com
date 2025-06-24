@@ -316,6 +316,7 @@
 .subcategory.expanded .subcategoryContent {
   border-radius: 0 0 12px 12px;
   max-height: 1000px;
+  overflow: hidden;
 }
 
 .subcategoryDescription {
@@ -680,29 +681,10 @@
     position: relative;
   }
   
-  .subcategoryButton::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--category-color);
-    opacity: 0.6;
-    transition: all 0.2s ease;
-  }
-  
   .subcategoryButton:active {
     background: rgba(255, 255, 255, 0.08);
     transform: scale(0.98);
     transition: all 0.1s ease-out;
-  }
-  
-  .subcategoryButton:active::after {
-    opacity: 1;
-    transform: translateY(-50%) scale(1.2);
   }
   
   /* Enhanced expand icon for touch */
@@ -755,24 +737,6 @@
     opacity: 0.7;
   }
   
-  /* Swipe indicator for expandable content */
-  .subcategoryContent::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 3px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 2px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .subcategory.expanded .subcategoryContent::before {
-    opacity: 1;
-  }
 }
 
 /* Ultra-small screens (phones in portrait) */
