@@ -390,6 +390,7 @@
   font-weight: 500;
   color: var(--portfolio-text-primary);
   flex: 1;
+  white-space: nowrap;
 }
 
 .skillProgress {
