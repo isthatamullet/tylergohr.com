@@ -133,15 +133,3 @@ export interface HierarchicalSkillCategory {
   subcategories: SkillSubcategory[];
 }
 
-// Skills Filtering System
-export interface SkillsFilter {
-  categories?: string[];
-  technologyTypes?: ("frontend" | "backend" | "database" | "cloud" | "tool")[];
-}
-
-export interface SkillsFilterState {
-  filter: SkillsFilter;
-  setFilter: (filter: SkillsFilter) => void;
-  clearFilters: () => void;
-  hasActiveFilters: boolean;
-}

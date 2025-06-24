@@ -11,7 +11,6 @@ interface ExpandableSkillCardProps {
   isVisible: boolean;
   animationDelay: number;
   hoveredSkill?: string | null;
-  relatedSkills?: Set<string>;
   onSkillHover?: (skillName: string | null) => void;
 }
 
@@ -20,7 +19,6 @@ export default function ExpandableSkillCard({
   isVisible,
   animationDelay,
   hoveredSkill = null,
-  relatedSkills = new Set(),
   onSkillHover,
 }: ExpandableSkillCardProps) {
   const [expandedSubcategory, setExpandedSubcategory] = useState<string | null>(null);
@@ -198,17 +196,13 @@ export default function ExpandableSkillCard({
               <div className={styles.skillsGrid}>
                 {subcategory.skills.map((skill, skillIndex) => {
                   const isHovered = hoveredSkill === skill.name;
-                  const isRelated = relatedSkills.has(skill.name);
-                  const isDimmed = hoveredSkill && !isHovered && !isRelated;
                   
                   return (
                   <button
                     key={skill.name}
                     className={`${styles.skillItem} ${
                       focusedSkill === skill.name ? styles.focused : ""
-                    } ${isHovered ? styles.hovered : ""} ${
-                      isRelated ? styles.related : ""
-                    } ${isDimmed ? styles.dimmed : ""}`}
+                    } ${isHovered ? styles.hovered : ""}`}
                     onClick={() => handleSkillFocus(skill.name)}
                     onMouseEnter={(e) => handleSkillMouseEnter(skill.name, e)}
                     onMouseLeave={handleSkillMouseLeave}

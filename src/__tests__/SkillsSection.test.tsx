@@ -218,7 +218,6 @@ describe("SkillsSection", () => {
     expect(skillCounts.length).toBeGreaterThan(0);
 
     // Frontend Mastery: 2 skills in React Ecosystem + 1 in Modern CSS = 3 total
-    // Use more specific selector to avoid filter chip conflict
     const frontendSection = screen.getByRole("heading", { name: "Frontend Mastery" }).closest("[role='region']");
     expect(frontendSection).toBeInTheDocument();
     expect(frontendSection).toHaveTextContent("3");
@@ -244,72 +243,4 @@ describe("SkillsSection", () => {
     expect(backendCard).toBeInTheDocument();
   });
 
-  it("renders filter interface", () => {
-    render(<SkillsSection />);
-
-    // Check that filter section is present
-    expect(screen.getByText("Filter by Category")).toBeInTheDocument();
-    expect(screen.getByText("Filter by Technology Type")).toBeInTheDocument();
-
-    // Check that filter chips are present
-    expect(screen.getByRole("button", { name: /Frontend Mastery/ })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /Backend Architecture/ })).toBeInTheDocument();
-    
-    // Check technology type filters - use exact text to avoid ambiguity
-    expect(screen.getByRole("button", { name: "Frontend" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Backend" })).toBeInTheDocument();
-  });
-
-  it("filters categories when filter chips are clicked", async () => {
-    const user = userEvent.setup();
-    render(<SkillsSection />);
-
-    // Initially both categories should be visible
-    expect(screen.getByRole("heading", { name: "Frontend Mastery" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Backend Architecture" })).toBeInTheDocument();
-
-    // Click on Frontend Mastery filter chip - use more specific selector
-    const frontendChip = screen.getByRole("button", { 
-      name: /Frontend Mastery/,
-      pressed: false
-    });
-    await user.click(frontendChip);
-
-    // Wait for filter to apply and only Frontend Mastery should be visible
-    await waitFor(() => {
-      expect(screen.getByRole("heading", { name: "Frontend Mastery" })).toBeInTheDocument();
-      expect(screen.queryByRole("heading", { name: "Backend Architecture" })).not.toBeInTheDocument();
-    });
-
-    // Clear filters button should appear - use aria-label for more specific matching
-    await waitFor(() => {
-      const clearButton = screen.getByRole("button", { name: /Clear all active filters/ });
-      expect(clearButton).toBeInTheDocument();
-    });
-
-    // Click clear filters
-    const clearButton = screen.getByRole("button", { name: /Clear all active filters/ });
-    await user.click(clearButton);
-
-    // Both categories should be visible again
-    await waitFor(() => {
-      expect(screen.getByRole("heading", { name: "Frontend Mastery" })).toBeInTheDocument();
-      expect(screen.getByRole("heading", { name: "Backend Architecture" })).toBeInTheDocument();
-    });
-  });
-
-  it("filters by technology type", async () => {
-    const user = userEvent.setup();
-    render(<SkillsSection />);
-
-    // Click on Frontend technology type filter - use exact name to avoid category filter
-    const frontendTypeChip = screen.getByRole("button", { name: "Frontend" });
-    await user.click(frontendTypeChip);
-
-    // Only Frontend Mastery should be visible (has frontend skills)
-    await waitFor(() => {
-      expect(screen.getByRole("heading", { name: "Frontend Mastery" })).toBeInTheDocument();
-      expect(screen.queryByRole("heading", { name: "Backend Architecture" })).not.toBeInTheDocument();
-    });
-  });
 });
