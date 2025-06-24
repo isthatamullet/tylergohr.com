@@ -12,13 +12,8 @@
   backdrop-filter: blur(24px) saturate(1.1);
   -webkit-backdrop-filter: blur(24px) saturate(1.1);
   
-  /* Premium border with gradient */
-  border: 1px solid;
-  border-image: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.2) 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    rgba(255, 255, 255, 0.15) 100%
-  ) 1;
+  /* Premium border - simplified for consistent corner rendering */
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   
   /* Enhanced spacing and layout */
@@ -112,11 +107,7 @@
     0 0 40px rgba(var(--category-color-rgb, 56, 189, 248), 0.1);
     
   /* Enhanced border on hover */
-  border-image: linear-gradient(135deg, 
-    rgba(255, 255, 255, 0.3) 0%,
-    var(--category-color) 50%,
-    rgba(255, 255, 255, 0.2) 100%
-  ) 1;
+  border-color: var(--category-color);
 }
 
 /* Category Header */
@@ -248,6 +239,7 @@
   background: rgba(255, 255, 255, 0.06);
   border-color: var(--category-color);
   box-shadow: 0 0 0 1px var(--category-color);
+  border-radius: 12px 12px 0 0;
 }
 
 /* Subcategory Button */
@@ -314,6 +306,10 @@
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.subcategory.expanded .subcategoryContent {
+  border-radius: 0 0 12px 12px;
 }
 
 .subcategory.expanded .subcategoryContent {
