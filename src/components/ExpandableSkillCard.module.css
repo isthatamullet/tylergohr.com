@@ -926,7 +926,7 @@
 /* Simplified Hover Highlighting */
 .skillItem.hovered {
   background: var(--skill-color) !important;
-  color: var(--portfolio-dark) !important;
+  color: var(--portfolio-text-primary) !important;
   border-color: var(--skill-color);
   box-shadow: 
     0 4px 16px rgba(var(--skill-color-rgb, 56, 189, 248), 0.3),
@@ -935,17 +935,18 @@
 }
 
 .skillItem.hovered .skillColorDot {
-  background: var(--portfolio-dark) !important;
+  background: var(--portfolio-text-primary) !important;
   box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
 }
 
 .skillItem.hovered .skillName {
-  color: var(--portfolio-dark) !important;
+  color: var(--portfolio-text-primary) !important;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .skillItem.hovered .skillProgressBar {
-  background: var(--portfolio-dark) !important;
+  background: var(--portfolio-text-primary) !important;
   opacity: 0.8;
 }
 
