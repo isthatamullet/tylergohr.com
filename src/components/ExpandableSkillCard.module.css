@@ -338,12 +338,10 @@
 
 /* Skills Grid */
 .skillsGrid {
-  padding: 0 20px 20px;
+  padding: 0 20px 32px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 12px;
-  border-radius: 0 0 12px 12px;
-  margin: 0;
 }
 
 .skillItem {
@@ -421,12 +419,11 @@
 
 /* Code Example Container */
 .codeExampleContainer {
-  padding: 0 20px 20px;
+  padding: 0 20px 32px;
   opacity: 0;
   transform: translateY(10px);
   animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   animation-delay: 0.3s;
-  border-radius: 0 0 12px 12px;
 }
 
 /* Advanced 60fps Staggered Animations */
