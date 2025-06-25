@@ -2,6 +2,7 @@
 
 import styles from "./page.module.css";
 import Navigation from "./components/Navigation/Navigation";
+import { Button } from "./components/ui/Button/Button";
 
 export default function EnterprisePage() {
   const navigateToSection = (sectionId: string) => {
@@ -45,20 +46,24 @@ export default function EnterprisePage() {
                 competitive advantages.
               </p>
               <div className={styles.heroActions}>
-                <button
-                  className={styles.primaryCta}
+                <Button
+                  variant="primary"
+                  size="lg"
+                  section="hero"
                   onClick={() => navigateToSection('contact')}
                   aria-label="Start your project - navigate to contact section"
                 >
                   Start Your Project
-                </button>
-                <button
-                  className={styles.secondaryCta}
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="lg"
+                  section="hero"
                   onClick={() => navigateToSection('work')}
                   aria-label="View my work - navigate to case studies section"
                 >
                   View My Work
-                </button>
+                </Button>
               </div>
             </div>
           </div>
@@ -113,6 +118,17 @@ export default function EnterprisePage() {
             <p className={styles.placeholderText}>
               Metrics and achievements coming in Phase 2...
             </p>
+            <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              <Button variant="primary" size="md" section="results">
+                View Results
+              </Button>
+              <Button variant="secondary" size="md" section="results">
+                Download Report
+              </Button>
+              <Button variant="outline" size="md" section="results">
+                Learn More
+              </Button>
+            </div>
           </div>
         </section>
 
@@ -130,6 +146,17 @@ export default function EnterprisePage() {
             <p className={styles.placeholderText}>
               Project showcases coming in Phase 2...
             </p>
+            <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              <Button variant="primary" size="md" section="case-studies">
+                View Case Study
+              </Button>
+              <Button variant="secondary" size="md" section="case-studies">
+                Technical Details
+              </Button>
+              <Button variant="outline" size="md" section="case-studies">
+                Live Demo
+              </Button>
+            </div>
           </div>
         </section>
 
