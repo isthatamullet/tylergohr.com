@@ -1,0 +1,279 @@
+/* Base Container */
+.animation-container {
+  width: 100%;
+  height: 400px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Network Visualization Container */
+.network-visualization {
+  position: relative;
+  width: 90%;
+  height: 80%;
+  max-width: 600px;
+}
+
+/* Network Nodes */
+.network-node {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+  animation: node-pulse 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+/* Node Positioning & Colors */
+.node-1 {
+  top: 40%;
+  left: 5%;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+.node-2 {
+  top: 20%;
+  left: 25%;
+  background: linear-gradient(135deg, #22c55e, #06b6d4);
+}
+
+.node-3 {
+  top: 40%;
+  left: 45%;
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+.node-4 {
+  top: 40%;
+  left: 65%;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+}
+
+.node-5 {
+  top: 20%;
+  right: 10%;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+.node-6 {
+  top: 60%;
+  right: 10%;
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+/* Connection Lines */
+.connection-line {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(34, 197, 94, 0.6) 20%, 
+    rgba(59, 130, 246, 0.8) 80%, 
+    transparent 100%);
+  z-index: 1;
+  animation: line-flow 4s ease-in-out infinite;
+}
+
+.line-1-2 {
+  top: 47%;
+  left: 10%;
+  width: 20%;
+  transform: rotate(-15deg);
+  transform-origin: left center;
+}
+
+.line-2-3 {
+  top: 37%;
+  left: 30%;
+  width: 20%;
+  transform: rotate(15deg);
+  transform-origin: left center;
+}
+
+.line-3-4 {
+  top: 47%;
+  left: 50%;
+  width: 18%;
+}
+
+.line-4-5 {
+  top: 35%;
+  right: 15%;
+  width: 20%;
+  transform: rotate(-15deg);
+  transform-origin: right center;
+}
+
+.line-4-6 {
+  top: 55%;
+  right: 15%;
+  width: 20%;
+  transform: rotate(15deg);
+  transform-origin: right center;
+}
+
+/* Data Streams */
+.data-stream {
+  position: absolute;
+  width: 3px;
+  height: 100px;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    #06b6d4 50%, 
+    transparent 100%);
+  animation: stream-flow 2s linear infinite;
+  z-index: 3;
+}
+
+.stream-1 {
+  top: 10%;
+  right: 5%;
+  animation-delay: 0s;
+}
+
+.stream-2 {
+  top: 30%;
+  right: 8%;
+  animation-delay: 0.7s;
+}
+
+.stream-3 {
+  top: 50%;
+  right: 3%;
+  animation-delay: 1.4s;
+}
+
+/* Particle Flow */
+.particle-flow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #3b82f6;
+  border-radius: 50%;
+  animation: particle-float 3s linear infinite;
+}
+
+.particle-1 {
+  right: 20px;
+  animation-delay: 0s;
+}
+
+.particle-2 {
+  right: 40px;
+  animation-delay: 1s;
+}
+
+.particle-3 {
+  right: 60px;
+  animation-delay: 2s;
+}
+
+/* Animations */
+@keyframes node-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+  }
+}
+
+@keyframes line-flow {
+  0%, 100% {
+    opacity: 0.6;
+    background-size: 200% 100%;
+    background-position: -200% 0;
+  }
+  50% {
+    opacity: 1;
+    background-position: 200% 0;
+  }
+}
+
+@keyframes stream-flow {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+}
+
+@keyframes particle-float {
+  0% {
+    top: 100%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: -10px;
+    opacity: 0;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .animation-container {
+    height: 300px;
+  }
+  
+  .network-node {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .node-4 {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .network-node,
+  .connection-line,
+  .data-stream,
+  .particle {
+    animation: none;
+  }
+  
+  .network-node {
+    opacity: 0.8;
+  }
+}

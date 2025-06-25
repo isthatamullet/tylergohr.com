@@ -1,0 +1,18 @@
+Text	Category 1	Category 2	Category 3
+Product, process documentation and training	Responsibilities		
+Root cause analysis and workflow optimization	Responsibilities	Accomplishments	Skills
+Managed creation of educational content for employee onboarding, operational standards, product / video authoring and distribution	Responsibilities	Skills	
+Towards the end of my time at Fox I took on product management responsibilities, defining the requirements for the production of a content distribution platform that handled everything from content ingest, user account management, content monetization, digital rights management, content release / publishing, content processing, and so on	Accomplishments	Skills	
+Change management - trained different teams and departments on new workflows and processes	Responsibilities	Skills	
+Defining how to measure success and the metrics supporting those goals	Skills		
+Project management and stakeholder communication, progress and status reporting	Skills		
+Identifying time and money saving opportunities with internal and external processes, executing solutions and change management efforts	Responsibilities	Accomplishments	
+Product documentation, which in my case was mostly video products, and associated metadata and technical asset details, like video title, synopses, talent names, release dates, rights info, etc, and asset details like file formats, runtime, codecs, time codes, storage locations, viewership and performance metrics, distribution platform details. Additional product documentation experience in the form of the content distribution platform we were building included feature requirements, process details, asset and data ingest and transformation requirements, etc	Skills		
+For customer education, I put on several educational sessions with different teams to help them understand processes and systems functionality, enabling their successful development and deployment of our new content platform	Responsibilities		
+Monetized offerings - worked on the launch of Fox Nation, Fox Weather, and pay per view sporting events, ensuring monetized offerings were secure behind a paywall. Additionally, customers could access other video content using their cable subscription login details	Accomplishments		
+Vendor management - worked with several vendors who provided services, content, and other digital assets in the form of video, audio, captions, metadata, content processing, content management systems, and helped manage their continuous development	Responsibilities		
+My budget management was indirect, but was deeply involved with cost management for employees, project timeframes, workflow enhancements	Responsibilities		
+Leadership and team development - I led a team of 10 content specialists, helping them navigate onboarding, provided all of their training and mentorship. Also led a development team in the creation of an extensive DRM system.	Accomplishments	Skills	Responsibilities
+Created tools and workflows to use AI - one example is automating ad break time code detection in TV episodic and made for TV film content, enabling content specialists to quickly identify and approve their placement, significantly increasing our high-volume output	Accomplishments	Skills	
+Implemented new CMS to handle streaming video for the 2018 FIFA World Cup, allowing high-quality content to be easily accessed on almost any device with a screen	Accomplishments	Skills	
+I’ve thrived in the very high visibility positions I’ve held, being responsible for accurately creating and managing high-quality, large scale digital products and content on global platforms	Accomplishments	Skills	Responsibilities

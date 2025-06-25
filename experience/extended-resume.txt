@@ -1,0 +1,165 @@
+TYLER GOHR
+Digital Content Management Expert
+310-422-7070 | tyler.gohr@gmail.com | Meridian, Idaho
+
+PROFESSIONAL SUMMARY
+Emmy Award-winning content management professional with over 16 years of experience in developing, implementing, and managing content strategies across global media platforms. Proven track record in optimizing content workflows, increasing efficiency by up to 50%, managing large-scale content libraries exceeding 17,000 long-form titles (TV and film, including movies dating back to the 1910s) and over 30,000 pieces of short-form video content. Skilled in leading cross-functional teams, implementing AI-driven content solutions, and making data-informed decisions. Expertise in content safety, policy enforcement, and regulatory compliance across diverse cultures and digital platforms. Adept at translating complex ideas into compelling narratives for diverse audiences, with advanced knowledge of content management systems (CMS) and digital asset management (DAM) tools.
+
+CAREER HIGHLIGHTS
+- Saved Fox Corporation a few million bucks through: effective content strategy for Fox's largest direct-to-consumer video product, managing over 17,000 titles while ensuring high-quality, engaging content across diverse types and platforms. Wrangled all the required digital components together (video, audio, captions, subtitles, metadata, artwork, digital rights management) to create the highest quality products possible, sourcing the best quality assets, to create industry leading products. Completely reworked workflows for closed captioning and timed text sync; digital asset and database management; created product component tracking system. Contributed to the launch of Fox Nation and Fox Weather, providing guidance technical content requirements and quality standards.
+- Improved content management and app review efficiency by 50% through content management systems enhancements, defining and enforcing quality standards, thorough, effective training, and creation of educational and technical reference documentation.
+- Directed Emmy-winning live streaming project for 2018 FIFA World Cup, demonstrating ability to manage complex technical setups and optimize content delivery across global platforms.
+- Increased content delivery success rates from 32% to 96% at Warner Bros. through improved review standards, operational enhancements, tool development, user research, process analysis, and constant workflow optimization.
+- Pioneered integration of AI tools for content creation, moderation, and optimization, significantly improving efficiency and output quality while adhering to regulatory guidelines across large content libraries.
+
+
+SKILLS
+- Content Strategy Development and Management
+- Advanced CMS and DAM Proficiency (including Drupal, WordPress, Brightcove, Comcast Cloud Video Platform [fka MPX], AEM, SharePoint, many others)
+- SEO and Content Optimization
+- Project Management (Using JIRA)
+- Cross-functional, Global Team Leadership
+- Data Analysis and Visualization
+- Stakeholder Communication
+- AI-Assisted Content Creation and Moderation
+- Content Safety and Policy Enforcement
+- Quality Assurance and Bug Reporting
+- Rapid Tool Adoption
+- Microsoft PowerBI, Word, Excel Proficiency (I LOVE Functions!)
+- Complex Content Calendar Management
+- Deadline-Driven Work Ethic
+- HTML and XML Proficiency
+- User Research and Information Architecture
+- Familiar with DITA Principles
+- Public Speaking
+
+EXPERIENCE
+
+Lead Content Operator (Manager)
+Fox Corporation | Jan 2017 - Aug 2022
+
+- Managed content across global platforms, overseeing quality and consistency while adhering to diverse regulatory requirements.
+- Developed and maintained content strategies for major digital platforms, defining quality standards and operational SOPs.
+- Led initiatives in optimizing content management processes, significantly improving workflow efficiency.
+- Integrated AI for content creation and moderation, reducing manual review time and error rates by 50%.
+- Collaborated with cross-functional teams to select and publish digital assets, ensuring visual consistency and quality across all content.
+- Established data-driven processes for content performance analysis, informing strategic decisions.
+- Implemented robust content safety measures and policy enforcement protocols.
+- Collaborated with stakeholders to define program requirements and develop strategies aligned with business goals.
+- Managed and grew cross-functional teams of Content Developers, executing content strategies for large-scale projects and addressing business pain points.
+- Developed and implemented content management processes, optimized workflows, ensuring timely delivery and quality across 17,000+ titles.
+- Created and maintained comprehensive process documentation for content management, improving accessibility and maintainability across departments.
+- Product, process documentation and training
+- Root cause analysis and workflow optimization
+- Managed creation of educational content for employee onboarding, operational standards, product / video authoring and distribution
+- Towards the end of my time at Fox I took on product management responsibilities, defining the requirements for the production of a content distribution platform that handled everything from content ingest, user account management, content monetization, digital rights management, content release / publishing, content processing, and so on
+- Change management - trained different teams and departments on new workflows and processes
+- Defining how to measure success and the metrics supporting those goals
+- Project management and stakeholder communication, progress and status reporting
+- Identifying time and money saving opportunities with internal and external processes, executing solutions and change management efforts
+- Product documentation, which in my case was mostly video products, and associated metadata and technical asset details, like video title, synopses, talent names, release dates, rights info, etc, and asset details like file formats, runtime, codecs, time codes, storage locations, viewership and performance metrics, distribution platform details. Additional product documentation experience in the form of the content distribution platform we were building included feature requirements, process details, asset and data ingest and transformation requirements, etc
+
+
+
+Metadata Technician, Content Manager
+SDI Media | Feb 2016 - Dec 2016
+
+- Established production workflows for multilingual content, including credits, subtitles, audio, artwork, and metadata.
+- Ensured compliance with varied governmental and industry content standards across multiple languages and cultures (including ADA requirements for content accessibility such as closed captioning)
+- SME for iTunes Store distribution and iTunes content library management
+- Reduced content redeliveries by 50% through implementation of robust QC processes.
+- Analyzed digital asset trends to identify areas for improvement in review processes and policy implementation.
+- Collaborated with international teams to maintain consistent content standards across multiple languages and cultures.
+- Product, process documentation and training
+- Root cause analysis and workflow optimization
+- Change management - trained different teams and departments on new workflows and processes
+
+Digital Consultant
+The Seventh-day Adventist Church | Oct 2014 - Jan 2016
+
+- Led digitization project, modernizing document management and enhancing accessibility.
+- Provided technical guidance on digital resources, aligning with modern standards.
+- Created event specific websites and member portals for various global church conference events, handling site design, user journey, and content accessibility
+- Product, process documentation and training
+- Change management - trained different teams and departments on new workflows and processes
+- Managed user provisioning, account creation, customer onboarding
+
+Metadata Technician, SME
+Warner Bros. Entertainment | Feb 2012 - Oct 2014
+
+- Created and implemented new content strategies and operational standards, quickly boosting feature film delivery success rates from 32% to 96% in my first 3 months, through conducting historical research and collaborative root cause analyses, adapting to mitigate future issues, strengthening relationships with our vendors, introducing new content review standards and effectively managing our relationships with global content platforms.
+- Asked all of the right questions.
+- Authored detailed technical policy documents and training materials for cross-departmental use.
+- Conducted regular content reviews and updates to maintain alignment with evolving industry standards.
+- Enhanced review measures to ensure content met industry standards and accessibility requirements.
+- Conducted user research to identify pain points and improve app review experiences.
+- Developed SOPs for content processing, QC, and delivery, incorporating SEO best practices to improve asset discoverability.
+- Created educational content for customer onboarding, facilitating smooth adoption of new distribution processes.
+- Managed content policy, enforcing strict adherence to multinational / governmental / cultural / accessibility content requirements, Chicago Manual of Style guidelines
+- Product, process documentation and training
+- Root cause analysis and workflow optimization
+- Managed creation of educational content for employee onboarding, operational standards, product / video authoring and distribution
+- Change management - trained different teams and departments on new workflows and processes
+- Defining how to measure success and the metrics supporting those goals
+- Project management and stakeholder communication, progress and status reporting
+- Product documentation, which in my case was mostly video products, and associated metadata and technical asset details, like video title, synopses, talent names, release dates, rights info, etc, and asset details like file formats, runtime, codecs, time codes, storage locations, viewership and performance metrics, distribution platform details. Additional product documentation experience in the form of the content distribution platform we were building included feature requirements, process details, asset and data ingest and transformation requirements, etc
+- Hosted several visits from vendors and corporate executives, including the president of Warner Bros and the head of iTunes Movies at Apple.
+
+New Media Specialist
+Fuel TV (A Fox Cable Networks Action Sports Network) | 2008 - 2012
+While at Fuel TV, I pioneered content distribution to dozens of partner platforms, such as Facebook, iTunes, YouTube, Hulu, and other global platforms. We implemented workflows to deliver video, artwork, metadata, and live streams for sports events and live concerts. I personally developed and enhanced the video players for our website, fuel.tv, along with launching and integrating custom video players for partner websites. I worked alongside show producers and directors to optimize our content for the emerging digital video world. While at Fuel TV I gained the foundational knowledge I would use at my other content distribution roles at the SDA church, SDI Media, Warner Bros, and Fox Corporation. Additionally while at Fuel TV, we saw our online viewership increase from a few thousand well into the millions. I also managed live editing for our worldwide sporting events streams, allowing segments of the live show to be published as the event unfolded. And finally, using data sources such as comScore, Nielsen Ratings, Adobe Analytics, and other metrics, I managed and performed reporting and data analysis for our content across all global platforms, providing actionable reports and insights.
+
+Digital Consultant & Licensed Realtor
+Self-Employed, Homes of Idaho | Aug 2022 - Present
+
+- Empower entrepreneurs with cutting-edge AI tools, providing hands-on training to revolutionize their content strategy and marketing efforts.
+- Create compelling marketing materials, increasing online engagement and brokerage success.
+- Develop and distribute engaging email newsletters to nurture client relationships and drive interest in the local market.
+- Implement AI-driven content strategies, increasing online engagement by 20%.
+
+
+AWARDS
+Emmy, The National Academy of Television Arts & Sciences, 2018
+Outstanding Achievement (4x), Fox Corporation, 2017 - 2019
+Exceptional Performance, Warner Bros. Entertainment, 2013
+Outstanding Sales, MetLife, 2007
+
+
+EDUCATION
+
+La Sierra University, Bachelor of Arts, Music Technology
+
+
+VOLUNTEERING
+Boise State University, 2022 - Present
+Huntington Beach Symphony Orchestra, 2014 - 2019
+Beach Cities Symphony Orchestra, 2014 - 2017
+Palos Verdes Symphonic Band, 2014 - 2017
+
+PERSONAL LIFE
+
+I'm an avid follower of political news and social issues, engaging with diverse sources to maintain a well-rounded perspective. I nerd out to space exploration, classical music, real estate, high quality digital content, looking up at the sky through my telescope, watching rockets launch, and exploring new places. I stay fit with regular gym visits, hiking, snowboarding, and eating healthy (mostly). Free time involves hanging out with my two dear kitten siblings Harold and Louise, killing over a dozen plants, learning through written and streaming educational content, and hot tub time with friends and neighbors. My most recently used emoji is 😍.
+
+ADDITIONAL DETAILS, SKILLS, ACCOMPLISHMENTS, AND RESPONSIBILITIES
+
+Some details and specifics of Tyler’s responsibilities and achievements throughout his career:
+
+Product, process documentation and training
+Root cause analysis and workflow optimization
+Managed creation of educational content for employee onboarding, operational standards, product / video authoring and distribution
+Towards the end of my time at Fox I took on product management responsibilities, defining the requirements for the production of a content distribution platform that handled everything from content ingest, user account management, content monetization, digital rights management, content release / publishing, content processing, and so on
+Change management - trained different teams and departments on new workflows and processes
+Defining how to measure success and the metrics supporting those goals
+Project management and stakeholder communication, progress and status reporting
+Identifying time and money saving opportunities with internal and external processes, executing solutions and change management efforts
+Product documentation, which in my case was mostly video products, and associated metadata and technical asset details, like video title, synopses, talent names, release dates, rights info, etc, and asset details like file formats, runtime, codecs, time codes, storage locations, viewership and performance metrics, distribution platform details. Additional product documentation experience in the form of the content distribution platform we were building included feature requirements, process details, asset and data ingest and transformation requirements, etc
+
+For customer education, I put on several educational sessions with different teams to help them understand processes and systems functionality, enabling their successful development and deployment of our new content platform
+Monetized offerings - worked on the launch of Fox Nation, Fox Weather, and pay per view sporting events, ensuring monetized offerings were secure behind a paywall. Additionally, customers could access other video content using their cable subscription login details
+Vendor management - worked with several vendors who provided services, content, and other digital assets in the form of video, audio, captions, metadata, content processing, content management systems, and helped manage their continuous development
+My budget management was indirect, but was deeply involved with cost management for employees, project timeframes, workflow enhancements
+Leadership and team development - I led a team of 10 content specialists, helping them navigate onboarding, provided all of their training and mentorship. Also led a development team in the creation of an extensive DRM system.
+Created tools and workflows to use AI - one example is automating ad break time code detection in TV episodic and made for TV film content, enabling content specialists to quickly identify and approve their placement, significantly increasing our high-volume output
+Implemented new CMS to handle streaming video for the 2018 FIFA World Cup, allowing high-quality content to be easily accessed on almost any device with a screen
+I’ve thrived in the very high visibility positions I’ve held, being responsible for accurately creating and managing high-quality, large scale digital products and content on global platforms
+

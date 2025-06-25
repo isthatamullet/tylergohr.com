@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Section - Existing Animation Preview</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* About Section Container */
+        .aboutSection {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 480px;
+            gap: 40px;
+            align-items: center;
+        }
+
+        /* About Content (Left Side - 60%) */
+        .aboutContent {
+            max-width: 640px;
+        }
+
+        .aboutTitle {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .aboutParagraph {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+        }
+
+        .aboutParagraph:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Emmy Award emphasis */
+        .emmyHighlight {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        /* Enterprise company emphasis */
+        .enterpriseHighlight {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        /* Network Animation Container (Right Side - 40%) */
+        .aboutAnimation {
+            width: 480px;
+            height: 400px;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(22, 163, 74, 0.1) 0%, transparent 70%);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* === EXISTING ANIMATION CSS (from codepen-animation.css) === */
+        
+        /* Base Container */
+        .animation-container {
+            width: 100%;
+            height: 400px;
+            background: transparent; /* Let aboutAnimation handle background */
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Network Visualization Container */
+        .network-visualization {
+            position: relative;
+            width: 90%;
+            height: 80%;
+            max-width: 600px;
+        }
+
+        /* Network Nodes */
+        .network-node {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+            animation: node-pulse 3s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        /* Node Positioning & Colors */
+        .node-1 {
+            top: 40%;
+            left: 5%;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+        }
+
+        .node-2 {
+            top: 20%;
+            left: 25%;
+            background: linear-gradient(135deg, #22c55e, #06b6d4);
+        }
+
+        .node-3 {
+            top: 40%;
+            left: 45%;
+            background: linear-gradient(135deg, #06b6d4, #3b82f6);
+        }
+
+        .node-4 {
+            top: 40%;
+            left: 65%;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            width: 60px;
+            height: 60px;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+        }
+
+        .node-5 {
+            top: 20%;
+            right: 10%;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        }
+
+        .node-6 {
+            top: 60%;
+            right: 10%;
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+        }
+
+        /* Connection Lines */
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(34, 197, 94, 0.6) 20%, 
+                rgba(59, 130, 246, 0.8) 80%, 
+                transparent 100%);
+            z-index: 1;
+            animation: line-flow 4s ease-in-out infinite;
+        }
+
+        .line-1-2 {
+            top: 47%;
+            left: 10%;
+            width: 20%;
+            transform: rotate(-15deg);
+            transform-origin: left center;
+        }
+
+        .line-2-3 {
+            top: 37%;
+            left: 30%;
+            width: 20%;
+            transform: rotate(15deg);
+            transform-origin: left center;
+        }
+
+        .line-3-4 {
+            top: 47%;
+            left: 50%;
+            width: 18%;
+        }
+
+        .line-4-5 {
+            top: 35%;
+            right: 15%;
+            width: 20%;
+            transform: rotate(-15deg);
+            transform-origin: right center;
+        }
+
+        .line-4-6 {
+            top: 55%;
+            right: 15%;
+            width: 20%;
+            transform: rotate(15deg);
+            transform-origin: right center;
+        }
+
+        /* Data Streams */
+        .data-stream {
+            position: absolute;
+            width: 3px;
+            height: 100px;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                #06b6d4 50%, 
+                transparent 100%);
+            animation: stream-flow 2s linear infinite;
+            z-index: 3;
+        }
+
+        .stream-1 {
+            top: 10%;
+            right: 5%;
+            animation-delay: 0s;
+        }
+
+        .stream-2 {
+            top: 30%;
+            right: 8%;
+            animation-delay: 0.7s;
+        }
+
+        .stream-3 {
+            top: 50%;
+            right: 3%;
+            animation-delay: 1.4s;
+        }
+
+        /* Particle Flow */
+        .particle-flow {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #3b82f6;
+            border-radius: 50%;
+            animation: particle-float 3s linear infinite;
+        }
+
+        .particle-1 {
+            right: 20px;
+            animation-delay: 0s;
+        }
+
+        .particle-2 {
+            right: 40px;
+            animation-delay: 1s;
+        }
+
+        .particle-3 {
+            right: 60px;
+            animation-delay: 2s;
+        }
+
+        /* Animations */
+        @keyframes node-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+            }
+        }
+
+        @keyframes line-flow {
+            0%, 100% {
+                opacity: 0.6;
+                background-size: 200% 100%;
+                background-position: -200% 0;
+            }
+            50% {
+                opacity: 1;
+                background-position: 200% 0;
+            }
+        }
+
+        @keyframes stream-flow {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes particle-float {
+            0% {
+                top: 100%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: -10px;
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1199px) {
+            .aboutSection {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            
+            .aboutContent {
+                order: 2;
+                max-width: 100%;
+            }
+            
+            .aboutAnimation {
+                order: 1;
+                width: 400px;
+                height: 300px;
+                margin: 0 auto;
+            }
+
+            .animation-container {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .aboutSection {
+                gap: 2rem;
+            }
+            
+            .aboutAnimation {
+                width: 280px;
+                height: 220px;
+            }
+
+            .animation-container {
+                height: 220px;
+            }
+            
+            .aboutTitle {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .aboutParagraph {
+                font-size: 1rem;
+                margin-bottom: 1.25rem;
+            }
+            
+            .network-node {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .node-4 {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            .network-node,
+            .connection-line,
+            .data-stream,
+            .particle {
+                animation: none;
+            }
+            
+            .network-node {
+                opacity: 0.8;
+            }
+        }
+
+        /* Demo Label */
+        .demo-label {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            font-size: 0.875rem;
+            z-index: 1000;
+            text-align: center;
+        }
+
+        .demo-label h4 {
+            color: #06b6d4;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .demo-label p {
+            color: #94a3b8;
+            margin: 0;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-label">
+        <h4>Existing Animation</h4>
+        <p>Original codepen files</p>
+    </div>
+
+    <section class="aboutSection">
+        <!-- About Content (Left Side) -->
+        <div class="aboutContent">
+            <h2 class="aboutTitle">About Tyler Gohr</h2>
+            <p class="aboutParagraph">
+                I'm Tyler Gohr, an <span class="emmyHighlight">Emmy Award-winning</span> Enterprise Solutions Architect who transforms complex technical challenges into competitive business advantages. Over 16+ years leading technical teams at <span class="enterpriseHighlight">Fox Corporation</span> and <span class="enterpriseHighlight">Warner Bros Entertainment</span>, I've architected platforms serving millions of users while managing systems with 17,000+ digital assets.
+            </p>
+            <p class="aboutParagraph">
+                My approach combines Fortune 500-level expertise with a passion for solving real business problems. Whether you're a growing company needing a custom web application or an enterprise requiring complex digital infrastructure, I bring the same strategic thinking and technical precision to every project—from initial concept through deployment and optimization.
+            </p>
+            <p class="aboutParagraph">
+                I specialize in AI-powered automation, content distribution systems, and full-stack development, always focusing on solutions that deliver measurable impact while scaling with your business goals.
+            </p>
+        </div>
+
+        <!-- Network Animation (Right Side) - Using Existing Animation -->
+        <div class="aboutAnimation">
+            <div class="animation-container">
+                <div class="network-visualization">
+                    <!-- Network Nodes (exactly as in codepen-animation.html) -->
+                    <div class="network-node node-1" data-platform="source"></div>
+                    <div class="network-node node-2" data-platform="processing"></div>
+                    <div class="network-node node-3" data-platform="distribution"></div>
+                    <div class="network-node node-4 main-hub" data-platform="hub"></div>
+                    <div class="network-node node-5" data-platform="streaming"></div>
+                    <div class="network-node node-6" data-platform="ai"></div>
+                    
+                    <!-- Connection Lines (exactly as in codepen-animation.html) -->
+                    <div class="connection-line line-1-2"></div>
+                    <div class="connection-line line-2-3"></div>
+                    <div class="connection-line line-3-4"></div>
+                    <div class="connection-line line-4-5"></div>
+                    <div class="connection-line line-4-6"></div>
+                    
+                    <!-- Data Flow Effects (exactly as in codepen-animation.html) -->
+                    <div class="data-stream stream-1"></div>
+                    <div class="data-stream stream-2"></div>
+                    <div class="data-stream stream-3"></div>
+                    
+                    <!-- Particle Flow (exactly as in codepen-animation.html) -->
+                    <div class="particle-flow">
+                        <div class="particle particle-1"></div>
+                        <div class="particle particle-2"></div>
+                        <div class="particle particle-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Simple scroll-triggered animation for demo
+        document.addEventListener('DOMContentLoaded', function() {
+            const aboutSection = document.querySelector('.aboutSection');
+            
+            // Initial state for animation
+            aboutSection.style.opacity = '0';
+            aboutSection.style.transform = 'translateY(40px)';
+            aboutSection.style.transition = 'all 0.8s ease';
+            
+            // Trigger animation after a short delay for demo
+            setTimeout(() => {
+                aboutSection.style.opacity = '1';
+                aboutSection.style.transform = 'translateY(0)';
+            }, 500);
+        });
+    </script>
+</body>
+</html>

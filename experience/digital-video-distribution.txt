@@ -1,0 +1,75 @@
+This document outlines the steps involved in putting a feature film in digital format on a streaming platform like the iTunes Store.
+
+Material sourcing - video and audio
+First, you need to get the video files. Now they are often available in digital format, like a .mov or other video file. Previously, this would involve contacting the studio distributing the film, specifying which physical format you need them to give you in order to be able to capture it with whatever equipment you have. What that means is, there are multiple forms of physical storage devices - tape, hard drive, or even film reels are most common. In most professional environments, you'll have a variety of tape decks and other machines whose job it is to act as a super complex version of a VCR. 
+
+When I worked at Warner Bros., our facility was equipped to handle one-inch tape, Betacam, two-inch tape, MiniDV, Digibeta, Betamax, and around a dozen other types of physical formats. A bunch of very expensive machines just sitting there so that we could work with nearly any source that was available for us to digitize, and later distribute.
+
+Not only do you have to grab the tape master and stick it in the deck, you have to specify things like the source frame rate, aspect ratio, and other crap. Then, you have to route the output to the correct place so that when it's done encoding the content, you can go treasure hunting and find the finished file. It will usually contain the video and audio tracks.
+
+Now you're usually lucky enough to be sent a digital file that has what you need, without having to deal with a warehouse full of crazy machinery that's there to handle whatever format happens to be available.
+
+So now you have your video and audio. Usually, the audio contained in the video master will match the language spoken in the original film. And usually, the audio in the video file is in sync with the video, aka car doors closing, actors speaking, etc, all match up with what you see in the video. 
+
+But not always. 
+
+Go into difficulties with out of sync audio.
+Sometimes your audio starts in sync, and slowly gets faster or slower over time. Or you might be given the audio file for the extended version, which won't match your regular version. And if you're lucky, you could be given the audio for The Corpse Bride when you needed the audio for Watchmen.
+
+And sometimes you might be asked to deal with foreign or dubbed audio, created by actors after filming so the original film can be viewed with dialogue in other languages.
+
+Producing these alternative language audio files consists of identifying the right voice actor for the role, getting them into a properly equipped studio, recording them speaking the carefully translated dialogue for their role, editing their performance to fit and sync with the video, doing quality control to spot any potential mistakes, making further edits if needed, and then days later, once it all looks and sounds good, that audio file is ready to once again be QCd by a member of the QC department. They're there to give a final sign off by literally watching a movie with foreign audio they probably don't even understand.
+
+So with a film that's going to be distributed around the globe, in 20 or more different languages, there's a lot of work that goes into the whole thing. And we haven't even gotten to the captions and subtitles!
+
+Timed Text
+
+Closed captions provide a text version of spoken words and important non-speech sounds in a video, making it accessible to individuals who are deaf or hard of hearing, and also enhancing comprehension for all viewers. Non-speech sounds consist of anything from footsteps, to an explosion, to an ambulance siren, or even a simple sigh. There are lots of legal requirements concerning what content needs closed captions, and even about how in sync they need to be to follow the law.
+
+Subtitles translate audio dialogue from one language to another, and typically don't provide non-speech sounds like captions do.
+
+There's even another kind of subtitles called forced subtitles, who get displayed regardless of the viewer's subtitle settings, appearing to clarify essential information like foreign language dialogue or on-screen text that would otherwise be incomprehensible. Examples include things like "5 years later," "Redondo Beach, 1982," or simply to display the translation of something like a newspaper headline.
+
+Great! Now you know about a few different timed text formats. Those also need to be QCd by someone who more than likely does not speak the language they're reviewing. Usually they will just make sure that a line of text appears within one second of hearing spoken dialogue. If everything looks good, it gets a pass. If not, the captions or subtitles file will be rejected, and hopefully a note will be provided that references specific timecodes where things are out of sync. In the case of a rejection, the team providing the timed text source will have to correct the sync, and redeliver an updated file that goes through another round of QC.
+
+Now we've got our video, audio, and timed text sources that are all looking and sounding perfect. What's next?
+
+Metadata!
+
+Metadata is crucial. Not just with feature film distribution, but with literally everything. What is metadata? I'm glad you asked! Metadata consists of things like a video title, description, translated description, a Latin American Spanish description vs a Castilian Spanish description, release date, pricing, availability dates, actor names, and so on - think of metadata as the stuff you type into a form online. There are your typical fields like first and last name, address, age, and different websites or apps sometimes ask you to input more types of metadata about yourself or whatever else you're there to do.
+
+Depending on where your film is being sent, that platform may have their own specific metadata requirements that if you don't meet, your submission could be rejected, and your whole company will get an email saying that you were bad, and that your metadata is bad, and that you need to fix your crap and resubmit the whole thing all over again. Metadata requirements include things like punctuation, capitalization, spacing, specifics over what can and cannot be in certain metadata, and it gets even more fun when you're dealing with multiple languages: when it's French, it has to have non breaking spaces before punctuation, and you have to make sure anything in quotes is surrounded by Guillemets. NOT quotation marks. When it's German, quotation marks have to open with that „ thingy. If it's Spanish, any languages mentioned in your metadata cannot be capitalized, so Spanish and English become español and inglés. And those are just a handful of the rules that some platforms require your metadata to follow in order to be available for purchase.
+
+Artwork!
+
+Let's go over what we've got so far: delicious video, beautiful audio, perfectly timed text, and irresistible metadata. But now, customers need something that looks pretty so they can click on it. Here's where that movie poster comes in. Often it comes down to just asking the art department to translate text on an existing poster into another language. Easy peasy! Except, some countries have specific content requirements for what must be in their artwork, and what specifically can NOT be in it. Some countries are even so specific that they don't allow certain scenes in the movie to be made available to their people.
+
+Ratings!
+
+Video, audio, timed text, metadata, artwork. Now you have some ratings to deal with. In the United States, we're familiar with things like G, PG, PG-13, and R. And that's just fine. For us! In other countries, they use completely different rating systems. Some are mildly similar, like Canada, who has stuff like G, PG, and R, with other crazy stuff like 14A, 18A, and just...A. Other countries simply use numbers to rate their movies, like 0, 6, 12, 16, and 18 in Germany, because some movies you just can't see for another two years.
+
+Ratings are another fun part of your metadata. When your movie is going all over the world and you happen to miss that one incorrect rating for Costa Rica - rejected!
+
+Previews / Trailers!
+
+Great! We've got video, audio, timed text, metadata, artwork, and ratings. Ready to go? No! You still have to get your previews and trailers ready. Oh, what? Those are different? Yep.
+
+A preview is generally a clip taken directly from the movie. Think of it as how when you record a video on your phone, you can trim its in and out points to focus on the best part of what you recorded.
+
+A trailer is generally a specifically produced short little video containing certain segments of the movie that were chosen for the trailer. Often they have a voiceover included, and have lots of action-packed shots to show viewers parts of the movie and make them want to spend money to watch the entire thing.
+
+Previews and trailers add yet another QC layer to ensure the spoken dialogue and any text on screen, match the language and country where they're being distributed to.
+
+Chapters!
+
+Some movies with a lower distribution budget would pretty much be ready to go at this point. But some movies require specific chapter time codes. And in some cases - extremely specific time codes. I handled the distribution of the Hobbit trilogy, directed by Peter Jackson. Before we were allowed to hit SEND, Peter got in touch to let us know he had specific video frames for us to use, as well as translated chapter titles for each of them. That took a good amount of extra hours to get everything right. Later on we had the pleasure to work on the extended editions of The Lord of the Rings, where The Return of the King required 77 chapter time codes, all with specific title names, and then they all had to be translated into various languages. Most directors are not as specific as Peter, but we all smiled once our work had been given his personal approval. 
+
+Cropping!
+
+We're done right? NO! Certain platforms require you to provide them with numbers specifying the number of dead pixels in your movie. Okay what? Here's where aspect ratios come into the picture, literally. You've got 4:3, 16:9, 2.40 (pronounced two-four-oh if you're in the know), 1.78, 1.85, numbers numbers numbers. You can think of them like how when you're scrolling Instagram and you see a video that was shot with their phone sideways, and it's got a bunch of black at the top and bottom. Certain platforms require you to supply the exact number of pixels the black parts take up, counted from the top, bottom, left, and right. Get this number wrong and your movie gets rejected. It's like filing your taxes, but way less fun. And with things like documentaries, that often contain video in a variety of aspect ratios, it's just up to you to choose the most prominent aspect ratio for that entire file. Choose poorly, and the whole company will hear about it!
+
+Random stuff you also have to get right to avoid rejection!
+
+That pretty much covers the absolute basics of what goes into getting a movie ready for distribution to a major video streaming platform. But there's a whole lot of other crap we didn't cover, like frame rates, file formats, encoding profiles, color spaces, telecine - the act of converting film to video, often involving frame rate conversion (e.g., from 24 frames per second to 29.97 frames per second) - which basically involves a 3:2 pull down in the post-production process which involves making 24 frames per second become 29.97 frames per second, converting approximately every four frames into five frames plus a slight slow down in speed. A very simple process we all learn about in Kindergarten.
+
+https://youtu.be/O7m3CfxR6bI?si=SgygQg2pZmAd6tAm

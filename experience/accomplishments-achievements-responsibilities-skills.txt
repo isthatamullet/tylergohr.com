@@ -1,0 +1,38 @@
+Some details and specifics of Tyler’s responsibilities and achievements throughout his career:
+
+Accomplishments
+
+Product, process documentation and training
+Root cause analysis and workflow optimization
+Managed creation of educational content for employee onboarding, operational standards, product / video authoring and distribution
+Towards the end of my time at Fox I took on product management responsibilities, defining the requirements for the production of a content distribution platform that handled everything from content ingest, user account management, content monetization, digital rights management, content release / publishing, content processing, and so on
+Change management - trained different teams and departments on new workflows and processes
+Defining how to measure success and the metrics supporting those goals
+Project management and stakeholder communication, progress and status reporting
+Identifying time and money saving opportunities with internal and external processes, executing solutions and change management efforts
+Product documentation, which in my case was mostly video products, and associated metadata and technical asset details, like video title, synopses, talent names, release dates, rights info, etc, and asset details like file formats, runtime, codecs, time codes, storage locations, viewership and performance metrics, distribution platform details. Additional product documentation experience in the form of the content distribution platform we were building included feature requirements, process details, asset and data ingest and transformation requirements, etc
+
+For customer education, I put on several educational sessions with different teams to help them understand processes and systems functionality, enabling their successful development and deployment of our new content platform
+Monetized offerings - worked on the launch of Fox Nation, Fox Weather, and pay per view sporting events, ensuring monetized offerings were secure behind a paywall. Additionally, customers could access other video content using their cable subscription login details
+Vendor management - worked with several vendors who provided services, content, and other digital assets in the form of video, audio, captions, metadata, content processing, content management systems, and helped manage their continuous development
+My budget management was indirect, but was deeply involved with cost management for employees, project timeframes, workflow enhancements
+Leadership and team development - I led a team of 10 content specialists, helping them navigate onboarding, provided all of their training and mentorship. Also led a development team in the creation of an extensive DRM system.
+Created tools and workflows to use AI - one example is automating ad break time code detection in TV episodic and made for TV film content, enabling content specialists to quickly identify and approve their placement, significantly increasing our high-volume output
+Implemented new CMS to handle streaming video for the 2018 FIFA World Cup, allowing high-quality content to be easily accessed on almost any device with a screen
+I’ve thrived in the very high visibility positions I’ve held, being responsible for accurately creating and managing high-quality, large scale digital products and content on global platforms
+
+Skills
+CMS enhancements
+DAM strategies
+Video post production such as de-interlacing, inverse telecine, audio sync, encoding, quality control, video chapter time code identification
+Multilingual audio production, quality control, video sync
+Multilingual timed text / subtitle production and authoring, closed captions sync
+Artwork creation
+XML and schemas, proficient in Oxygen XML Editor
+Quality control of all digital components, video and visual quality standards, audio quality and sync, subtitle and closed caption sync, file format verification (for video, audio, subtitles, captions, images, metadata)
+FFmpeg
+Frame rate conversion
+AI automated ad break time code detection
+Authored 50+ pages of technical documentation for a 150+ page reference document on the complete process of distributing feature films and their digital components to the iTunes Store
+CMS development with Comcast Video Cloud Platform - worked with Comcast development team to create and deploy enhancements to our CMS, involving metadata, images, video, audio, timed text, and live streaming solutions
+

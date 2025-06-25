@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Section Network Animation Preview</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* About Section Container */
+        .aboutSection {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 480px;
+            gap: 40px;
+            align-items: center;
+        }
+
+        /* About Content (Left Side - 60%) */
+        .aboutContent {
+            max-width: 640px;
+        }
+
+        .aboutTitle {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: #f8fafc;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .aboutParagraph {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+        }
+
+        .aboutParagraph:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Emmy Award emphasis */
+        .emmyHighlight {
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        /* Enterprise company emphasis */
+        .enterpriseHighlight {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        /* Network Animation Container (Right Side - 40%) */
+        .aboutAnimation {
+            width: 480px;
+            height: 400px;
+            position: relative;
+            background: radial-gradient(circle at center, rgba(22, 163, 74, 0.1) 0%, transparent 70%);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Enhanced Network Animation (based on existing files) */
+        .network-visualization {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Network Nodes - Enhanced from existing */
+        .network-node {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+            animation: node-pulse 3s ease-in-out infinite;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .network-node:hover {
+            transform: scale(1.2);
+            animation-play-state: paused;
+        }
+
+        /* Strategic node placement for About section context */
+        .node-central {
+            top: 45%;
+            left: 45%;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            box-shadow: 0 0 30px rgba(34, 197, 94, 0.6);
+        }
+
+        .node-fox {
+            top: 25%;
+            left: 15%;
+            background: linear-gradient(135deg, #22c55e, #06b6d4);
+        }
+
+        .node-warner {
+            top: 25%;
+            right: 15%;
+            background: linear-gradient(135deg, #06b6d4, #3b82f6);
+        }
+
+        .node-streaming {
+            top: 65%;
+            left: 20%;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+        }
+
+        .node-ai {
+            top: 65%;
+            right: 20%;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        }
+
+        .node-data1 {
+            top: 15%;
+            left: 45%;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #1d4ed8, #16a34a);
+        }
+
+        .node-data2 {
+            top: 75%;
+            left: 45%;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+        }
+
+        /* Connection Lines - Enhanced */
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(34, 197, 94, 0.6) 20%, 
+                rgba(59, 130, 246, 0.8) 80%, 
+                transparent 100%);
+            z-index: 1;
+            animation: line-flow 4s ease-in-out infinite;
+        }
+
+        /* About section specific connections */
+        .line-central-fox {
+            top: 35%;
+            left: 25%;
+            width: 25%;
+            transform: rotate(-25deg);
+            transform-origin: left center;
+        }
+
+        .line-central-warner {
+            top: 35%;
+            right: 25%;
+            width: 25%;
+            transform: rotate(25deg);
+            transform-origin: right center;
+        }
+
+        .line-central-streaming {
+            top: 55%;
+            left: 25%;
+            width: 25%;
+            transform: rotate(25deg);
+            transform-origin: left center;
+        }
+
+        .line-central-ai {
+            top: 55%;
+            right: 25%;
+            width: 25%;
+            transform: rotate(-25deg);
+            transform-origin: right center;
+        }
+
+        .line-data1-central {
+            top: 30%;
+            left: 48%;
+            width: 15%;
+            transform: rotate(90deg);
+            transform-origin: center;
+        }
+
+        .line-data2-central {
+            top: 60%;
+            left: 48%;
+            width: 15%;
+            transform: rotate(90deg);
+            transform-origin: center;
+        }
+
+        /* Enhanced Data Streams */
+        .data-stream {
+            position: absolute;
+            width: 3px;
+            height: 60px;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                #06b6d4 50%, 
+                transparent 100%);
+            animation: stream-flow 2s linear infinite;
+            z-index: 3;
+        }
+
+        .stream-1 {
+            top: 15%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .stream-2 {
+            top: 35%;
+            right: 5%;
+            animation-delay: 0.7s;
+        }
+
+        .stream-3 {
+            top: 55%;
+            right: 12%;
+            animation-delay: 1.4s;
+        }
+
+        .stream-4 {
+            top: 75%;
+            right: 8%;
+            animation-delay: 2.1s;
+        }
+
+        /* Floating particles for enterprise feel */
+        .particle-flow {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 80px;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: particle-float 4s linear infinite;
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+        }
+
+        .particle-1 {
+            right: 15px;
+            animation-delay: 0s;
+        }
+
+        .particle-2 {
+            right: 35px;
+            animation-delay: 1.3s;
+        }
+
+        .particle-3 {
+            right: 55px;
+            animation-delay: 2.6s;
+        }
+
+        /* Animations */
+        @keyframes node-pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+            }
+        }
+
+        @keyframes line-flow {
+            0%, 100% {
+                opacity: 0.6;
+                background-size: 200% 100%;
+                background-position: -200% 0;
+            }
+            50% {
+                opacity: 1;
+                background-position: 200% 0;
+            }
+        }
+
+        @keyframes stream-flow {
+            0% {
+                transform: translateY(-60px);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(60px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes particle-float {
+            0% {
+                top: 100%;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: -20px;
+                opacity: 0;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1199px) {
+            .aboutSection {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+            
+            .aboutContent {
+                order: 2;
+                max-width: 100%;
+            }
+            
+            .aboutAnimation {
+                order: 1;
+                width: 400px;
+                height: 300px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .aboutSection {
+                gap: 2rem;
+            }
+            
+            .aboutAnimation {
+                width: 280px;
+                height: 220px;
+            }
+            
+            .aboutTitle {
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .aboutParagraph {
+                font-size: 1rem;
+                margin-bottom: 1.25rem;
+            }
+            
+            .network-node {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .node-central {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .node-data1,
+            .node-data2 {
+                width: 25px;
+                height: 25px;
+            }
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            .network-node,
+            .connection-line,
+            .data-stream,
+            .particle {
+                animation: none;
+            }
+            
+            .aboutAnimation {
+                background: rgba(22, 163, 74, 0.1);
+            }
+            
+            .network-node {
+                opacity: 0.8;
+            }
+        }
+
+        /* Demo Controls */
+        .demo-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 10px;
+            padding: 1rem;
+            font-size: 0.875rem;
+            z-index: 1000;
+        }
+
+        .demo-controls h4 {
+            color: #16a34a;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .demo-controls p {
+            color: #94a3b8;
+            margin: 0.25rem 0;
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-controls">
+        <h4>Demo Features</h4>
+        <p>• Hover nodes to pause pulse</p>
+        <p>• Responsive design</p>
+        <p>• Reduced motion support</p>
+        <p>• 60fps animations</p>
+    </div>
+
+    <section class="aboutSection">
+        <!-- About Content (Left Side) -->
+        <div class="aboutContent">
+            <h2 class="aboutTitle">About Tyler Gohr</h2>
+            <p class="aboutParagraph">
+                I'm Tyler Gohr, an <span class="emmyHighlight">Emmy Award-winning</span> Enterprise Solutions Architect who transforms complex technical challenges into competitive business advantages. Over 16+ years leading technical teams at <span class="enterpriseHighlight">Fox Corporation</span> and <span class="enterpriseHighlight">Warner Bros Entertainment</span>, I've architected platforms serving millions of users while managing systems with 17,000+ digital assets.
+            </p>
+            <p class="aboutParagraph">
+                My approach combines Fortune 500-level expertise with a passion for solving real business problems. Whether you're a growing company needing a custom web application or an enterprise requiring complex digital infrastructure, I bring the same strategic thinking and technical precision to every project—from initial concept through deployment and optimization.
+            </p>
+            <p class="aboutParagraph">
+                I specialize in AI-powered automation, content distribution systems, and full-stack development, always focusing on solutions that deliver measurable impact while scaling with your business goals.
+            </p>
+        </div>
+
+        <!-- Network Animation (Right Side) -->
+        <div class="aboutAnimation">
+            <div class="network-visualization">
+                <!-- Network Nodes representing enterprise architecture -->
+                <div class="network-node node-central" data-label="Tyler Gohr - Central Hub" title="Central Architecture Hub"></div>
+                <div class="network-node node-fox" data-label="Fox Corporation" title="Fox Corporation Experience"></div>
+                <div class="network-node node-warner" data-label="Warner Bros" title="Warner Bros Entertainment"></div>
+                <div class="network-node node-streaming" data-label="Streaming Platforms" title="Streaming Technology"></div>
+                <div class="network-node node-ai" data-label="AI Innovation" title="AI-Powered Solutions"></div>
+                <div class="network-node node-data1" data-label="Data Point" title="Enterprise Data"></div>
+                <div class="network-node node-data2" data-label="Data Point" title="Digital Assets"></div>
+                
+                <!-- Connection Lines showing relationships -->
+                <div class="connection-line line-central-fox"></div>
+                <div class="connection-line line-central-warner"></div>
+                <div class="connection-line line-central-streaming"></div>
+                <div class="connection-line line-central-ai"></div>
+                <div class="connection-line line-data1-central"></div>
+                <div class="connection-line line-data2-central"></div>
+                
+                <!-- Data Flow Effects -->
+                <div class="data-stream stream-1"></div>
+                <div class="data-stream stream-2"></div>
+                <div class="data-stream stream-3"></div>
+                <div class="data-stream stream-4"></div>
+                
+                <!-- Particle Flow representing ongoing innovation -->
+                <div class="particle-flow">
+                    <div class="particle particle-1"></div>
+                    <div class="particle particle-2"></div>
+                    <div class="particle particle-3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Enhanced interactivity for the network animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const nodes = document.querySelectorAll('.network-node');
+            const connections = document.querySelectorAll('.connection-line');
+            
+            // Add hover effects to nodes
+            nodes.forEach(node => {
+                node.addEventListener('mouseenter', function() {
+                    // Pause animation and highlight connected lines
+                    this.style.animationPlayState = 'paused';
+                    this.style.transform = 'scale(1.3)';
+                    this.style.zIndex = '10';
+                    
+                    // Highlight connections
+                    connections.forEach(line => {
+                        if (line.className.includes(this.className.split(' ')[1].replace('node-', ''))) {
+                            line.style.opacity = '1';
+                            line.style.filter = 'brightness(1.5)';
+                        }
+                    });
+                });
+                
+                node.addEventListener('mouseleave', function() {
+                    // Resume animation
+                    this.style.animationPlayState = 'running';
+                    this.style.transform = '';
+                    this.style.zIndex = '2';
+                    
+                    // Reset connections
+                    connections.forEach(line => {
+                        line.style.opacity = '';
+                        line.style.filter = '';
+                    });
+                });
+            });
+            
+            // Add scroll-triggered animation (simulated for demo)
+            const aboutSection = document.querySelector('.aboutSection');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Initial state for animation
+            aboutSection.style.opacity = '0';
+            aboutSection.style.transform = 'translateY(40px)';
+            aboutSection.style.transition = 'all 0.8s ease';
+            
+            observer.observe(aboutSection);
+            
+            // Trigger animation after a short delay for demo
+            setTimeout(() => {
+                aboutSection.style.opacity = '1';
+                aboutSection.style.transform = 'translateY(0)';
+            }, 500);
+        });
+    </script>
+</body>
+</html>
