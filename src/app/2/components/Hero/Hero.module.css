@@ -1,0 +1,415 @@
+/* Tyler Gohr Portfolio - Hero Section Styles */
+/* Enterprise Solutions Architect Design System */
+
+/* ==========================================================================
+   HERO SECTION - FULL VIEWPORT WITH 50/50 GRID
+   ========================================================================== */
+
+.heroSection {
+  /* Full viewport hero */
+  min-height: 100vh;
+  width: 100%;
+  
+  /* Flexbox centering */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Dark background with subtle gradient */
+  background: linear-gradient(135deg, var(--background-black) 0%, #111111 100%);
+  
+  /* Typography and spacing */
+  color: var(--text-on-dark);
+  position: relative;
+  overflow: hidden;
+  
+  /* Performance optimization */
+  will-change: transform;
+  
+  /* Padding for content safety */
+  padding: 2rem 1rem;
+}
+
+.heroContainer {
+  /* Content container */
+  max-width: 1200px;
+  width: 100%;
+  
+  /* Desktop: 50/50 grid layout */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  
+  /* Responsive height management */
+  min-height: calc(100vh - 4rem);
+}
+
+/* ==========================================================================
+   HERO GRAPHIC (LEFT SIDE)
+   ========================================================================== */
+
+.heroGraphic {
+  /* Grid placement */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Height management */
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.graphicPlaceholder {
+  /* Container for future custom graphic */
+  width: 580px;
+  height: 400px;
+  
+  /* Visual placeholder styling */
+  background: linear-gradient(135deg, rgba(22, 163, 74, 0.1), rgba(16, 185, 129, 0.05));
+  border: 2px solid rgba(22, 163, 74, 0.2);
+  border-radius: 16px;
+  
+  /* Center content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Subtle animation preparation */
+  transition: all 0.3s ease;
+  will-change: transform;
+}
+
+.graphicPlaceholder:hover {
+  transform: translateY(-2px);
+  border-color: rgba(22, 163, 74, 0.3);
+  box-shadow: 0 8px 32px rgba(22, 163, 74, 0.1);
+}
+
+.graphicContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Tech Illustration Placeholder */
+.techIllustration {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.networkNode {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(22, 163, 74, 0.6);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.networkNode:nth-child(1) {
+  top: 20%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.networkNode:nth-child(2) {
+  top: 60%;
+  right: 20%;
+  animation-delay: 0.7s;
+}
+
+.networkNode:nth-child(3) {
+  bottom: 20%;
+  left: 50%;
+  animation-delay: 1.4s;
+}
+
+.dataFlow {
+  position: absolute;
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--accent-green), transparent);
+  border-radius: 1px;
+  opacity: 0.6;
+  animation: flow 3s ease-in-out infinite;
+}
+
+.dataFlow:nth-child(4) {
+  top: 30%;
+  left: 40%;
+  transform: rotate(45deg);
+  animation-delay: 0.5s;
+}
+
+.dataFlow:nth-child(5) {
+  top: 50%;
+  right: 30%;
+  transform: rotate(-45deg);
+  animation-delay: 1.5s;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+@keyframes flow {
+  0%, 100% { 
+    opacity: 0.6;
+    transform: translateY(0) scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: translateY(-10px) scale(1.1);
+  }
+}
+
+/* ==========================================================================
+   HERO CONTENT (RIGHT SIDE)
+   ========================================================================== */
+
+.heroContent {
+  /* Grid placement and content flow */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.contentWrapper {
+  /* Content spacing and organization */
+  max-width: 600px;
+}
+
+/* Typography Hierarchy */
+.heroTitle {
+  /* Primary title styling */
+  font-size: 3rem; /* 48px */
+  font-weight: var(--font-black);
+  line-height: 1.1;
+  
+  /* Color and effects */
+  color: var(--text-on-dark);
+  background: linear-gradient(135deg, var(--text-on-dark), #f1f5f9);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  /* Spacing */
+  margin: 0 0 1.5rem 0; /* 24px bottom margin */
+  
+  /* Performance */
+  will-change: transform;
+}
+
+.heroSubtitle {
+  /* Subtitle styling */
+  font-size: 1.5rem; /* 24px */
+  font-weight: var(--font-medium);
+  line-height: 1.3;
+  
+  /* Color and spacing */
+  color: var(--text-secondary);
+  margin: 0 0 2rem 0; /* 32px bottom margin */
+  
+  /* Max width for readability */
+  max-width: 500px;
+}
+
+.heroDescription {
+  /* Description paragraph styling */
+  font-size: 1.125rem; /* 18px */
+  font-weight: var(--font-regular);
+  line-height: 1.6;
+  
+  /* Color and spacing */
+  color: var(--text-secondary);
+  margin: 0 0 3rem 0; /* 48px bottom margin */
+  
+  /* Max width for readability */
+  max-width: 540px;
+}
+
+.heroActions {
+  /* Button container */
+  display: flex;
+  gap: 1rem; /* 16px gap between buttons */
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ==========================================================================
+   TABLET LAYOUT (768px - 1199px)
+   ========================================================================== */
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  .heroContainer {
+    gap: 32px;
+    max-width: 900px;
+  }
+  
+  .graphicPlaceholder {
+    width: 460px;
+    height: 320px;
+  }
+  
+  .heroTitle {
+    font-size: 2.5rem; /* 40px */
+  }
+  
+  .heroSubtitle {
+    font-size: 1.375rem; /* 22px */
+  }
+  
+  .heroDescription {
+    font-size: 1rem; /* 16px */
+  }
+}
+
+/* ==========================================================================
+   MOBILE LAYOUT (320px - 767px)
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  .heroSection {
+    padding: 1rem;
+    min-height: 100vh;
+  }
+  
+  .heroContainer {
+    /* Mobile: Stacked layout */
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  /* Graphic adjustments for mobile */
+  .heroGraphic {
+    order: 1; /* Graphic first */
+    max-width: 100%;
+  }
+  
+  .graphicPlaceholder {
+    /* Mobile dimensions */
+    width: 100%;
+    max-width: 350px;
+    height: 250px;
+  }
+  
+  .heroContent {
+    order: 2; /* Content second */
+  }
+  
+  .contentWrapper {
+    max-width: 100%;
+  }
+  
+  /* Mobile typography */
+  .heroTitle {
+    font-size: 2.25rem; /* 36px */
+    margin-bottom: 1.5rem; /* 24px */
+  }
+  
+  .heroSubtitle {
+    font-size: 1.25rem; /* 20px */
+    margin-bottom: 2rem; /* 32px */
+  }
+  
+  .heroDescription {
+    font-size: 1rem; /* 16px */
+    margin-bottom: 2.5rem; /* 40px */
+    padding: 0 1rem; /* Side padding for readability */
+  }
+  
+  .heroActions {
+    flex-direction: column;
+    gap: 0.75rem; /* 12px gap */
+    width: 100%;
+  }
+  
+  .heroActions > * {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+/* ==========================================================================
+   SMALL MOBILE (320px - 479px)
+   ========================================================================== */
+
+@media (max-width: 479px) {
+  .heroSection {
+    padding: 0.75rem;
+  }
+  
+  .heroTitle {
+    font-size: 2rem; /* 32px */
+  }
+  
+  .heroSubtitle {
+    font-size: 1.125rem; /* 18px */
+  }
+  
+  .heroDescription {
+    font-size: 0.9375rem; /* 15px */
+    padding: 0 0.5rem;
+  }
+  
+  .graphicPlaceholder {
+    height: 200px;
+  }
+  
+  .techIllustration {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .networkNode,
+  .dataFlow {
+    animation: none;
+  }
+  
+  .graphicPlaceholder {
+    transition: none;
+  }
+  
+  .graphicPlaceholder:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   HIGH CONTRAST MODE SUPPORT
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  .heroTitle {
+    background: none;
+    -webkit-text-fill-color: var(--text-on-dark);
+    color: var(--text-on-dark);
+  }
+  
+  .graphicPlaceholder {
+    border-width: 3px;
+  }
+}

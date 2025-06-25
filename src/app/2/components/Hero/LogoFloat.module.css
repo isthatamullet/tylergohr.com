@@ -1,0 +1,225 @@
+/* Tyler Gohr Portfolio - Logo Float Animation Styles */
+/* Enterprise Solutions Architect Design System */
+
+/* ==========================================================================
+   LOGO FLOAT ANIMATION SYSTEM
+   ========================================================================== */
+
+.logoFloat {
+  /* Fixed positioning for smooth float animation */
+  position: fixed;
+  top: 20vh; /* Hero section positioning */
+  right: 10vw; /* Hero top-right placement */
+  
+  /* Z-index management */
+  z-index: 50; /* Above hero content, below navigation when landed */
+  
+  /* Performance optimization */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  
+  /* Smooth hardware acceleration */
+  transform: translateZ(0);
+  
+  /* Pointer events for logo interactions */
+  pointer-events: auto;
+}
+
+.logoContainer {
+  /* Container for logo content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Size management */
+  width: 60px;
+  height: 60px;
+  
+  /* Smooth transitions for container */
+  transition: all 0.2s ease;
+}
+
+.logoPlaceholder {
+  /* Temporary logo styling */
+  width: 60px;
+  height: 60px;
+  
+  /* Professional appearance */
+  background: linear-gradient(135deg, var(--accent-green), #059669);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  
+  /* Center content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Shadow for depth */
+  box-shadow: 
+    0 4px 20px rgba(22, 163, 74, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  
+  /* Smooth interactions */
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.logoPlaceholder:hover {
+  /* Hover effect */
+  transform: scale(1.05);
+  box-shadow: 
+    0 6px 30px rgba(22, 163, 74, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.logoInitials {
+  /* Logo initials styling */
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-black);
+  font-size: 1.25rem; /* 20px */
+  color: var(--text-on-dark);
+  letter-spacing: 0.02em;
+  
+  /* Text rendering optimization */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================================================== */
+
+/* Tablet adjustments */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .logoFloat {
+    top: 18vh;
+    right: 8vw;
+  }
+  
+  .logoContainer,
+  .logoPlaceholder {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .logoInitials {
+    font-size: 1.125rem; /* 18px */
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .logoFloat {
+    top: 15vh;
+    right: 6vw;
+  }
+  
+  .logoContainer,
+  .logoPlaceholder {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .logoInitials {
+    font-size: 1rem; /* 16px */
+  }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 479px) {
+  .logoFloat {
+    top: 12vh;
+    right: 5vw;
+  }
+  
+  .logoContainer,
+  .logoPlaceholder {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .logoInitials {
+    font-size: 0.875rem; /* 14px */
+  }
+}
+
+/* ==========================================================================
+   LANDING STATE (When Animation Completes)
+   ========================================================================== */
+
+.logoFloat.landed {
+  /* Final position in navigation */
+  position: fixed;
+  top: 1rem; /* Navigation bar height */
+  left: 1rem; /* Top-left corner */
+  z-index: 100; /* Above navigation */
+  
+  /* Final size */
+  transform: scale(0.75);
+  
+  /* Quick transition for final positioning */
+  transition: all 0.3s ease-out;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .logoFloat {
+    /* Disable animation, use opacity instead */
+    transition: opacity 0.3s ease;
+  }
+  
+  .logoPlaceholder {
+    transition: none;
+  }
+  
+  .logoPlaceholder:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   HIGH CONTRAST MODE SUPPORT
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  .logoPlaceholder {
+    border-width: 3px;
+    border-color: var(--text-on-dark);
+    box-shadow: 
+      0 4px 20px rgba(0, 0, 0, 0.5),
+      0 0 0 1px var(--text-on-dark);
+  }
+  
+  .logoInitials {
+    color: var(--text-on-dark);
+    font-weight: var(--font-black);
+  }
+}
+
+/* ==========================================================================
+   LOGO FLOAT STATES FOR DIFFERENT SCROLL POSITIONS
+   ========================================================================== */
+
+/* Initial state - Hero position */
+.logoFloat[data-state="hero"] {
+  /* Default hero positioning */
+  transform: scale(1) translateZ(0);
+  opacity: 1;
+}
+
+/* Floating state - Mid-animation */
+.logoFloat[data-state="floating"] {
+  /* Animation in progress */
+  pointer-events: auto;
+}
+
+/* Landed state - Navigation integrated */
+.logoFloat[data-state="navigation"] {
+  /* Fully integrated into navigation */
+  pointer-events: auto;
+  z-index: 100;
+}

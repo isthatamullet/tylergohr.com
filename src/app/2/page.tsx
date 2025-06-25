@@ -2,21 +2,10 @@
 
 import styles from "./page.module.css";
 import Navigation from "./components/Navigation/Navigation";
+import Hero from "./components/Hero/Hero";
 import { Button } from "./components/ui/Button/Button";
 
 export default function EnterprisePage() {
-  const navigateToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - 70; // Navigation height
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
-  };
 
   return (
     <>
@@ -25,49 +14,7 @@ export default function EnterprisePage() {
       
       <main id="main-content" className={styles.main} role="main">
         {/* Hero Section - Enterprise Solutions Architect */}
-        <section
-          id="about"
-          className={styles.heroSection}
-          aria-labelledby="hero-title"
-          role="banner"
-        >
-          <div className={styles.heroContainer}>
-            <div className={styles.heroContent}>
-              <h1 id="hero-title" className={styles.heroTitle}>
-                Enterprise Solutions Architect
-              </h1>
-              <p className={styles.heroSubtitle}>
-                Creating powerful digital solutions that solve real business problems
-              </p>
-              <p className={styles.heroDescription}>
-                From Emmy Award-winning streaming platforms to custom business solutions, 
-                I architect digital products that deliver measurable impact. With 16+ years 
-                at Fox Corporation and Warner Bros, I transform technical challenges into 
-                competitive advantages.
-              </p>
-              <div className={styles.heroActions}>
-                <Button
-                  variant="primary"
-                  size="lg"
-                  section="hero"
-                  onClick={() => navigateToSection('contact')}
-                  aria-label="Start your project - navigate to contact section"
-                >
-                  Start Your Project
-                </Button>
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  section="hero"
-                  onClick={() => navigateToSection('work')}
-                  aria-label="View my work - navigate to case studies section"
-                >
-                  View My Work
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Hero />
 
         {/* About Section */}
         <section
