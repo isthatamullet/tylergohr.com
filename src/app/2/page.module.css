@@ -1,0 +1,314 @@
+/* Tyler Gohr Portfolio - Enterprise Solutions Architect Landing Page */
+/* /2 Directory Page Styles with Brand Tokens Integration */
+
+.main {
+  min-height: 100vh;
+  font-family: var(--font-family-primary);
+  color: var(--text-on-dark);
+  line-height: var(--body-line-height);
+}
+
+/* ==========================================================================
+   HERO SECTION - Enterprise Solutions Architect
+   ========================================================================== */
+
+.heroSection {
+  background: var(--hero-bg);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--section-padding-y) var(--section-padding-x);
+  position: relative;
+  margin-top: 70px; /* Account for fixed navigation */
+}
+
+.heroContainer {
+  max-width: var(--container-max-width);
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-size: var(--h1-size);
+  font-weight: var(--font-bold);
+  line-height: var(--h1-line-height);
+  color: var(--text-on-dark);
+  margin-bottom: var(--spacing-md);
+  letter-spacing: -0.02em;
+}
+
+.heroSubtitle {
+  font-size: var(--h3-size);
+  font-weight: var(--font-medium);
+  line-height: var(--h3-line-height);
+  color: var(--accent-green);
+  margin-bottom: var(--spacing-lg);
+  letter-spacing: -0.01em;
+}
+
+.heroDescription {
+  font-size: var(--body-size);
+  font-weight: var(--font-light);
+  line-height: var(--body-line-height);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-2xl);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heroActions {
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.primaryCta {
+  background: linear-gradient(135deg, var(--accent-green), var(--interactive-blue));
+  color: var(--text-on-light);
+  font-family: var(--font-family-primary);
+  font-size: var(--body-size);
+  font-weight: var(--font-semibold);
+  padding: var(--spacing-md) var(--spacing-xl);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.primaryCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(22, 163, 74, 0.3);
+}
+
+.primaryCta:focus {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+}
+
+.secondaryCta {
+  background: transparent;
+  color: var(--text-on-dark);
+  font-family: var(--font-family-primary);
+  font-size: var(--body-size);
+  font-weight: var(--font-semibold);
+  padding: var(--spacing-md) var(--spacing-xl);
+  border: 2px solid var(--accent-green);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.secondaryCta:hover {
+  background: var(--accent-green);
+  color: var(--text-on-light);
+  transform: translateY(-2px);
+}
+
+.secondaryCta:focus {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   SECTIONS - Using Brand Token Background Colors
+   ========================================================================== */
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.sectionTitle {
+  font-size: var(--h2-size);
+  font-weight: var(--font-bold);
+  line-height: var(--h2-line-height);
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+/* About Section */
+.aboutSection {
+  background: var(--about-bg);
+  padding: var(--section-padding-y) var(--section-padding-x);
+  color: var(--text-on-dark);
+}
+
+.aboutContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.aboutText {
+  font-size: var(--body-size);
+  font-weight: var(--font-light);
+  line-height: var(--body-line-height);
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-on-dark);
+}
+
+.aboutText:last-child {
+  margin-bottom: 0;
+}
+
+/* Results Section */
+.resultsSection {
+  background: var(--results-bg);
+  padding: var(--section-padding-y) var(--section-padding-x);
+  color: var(--text-on-light);
+}
+
+.resultsSection .sectionTitle {
+  color: var(--text-on-light);
+}
+
+/* Case Studies Section */
+.caseStudiesSection {
+  background: var(--case-studies-bg);
+  padding: var(--section-padding-y) var(--section-padding-x);
+  color: var(--text-on-dark);
+}
+
+/* How I Work Section */
+.howIWorkSection {
+  background: var(--how-i-work-bg);
+  padding: var(--section-padding-y) var(--section-padding-x);
+  color: var(--text-on-light);
+}
+
+.howIWorkSection .sectionTitle {
+  color: var(--text-on-light);
+}
+
+/* Technical Expertise Section */
+.technicalSection {
+  background: var(--hero-bg);
+  padding: var(--section-padding-y) var(--section-padding-x);
+  color: var(--text-on-dark);
+}
+
+/* Contact Section */
+.contactSection {
+  background: var(--contact-bg);
+  padding: var(--section-padding-y) var(--section-padding-x);
+  color: var(--text-on-light);
+}
+
+.contactSection .sectionTitle {
+  color: var(--text-on-light);
+}
+
+.contactText {
+  font-size: var(--h3-size);
+  font-weight: var(--font-medium);
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-on-light);
+}
+
+/* Placeholder Text */
+.placeholderText {
+  font-size: var(--body-size);
+  font-weight: var(--font-light);
+  font-style: italic;
+  text-align: center;
+  opacity: 0.7;
+  padding: var(--spacing-xl);
+  border: 2px dashed currentColor;
+  border-radius: 8px;
+  margin: var(--spacing-lg) auto;
+  max-width: 400px;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+  
+  .heroSubtitle {
+    font-size: clamp(1.25rem, 6vw, 1.75rem);
+  }
+  
+  .heroActions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .primaryCta,
+  .secondaryCta {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .aboutContent {
+    text-align: left;
+  }
+}
+
+@media (min-width: 768px) {
+  .heroActions {
+    gap: var(--spacing-xl);
+  }
+}
+
+@media (min-width: 1200px) {
+  .heroSection {
+    padding: var(--section-padding-y) var(--container-padding);
+  }
+}
+
+/* ==========================================================================
+   MOTION PREFERENCES
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryCta,
+  .secondaryCta {
+    transition: none;
+  }
+  
+  .primaryCta:hover,
+  .secondaryCta:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   HIGH CONTRAST MODE
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  .heroTitle,
+  .heroDescription,
+  .aboutText {
+    color: var(--text-on-dark);
+  }
+  
+  .primaryCta {
+    background: var(--text-on-dark);
+    color: var(--hero-bg);
+  }
+  
+  .secondaryCta {
+    border-color: var(--text-on-dark);
+    color: var(--text-on-dark);
+  }
+}

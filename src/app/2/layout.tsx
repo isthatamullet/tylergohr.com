@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "../globals.css";
+import "./styles/brand-tokens.css";
 import PerformanceOptimizations from "@/components/PerformanceOptimizations";
 import WebVitals from "@/components/WebVitals";
 import TopNavigation from "@/components/TopNavigation";

@@ -102,6 +102,30 @@ mkdir -p src/app/2/{styles,components,lib,hooks}
 - [x] Brand tokens render correctly ✅ (Complete design system with Enterprise Solutions Architect branding)
 - [x] Navigation component TypeScript compliant ✅ (Advanced navigation with logo float preparation)
 
+### **🚨 Day 1 Critical Fix - Preview URL Issue** ✅ **RESOLVED**
+
+**Issue Discovered**: Preview URL `/2` route returned 404 error  
+**Root Cause**: Missing `/src/app/2/page.tsx` - had layout.tsx but no page content  
+**Impact**: Cloud Run preview URLs inaccessible for testing  
+
+**Solution Implemented**:
+- [x] Created `/src/app/2/page.tsx` with Enterprise Solutions Architect content
+- [x] Created `/src/app/2/page.module.css` with brand token integration
+- [x] Fixed CSS Modules `:root` selector conflicts (moved to layout.tsx import)
+- [x] Added hero section with Emmy Award positioning and dual CTAs
+- [x] Implemented section placeholders for future Phase 2 development
+
+**Lessons Learned**:
+1. **Next.js App Router Requirement**: Both `layout.tsx` AND `page.tsx` required for routes
+2. **CSS Modules Limitation**: Cannot use `:root` selectors - must import global CSS in layout
+3. **Preview Testing Critical**: Early route testing prevents deployment surprises
+4. **Quality Gates**: `npm run validate` caught issues before PR deployment
+
+**Deployment Results**:
+- Route `/2` now builds successfully (2.81 kB bundle size)
+- Preview URL `/2` accessible for cross-device testing
+- All validation gates pass: TypeScript, ESLint, tests, build
+
 ### **Day 2: Animation System Foundation**
 
 #### **Morning: Page Transition System**
@@ -689,6 +713,22 @@ npm run validate    # Must pass 100%
 ## 🚨 **TROUBLESHOOTING GUIDE**
 
 ### **Common Issues & Solutions**
+
+#### **Missing page.tsx File (Route 404)**
+**Issue**: Route returns 404 in preview deployments  
+**Root Cause**: Next.js App Router requires both `layout.tsx` AND `page.tsx`  
+**Solution**: 
+- Create `page.tsx` file in route directory
+- Ensure page.tsx exports default React component
+- Import layout.tsx will provide shell, page.tsx provides content
+
+#### **CSS Modules + Global Tokens**
+**Issue**: `:root` selectors fail in CSS Modules with "Selector not pure" error  
+**Root Cause**: CSS Modules scope all selectors locally  
+**Solution**: 
+- Import global CSS (with `:root`) in layout.tsx only
+- Use CSS custom properties in .module.css files
+- Never @import global CSS in .module.css files
 
 #### **Framer Motion + Next.js App Router**
 **Issue**: "Error: Component must be client component"

@@ -1,8 +1,6 @@
 /* Tyler Gohr Portfolio - Enterprise Solutions Navigation Component */
 /* /2 Directory Navigation with Brand Tokens Integration */
 
-@import "../../styles/brand-tokens.css";
-
 .navigation {
   position: fixed !important;
   top: 0 !important;
