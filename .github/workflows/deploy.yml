@@ -290,8 +290,7 @@ jobs:
             --timeout=300 \
             --allow-unauthenticated \
             --set-env-vars="NODE_ENV=production,NEXT_TELEMETRY_DISABLED=1" \
-            --tag=${{ needs.validate.outputs.version }} \
-            --traffic=100
+            --tag=${{ needs.validate.outputs.version }}
           
           echo "✅ Fast-track deployment completed"
 
