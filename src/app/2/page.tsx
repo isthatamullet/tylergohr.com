@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import Navigation from "./components/Navigation/Navigation";
 import Hero from "./components/Hero/Hero";
 import About from "./components/About/About";
+import Results from "./components/Results/Results";
 import { Button } from "./components/ui/Button/Button";
 
 export default function EnterprisePage() {
@@ -20,33 +21,8 @@ export default function EnterprisePage() {
         {/* About Section - Network Animation */}
         <About />
 
-        {/* Results & Impact Section - Placeholder */}
-        <section
-          id="results"
-          className={styles.resultsSection}
-          aria-labelledby="results-title"
-          role="region"
-        >
-          <div className={styles.container}>
-            <h2 id="results-title" className={styles.sectionTitle}>
-              Results & Impact
-            </h2>
-            <p className={styles.placeholderText}>
-              Metrics and achievements coming in Phase 2...
-            </p>
-            <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Button variant="primary" size="md" section="results">
-                View Results
-              </Button>
-              <Button variant="secondary" size="md" section="results">
-                Download Report
-              </Button>
-              <Button variant="outline" size="md" section="results">
-                Learn More
-              </Button>
-            </div>
-          </div>
-        </section>
+        {/* Results & Impact Section - Measurable Outcomes */}
+        <Results />
 
         {/* Case Studies Section - Placeholder */}
         <section
