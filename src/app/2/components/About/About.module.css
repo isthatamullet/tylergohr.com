@@ -1,0 +1,132 @@
+/* About Section - 60/40 grid layout with Emmy Award emphasis */
+
+.aboutSection {
+  padding: 6rem 4rem;
+  background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.aboutContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 480px; /* 60/40 split: text/animation */
+  gap: 40px;
+  align-items: center;
+}
+
+/* Content Typography - Left Side (60%) */
+.aboutContent {
+  max-width: 640px;
+}
+
+.aboutTitle {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #f8fafc;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.aboutParagraph {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+}
+
+.aboutParagraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Emmy Award emphasis - Gold highlight */
+.emmyHighlight {
+  color: #fbbf24; /* Gold color for Emmy Award */
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+}
+
+/* Enterprise company emphasis - Portfolio green */
+.enterpriseHighlight {
+  color: #16a34a; /* Portfolio green for credibility */
+  font-weight: 600;
+}
+
+/* Network Animation Container - Right Side (40%) */
+.aboutAnimation {
+  width: 480px;
+  height: 400px;
+  position: relative;
+  background: radial-gradient(circle at center, rgba(22, 163, 74, 0.1) 0%, transparent 70%);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tablet Layout (768px - 1199px) */
+@media (max-width: 1199px) {
+  .aboutSection {
+    padding: 4rem 2rem;
+  }
+  
+  .aboutContainer {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+  
+  .aboutAnimation {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    order: 1; /* Animation above text on tablet */
+  }
+  
+  .aboutContent {
+    order: 2;
+    max-width: 100%;
+  }
+  
+  .aboutTitle {
+    text-align: center;
+  }
+}
+
+/* Mobile Layout (320px - 767px) */
+@media (max-width: 767px) {
+  .aboutSection {
+    padding: 3rem 1rem;
+  }
+  
+  .aboutContainer {
+    gap: 2rem;
+  }
+  
+  .aboutAnimation {
+    height: 250px; /* Smaller on mobile */
+  }
+  
+  .aboutTitle {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .aboutParagraph {
+    font-size: 1rem;
+    text-align: left; /* Left-align text for readability */
+  }
+}
+
+/* Accessibility - Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .aboutSection {
+    background: #1a1a1a; /* Static background */
+  }
+  
+  .emmyHighlight {
+    text-shadow: none; /* Remove glow effect */
+  }
+}

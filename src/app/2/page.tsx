@@ -3,6 +3,7 @@
 import styles from "./page.module.css";
 import Navigation from "./components/Navigation/Navigation";
 import Hero from "./components/Hero/Hero";
+import About from "./components/About/About";
 import { Button } from "./components/ui/Button/Button";
 
 export default function EnterprisePage() {
@@ -16,44 +17,12 @@ export default function EnterprisePage() {
         {/* Hero Section - Enterprise Solutions Architect */}
         <Hero />
 
-        {/* About Section */}
-        <section
-          id="results"
-          className={styles.aboutSection}
-          aria-labelledby="about-title"
-          role="region"
-        >
-          <div className={styles.container}>
-            <h2 id="about-title" className={styles.sectionTitle}>
-              About
-            </h2>
-            <div className={styles.aboutContent}>
-              <p className={styles.aboutText}>
-                I&apos;m Tyler Gohr, an Emmy Award-winning Enterprise Solutions Architect who 
-                transforms complex technical challenges into competitive business advantages. 
-                Over 16+ years leading technical teams at Fox Corporation and Warner Bros 
-                Entertainment, I&apos;ve architected platforms serving millions of users while 
-                managing systems with 17,000+ digital assets.
-              </p>
-              <p className={styles.aboutText}>
-                My approach combines Fortune 500-level expertise with a passion for solving 
-                real business problems. Whether you&apos;re a growing company needing a custom web 
-                application or an enterprise requiring complex digital infrastructure, I bring 
-                the same strategic thinking and technical precision to every project—from 
-                initial concept through deployment and optimization.
-              </p>
-              <p className={styles.aboutText}>
-                I specialize in AI-powered automation, content distribution systems, and 
-                full-stack development, always focusing on solutions that deliver measurable 
-                impact while scaling with your business goals.
-              </p>
-            </div>
-          </div>
-        </section>
+        {/* About Section - Network Animation */}
+        <About />
 
         {/* Results & Impact Section - Placeholder */}
         <section
-          id="work"
+          id="results"
           className={styles.resultsSection}
           aria-labelledby="results-title"
           role="region"
@@ -81,7 +50,7 @@ export default function EnterprisePage() {
 
         {/* Case Studies Section - Placeholder */}
         <section
-          id="process"
+          id="work"
           className={styles.caseStudiesSection}
           aria-labelledby="case-studies-title"
           role="region"
@@ -109,7 +78,7 @@ export default function EnterprisePage() {
 
         {/* How I Work Section - Placeholder */}
         <section
-          id="skills"
+          id="process"
           className={styles.howIWorkSection}
           aria-labelledby="how-i-work-title"
           role="region"
@@ -126,7 +95,7 @@ export default function EnterprisePage() {
 
         {/* Technical Expertise Section - Placeholder */}
         <section
-          id="contact"
+          id="skills"
           className={styles.technicalSection}
           aria-labelledby="technical-title"
           role="region"
@@ -143,6 +112,7 @@ export default function EnterprisePage() {
 
         {/* Contact Section - Basic */}
         <section
+          id="contact"
           className={styles.contactSection}
           aria-labelledby="contact-title"
           role="region"

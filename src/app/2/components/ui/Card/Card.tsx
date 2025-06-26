@@ -49,7 +49,7 @@ export interface BaseCardProps extends React.HTMLAttributes<HTMLDivElement> {
 /**
  * Results & Impact card for metrics display
  */
-export interface ResultsCardProps extends Omit<BaseCardProps, 'variant'> {
+export interface ResultsCardProps extends Omit<BaseCardProps, 'variant' | 'children'> {
   /**
    * Primary metric value
    */
@@ -84,7 +84,7 @@ export interface ResultsCardProps extends Omit<BaseCardProps, 'variant'> {
 /**
  * Case Study card for project showcases
  */
-export interface CaseStudyCardProps extends Omit<BaseCardProps, 'variant'> {
+export interface CaseStudyCardProps extends Omit<BaseCardProps, 'variant' | 'children'> {
   /**
    * Project title
    */
@@ -123,7 +123,7 @@ export interface CaseStudyCardProps extends Omit<BaseCardProps, 'variant'> {
 /**
  * Technical Expertise card for skill categories
  */
-export interface TechnicalCardProps extends Omit<BaseCardProps, 'variant'> {
+export interface TechnicalCardProps extends Omit<BaseCardProps, 'variant' | 'children'> {
   /**
    * Skill category title
    */
@@ -163,7 +163,7 @@ export interface TechnicalCardProps extends Omit<BaseCardProps, 'variant'> {
 /**
  * Process/How I Work card for methodology steps
  */
-export interface ProcessCardProps extends Omit<BaseCardProps, 'variant'> {
+export interface ProcessCardProps extends Omit<BaseCardProps, 'variant' | 'children'> {
   /**
    * Step number
    */
