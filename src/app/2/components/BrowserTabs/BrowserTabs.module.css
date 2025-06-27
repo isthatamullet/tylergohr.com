@@ -103,6 +103,8 @@
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  /* Prevent tab borders from bleeding outside container */
+  overflow-y: hidden;
 }
 
 .tabBar::-webkit-scrollbar {
@@ -142,6 +144,8 @@
 .tab:focus {
   outline: 2px solid #2563eb;
   outline-offset: 2px;
+  /* Prevent scroll-to-focus behavior that causes border bleeding */
+  scroll-margin-top: 0;
 }
 
 /* Active Tab */

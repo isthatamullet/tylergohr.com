@@ -40,11 +40,17 @@ export default function BrowserTabs({
 
     setIsTransitioning(true)
     
+    // Prevent any scroll-to-focus behavior that could cause border bleeding
+    const currentScrollPosition = window.pageYOffset
+    
     // Brief delay for smooth transition
     setTimeout(() => {
       setActiveTab(tabId)
       setIsTransitioning(false)
       onTabChange?.(tabId)
+      
+      // Restore scroll position to prevent unwanted jumps
+      window.scrollTo(0, currentScrollPosition)
     }, 200)
   }
 
@@ -100,7 +106,10 @@ export default function BrowserTabs({
             className={`${styles.tab} ${styles[`tab--${tab.type}`]} ${
               activeTab === tab.id ? styles.tabActive : ''
             }`}
-            onClick={() => handleTabChange(tab.id)}
+            onClick={(e) => {
+              e.preventDefault()
+              handleTabChange(tab.id)
+            }}
             onKeyDown={(e) => handleKeyDown(e, tab.id)}
           >
             {/* Badge */}
