@@ -36,6 +36,10 @@
   opacity: 0;
   transform: translateY(40px);
   transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Performance optimizations */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 .technicalHeader.revealed {
@@ -75,6 +79,11 @@
   transform: translateY(60px) scale(0.95);
   transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: calc(var(--card-index) * 0.15s);
+  
+  /* Performance optimizations */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
 
 .expertiseCardWrapper.cardRevealed {
@@ -94,6 +103,10 @@
     0 8px 32px rgba(0, 0, 0, 0.3),
     0 2px 8px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  
+  /* Performance optimizations for glassmorphism */
+  will-change: transform, box-shadow, border-color;
+  backface-visibility: hidden;
 }
 
 .technicalCard:hover {

@@ -14,6 +14,11 @@
   min-height: 200px;
   position: relative;
   overflow: hidden;
+  
+  /* Performance optimizations for counter animations */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
 }
 
 .metricCard:hover {
@@ -40,6 +45,12 @@
   line-height: 1;
   margin-bottom: 8px;
   font-variant-numeric: tabular-nums;
+  
+  /* Performance optimization for counter animation */
+  will-change: contents;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Metric Label */

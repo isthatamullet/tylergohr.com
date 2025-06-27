@@ -120,6 +120,61 @@
   }
 }
 
+/* ==========================================================================
+   SCROLL-TRIGGERED ANIMATIONS
+   ========================================================================== */
+
+/* Initial states - elements hidden before scroll reveal */
+.aboutTitle,
+.aboutParagraph,
+.aboutAnimation {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+/* Staggered reveal timing for text content */
+.aboutTitle {
+  transition-delay: 0ms; /* Title reveals first */
+}
+
+.paragraph1 {
+  transition-delay: 150ms; /* First paragraph */
+}
+
+.paragraph2 {
+  transition-delay: 300ms; /* Second paragraph */
+}
+
+.paragraph3 {
+  transition-delay: 450ms; /* Third paragraph */
+}
+
+.aboutAnimation {
+  transition-delay: 200ms; /* Animation starts with first paragraph */
+}
+
+/* Revealed states - smooth entrance animations */
+.titleRevealed,
+.paragraphRevealed,
+.animationRevealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Performance optimizations for animation */
+.aboutTitle,
+.aboutParagraph,
+.aboutAnimation {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & REDUCED MOTION SUPPORT
+   ========================================================================== */
+
 /* Accessibility - Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .aboutSection {
@@ -128,5 +183,21 @@
   
   .emmyHighlight {
     text-shadow: none; /* Remove glow effect */
+  }
+  
+  /* Disable scroll animations for reduced motion */
+  .aboutTitle,
+  .aboutParagraph,
+  .aboutAnimation {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .titleRevealed,
+  .paragraphRevealed,
+  .animationRevealed {
+    opacity: 1;
+    transform: none;
   }
 }

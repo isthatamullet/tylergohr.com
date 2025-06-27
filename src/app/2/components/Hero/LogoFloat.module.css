@@ -201,25 +201,77 @@
 }
 
 /* ==========================================================================
-   LOGO FLOAT STATES FOR DIFFERENT SCROLL POSITIONS
+   ENHANCED LOGO FLOAT STATES & INTERACTIONS
    ========================================================================== */
 
-/* Initial state - Hero position */
-.logoFloat[data-state="hero"] {
-  /* Default hero positioning */
-  transform: scale(1) translateZ(0);
-  opacity: 1;
+/* Base interactive cursor for all states */
+.logoFloat {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hero state - Initial position */
+.logoFloat--hero {
+  z-index: 50;
+  pointer-events: auto;
 }
 
 /* Floating state - Mid-animation */
-.logoFloat[data-state="floating"] {
-  /* Animation in progress */
+.logoFloat--floating {
+  z-index: 75;
   pointer-events: auto;
 }
 
-/* Landed state - Navigation integrated */
-.logoFloat[data-state="navigation"] {
-  /* Fully integrated into navigation */
-  pointer-events: auto;
+/* Navigation state - Final integrated position */
+.logoFloat--navigation {
   z-index: 100;
+  pointer-events: auto;
+}
+
+/* Enhanced click interaction feedback */
+.logoFloat:hover .logoPlaceholder {
+  transform: scale(1.1);
+  box-shadow: 
+    0 8px 40px rgba(22, 163, 74, 0.5),
+    0 0 0 2px rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.logoFloat:active .logoPlaceholder {
+  transform: scale(1.05);
+  transition: transform 0.1s ease;
+}
+
+/* Focus state for keyboard navigation */
+.logoFloat:focus {
+  outline: none;
+}
+
+.logoFloat:focus .logoPlaceholder {
+  box-shadow: 
+    0 6px 30px rgba(22, 163, 74, 0.4),
+    0 0 0 3px rgba(59, 130, 246, 0.6);
+  border-color: rgba(59, 130, 246, 0.8);
+}
+
+/* State-specific enhancements */
+.logoFloat--hero:hover .logoPlaceholder {
+  /* Slightly more prominent in hero state */
+  transform: scale(1.15);
+}
+
+.logoFloat--navigation:hover .logoPlaceholder {
+  /* Subtle interaction in navigation state */
+  transform: scale(1.08);
+}
+
+/* Loading state indicator */
+.logoFloat[data-logo-state="floating"] .logoPlaceholder {
+  /* Subtle pulsing during transition */
+  animation: logoFloatPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes logoFloatPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
 }

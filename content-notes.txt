@@ -1,0 +1,2 @@
+before we begin work on day 12 of @IMPLEMENTATION-ROADMAP.md we need to update                    │
+│   @IMPLEMENTATION-ROADMAP.md to reflect that phases 1 and 2 are complete. we have completed
