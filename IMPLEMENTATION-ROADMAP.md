@@ -1022,3 +1022,36 @@ If critical issues arise:
 - **Documentation**: Comprehensive GitHub tracking ensures project continuity
 
 *Remember: Quality over speed. Each phase builds on the previous. Don't skip validation gates or documentation updates.*
+
+---
+
+## 🎨 **REDESIGN ENHANCEMENTS**
+
+### **Priority Enhancement Requests**
+
+1. **Technical Expertise Layout Fix**
+   - Fix bottom row of green bubbles being cut off on technical expertise section
+   - Ensure all skill indicators are fully visible across all device sizes
+
+2. **Case Study Navigation Integration**
+   - Clicking/tapping case study buttons on homepage must open case studies page with that specific case study tab active
+   - Implement deep linking to specific tabs based on case study selection
+
+3. **Mobile Browser Tab Layout Improvement**
+   - Make mobile device browser tab titles appear to the right of colored tabs instead of below
+   - Improve horizontal layout for better mobile user experience
+
+4. **How I Work Section Update**
+   - Update "How I Work" section on homepage with new S-curve design from Canva
+   - Reference: `Roadmap Timeline Flow Diagram Infographic Graph.png`
+   - **IMPORTANT**: Use ONLY the S-curve shape and positioning from Canva design
+   - Keep existing icons (do NOT use Canva icons)
+   - Maintain current 7 steps: Discovery → Research → Design → Implementation → Testing → Deployment → Optimization
+   - Apply the flowing S-curve path layout shown in the Canva reference
+
+5. **Navigation Enhancement**
+   - Update site navigation (both top nav and hamburger menu) to access separate detail pages
+   - Add dropdown menus for sections that expand on hover
+   - Show sub-contents that link to specific sections on detail pages
+   - Include "Visit Full Page" link at bottom of each dropdown
+   - Improve discoverability of detailed content pages

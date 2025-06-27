@@ -134,6 +134,10 @@
   /* Performance optimization */
   will-change: transform, background;
   backface-visibility: hidden;
+  
+  /* Strict containment to prevent border bleeding */
+  overflow: hidden;
+  isolation: isolate;
 }
 
 .tab:hover:not(.tabActive) {
