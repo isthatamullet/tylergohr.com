@@ -186,23 +186,27 @@ export default function CaseStudiesDetailPage() {
           {/* Quick Navigation */}
           <nav className={`${styles.quickNav} ${visibleSections.has('hero') ? styles.revealed : ''}`} aria-label="Case study navigation">
             <h2 className={styles.quickNavTitle}>Featured Case Studies</h2>
-            <div className={styles.quickNavGrid}>
+            <ul className={styles.quickNavList}>
               {caseStudies.map((study, index) => (
-                <button
+                <li
                   key={study.id}
-                  onClick={() => scrollToSection(study.id)}
-                  className={styles.quickNavCard}
-                  style={{ '--card-index': index } as React.CSSProperties}
+                  className={styles.quickNavItem}
+                  style={{ '--item-index': index } as React.CSSProperties}
                 >
-                  <div className={`${styles.badge} ${styles[`badge--${study.badge.type}`]}`}>
-                    <span className={styles.badgeValue}>{study.badge.value}</span>
-                    <span className={styles.badgeLabel}>{study.badge.label}</span>
-                  </div>
-                  <h3 className={styles.quickNavTitle}>{study.title}</h3>
-                  <p className={styles.quickNavCompany}>{study.company}</p>
-                </button>
+                  <button
+                    onClick={() => scrollToSection(study.id)}
+                    className={styles.quickNavButton}
+                  >
+                    <span className={`${styles.badge} ${styles[`badge--${study.badge.type}`]}`}>
+                      <span className={styles.badgeValue}>{study.badge.value}</span>
+                      <span className={styles.badgeLabel}>{study.badge.label}</span>
+                    </span>
+                    <span className={styles.studyTitle}>{study.title}</span>
+                    <span className={styles.studyCompany}>{study.company}</span>
+                  </button>
+                </li>
               ))}
-            </div>
+            </ul>
           </nav>
         </div>
       </Section>
