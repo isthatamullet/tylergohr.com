@@ -5,7 +5,7 @@ import Navigation from "./components/Navigation/Navigation";
 import Hero from "./components/Hero/Hero";
 import About from "./components/About/About";
 import Results from "./components/Results/Results";
-import { Button } from "./components/ui/Button/Button";
+import CaseStudiesPreview from "./components/CaseStudies/CaseStudiesPreview";
 
 export default function EnterprisePage() {
 
@@ -24,33 +24,8 @@ export default function EnterprisePage() {
         {/* Results & Impact Section - Measurable Outcomes */}
         <Results />
 
-        {/* Case Studies Section - Placeholder */}
-        <section
-          id="work"
-          className={styles.caseStudiesSection}
-          aria-labelledby="case-studies-title"
-          role="region"
-        >
-          <div className={styles.container}>
-            <h2 id="case-studies-title" className={styles.sectionTitle}>
-              Case Studies
-            </h2>
-            <p className={styles.placeholderText}>
-              Project showcases coming in Phase 2...
-            </p>
-            <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Button variant="primary" size="md" section="case-studies">
-                View Case Study
-              </Button>
-              <Button variant="secondary" size="md" section="case-studies">
-                Technical Details
-              </Button>
-              <Button variant="outline" size="md" section="case-studies">
-                Live Demo
-              </Button>
-            </div>
-          </div>
-        </section>
+        {/* Case Studies Preview Section - 4 Interactive Cards */}
+        <CaseStudiesPreview />
 
         {/* How I Work Section - Placeholder */}
         <section

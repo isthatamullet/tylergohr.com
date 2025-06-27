@@ -1,0 +1,276 @@
+/* Case Study Card Base Styles */
+.caseStudyCard {
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(29, 78, 216, 0.15);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+  position: relative;
+  
+  /* Initial hidden state for scroll animation */
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--card-index) * 0.15s);
+}
+
+/* Revealed state - triggered by intersection observer */
+.caseStudyCard.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover effects */
+.caseStudyCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(29, 78, 216, 0.25);
+}
+
+/* Metric Badge Styles */
+.metricBadge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 8px 16px;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  backdrop-filter: blur(8px);
+  z-index: 10;
+  
+  /* Initial hidden state for separate animation layer */
+  opacity: 0;
+  transform: scale(0.8) translateY(-10px);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--card-index) * 0.15s + 0.3s);
+}
+
+/* Badge revealed state */
+.metricBadge.badgeRevealed {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Category-specific metric badge colors */
+.metricBadge--emmy {
+  background: rgba(251, 191, 36, 0.9);
+  color: #000;
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+}
+
+.metricBadge--savings {
+  background: rgba(16, 185, 129, 0.9);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.metricBadge--success {
+  background: rgba(59, 130, 246, 0.9);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.metricBadge--innovation {
+  background: rgba(147, 51, 234, 0.9);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+}
+
+/* Card Content */
+.caseStudyContent {
+  padding: 64px 24px 24px 24px; /* Top padding for badge space */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.caseStudyTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 16px 0;
+  line-height: 1.3;
+}
+
+.caseStudyChallenge {
+  font-size: 0.95rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+  flex: 1;
+}
+
+.caseStudyImpact {
+  font-size: 0.95rem;
+  color: #1e293b;
+  line-height: 1.5;
+  margin: 0 0 20px 0;
+}
+
+.caseStudyImpact strong {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+/* CTA Button */
+.caseStudyCTA {
+  background: #1d4ed8;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.caseStudyCTA:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+}
+
+/* Tablet Responsive (768px - 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .caseStudyCard {
+    min-height: 300px;
+  }
+  
+  .caseStudyContent {
+    padding: 60px 20px 20px 20px;
+  }
+  
+  .caseStudyTitle {
+    font-size: 1.2rem;
+    margin-bottom: 14px;
+  }
+  
+  .caseStudyChallenge,
+  .caseStudyImpact {
+    font-size: 0.9rem;
+  }
+  
+  .metricBadge {
+    top: 14px;
+    left: 14px;
+    padding: 7px 14px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile Responsive (767px and below) */
+@media (max-width: 767px) {
+  .caseStudyCard {
+    min-height: 280px;
+    /* Faster stagger on mobile */
+    transition-delay: calc(var(--card-index) * 0.1s);
+    /* Reduced transform for mobile */
+    transform: translateY(40px);
+  }
+  
+  .caseStudyCard.revealed {
+    transform: translateY(0);
+  }
+  
+  .caseStudyContent {
+    padding: 56px 20px 20px 20px;
+  }
+  
+  .caseStudyTitle {
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+  }
+  
+  .caseStudyChallenge,
+  .caseStudyImpact,
+  .caseStudyCTA {
+    font-size: 0.9rem;
+  }
+  
+  .metricBadge {
+    top: 12px;
+    left: 12px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    /* Faster badge animation on mobile */
+    transition-delay: calc(var(--card-index) * 0.1s + 0.2s);
+  }
+  
+  .caseStudyCTA {
+    padding: 10px 18px;
+  }
+}
+
+/* Extra Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .caseStudyCard {
+    min-height: 260px;
+  }
+  
+  .caseStudyContent {
+    padding: 52px 16px 16px 16px;
+  }
+  
+  .caseStudyTitle {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  
+  .caseStudyChallenge,
+  .caseStudyImpact {
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+  
+  .metricBadge {
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+  
+  .caseStudyCTA {
+    font-size: 0.85rem;
+    padding: 9px 16px;
+  }
+}
+
+/* Accessibility and Performance */
+@media (prefers-reduced-motion: reduce) {
+  .caseStudyCard,
+  .metricBadge {
+    transition: opacity 0.3s ease;
+    transform: none;
+  }
+  
+  .caseStudyCard:hover {
+    transform: none;
+  }
+  
+  .caseStudyCTA:hover {
+    transform: none;
+  }
+}
+
+/* GPU acceleration for smooth animations */
+.caseStudyCard {
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+}
+
+.metricBadge {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+.caseStudyCTA {
+  will-change: transform, background-color;
+  transform: translateZ(0);
+}
