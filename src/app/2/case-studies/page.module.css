@@ -597,3 +597,26 @@
     background: rgba(0, 0, 0, 0.1);
   }
 }
+
+/* ==========================================================================
+   COMPACT HERO OVERRIDE - Fix for Full Viewport Hero Issue
+   ========================================================================== */
+
+.compactHero {
+  /* Override the default 100vh hero behavior */
+  min-height: 250px !important;
+  max-height: 300px !important;
+  
+  /* Remove hero-specific flex centering */
+  display: block !important;
+  align-items: initial !important;
+  
+  /* Compact padding instead of full viewport */
+  padding: 60px 0 !important;
+}
+
+.compactHero .heroContainer {
+  /* Override hero container centering */
+  min-height: auto !important;
+  justify-content: initial !important;
+}

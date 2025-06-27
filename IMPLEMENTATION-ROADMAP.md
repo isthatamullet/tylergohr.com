@@ -18,6 +18,12 @@
 - [ ] **Node.js 18+** (for modern features)
 - [ ] **npm 9+** (package management)
 
+### **🚨 CRITICAL: Development URL Requirement**
+- **ALWAYS work on**: `http://localhost:3000/2` or `http://localhost:3001/2` (**NOT** `/`)
+- **ALL testing must be done on**: `/2` routes during redesign development
+- **NEVER test on main site** (`/`) - that's the old site being replaced
+- **Layout verification**: Ensure `/src/app/2/layout.tsx` uses correct Navigation component from `/src/app/2/components/Navigation/Navigation.tsx`
+
 ### **Dependencies to Install**
 ```bash
 # Week 1 - Core Dependencies
@@ -555,6 +561,28 @@ mkdir -p src/app/2/{styles,components,lib,hooks}
    - Complete skills from PORTFOLIO-REDESIGN-CONTENT.md lines 415-571
    - Category organization
    - Current project examples
+
+#### **🎨 CRITICAL: Detail Page Design Consistency**
+**MANDATORY**: All detail pages must follow consistent "title strip" hero design:
+
+1. **Hero Section Design Pattern**:
+   - **Height**: Compact title strip (~200-300px, NOT full viewport)
+   - **Background**: Use corresponding section color from brand tokens
+   - **Content**: Page title + brief description + breadcrumb navigation
+   - **Layout**: Centered content with proper spacing
+
+2. **Section-Specific Colors**:
+   - **Case Studies**: `background="case-studies"` (blue gradient) ✅ 
+   - **How I Work**: `background="how-i-work"` (pink gradient)
+   - **Technical Expertise**: `background="technical-expertise"` (dark theme)
+
+3. **Implementation Requirements**:
+   - Add custom CSS override: `className={styles.compactHero}`
+   - Override Section component default hero behavior
+   - Maintain visual consistency with homepage section colors
+   - Ensure content flows immediately below title strip
+
+**Reference**: Case studies page implementation serves as design template for all detail pages.
 
 **Day 13 Validation**:
 - [ ] Both detail pages complete

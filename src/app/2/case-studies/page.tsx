@@ -164,7 +164,7 @@ export default function CaseStudiesDetailPage() {
   return (
     <>
       {/* Hero Section */}
-      <Section background="case-studies" paddingY="xl">
+      <Section background="case-studies" paddingY="md" className={styles.compactHero}>
         <div className={styles.heroContainer}>
           {/* Breadcrumb Navigation */}
           <nav className={styles.breadcrumb} aria-label="Breadcrumb">
@@ -184,11 +184,10 @@ export default function CaseStudiesDetailPage() {
           {/* Hero Content */}
           <header className={`${styles.heroHeader} ${visibleSections.has('hero') ? styles.revealed : ''}`}>
             <h1 className={styles.heroTitle}>
-              Case Studies: Delivering Enterprise Excellence
+              Case Studies
             </h1>
             <p className={styles.heroDescription}>
-              Deep-dive into strategic technical leadership delivering measurable results across Fortune 500 enterprises. 
-              From Emmy-winning streaming technology to multi-million dollar optimizations, explore the full story behind the impact.
+              Deep-dive into strategic technical leadership delivering measurable results across Fortune 500 enterprises.
             </p>
           </header>
 
