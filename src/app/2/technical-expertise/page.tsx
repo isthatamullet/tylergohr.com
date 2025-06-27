@@ -274,6 +274,7 @@ export default function TechnicalExpertiseDetailPage() {
               defaultTab="frontend-architecture"
               onTabChange={handleTabChange}
               className={styles.technicalExpertiseBrowser}
+              urlPath="technical-expertise"
             />
           </div>
         </div>

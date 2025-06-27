@@ -23,6 +23,7 @@ export interface BrowserTabsProps {
   onTabChange?: (tabId: string) => void
   className?: string
   showBrowserChrome?: boolean
+  urlPath?: string
 }
 
 export default function BrowserTabs({ 
@@ -30,7 +31,8 @@ export default function BrowserTabs({
   defaultTab, 
   onTabChange, 
   className = '',
-  showBrowserChrome = true 
+  showBrowserChrome = true,
+  urlPath = 'case-studies'
 }: BrowserTabsProps) {
   const [activeTab, setActiveTab] = useState<string>(defaultTab || tabs[0]?.id)
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false)
@@ -87,7 +89,7 @@ export default function BrowserTabs({
           <div className={styles.addressBar}>
             <div className={styles.urlBar}>
               <span className={styles.sslIndicator}>🔒</span>
-              <span className={styles.urlText}>tylergohr.com/case-studies</span>
+              <span className={styles.urlText}>tylergohr.com/{urlPath}</span>
             </div>
           </div>
         </div>
