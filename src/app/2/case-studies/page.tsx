@@ -142,10 +142,13 @@ export default function CaseStudiesDetailPage() {
         })
       },
       {
-        threshold: 0.2,
-        rootMargin: '0px 0px -10% 0px'
+        threshold: 0.1,
+        rootMargin: '0px 0px -5% 0px'
       }
     )
+
+    // Initialize hero section as visible immediately
+    setVisibleSections(prev => new Set([...prev, 'hero']))
 
     Object.values(sectionRefs.current).forEach(ref => {
       if (ref) observer.observe(ref)
@@ -165,22 +168,11 @@ export default function CaseStudiesDetailPage() {
     <>
       {/* Hero Section */}
       <Section background="case-studies" paddingY="md" className={styles.compactHero}>
-        <div className={styles.heroContainer}>
-          {/* Breadcrumb Navigation */}
-          <nav className={styles.breadcrumb} aria-label="Breadcrumb">
-            <ol className={styles.breadcrumbList}>
-              <li className={styles.breadcrumbItem}>
-                <Link href="/2" className={styles.breadcrumbLink}>
-                  Portfolio
-                </Link>
-              </li>
-              <li className={styles.breadcrumbSeparator} aria-hidden="true">→</li>
-              <li className={styles.breadcrumbCurrent} aria-current="page">
-                Case Studies
-              </li>
-            </ol>
-          </nav>
-
+        <div 
+          ref={(el) => { sectionRefs.current['hero'] = el }}
+          data-section-id="hero"
+          className={styles.heroContainer}
+        >
           {/* Hero Content */}
           <header className={`${styles.heroHeader} ${visibleSections.has('hero') ? styles.revealed : ''}`}>
             <h1 className={styles.heroTitle}>
