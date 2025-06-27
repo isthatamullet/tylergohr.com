@@ -6,7 +6,7 @@ import styles from './BrowserTabs.module.css'
 export interface BadgeData {
   value: string
   label: string
-  type: 'savings' | 'success' | 'innovation' | 'emmy'
+  type: 'savings' | 'success' | 'innovation' | 'emmy' | 'frontend' | 'backend' | 'cloud' | 'leadership' | 'ai'
 }
 
 export interface TabData {
@@ -14,7 +14,7 @@ export interface TabData {
   label: string
   badge: BadgeData
   content: React.ReactNode
-  type: 'savings' | 'success' | 'innovation' | 'emmy'
+  type: 'savings' | 'success' | 'innovation' | 'emmy' | 'frontend' | 'backend' | 'cloud' | 'leadership' | 'ai'
 }
 
 export interface BrowserTabsProps {

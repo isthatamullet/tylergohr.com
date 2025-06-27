@@ -202,6 +202,67 @@
   background: linear-gradient(135deg, rgba(251, 191, 36, 0.05), #ffffff);
 }
 
+/* Technical Expertise Tab Variants */
+.tab--frontend {
+  border-top: 3px solid #3b82f6;
+}
+
+.tab--frontend:not(.tabActive) {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.tab--frontend.tabActive {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), #ffffff);
+}
+
+.tab--backend {
+  border-top: 3px solid #22c55e;
+}
+
+.tab--backend:not(.tabActive) {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.tab--backend.tabActive {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.05), #ffffff);
+}
+
+.tab--cloud {
+  border-top: 3px solid #a855f7;
+}
+
+.tab--cloud:not(.tabActive) {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.tab--cloud.tabActive {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), #ffffff);
+}
+
+.tab--leadership {
+  border-top: 3px solid #fbbf24;
+}
+
+.tab--leadership:not(.tabActive) {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.tab--leadership.tabActive {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.05), #ffffff);
+}
+
+.tab--ai {
+  border-top: 3px solid #f43f5e;
+}
+
+.tab--ai:not(.tabActive) {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.tab--ai.tabActive {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.05), #ffffff);
+}
+
 /* ==========================================================================
    TAB BADGES
    ========================================================================== */
@@ -256,6 +317,37 @@
   background: linear-gradient(135deg, #fbbf24, #f59e0b);
   color: #78350f;
   border-color: rgba(251, 191, 36, 0.3);
+}
+
+/* Technical Expertise Badge Variants */
+.badge--frontend {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #1e3a8a;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.badge--backend {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #14532d;
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.badge--cloud {
+  background: linear-gradient(135deg, #a855f7, #9333ea);
+  color: #581c87;
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+.badge--leadership {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #78350f;
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+.badge--ai {
+  background: linear-gradient(135deg, #f43f5e, #e11d48);
+  color: #881337;
+  border-color: rgba(244, 63, 94, 0.3);
 }
 
 /* Tab Label */
