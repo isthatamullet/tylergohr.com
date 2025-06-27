@@ -163,7 +163,19 @@
 
 /* Tab Color Variants */
 .tab--savings {
-  border-top: 3px solid #22c55e;
+  /* Replaced border-top with pseudo-element to prevent bleeding */
+}
+
+.tab--savings::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #22c55e;
+  border-radius: 8px 8px 0 0;
+  z-index: 1;
 }
 
 .tab--savings:not(.tabActive) {
@@ -175,7 +187,19 @@
 }
 
 .tab--success {
-  border-top: 3px solid #3b82f6;
+  /* Replaced border-top with pseudo-element to prevent bleeding */
+}
+
+.tab--success::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #3b82f6;
+  border-radius: 8px 8px 0 0;
+  z-index: 1;
 }
 
 .tab--success:not(.tabActive) {
@@ -187,7 +211,19 @@
 }
 
 .tab--innovation {
-  border-top: 3px solid #a855f7;
+  /* Replaced border-top with pseudo-element to prevent bleeding */
+}
+
+.tab--innovation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #a855f7;
+  border-radius: 8px 8px 0 0;
+  z-index: 1;
 }
 
 .tab--innovation:not(.tabActive) {
@@ -199,7 +235,19 @@
 }
 
 .tab--emmy {
-  border-top: 3px solid #fbbf24;
+  /* Replaced border-top with pseudo-element to prevent bleeding */
+}
+
+.tab--emmy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #fbbf24;
+  border-radius: 8px 8px 0 0;
+  z-index: 1;
 }
 
 .tab--emmy:not(.tabActive) {
@@ -212,7 +260,19 @@
 
 /* Technical Expertise Tab Variants */
 .tab--frontend {
-  border-top: 3px solid #3b82f6;
+  /* Replaced border-top with pseudo-element to prevent bleeding */
+}
+
+.tab--frontend::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #3b82f6;
+  border-radius: 8px 8px 0 0;
+  z-index: 1;
 }
 
 .tab--frontend:not(.tabActive) {
@@ -224,7 +284,19 @@
 }
 
 .tab--backend {
-  border-top: 3px solid #22c55e;
+  /* Replaced border-top with pseudo-element to prevent bleeding */
+}
+
+.tab--backend::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #22c55e;
+  border-radius: 8px 8px 0 0;
+  z-index: 1;
 }
 
 .tab--backend:not(.tabActive) {
@@ -236,7 +308,19 @@
 }
 
 .tab--cloud {
-  border-top: 3px solid #a855f7;
+  /* Replaced border-top with pseudo-element to prevent bleeding */
+}
+
+.tab--cloud::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #a855f7;
+  border-radius: 8px 8px 0 0;
+  z-index: 1;
 }
 
 .tab--cloud:not(.tabActive) {
@@ -248,7 +332,19 @@
 }
 
 .tab--leadership {
-  border-top: 3px solid #fbbf24;
+  /* Replaced border-top with pseudo-element to prevent bleeding */
+}
+
+.tab--leadership::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #fbbf24;
+  border-radius: 8px 8px 0 0;
+  z-index: 1;
 }
 
 .tab--leadership:not(.tabActive) {
@@ -260,7 +356,19 @@
 }
 
 .tab--ai {
-  border-top: 3px solid #f43f5e;
+  /* Replaced border-top with pseudo-element to prevent bleeding */
+}
+
+.tab--ai::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #f43f5e;
+  border-radius: 8px 8px 0 0;
+  z-index: 1;
 }
 
 .tab--ai:not(.tabActive) {
