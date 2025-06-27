@@ -26,6 +26,7 @@ export const HowIWorkPreview: React.FC = () => {
   const pathRef = useRef<SVGPathElement>(null)
 
   // 7 Process Steps from PHASE-2-SECTION-LAYOUT-REQUIREMENTS.md
+  // Positioned to avoid overlapping the S-curve path
   const processSteps: ProcessStep[] = [
     {
       id: 'discovery',
@@ -34,7 +35,7 @@ export const HowIWorkPreview: React.FC = () => {
       description: 'Stakeholder interviews, problem definition, scope clarification',
       icon: '🔍',
       side: 'right',
-      x: 450,
+      x: 550, // Moved further right to clear S-curve
       y: 100
     },
     {
@@ -44,7 +45,7 @@ export const HowIWorkPreview: React.FC = () => {
       description: 'Technical research, architecture planning, GitHub issue roadmap',
       icon: '📋',
       side: 'left',
-      x: 150,
+      x: 50, // Moved further left to clear S-curve
       y: 200
     },
     {
@@ -54,7 +55,7 @@ export const HowIWorkPreview: React.FC = () => {
       description: 'UI/UX design, technical prototypes, validation cycles',
       icon: '🎨',
       side: 'right',
-      x: 450,
+      x: 550, // Moved further right to clear S-curve
       y: 300
     },
     {
@@ -64,7 +65,7 @@ export const HowIWorkPreview: React.FC = () => {
       description: 'Next.js development, iterative building, code reviews',
       icon: '⚛️',
       side: 'left',
-      x: 150,
+      x: 50, // Moved further left to clear S-curve
       y: 400
     },
     {
@@ -74,7 +75,7 @@ export const HowIWorkPreview: React.FC = () => {
       description: 'Jest testing, TypeScript validation, performance optimization',
       icon: '✅',
       side: 'right',
-      x: 450,
+      x: 550, // Moved further right to clear S-curve
       y: 500
     },
     {
@@ -84,7 +85,7 @@ export const HowIWorkPreview: React.FC = () => {
       description: 'Google Cloud deployment, CI/CD pipeline, monitoring setup',
       icon: '🚀',
       side: 'left',
-      x: 150,
+      x: 50, // Moved further left to clear S-curve
       y: 600
     },
     {
@@ -94,7 +95,7 @@ export const HowIWorkPreview: React.FC = () => {
       description: 'Performance monitoring, continuous improvement, maintenance',
       icon: '📈',
       side: 'right',
-      x: 450,
+      x: 550, // Moved further right to clear S-curve
       y: 700
     }
   ]
@@ -172,7 +173,7 @@ export const HowIWorkPreview: React.FC = () => {
           {/* SVG S-Curve Path */}
           <svg 
             className={styles.sCurveSvg}
-            viewBox="0 0 600 750"
+            viewBox="0 0 800 750"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
           >
