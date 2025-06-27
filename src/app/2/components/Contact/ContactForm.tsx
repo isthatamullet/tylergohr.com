@@ -169,11 +169,6 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className }) => {
             aria-invalid={!!errors.name}
             disabled={submitStatus === 'submitting'}
           />
-          {errors.name && (
-            <span id="name-error" className={styles.errorText} role="alert">
-              {errors.name}
-            </span>
-          )}
         </div>
 
         {/* Email Field */}
@@ -192,11 +187,6 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className }) => {
             aria-invalid={!!errors.email}
             disabled={submitStatus === 'submitting'}
           />
-          {errors.email && (
-            <span id="email-error" className={styles.errorText} role="alert">
-              {errors.email}
-            </span>
-          )}
         </div>
 
         {/* Project Type Dropdown */}
@@ -235,11 +225,6 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className }) => {
             aria-invalid={!!errors.message}
             disabled={submitStatus === 'submitting'}
           />
-          {errors.message && (
-            <span id="message-error" className={styles.errorText} role="alert">
-              {errors.message}
-            </span>
-          )}
         </div>
 
         {/* Submit Button */}
