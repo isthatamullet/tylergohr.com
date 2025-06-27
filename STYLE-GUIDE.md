@@ -481,7 +481,7 @@ font-family: 'JetBrains Mono', monospace;
 
 ### **Hero Section Graphic**
 **Status**: ✅ **COMPLETED** - Final graphic created  
-**File**: `FINAL hero graphic FINAL.png`  
+**File**: `FINAL hero graphic FINAL 500KB.png`  
 **Specifications**:
 - ✅ **Wizard theme**: Crude hand-drawn style with gold lines
 - ✅ **Transparent background**: Blends perfectly with black hero section (#0a0a0a)

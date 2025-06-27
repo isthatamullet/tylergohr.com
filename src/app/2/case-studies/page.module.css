@@ -604,15 +604,15 @@
 
 .compactHero {
   /* Override the default 100vh hero behavior */
-  min-height: 250px !important;
-  max-height: 300px !important;
+  min-height: 650px !important;
+  max-height: 750px !important;
   
   /* Remove hero-specific flex centering */
   display: block !important;
   align-items: initial !important;
   
-  /* Compact padding instead of full viewport */
-  padding: 60px 0 !important;
+  /* Compact padding with extra top space to prevent title cutoff */
+  padding: 80px 0 60px 0 !important;
 }
 
 .compactHero .heroContainer {
