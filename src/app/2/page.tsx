@@ -8,6 +8,7 @@ import Results from "./components/Results/Results";
 import CaseStudiesPreview from "./components/CaseStudies/CaseStudiesPreview";
 import HowIWorkPreview from "./components/HowIWork/HowIWorkPreview";
 import TechnicalExpertisePreview from "./components/TechnicalExpertise/TechnicalExpertisePreview";
+import ContactSection from "./components/Contact/ContactSection";
 
 export default function EnterprisePage() {
 
@@ -35,25 +36,8 @@ export default function EnterprisePage() {
         {/* Technical Expertise Preview Section - 4 Glassmorphism Cards */}
         <TechnicalExpertisePreview />
 
-        {/* Contact Section - Basic */}
-        <section
-          id="contact"
-          className={styles.contactSection}
-          aria-labelledby="contact-title"
-          role="region"
-        >
-          <div className={styles.container}>
-            <h2 id="contact-title" className={styles.sectionTitle}>
-              Contact
-            </h2>
-            <p className={styles.contactText}>
-              Ready to discuss your enterprise solution? Let&apos;s connect.
-            </p>
-            <p className={styles.placeholderText}>
-              Contact form coming in Phase 2...
-            </p>
-          </div>
-        </section>
+        {/* Contact Section - Dual-Column Form & Professional Information */}
+        <ContactSection />
       </main>
     </>
   );

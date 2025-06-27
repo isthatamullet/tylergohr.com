@@ -1,0 +1,153 @@
+/* Contact Section - Dual-Column Layout with Professional Messaging */
+.contactSection {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Section Header */
+.contactHeader {
+  text-align: center;
+  margin-bottom: 80px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contactHeader.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sectionTitle {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 24px 0;
+  line-height: 1.1;
+}
+
+.sectionDescription {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Contact Content - Dual Column Layout */
+.contactContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.2s;
+}
+
+.contactContent.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Form Container - Left Column */
+.formContainer {
+  position: relative;
+}
+
+/* Info Container - Right Column */
+.infoContainer {
+  position: relative;
+}
+
+/* Tablet Layout (768px - 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .contactSection {
+    padding: 100px 0;
+  }
+  
+  .container {
+    padding: 0 24px;
+  }
+  
+  .contactContent {
+    gap: 48px;
+  }
+  
+  .contactHeader {
+    margin-bottom: 64px;
+  }
+}
+
+/* Mobile Layout (767px and below) */
+@media (max-width: 767px) {
+  .contactSection {
+    padding: 80px 0;
+  }
+  
+  .container {
+    padding: 0 20px;
+  }
+  
+  /* Stacked mobile layout */
+  .contactContent {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  
+  .contactHeader {
+    margin-bottom: 48px;
+  }
+  
+  .sectionTitle {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+    margin-bottom: 16px;
+  }
+  
+  .sectionDescription {
+    font-size: 1.1rem;
+  }
+}
+
+/* Extra Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .contactSection {
+    padding: 60px 0;
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+  
+  .contactContent {
+    gap: 40px;
+  }
+  
+  .contactHeader {
+    margin-bottom: 40px;
+  }
+}
+
+/* Accessibility and Performance */
+@media (prefers-reduced-motion: reduce) {
+  .contactHeader,
+  .contactContent {
+    transition: opacity 0.3s ease;
+    transform: none;
+  }
+}
+
+/* GPU acceleration for smooth animations */
+.contactHeader,
+.contactContent {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
