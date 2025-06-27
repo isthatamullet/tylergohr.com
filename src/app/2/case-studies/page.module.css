@@ -85,8 +85,8 @@
   margin: 0 auto;
 }
 
-/* Quick Navigation */
-.quickNav {
+/* Browser Section */
+.browserSection {
   opacity: 0;
   transform: translateY(40px);
   transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -97,9 +97,14 @@
   backface-visibility: hidden;
 }
 
-.quickNav.revealed {
+.browserSection.revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+.caseStudiesBrowser {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .quickNavTitle {

@@ -3,6 +3,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { Section } from '@/app/2/components/Section/Section'
+import { BrowserTabs, CaseStudyContent } from '@/app/2/components/BrowserTabs'
+import type { TabData } from '@/app/2/components/BrowserTabs'
 import styles from './page.module.css'
 
 interface CaseStudy {
@@ -157,11 +159,18 @@ export default function CaseStudiesDetailPage() {
     return () => observer.disconnect()
   }, [])
 
-  const scrollToSection = (sectionId: string) => {
-    const element = sectionRefs.current[sectionId]
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
+  // Transform case studies data into tab format
+  const caseStudyTabs: TabData[] = caseStudies.map((study) => ({
+    id: study.id,
+    label: study.title,
+    badge: study.badge,
+    content: <CaseStudyContent study={study} />,
+    type: study.badge.type
+  }))
+
+  const handleTabChange = (tabId: string) => {
+    // Optional: Add analytics tracking
+    console.log(`Viewed case study: ${tabId}`)
   }
 
   return (
@@ -183,106 +192,18 @@ export default function CaseStudiesDetailPage() {
             </p>
           </header>
 
-          {/* Quick Navigation */}
-          <nav className={`${styles.quickNav} ${visibleSections.has('hero') ? styles.revealed : ''}`} aria-label="Case study navigation">
-            <h2 className={styles.quickNavTitle}>Featured Case Studies</h2>
-            <ul className={styles.quickNavList}>
-              {caseStudies.map((study, index) => (
-                <li
-                  key={study.id}
-                  className={styles.quickNavItem}
-                  style={{ '--item-index': index } as React.CSSProperties}
-                >
-                  <button
-                    onClick={() => scrollToSection(study.id)}
-                    className={styles.quickNavButton}
-                  >
-                    <span className={`${styles.badge} ${styles[`badge--${study.badge.type}`]}`}>
-                      <span className={styles.badgeValue}>{study.badge.value}</span>
-                      <span className={styles.badgeLabel}>{study.badge.label}</span>
-                    </span>
-                    <span className={styles.studyTitle}>{study.title}</span>
-                    <span className={styles.studyCompany}>{study.company}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
+          {/* Browser Tab Interface */}
+          <div className={`${styles.browserSection} ${visibleSections.has('hero') ? styles.revealed : ''}`}>
+            <BrowserTabs 
+              tabs={caseStudyTabs}
+              defaultTab="content-distribution-platform"
+              onTabChange={handleTabChange}
+              className={styles.caseStudiesBrowser}
+            />
+          </div>
         </div>
       </Section>
 
-      {/* Case Studies Detail Sections */}
-      {caseStudies.map((study, index) => (
-        <Section
-          key={study.id}
-          background={index % 2 === 0 ? 'hero' : 'about'}
-          paddingY="xl"
-        >
-          <div
-            ref={(el) => { sectionRefs.current[study.id] = el }}
-            data-section-id={study.id}
-            className={`${styles.caseStudySection} ${visibleSections.has(study.id) ? styles.revealed : ''}`}
-            id={study.id}
-          >
-            <div className={styles.caseStudyContainer}>
-              {/* Case Study Header */}
-              <header className={styles.caseStudyHeader}>
-                <div className={`${styles.badge} ${styles[`badge--${study.badge.type}`]} ${styles.badgeLarge}`}>
-                  <span className={styles.badgeValue}>{study.badge.value}</span>
-                  <span className={styles.badgeLabel}>{study.badge.label}</span>
-                </div>
-                <h2 className={styles.caseStudyTitle}>{study.title}</h2>
-                <p className={styles.caseStudyCompany}>{study.company}</p>
-              </header>
-
-              {/* Case Study Content Grid */}
-              <div className={styles.caseStudyGrid}>
-                {/* Challenge */}
-                <div className={styles.contentSection}>
-                  <h3 className={styles.contentTitle}>The Challenge</h3>
-                  <p className={styles.contentText}>{study.challenge}</p>
-                </div>
-
-                {/* Solution */}
-                <div className={styles.contentSection}>
-                  <h3 className={styles.contentTitle}>My Solution</h3>
-                  <p className={styles.contentText}>{study.solution}</p>
-                </div>
-
-                {/* Technical Implementation */}
-                <div className={styles.contentSection}>
-                  <h3 className={styles.contentTitle}>Technical Implementation</h3>
-                  <ul className={styles.contentList}>
-                    {study.implementation.map((item, i) => (
-                      <li key={i} className={styles.contentListItem}>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Results */}
-                <div className={styles.contentSection}>
-                  <h3 className={styles.contentTitle}>Measurable Results</h3>
-                  <ul className={styles.contentList}>
-                    {study.results.map((result, i) => (
-                      <li key={i} className={styles.contentListItem}>
-                        {result}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              {/* Business Value */}
-              <div className={styles.businessValue}>
-                <h3 className={styles.businessValueTitle}>What This Means for Your Business</h3>
-                <p className={styles.businessValueText}>{study.businessValue}</p>
-              </div>
-            </div>
-          </div>
-        </Section>
-      ))}
 
       {/* Call to Action Section */}
       <Section background="contact" paddingY="xl">

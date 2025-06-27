@@ -563,12 +563,12 @@ mkdir -p src/app/2/{styles,components,lib,hooks}
    - Current project examples
 
 #### **🎨 CRITICAL: Detail Page Design Consistency**
-**MANDATORY**: All detail pages must follow consistent "title strip" hero design:
+**MANDATORY**: All detail pages must follow consistent design patterns:
 
 1. **Hero Section Design Pattern**:
    - **Height**: Compact title strip (~200-300px, NOT full viewport)
    - **Background**: Use corresponding section color from brand tokens
-   - **Content**: Page title + brief description + breadcrumb navigation
+   - **Content**: Page title + brief description
    - **Layout**: Centered content with proper spacing
 
 2. **Section-Specific Colors**:
@@ -576,13 +576,23 @@ mkdir -p src/app/2/{styles,components,lib,hooks}
    - **How I Work**: `background="how-i-work"` (pink gradient)
    - **Technical Expertise**: `background="technical-expertise"` (dark theme)
 
-3. **Implementation Requirements**:
+3. **🌐 BROWSER TAB INTERFACE PATTERN** ✅ **NEW REQUIREMENT**:
+   **MANDATORY**: Case Studies and Technical Expertise pages must use browser tab interface:
+   - **Replace**: Traditional section scrolling with interactive tabbed content
+   - **Tab Colors**: Green → Blue → Purple → Gold (matching badge system)
+   - **Content Structure**: Maintain existing detailed content in tab panels
+   - **Responsive**: Mobile-friendly tab design with touch optimization
+   - **Accessibility**: Full ARIA compliance with keyboard navigation
+   - **Reference**: Complete specifications in STYLE-GUIDE.md "Browser Tab Interface Pattern"
+
+4. **Implementation Requirements**:
    - Add custom CSS override: `className={styles.compactHero}`
    - Override Section component default hero behavior
+   - **Implement BrowserTabs component** for content display
    - Maintain visual consistency with homepage section colors
-   - Ensure content flows immediately below title strip
+   - Ensure smooth tab transitions and 60fps performance
 
-**Reference**: Case studies page implementation serves as design template for all detail pages.
+**Reference**: Case studies page serves as foundation; browser tab interface enhances technical storytelling.
 
 **Day 13 Validation**:
 - [ ] Both detail pages complete

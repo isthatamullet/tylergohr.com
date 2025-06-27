@@ -1,0 +1,448 @@
+/* Browser Tab Interface Component Styles */
+
+/* ==========================================================================
+   BROWSER CONTAINER
+   ========================================================================== */
+
+.browserContainer {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   BROWSER CHROME
+   ========================================================================== */
+
+.browserChrome {
+  background: linear-gradient(135deg, #f1f3f4 0%, #e8eaed 100%);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #e1e4e8;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Window Controls */
+.windowControls {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.windowControl {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.windowControl:hover {
+  transform: scale(1.1);
+}
+
+.windowControlClose {
+  background: linear-gradient(135deg, #ff5f57, #ff3b30);
+}
+
+.windowControlMinimize {
+  background: linear-gradient(135deg, #ffbd2e, #ff9500);
+}
+
+.windowControlMaximize {
+  background: linear-gradient(135deg, #28ca42, #34c759);
+}
+
+/* Address Bar */
+.addressBar {
+  flex: 1;
+  max-width: 400px;
+}
+
+.urlBar {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+}
+
+.sslIndicator {
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.urlText {
+  color: #374151;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   TAB BAR
+   ========================================================================== */
+
+.tabBar {
+  background: #f8f9fa;
+  display: flex;
+  border-bottom: 1px solid #e1e4e8;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tabBar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Individual Tab Styling */
+.tab {
+  padding: 12px 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px 8px 0 0;
+  margin-right: 2px;
+  border: 1px solid transparent;
+  position: relative;
+  min-width: 200px;
+  
+  /* Performance optimization */
+  will-change: transform, background;
+  backface-visibility: hidden;
+}
+
+.tab:hover:not(.tabActive) {
+  background: rgba(255, 255, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+.tab:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Active Tab */
+.tabActive {
+  background: #ffffff;
+  border-color: #e1e4e8;
+  border-bottom-color: transparent;
+  transform: translateY(1px);
+  z-index: 10;
+}
+
+/* Tab Color Variants */
+.tab--savings {
+  border-top: 3px solid #22c55e;
+}
+
+.tab--savings:not(.tabActive) {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.tab--savings.tabActive {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.05), #ffffff);
+}
+
+.tab--success {
+  border-top: 3px solid #3b82f6;
+}
+
+.tab--success:not(.tabActive) {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.tab--success.tabActive {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), #ffffff);
+}
+
+.tab--innovation {
+  border-top: 3px solid #a855f7;
+}
+
+.tab--innovation:not(.tabActive) {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.tab--innovation.tabActive {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), #ffffff);
+}
+
+.tab--emmy {
+  border-top: 3px solid #fbbf24;
+}
+
+.tab--emmy:not(.tabActive) {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(255, 255, 255, 0.9));
+}
+
+.tab--emmy.tabActive {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.05), #ffffff);
+}
+
+/* ==========================================================================
+   TAB BADGES
+   ========================================================================== */
+
+.tabBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badgeValue {
+  font-size: 1.1em;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.badgeLabel {
+  font-size: 0.8em;
+  opacity: 0.9;
+  line-height: 1;
+}
+
+/* Badge Color Variants */
+.badge--savings {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #14532d;
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.badge--success {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #1e3a8a;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.badge--innovation {
+  background: linear-gradient(135deg, #a855f7, #9333ea);
+  color: #581c87;
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+.badge--emmy {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #78350f;
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+/* Tab Label */
+.tabLabel {
+  flex: 1;
+  text-align: left;
+  color: #374151;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.tabActive .tabLabel {
+  color: #111827;
+}
+
+/* ==========================================================================
+   CONTENT AREA
+   ========================================================================== */
+
+.browserContent {
+  background: #ffffff;
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+}
+
+.contentPanel {
+  padding: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  
+  /* Performance optimization */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.contentPanelActive {
+  opacity: 1;
+  transform: translateY(0);
+  position: relative;
+}
+
+.contentPanelTransitioning {
+  transition-duration: 0.2s;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Tablet Layout (768px - 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .tab {
+    min-width: 180px;
+    padding: 10px 16px;
+    gap: 10px;
+  }
+  
+  .tabLabel {
+    font-size: 0.8rem;
+  }
+  
+  .contentPanel {
+    padding: 24px;
+  }
+}
+
+/* Mobile Layout (767px and below) */
+@media (max-width: 767px) {
+  .browserChrome {
+    padding: 6px 12px;
+  }
+  
+  .windowControl {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .urlBar {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+  
+  .tabBar {
+    flex-direction: column;
+    background: transparent;
+    border-bottom: none;
+    padding: 0 16px;
+  }
+  
+  .tab {
+    border-radius: 6px;
+    margin-bottom: 8px;
+    margin-right: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: auto;
+    width: 100%;
+    padding: 12px 16px;
+  }
+  
+  .tab:hover:not(.tabActive) {
+    transform: none;
+  }
+  
+  .tabActive {
+    border: 1px solid #e1e4e8;
+    transform: none;
+  }
+  
+  .browserContent {
+    border-radius: 8px;
+    margin-top: 16px;
+    min-height: 400px;
+  }
+  
+  .contentPanel {
+    padding: 20px;
+  }
+}
+
+/* Extra Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .tab {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px;
+  }
+  
+  .tabBadge {
+    align-self: flex-start;
+  }
+  
+  .tabLabel {
+    font-size: 0.875rem;
+    text-align: left;
+  }
+  
+  .contentPanel {
+    padding: 16px;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & PERFORMANCE
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .tab,
+  .contentPanel,
+  .tabBadge {
+    transition: opacity 0.3s ease;
+    transform: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .tab {
+    border-width: 2px;
+  }
+  
+  .tabBadge {
+    border-width: 2px;
+    border-style: solid;
+  }
+  
+  .browserContent {
+    border: 2px solid #000000;
+  }
+}
+
+/* Focus management for keyboard navigation */
+.tab:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+  z-index: 20;
+}
+
+/* Performance: GPU acceleration for smooth animations */
+.tab,
+.contentPanel,
+.tabBadge {
+  transform: translateZ(0);
+}
