@@ -159,14 +159,24 @@ export default function CaseStudiesDetailPage() {
     return () => observer.disconnect()
   }, [])
 
-  // Transform case studies data into tab format
-  const caseStudyTabs: TabData[] = caseStudies.map((study) => ({
-    id: study.id,
-    label: study.title,
-    badge: study.badge,
-    content: <CaseStudyContent study={study} />,
-    type: study.badge.type
-  }))
+  // Transform case studies data into tab format with shorter tab labels
+  const caseStudyTabs: TabData[] = caseStudies.map((study) => {
+    // Map long titles to shorter tab labels
+    const tabLabels: { [key: string]: string } = {
+      'content-distribution-platform': 'Cost Savings',
+      'workflow-transformation': 'Workflow', 
+      'ai-powered-innovation': 'AI',
+      'emmy-winning-streaming': 'Emmy'
+    }
+    
+    return {
+      id: study.id,
+      label: tabLabels[study.id] || study.title,
+      badge: study.badge,
+      content: <CaseStudyContent study={study} />,
+      type: study.badge.type
+    }
+  })
 
   const handleTabChange = (tabId: string) => {
     // Optional: Add analytics tracking

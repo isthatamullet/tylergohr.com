@@ -641,7 +641,7 @@
 .compactHero {
   /* Override the default 100vh hero behavior */
   min-height: 650px !important;
-  max-height: 750px !important;
+  /* Remove max-height to allow browser content to be fully visible */
   
   /* Remove hero-specific flex centering */
   display: block !important;
