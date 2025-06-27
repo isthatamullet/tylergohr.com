@@ -16,109 +16,91 @@ export interface ProcessStep {
 
 /**
  * How I Work Preview Section
- * Displays 7-step S-curve design showcasing enterprise methodology
- * Uses SVG-based flowing curve with scroll-triggered animations
+ * Displays 7-step descending staircase layout showcasing enterprise methodology
+ * Uses clean diagonal positioning with scroll-triggered animations
  */
 export const HowIWorkPreview: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false)
-  const [pathLength, setPathLength] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
-  const pathRef = useRef<SVGPathElement>(null)
 
-  // 7 Process Steps positioned exactly as drawn in user's layout sketch
-  // Following the curve flow: center → right → left → right → left → right → center
+  // 7 Process Steps positioned in descending staircase layout
+  // Following diagonal flow: upper left → lower right
   const processSteps: ProcessStep[] = [
     {
       id: 'discovery',
       step: 1,
-      title: 'Discovery & Requirements',
+      title: 'Discovery',
       description: 'Stakeholder interviews, problem definition, scope clarification',
       icon: '🔍',
-      side: 'center',
-      x: 350, // Top center start of curve
-      y: 50
+      side: 'right',
+      x: 0, // Top left start
+      y: 0
     },
     {
       id: 'research',
       step: 2,
-      title: 'Research & Planning',
+      title: 'Research',
       description: 'Technical research, architecture planning, GitHub issue roadmap',
-      icon: '📋',
+      icon: '📊',
       side: 'right',
-      x: 550, // Right tip of first curve extension
-      y: 150
+      x: 12, // Down and right 12%
+      y: 12
     },
     {
       id: 'design',
       step: 3,
-      title: 'Design & Prototyping',
+      title: 'Design',
       description: 'UI/UX design, technical prototypes, validation cycles',
       icon: '🎨',
-      side: 'left',
-      x: 150, // Left tip of curve's leftward swing
-      y: 250
+      side: 'right',
+      x: 24, // Down and right 24%
+      y: 24
     },
     {
       id: 'implementation',
       step: 4,
       title: 'Implementation',
       description: 'Next.js development, iterative building, code reviews',
-      icon: '⚛️',
+      icon: '⚡',
       side: 'right',
-      x: 550, // Right tip of next rightward extension
-      y: 350
+      x: 36, // Down and right 36%
+      y: 36
     },
     {
       id: 'testing',
       step: 5,
-      title: 'Testing & Quality',
+      title: 'Testing',
       description: 'Jest testing, TypeScript validation, performance optimization',
-      icon: '✅',
-      side: 'left',
-      x: 150, // Left tip of next leftward swing
-      y: 450
+      icon: '🧪',
+      side: 'right',
+      x: 48, // Down and right 48%
+      y: 48
     },
     {
       id: 'deployment',
       step: 6,
-      title: 'Deployment & Launch',
+      title: 'Deployment',
       description: 'Google Cloud deployment, CI/CD pipeline, monitoring setup',
       icon: '🚀',
       side: 'right',
-      x: 550, // Right tip of next rightward extension
-      y: 550
+      x: 60, // Down and right 60%
+      y: 60
     },
     {
       id: 'optimization',
       step: 7,
-      title: 'Optimization & Support',
+      title: 'Optimization',
       description: 'Performance monitoring, continuous improvement, maintenance',
       icon: '📈',
-      side: 'center',
-      x: 350, // Bottom center end of curve
-      y: 650
+      side: 'right',
+      x: 72, // Bottom right end
+      y: 72
     }
   ]
 
-  // SVG S-curve path connecting all 7 steps as drawn in user's sketch
-  // Flow: center(1) → right(2) → left(3) → right(4) → left(5) → right(6) → center(7)
-  const curvePath = `
-    M 350,50
-    Q 450,100 550,150
-    Q 450,200 150,250
-    Q 350,300 550,350
-    Q 350,400 150,450
-    Q 350,500 550,550
-    Q 450,600 350,650
-  `.trim()
+  // No complex SVG path needed for simple staircase layout
 
-  // Calculate path length for animation
-  useEffect(() => {
-    if (pathRef.current) {
-      const length = pathRef.current.getTotalLength()
-      setPathLength(length)
-    }
-  }, [])
+  // Simple staircase layout doesn't need path length calculation
 
   // Intersection Observer for scroll-triggered section animation
   useEffect(() => {
@@ -162,38 +144,18 @@ export const HowIWorkPreview: React.FC = () => {
           </p>
         </header>
 
-        {/* Desktop S-Curve Layout */}
-        <div className={`${styles.sCurveContainer} ${isVisible ? styles.revealed : ''}`}>
-          {/* SVG S-Curve Path */}
-          <svg 
-            className={styles.sCurveSvg}
-            viewBox="0 0 700 750"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              ref={pathRef}
-              d={curvePath}
-              className={styles.curvePath}
-              fill="none"
-              stroke="#3b82f6"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeDasharray={pathLength}
-              strokeDashoffset={isVisible ? 0 : pathLength}
-            />
-          </svg>
-
+        {/* Desktop Staircase Layout */}
+        <div className={`${styles.staircaseContainer} ${isVisible ? styles.revealed : ''}`}>
           {/* Process Steps */}
           {processSteps.map((step, index) => (
             <div
               key={step.id}
               className={`${styles.processStep} ${styles[step.side]} ${isVisible ? styles.stepRevealed : ''}`}
               style={{
-                '--step-x': `${step.x}px`,
-                '--step-y': `${step.y}px`,
+                '--step-x': `${step.x}%`,
+                '--step-y': `${step.y}%`,
                 '--step-index': index,
-                animationDelay: `${index * 100 + 300}ms` // Start after path begins drawing
+                animationDelay: `${index * 150}ms` // Staggered reveal timing
               } as React.CSSProperties}
             >
               <div className={styles.stepIcon}>

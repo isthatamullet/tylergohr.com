@@ -1,10 +1,10 @@
-/* How I Work Preview Section - S-Curve Design */
+/* How I Work Preview Section - Staircase Design */
 .howIWorkSection {
   background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
   padding: 120px 0;
   position: relative;
   overflow: hidden;
-  min-height: 900px; /* Accommodate S-curve height */
+  min-height: 700px; /* Accommodate staircase height */
 }
 
 .container {
@@ -47,40 +47,24 @@
   line-height: 1.6;
 }
 
-/* Desktop S-Curve Container */
-.sCurveContainer {
+/* Desktop Staircase Container */
+.staircaseContainer {
   position: relative;
-  height: 800px;
+  height: 600px;
   width: 100%;
-  max-width: 750px; /* Optimized for icons on curve tips */
+  max-width: 800px; /* Optimized for diagonal staircase */
   margin: 0 auto 64px auto;
   opacity: 0;
   transform: translateY(60px);
   transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.sCurveContainer.revealed {
+.staircaseContainer.revealed {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* SVG S-Curve */
-.sCurveSvg {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 700px; /* Optimized width for tip positioning */
-  height: 750px;
-  z-index: 1;
-}
-
-.curvePath {
-  transition: stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-  
-  /* Performance optimizations for SVG animation */
-  will-change: stroke-dashoffset;
-}
+/* No SVG needed for simple staircase layout */
 
 /* Process Steps */
 .processStep {
@@ -104,33 +88,16 @@
   transform: scale(1) translateY(0);
 }
 
-/* Step positioning based on coordinates */
+/* Step positioning based on percentage coordinates */
 .processStep {
-  left: calc(var(--step-x) - 140px); /* Center the 280px width */
-  top: calc(var(--step-y) - 30px); /* Center vertically on step */
+  left: var(--step-x); /* Direct percentage positioning */
+  top: var(--step-y); /* Direct percentage positioning */
 }
 
-/* Center step positioning adjustment */
-.processStep.center {
-  left: calc(var(--step-x) - 140px); /* Keep centered on coordinate */
-  top: calc(var(--step-y) - 60px); /* Account for vertical layout */
-}
-
-/* Step alignment variations */
-.processStep.left {
-  flex-direction: row-reverse;
-  text-align: right;
-}
-
+/* Step alignment - all steps flow left to right */
 .processStep.right {
   flex-direction: row;
   text-align: left;
-}
-
-.processStep.center {
-  flex-direction: column;
-  text-align: center;
-  align-items: center;
 }
 
 /* Step Icon */
@@ -148,9 +115,9 @@
   margin: 0 24px;
 }
 
-/* Center step icon spacing */
-.processStep.center .stepIcon {
-  margin: 0 0 16px 0; /* Bottom margin for vertical layout */
+/* Consistent icon spacing for staircase layout */
+.processStep.right .stepIcon {
+  margin: 0 24px 0 0; /* Right margin for horizontal layout */
 }
 
 .stepIcon:hover {
@@ -301,14 +268,9 @@
     padding: 0 24px;
   }
   
-  .sCurveContainer {
-    max-width: 650px; /* Proportional to tip positioning */
-    height: 700px;
-  }
-  
-  .sCurveSvg {
-    width: 600px; /* Proportionally scaled for tips */
-    height: 650px;
+  .staircaseContainer {
+    max-width: 700px; /* Proportional scaling for tablet */
+    height: 500px;
   }
   
   .processStep {
@@ -345,8 +307,8 @@
     padding: 0 20px;
   }
   
-  /* Hide desktop S-curve on mobile */
-  .sCurveContainer {
+  /* Hide desktop staircase on mobile */
+  .staircaseContainer {
     display: none;
   }
   
@@ -429,10 +391,6 @@
     transform: none;
   }
   
-  .curvePath {
-    stroke-dasharray: none !important;
-    stroke-dashoffset: 0 !important;
-  }
   
   .stepIcon:hover {
     transform: none;
@@ -445,14 +403,10 @@
 
 /* GPU acceleration for smooth animations */
 .howIWorkHeader,
-.sCurveContainer,
+.staircaseContainer,
 .processStep,
 .mobileProcessStep,
 .sectionCTA {
   will-change: transform, opacity;
   transform: translateZ(0);
-}
-
-.curvePath {
-  will-change: stroke-dashoffset;
 }
