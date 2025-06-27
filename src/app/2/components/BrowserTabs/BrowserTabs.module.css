@@ -446,6 +446,11 @@
     min-width: auto;
     width: 100%;
     padding: 12px 16px;
+    /* Keep horizontal layout on mobile with badge left, title right */
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
   }
   
   .tab:hover:not(.tabActive) {
@@ -455,6 +460,18 @@
   .tabActive {
     border: 1px solid #e1e4e8;
     transform: none;
+  }
+  
+  .tabBadge {
+    /* Badge stays on the left */
+    flex-shrink: 0;
+  }
+  
+  .tabLabel {
+    /* Title positioned to the right of the badge */
+    flex: 1;
+    text-align: left;
+    font-size: 0.875rem;
   }
   
   .browserContent {
@@ -471,19 +488,25 @@
 /* Extra Small Mobile (480px and below) */
 @media (max-width: 480px) {
   .tab {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 16px;
+    /* Keep horizontal layout even on very small screens */
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
   }
   
   .tabBadge {
-    align-self: flex-start;
+    /* Badge stays on the left, slightly smaller */
+    flex-shrink: 0;
+    padding: 4px 8px;
+    font-size: 0.7rem;
   }
   
   .tabLabel {
-    font-size: 0.875rem;
+    /* Title to the right, responsive font size */
+    font-size: 0.8rem;
     text-align: left;
+    flex: 1;
   }
   
   .contentPanel {

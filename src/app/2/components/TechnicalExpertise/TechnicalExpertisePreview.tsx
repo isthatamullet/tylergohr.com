@@ -157,7 +157,7 @@ export const TechnicalExpertisePreview: React.FC = () => {
 
         <div className={`${styles.sectionCTA} ${isVisible ? styles.revealed : ''}`}>
           <a 
-            href="/2/skills" 
+            href="/2/technical-expertise" 
             className={styles.ctaButton}
             aria-label="View complete technical expertise and project examples"
           >
