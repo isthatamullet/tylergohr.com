@@ -371,6 +371,174 @@
 }
 
 /* ==========================================================================
+   SIMPLE LIST FORMAT
+   ========================================================================== */
+
+.processListContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.processListContainer.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.processListItem {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.processListItem.itemRevealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.listItemHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.listItemIcon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.iconEmoji {
+  display: block;
+}
+
+.listItemTitleSection {
+  flex: 1;
+}
+
+.listItemTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.3;
+  margin: 0 0 0.5rem 0;
+}
+
+.listItemDescription {
+  font-size: 1.1rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.listItemContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.listItemDetails {
+  /* Details section */
+}
+
+.detailsHeading {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detailsHeading::before {
+  content: '📋';
+  font-size: 1rem;
+}
+
+.detailsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.detailsItem {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #475569;
+}
+
+.detailsItem::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #16a34a;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.businessValueSection {
+  padding: 1.5rem;
+  background: rgba(99, 102, 241, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.businessValueHeading {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.businessValueHeading::before {
+  content: '💰';
+  font-size: 1rem;
+}
+
+.businessValueText {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #374151;
+  margin: 0;
+  font-style: italic;
+}
+
+.listItemSeparator {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(226, 232, 240, 0.6), transparent);
+  margin: 2rem 0;
+}
+
+/* ==========================================================================
    CALL TO ACTION SECTION
    ========================================================================== */
 
@@ -538,6 +706,52 @@
   
   .stepDescription {
     font-size: 0.85rem;
+  }
+  
+  /* Simple List Format - Mobile */
+  .processListItem {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .listItemHeader {
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .listItemIcon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+  }
+  
+  .listItemTitle {
+    font-size: 1.25rem;
+  }
+  
+  .listItemDescription {
+    font-size: 1rem;
+  }
+  
+  .listItemContent {
+    gap: 1.5rem;
+  }
+  
+  .businessValueSection {
+    padding: 1rem;
+  }
+  
+  .detailsHeading,
+  .businessValueHeading {
+    font-size: 1rem;
+  }
+  
+  .detailsItem {
+    font-size: 0.9rem;
+  }
+  
+  .businessValueText {
+    font-size: 0.9rem;
   }
   
   .ctaActions {

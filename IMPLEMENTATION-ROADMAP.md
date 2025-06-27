@@ -1055,3 +1055,5 @@ If critical issues arise:
    - Show sub-contents that link to specific sections on detail pages
    - Include "Visit Full Page" link at bottom of each dropdown
    - Improve discoverability of detailed content pages
+
+6. **Thin blue border line on Case Studies and Technical Expertise pages**   

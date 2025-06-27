@@ -205,9 +205,6 @@ export const HowIWorkPreview: React.FC = () => {
                 <h3 className={styles.stepTitle}>
                   {step.title}
                 </h3>
-                <p className={styles.stepDescription}>
-                  {step.description}
-                </p>
               </div>
             </div>
           ))}

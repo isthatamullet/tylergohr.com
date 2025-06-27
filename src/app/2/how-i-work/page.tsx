@@ -117,7 +117,6 @@ const processSteps: ProcessStep[] = [
 
 export default function HowIWorkDetailPage() {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
-  const [activeStep, setActiveStep] = useState<string | null>(null)
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
 
   // Intersection Observer for scroll-triggered animations
@@ -149,10 +148,6 @@ export default function HowIWorkDetailPage() {
     return () => observer.disconnect()
   }, [])
 
-  const handleStepClick = (stepId: string) => {
-    setActiveStep(activeStep === stepId ? null : stepId)
-  }
-
   return (
     <>
       {/* Hero Section */}
@@ -174,7 +169,7 @@ export default function HowIWorkDetailPage() {
         </div>
       </Section>
 
-      {/* S-Curve Process Section */}
+      {/* Simple List Process Section */}
       <Section background="about" paddingY="xl">
         <div 
           ref={(el) => { sectionRefs.current['process'] = el }}
@@ -191,239 +186,50 @@ export default function HowIWorkDetailPage() {
               </p>
             </header>
 
-            {/* S-Curve Visualization - Exact Canva Design */}
-            <div className={`${styles.sCurveContainer} ${visibleSections.has('process') ? styles.revealed : ''}`}>
-              {/* SVG S-Curve Path matching Canva design */}
-              <svg className={styles.sCurvePath} viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid meet">
-                <defs>
-                  <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#6366f1" stopOpacity="0.8" />
-                    <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.8" />
-                  </linearGradient>
-                </defs>
-                
-                {/* S-Curve Path - Exact shape from Canva */}
-                <path
-                  d="M 580 80 Q 450 120 320 180 Q 200 240 350 320 Q 500 400 300 480 Q 100 560 400 620 Q 700 680 850 650"
-                  stroke="url(#curveGradient)"
-                  strokeWidth="6"
-                  fill="none"
-                  className={styles.animatedPath}
-                />
-              </svg>
-
-              {/* Process Steps positioned exactly like Canva design */}
-              <div className={styles.processSteps}>
-                {/* Step 1: Discovery & Requirements - Top right, text RIGHT */}
-                <div className={`${styles.processStep} ${styles.step1} ${visibleSections.has('process') ? styles.revealed : ''}`}>
-                  <button
-                    className={`${styles.stepButton} ${styles.rightText} ${activeStep === processSteps[0].id ? styles.active : ''}`}
-                    onClick={() => handleStepClick(processSteps[0].id)}
-                  >
-                    <div className={styles.stepIcon}>{processSteps[0].icon}</div>
-                    <div className={styles.stepContent}>
-                      <h3 className={styles.stepTitle}>{processSteps[0].title}</h3>
-                      <p className={styles.stepDescription}>{processSteps[0].description}</p>
+            {/* Simple List Format */}
+            <div className={`${styles.processListContainer} ${visibleSections.has('process') ? styles.revealed : ''}`}>
+              {processSteps.map((step, index) => (
+                <div
+                  key={step.id}
+                  className={`${styles.processListItem} ${visibleSections.has('process') ? styles.itemRevealed : ''}`}
+                  style={{
+                    '--step-index': index,
+                    animationDelay: `${index * 100}ms`
+                  } as React.CSSProperties}
+                >
+                  <div className={styles.listItemHeader}>
+                    <div className={styles.listItemIcon}>
+                      <span className={styles.iconEmoji} role="img" aria-hidden="true">
+                        {step.icon}
+                      </span>
                     </div>
-                  </button>
-                  {activeStep === processSteps[0].id && (
-                    <div className={styles.stepDetails}>
-                      <div className={styles.stepDetailsContent}>
-                        <h4>Key Activities</h4>
-                        <ul>
-                          {processSteps[0].details.map((detail, idx) => (
-                            <li key={idx}>{detail}</li>
-                          ))}
-                        </ul>
-                        <div className={styles.businessValue}>
-                          <h4>Business Value</h4>
-                          <p>{processSteps[0].businessValue}</p>
-                        </div>
-                      </div>
+                    <div className={styles.listItemTitleSection}>
+                      <h3 className={styles.listItemTitle}>{step.title}</h3>
+                      <p className={styles.listItemDescription}>{step.description}</p>
                     </div>
+                  </div>
+                  
+                  <div className={styles.listItemContent}>
+                    <div className={styles.listItemDetails}>
+                      <h4 className={styles.detailsHeading}>Key Activities</h4>
+                      <ul className={styles.detailsList}>
+                        {step.details.map((detail, idx) => (
+                          <li key={idx} className={styles.detailsItem}>{detail}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div className={styles.businessValueSection}>
+                      <h4 className={styles.businessValueHeading}>Business Value</h4>
+                      <p className={styles.businessValueText}>{step.businessValue}</p>
+                    </div>
+                  </div>
+                  
+                  {index < processSteps.length - 1 && (
+                    <div className={styles.listItemSeparator} aria-hidden="true" />
                   )}
                 </div>
-
-                {/* Step 2: Research & Planning - Left side, text LEFT */}
-                <div className={`${styles.processStep} ${styles.step2} ${visibleSections.has('process') ? styles.revealed : ''}`}>
-                  <button
-                    className={`${styles.stepButton} ${styles.leftText} ${activeStep === processSteps[1].id ? styles.active : ''}`}
-                    onClick={() => handleStepClick(processSteps[1].id)}
-                  >
-                    <div className={styles.stepContent}>
-                      <h3 className={styles.stepTitle}>{processSteps[1].title}</h3>
-                      <p className={styles.stepDescription}>{processSteps[1].description}</p>
-                    </div>
-                    <div className={styles.stepIcon}>{processSteps[1].icon}</div>
-                  </button>
-                  {activeStep === processSteps[1].id && (
-                    <div className={styles.stepDetails}>
-                      <div className={styles.stepDetailsContent}>
-                        <h4>Key Activities</h4>
-                        <ul>
-                          {processSteps[1].details.map((detail, idx) => (
-                            <li key={idx}>{detail}</li>
-                          ))}
-                        </ul>
-                        <div className={styles.businessValue}>
-                          <h4>Business Value</h4>
-                          <p>{processSteps[1].businessValue}</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Step 3: Design & Prototyping - Right side, text RIGHT */}
-                <div className={`${styles.processStep} ${styles.step3} ${visibleSections.has('process') ? styles.revealed : ''}`}>
-                  <button
-                    className={`${styles.stepButton} ${styles.rightText} ${activeStep === processSteps[2].id ? styles.active : ''}`}
-                    onClick={() => handleStepClick(processSteps[2].id)}
-                  >
-                    <div className={styles.stepIcon}>{processSteps[2].icon}</div>
-                    <div className={styles.stepContent}>
-                      <h3 className={styles.stepTitle}>{processSteps[2].title}</h3>
-                      <p className={styles.stepDescription}>{processSteps[2].description}</p>
-                    </div>
-                  </button>
-                  {activeStep === processSteps[2].id && (
-                    <div className={styles.stepDetails}>
-                      <div className={styles.stepDetailsContent}>
-                        <h4>Key Activities</h4>
-                        <ul>
-                          {processSteps[2].details.map((detail, idx) => (
-                            <li key={idx}>{detail}</li>
-                          ))}
-                        </ul>
-                        <div className={styles.businessValue}>
-                          <h4>Business Value</h4>
-                          <p>{processSteps[2].businessValue}</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Step 4: Implementation - Left side, text LEFT */}
-                <div className={`${styles.processStep} ${styles.step4} ${visibleSections.has('process') ? styles.revealed : ''}`}>
-                  <button
-                    className={`${styles.stepButton} ${styles.leftText} ${activeStep === processSteps[3].id ? styles.active : ''}`}
-                    onClick={() => handleStepClick(processSteps[3].id)}
-                  >
-                    <div className={styles.stepContent}>
-                      <h3 className={styles.stepTitle}>{processSteps[3].title}</h3>
-                      <p className={styles.stepDescription}>{processSteps[3].description}</p>
-                    </div>
-                    <div className={styles.stepIcon}>{processSteps[3].icon}</div>
-                  </button>
-                  {activeStep === processSteps[3].id && (
-                    <div className={styles.stepDetails}>
-                      <div className={styles.stepDetailsContent}>
-                        <h4>Key Activities</h4>
-                        <ul>
-                          {processSteps[3].details.map((detail, idx) => (
-                            <li key={idx}>{detail}</li>
-                          ))}
-                        </ul>
-                        <div className={styles.businessValue}>
-                          <h4>Business Value</h4>
-                          <p>{processSteps[3].businessValue}</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Step 5: Testing & Quality - Right side, text RIGHT */}
-                <div className={`${styles.processStep} ${styles.step5} ${visibleSections.has('process') ? styles.revealed : ''}`}>
-                  <button
-                    className={`${styles.stepButton} ${styles.rightText} ${activeStep === processSteps[4].id ? styles.active : ''}`}
-                    onClick={() => handleStepClick(processSteps[4].id)}
-                  >
-                    <div className={styles.stepIcon}>{processSteps[4].icon}</div>
-                    <div className={styles.stepContent}>
-                      <h3 className={styles.stepTitle}>{processSteps[4].title}</h3>
-                      <p className={styles.stepDescription}>{processSteps[4].description}</p>
-                    </div>
-                  </button>
-                  {activeStep === processSteps[4].id && (
-                    <div className={styles.stepDetails}>
-                      <div className={styles.stepDetailsContent}>
-                        <h4>Key Activities</h4>
-                        <ul>
-                          {processSteps[4].details.map((detail, idx) => (
-                            <li key={idx}>{detail}</li>
-                          ))}
-                        </ul>
-                        <div className={styles.businessValue}>
-                          <h4>Business Value</h4>
-                          <p>{processSteps[4].businessValue}</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Step 6: Deployment & Launch - Left side, text LEFT */}
-                <div className={`${styles.processStep} ${styles.step6} ${visibleSections.has('process') ? styles.revealed : ''}`}>
-                  <button
-                    className={`${styles.stepButton} ${styles.leftText} ${activeStep === processSteps[5].id ? styles.active : ''}`}
-                    onClick={() => handleStepClick(processSteps[5].id)}
-                  >
-                    <div className={styles.stepContent}>
-                      <h3 className={styles.stepTitle}>{processSteps[5].title}</h3>
-                      <p className={styles.stepDescription}>{processSteps[5].description}</p>
-                    </div>
-                    <div className={styles.stepIcon}>{processSteps[5].icon}</div>
-                  </button>
-                  {activeStep === processSteps[5].id && (
-                    <div className={styles.stepDetails}>
-                      <div className={styles.stepDetailsContent}>
-                        <h4>Key Activities</h4>
-                        <ul>
-                          {processSteps[5].details.map((detail, idx) => (
-                            <li key={idx}>{detail}</li>
-                          ))}
-                        </ul>
-                        <div className={styles.businessValue}>
-                          <h4>Business Value</h4>
-                          <p>{processSteps[5].businessValue}</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Step 7: Optimization & Support - Right side, text RIGHT */}
-                <div className={`${styles.processStep} ${styles.step7} ${visibleSections.has('process') ? styles.revealed : ''}`}>
-                  <button
-                    className={`${styles.stepButton} ${styles.rightText} ${activeStep === processSteps[6].id ? styles.active : ''}`}
-                    onClick={() => handleStepClick(processSteps[6].id)}
-                  >
-                    <div className={styles.stepIcon}>{processSteps[6].icon}</div>
-                    <div className={styles.stepContent}>
-                      <h3 className={styles.stepTitle}>{processSteps[6].title}</h3>
-                      <p className={styles.stepDescription}>{processSteps[6].description}</p>
-                    </div>
-                  </button>
-                  {activeStep === processSteps[6].id && (
-                    <div className={styles.stepDetails}>
-                      <div className={styles.stepDetailsContent}>
-                        <h4>Key Activities</h4>
-                        <ul>
-                          {processSteps[6].details.map((detail, idx) => (
-                            <li key={idx}>{detail}</li>
-                          ))}
-                        </ul>
-                        <div className={styles.businessValue}>
-                          <h4>Business Value</h4>
-                          <p>{processSteps[6].businessValue}</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
