@@ -64,12 +64,12 @@ jobs:
             bundle_size=$(du -sk .next/static | cut -f1)
             echo "Bundle size: ${bundle_size}KB"
             
-            # Check bundle size budget (1.5MB limit - increased for Day 9 sections)
-            if [ $bundle_size -gt 1500 ]; then
-              echo "❌ Bundle size exceeds budget: ${bundle_size}KB > 1.5MB"
+            # Check bundle size budget (1.6MB limit - increased for Day 12 browser interface)
+            if [ $bundle_size -gt 1600 ]; then
+              echo "❌ Bundle size exceeds budget: ${bundle_size}KB > 1.6MB"
               exit 1
             else
-              echo "✅ Bundle size within budget: ${bundle_size}KB (< 1.5MB)"
+              echo "✅ Bundle size within budget: ${bundle_size}KB (< 1.6MB)"
             fi
           fi
 
