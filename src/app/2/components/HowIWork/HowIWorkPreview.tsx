@@ -1,67 +1,129 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from 'react'
-import { ProcessCard } from '../ui/Card/Card'
 import styles from './HowIWorkPreview.module.css'
 
-export interface HowIWorkProcess {
+export interface ProcessStep {
   id: string
   step: number
   title: string
   description: string
-  tools: string[]
   icon: string
-  duration?: string
+  side: 'left' | 'right'
+  x: number
+  y: number
 }
 
 /**
  * How I Work Preview Section
- * Displays 4 process highlight cards showcasing enterprise methodology
- * Uses existing ProcessCard components with scroll-triggered animations
+ * Displays 7-step S-curve design showcasing enterprise methodology
+ * Uses SVG-based flowing curve with scroll-triggered animations
  */
 export const HowIWorkPreview: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false)
+  const [pathLength, setPathLength] = useState(0)
   const sectionRef = useRef<HTMLElement>(null)
+  const pathRef = useRef<SVGPathElement>(null)
 
-  // How I Work process data from PORTFOLIO-REDESIGN-CONTENT-CONDENSED.md
-  const processSteps: HowIWorkProcess[] = [
+  // 7 Process Steps from PHASE-2-SECTION-LAYOUT-REQUIREMENTS.md
+  const processSteps: ProcessStep[] = [
     {
-      id: 'github-planning',
+      id: 'discovery',
       step: 1,
-      title: 'Issue-Based Development',
-      description: 'Every feature tracked through GitHub issues with milestone progress and transparent workflow',
-      tools: ['GitHub Issues', 'Project Boards', 'Milestone Tracking'],
-      icon: '📋',
-      duration: 'Ongoing'
+      title: 'Discovery & Requirements',
+      description: 'Stakeholder interviews, problem definition, scope clarification',
+      icon: '🔍',
+      side: 'right',
+      x: 450,
+      y: 100
     },
     {
-      id: 'modern-stack',
+      id: 'research',
       step: 2,
-      title: 'Next.js 14 + TypeScript',
-      description: 'Enterprise-grade architecture with cutting-edge CSS features and 90+ Lighthouse scores',
-      tools: ['Next.js 14', 'TypeScript', 'CSS Modules', 'App Router'],
-      icon: '⚛️',
-      duration: 'Foundation'
+      title: 'Research & Planning',
+      description: 'Technical research, architecture planning, GitHub issue roadmap',
+      icon: '📋',
+      side: 'left',
+      x: 150,
+      y: 200
     },
     {
-      id: 'cloud-infrastructure',
+      id: 'design',
       step: 3,
-      title: 'Cloud-Native Deployment',
-      description: 'Production-ready with automatic scaling, preview deployments, and enterprise monitoring',
-      tools: ['Google Cloud Run', 'Docker', 'GitHub Actions', 'Preview URLs'],
-      icon: '☁️',
-      duration: 'Automated'
+      title: 'Design & Prototyping',
+      description: 'UI/UX design, technical prototypes, validation cycles',
+      icon: '🎨',
+      side: 'right',
+      x: 450,
+      y: 300
     },
     {
-      id: 'quality-gates',
+      id: 'implementation',
       step: 4,
-      title: 'Automated Quality Gates',
-      description: 'TypeScript validation, ESLint standards, Jest testing, and production build verification',
-      tools: ['TypeScript', 'ESLint', 'Jest', 'Lighthouse'],
+      title: 'Implementation',
+      description: 'Next.js development, iterative building, code reviews',
+      icon: '⚛️',
+      side: 'left',
+      x: 150,
+      y: 400
+    },
+    {
+      id: 'testing',
+      step: 5,
+      title: 'Testing & Quality',
+      description: 'Jest testing, TypeScript validation, performance optimization',
       icon: '✅',
-      duration: 'Pre-commit'
+      side: 'right',
+      x: 450,
+      y: 500
+    },
+    {
+      id: 'deployment',
+      step: 6,
+      title: 'Deployment & Launch',
+      description: 'Google Cloud deployment, CI/CD pipeline, monitoring setup',
+      icon: '🚀',
+      side: 'left',
+      x: 150,
+      y: 600
+    },
+    {
+      id: 'optimization',
+      step: 7,
+      title: 'Optimization & Support',
+      description: 'Performance monitoring, continuous improvement, maintenance',
+      icon: '📈',
+      side: 'right',
+      x: 450,
+      y: 700
     }
   ]
+
+  // SVG S-curve path (connecting all 7 steps)
+  const curvePath = `
+    M 300,50 
+    Q 375,75 450,100 
+    Q 525,125 450,150 
+    Q 300,175 150,200 
+    Q 0,225 150,250 
+    Q 300,275 450,300 
+    Q 600,325 450,350 
+    Q 300,375 150,400 
+    Q 0,425 150,450 
+    Q 300,475 450,500 
+    Q 600,525 450,550 
+    Q 300,575 150,600 
+    Q 0,625 150,650 
+    Q 300,675 450,700
+  `.trim()
+
+  // Calculate path length for animation
+  useEffect(() => {
+    if (pathRef.current) {
+      const length = pathRef.current.getTotalLength()
+      setPathLength(length)
+    }
+  }, [])
 
   // Intersection Observer for scroll-triggered section animation
   useEffect(() => {
@@ -105,40 +167,98 @@ export const HowIWorkPreview: React.FC = () => {
           </p>
         </header>
 
-        <div className={styles.processGrid}>
-          {processSteps.map((process, index) => (
+        {/* Desktop S-Curve Layout */}
+        <div className={`${styles.sCurveContainer} ${isVisible ? styles.revealed : ''}`}>
+          {/* SVG S-Curve Path */}
+          <svg 
+            className={styles.sCurveSvg}
+            viewBox="0 0 600 750"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              ref={pathRef}
+              d={curvePath}
+              className={styles.curvePath}
+              fill="none"
+              stroke="#3b82f6"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeDasharray={pathLength}
+              strokeDashoffset={isVisible ? 0 : pathLength}
+            />
+          </svg>
+
+          {/* Process Steps */}
+          {processSteps.map((step, index) => (
             <div
-              key={process.id}
-              className={`${styles.processCardWrapper} ${isVisible ? styles.cardRevealed : ''}`}
-              style={{ 
-                '--card-index': index,
-                animationDelay: `${index * 150}ms`
+              key={step.id}
+              className={`${styles.processStep} ${styles[step.side]} ${isVisible ? styles.stepRevealed : ''}`}
+              style={{
+                '--step-x': `${step.x}px`,
+                '--step-y': `${step.y}px`,
+                '--step-index': index,
+                animationDelay: `${index * 100 + 300}ms` // Start after path begins drawing
               } as React.CSSProperties}
             >
-              <ProcessCard
-                step={process.step}
-                title={process.title}
-                description={process.description}
-                tools={process.tools}
-                duration={process.duration}
-                visual={process.icon}
-                size="md"
-                className={styles.processCard}
-              />
+              <div className={styles.stepIcon}>
+                <span className={styles.iconEmoji} role="img" aria-hidden="true">
+                  {step.icon}
+                </span>
+              </div>
+              <div className={styles.stepContent}>
+                <h3 className={styles.stepTitle}>
+                  {step.title}
+                </h3>
+                <p className={styles.stepDescription}>
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Mobile Vertical Layout */}
+        <div className={styles.mobileProcessList}>
+          {processSteps.map((step, index) => (
+            <div
+              key={`mobile-${step.id}`}
+              className={`${styles.mobileProcessStep} ${isVisible ? styles.mobileStepRevealed : ''}`}
+              style={{
+                '--step-index': index,
+                animationDelay: `${index * 100}ms`
+              } as React.CSSProperties}
+            >
+              <div className={styles.mobileStepIcon}>
+                <span className={styles.iconEmoji} role="img" aria-hidden="true">
+                  {step.icon}
+                </span>
+              </div>
+              <div className={styles.mobileStepContent}>
+                <h3 className={styles.mobileStepTitle}>
+                  {step.title}
+                </h3>
+                <p className={styles.mobileStepDescription}>
+                  {step.description}
+                </p>
+              </div>
+              {index < processSteps.length - 1 && (
+                <div className={styles.mobileConnector} aria-hidden="true" />
+              )}
             </div>
           ))}
         </div>
 
         <div className={`${styles.sectionCTA} ${isVisible ? styles.revealed : ''}`}>
           <a 
-            href="/2/process" 
+            href="/2/how-i-work" 
             className={styles.ctaButton}
             aria-label="View complete development process methodology"
           >
             View Full Process →
           </a>
           <p className={styles.ctaSupporting}>
-            Explore detailed methodology with technical implementation insights and project examples
+            Discover the complete methodology behind enterprise-quality development
           </p>
         </div>
       </div>

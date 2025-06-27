@@ -425,14 +425,16 @@ mkdir -p src/app/2/{styles,components,lib,hooks}
 
 #### **Morning: How I Work Section**
 1. **`/src/app/2/components/HowIWork/HowIWorkPreview.tsx`**
-   - Content from PORTFOLIO-REDESIGN-CONTENT-CONDENSED.md lines 57-95
-   - 4 highlight cards implementation
-   - Reference: STYLE-GUIDE.md lines 402-450
+   - **IMPORTANT**: Use S-curve design from PHASE-2-SECTION-LAYOUT-REQUIREMENTS.md lines 482-640
+   - 7 Process Steps: Flowing S-curve design with icons and labels (NOT 4 cards)
+   - Steps: Discovery → Research → Design → Implementation → Testing → Deployment → Optimization
+   - Reference: PHASE-2-SECTION-LAYOUT-REQUIREMENTS.md for complete S-curve specifications
 
-2. **Animated Background Preparation**
-   - Container for future animated background
-   - Glassmorphism card styling
-   - Mobile responsive behavior
+2. **S-Curve Implementation Requirements**
+   - SVG-based flowing curve connecting all 7 steps
+   - Alternating left/right icon placement 
+   - Scroll-triggered path drawing animation
+   - Mobile: Simplified vertical line with steps
 
 #### **Afternoon: Technical Expertise Section**
 3. **`/src/app/2/components/TechnicalExpertise/TechnicalExpertisePreview.tsx`**

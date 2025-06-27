@@ -1,9 +1,10 @@
-/* How I Work Preview Section */
+/* How I Work Preview Section - S-Curve Design */
 .howIWorkSection {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
   padding: 120px 0;
   position: relative;
   overflow: hidden;
+  min-height: 900px; /* Accommodate S-curve height */
 }
 
 .container {
@@ -29,51 +30,192 @@
 .sectionTitle {
   font-size: clamp(2.5rem, 4vw, 3.5rem);
   font-weight: 700;
-  color: #1e293b;
+  color: #ffffff;
   margin: 0 0 24px 0;
   line-height: 1.1;
 }
 
 .sectionDescription {
   font-size: 1.25rem;
-  color: #64748b;
+  color: rgba(255, 255, 255, 0.9);
   max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
 }
 
-/* Process Grid - 2x2 Desktop, 1x4 Mobile */
-.processGrid {
-  display: grid;
-  gap: 32px;
-  margin-bottom: 64px;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-}
-
-/* Process Card Animation Wrapper */
-.processCardWrapper {
+/* Desktop S-Curve Container */
+.sCurveContainer {
+  position: relative;
+  height: 800px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 64px auto;
   opacity: 0;
-  transform: translateY(60px) scale(0.95);
+  transform: translateY(60px);
   transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: calc(var(--card-index) * 0.15s);
 }
 
-.processCardWrapper.cardRevealed {
+.sCurveContainer.revealed {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
 }
 
-/* Process Card Styling */
-.processCard {
-  height: 100%;
-  min-height: 300px;
+/* SVG S-Curve */
+.sCurveSvg {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 750px;
+  z-index: 1;
+}
+
+.curvePath {
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Process Steps */
+.processStep {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.8) translateY(-20px);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 2;
+  width: 280px;
+}
+
+.processStep.stepRevealed {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Step positioning based on coordinates */
+.processStep {
+  left: calc(var(--step-x) - 140px); /* Center the 280px width */
+  top: calc(var(--step-y) - 30px); /* Center vertically on step */
+}
+
+/* Left vs Right side alignment */
+.processStep.left {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.processStep.right {
+  flex-direction: row;
+  text-align: left;
+}
+
+/* Step Icon */
+.stepIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
   transition: all 0.3s ease;
+  margin: 0 24px;
 }
 
-.processCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 48px rgba(30, 41, 59, 0.15);
+.stepIcon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.iconEmoji {
+  font-size: 32px;
+  line-height: 1;
+}
+
+/* Step Content */
+.stepContent {
+  flex: 1;
+  min-width: 0; /* Allow text wrapping */
+}
+
+.stepTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.stepDescription {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Mobile Process List (Hidden on Desktop) */
+.mobileProcessList {
+  display: none;
+}
+
+/* Mobile Process List Styles */
+.mobileProcessStep {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--step-index) * 0.1s);
+}
+
+.mobileProcessStep.mobileStepRevealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobileStepIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.mobileStepContent {
+  flex: 1;
+}
+
+.mobileStepTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.mobileStepDescription {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.mobileConnector {
+  position: absolute;
+  left: 24px;
+  top: 50px;
+  width: 2px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.3);
 }
 
 /* Section CTA */
@@ -82,7 +224,7 @@
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 0.6s; /* Delayed after cards */
+  transition-delay: 1s; /* Delayed after S-curve animation */
 }
 
 .sectionCTA.revealed {
@@ -92,7 +234,7 @@
 
 .ctaButton {
   display: inline-block;
-  background: #16a34a;
+  background: rgba(15, 23, 42, 0.8);
   color: #ffffff;
   padding: 16px 32px;
   border-radius: 12px;
@@ -100,18 +242,21 @@
   font-size: 1.1rem;
   text-decoration: none;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(22, 163, 74, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   margin-bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
 }
 
 .ctaButton:hover {
-  background: #15803d;
+  background: rgba(15, 23, 42, 0.9);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .ctaSupporting {
-  color: #64748b;
+  color: rgba(255, 255, 255, 0.8);
   font-size: 0.95rem;
   margin: 0;
   line-height: 1.5;
@@ -127,16 +272,36 @@
     padding: 0 24px;
   }
   
-  .processGrid {
-    gap: 24px;
+  .sCurveContainer {
+    max-width: 600px;
+    height: 700px;
   }
   
-  .howIWorkHeader {
-    margin-bottom: 60px;
+  .sCurveSvg {
+    width: 500px;
+    height: 650px;
   }
   
-  .processCard {
-    min-height: 280px;
+  .processStep {
+    width: 240px;
+  }
+  
+  .stepIcon {
+    width: 50px;
+    height: 50px;
+    margin: 0 20px;
+  }
+  
+  .iconEmoji {
+    font-size: 28px;
+  }
+  
+  .stepTitle {
+    font-size: 1rem;
+  }
+  
+  .stepDescription {
+    font-size: 0.8rem;
   }
 }
 
@@ -144,16 +309,22 @@
 @media (max-width: 767px) {
   .howIWorkSection {
     padding: 80px 0;
+    min-height: auto;
   }
   
   .container {
     padding: 0 20px;
   }
   
-  .processGrid {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(4, 1fr);
-    gap: 20px;
+  /* Hide desktop S-curve on mobile */
+  .sCurveContainer {
+    display: none;
+  }
+  
+  /* Show mobile list on mobile */
+  .mobileProcessList {
+    display: block;
+    margin-bottom: 64px;
   }
   
   .howIWorkHeader {
@@ -167,16 +338,6 @@
   
   .sectionDescription {
     font-size: 1.1rem;
-  }
-  
-  .processCard {
-    min-height: 260px;
-  }
-  
-  .processCardWrapper {
-    /* Faster animation on mobile */
-    transition-delay: calc(var(--card-index) * 0.1s);
-    transform: translateY(40px) scale(0.95);
   }
   
   .ctaButton {
@@ -195,16 +356,31 @@
     padding: 0 16px;
   }
   
-  .processGrid {
-    gap: 16px;
+  .mobileProcessList {
+    margin-bottom: 48px;
+  }
+  
+  .mobileProcessStep {
+    margin-bottom: 24px;
+  }
+  
+  .mobileStepIcon {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+  }
+  
+  .iconEmoji {
+    font-size: 20px;
+  }
+  
+  .mobileConnector {
+    left: 19px;
+    height: 24px;
   }
   
   .howIWorkHeader {
     margin-bottom: 40px;
-  }
-  
-  .processCard {
-    min-height: 240px;
   }
   
   .ctaButton {
@@ -216,13 +392,20 @@
 /* Accessibility and Performance */
 @media (prefers-reduced-motion: reduce) {
   .howIWorkHeader,
-  .processCardWrapper,
+  .sCurveContainer,
+  .processStep,
+  .mobileProcessStep,
   .sectionCTA {
     transition: opacity 0.3s ease;
     transform: none;
   }
   
-  .processCard:hover {
+  .curvePath {
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+  
+  .stepIcon:hover {
     transform: none;
   }
   
@@ -233,13 +416,14 @@
 
 /* GPU acceleration for smooth animations */
 .howIWorkHeader,
-.processCardWrapper,
+.sCurveContainer,
+.processStep,
+.mobileProcessStep,
 .sectionCTA {
   will-change: transform, opacity;
   transform: translateZ(0);
 }
 
-.processCard {
-  will-change: transform, box-shadow;
-  transform: translateZ(0);
+.curvePath {
+  will-change: stroke-dashoffset;
 }
