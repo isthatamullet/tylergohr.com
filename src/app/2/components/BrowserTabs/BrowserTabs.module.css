@@ -280,6 +280,11 @@
   min-height: 500px;
   position: relative;
   /* Removed overflow: hidden to allow content to display fully */
+  
+  /* Override CSS custom properties for dark text on white background */
+  --text-primary: #1e293b;     /* Dark slate for primary text */
+  --text-secondary: #64748b;   /* Medium gray for secondary text */
+  --accent-green: #16a34a;     /* Green for checkmarks and accents */
 }
 
 .contentPanel {
