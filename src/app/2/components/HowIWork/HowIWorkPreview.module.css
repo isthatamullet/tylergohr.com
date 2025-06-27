@@ -98,7 +98,13 @@
   top: calc(var(--step-y) - 30px); /* Center vertically on step */
 }
 
-/* Left vs Right side alignment */
+/* Center step positioning adjustment */
+.processStep.center {
+  left: calc(var(--step-x) - 140px); /* Keep centered on coordinate */
+  top: calc(var(--step-y) - 60px); /* Account for vertical layout */
+}
+
+/* Step alignment variations */
 .processStep.left {
   flex-direction: row-reverse;
   text-align: right;
@@ -107,6 +113,12 @@
 .processStep.right {
   flex-direction: row;
   text-align: left;
+}
+
+.processStep.center {
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
 }
 
 /* Step Icon */
@@ -122,6 +134,11 @@
   flex-shrink: 0;
   transition: all 0.3s ease;
   margin: 0 24px;
+}
+
+/* Center step icon spacing */
+.processStep.center .stepIcon {
+  margin: 0 0 16px 0; /* Bottom margin for vertical layout */
 }
 
 .stepIcon:hover {

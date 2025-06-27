@@ -9,7 +9,7 @@ export interface ProcessStep {
   title: string
   description: string
   icon: string
-  side: 'left' | 'right'
+  side: 'left' | 'right' | 'center'
   x: number
   y: number
 }
@@ -25,8 +25,8 @@ export const HowIWorkPreview: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null)
   const pathRef = useRef<SVGPathElement>(null)
 
-  // 7 Process Steps from PHASE-2-SECTION-LAYOUT-REQUIREMENTS.md
-  // Icons positioned exactly on S-curve tips for perfect visual connection
+  // 7 Process Steps positioned exactly as drawn in user's layout sketch
+  // Following the curve flow: center → right → left → right → left → right → center
   const processSteps: ProcessStep[] = [
     {
       id: 'discovery',
@@ -34,9 +34,9 @@ export const HowIWorkPreview: React.FC = () => {
       title: 'Discovery & Requirements',
       description: 'Stakeholder interviews, problem definition, scope clarification',
       icon: '🔍',
-      side: 'right',
-      x: 450, // Positioned exactly on right curve tip
-      y: 100
+      side: 'center',
+      x: 350, // Top center start of curve
+      y: 50
     },
     {
       id: 'research',
@@ -44,9 +44,9 @@ export const HowIWorkPreview: React.FC = () => {
       title: 'Research & Planning',
       description: 'Technical research, architecture planning, GitHub issue roadmap',
       icon: '📋',
-      side: 'left',
-      x: 150, // Positioned exactly on left curve tip
-      y: 200
+      side: 'right',
+      x: 550, // Right tip of first curve extension
+      y: 150
     },
     {
       id: 'design',
@@ -54,9 +54,9 @@ export const HowIWorkPreview: React.FC = () => {
       title: 'Design & Prototyping',
       description: 'UI/UX design, technical prototypes, validation cycles',
       icon: '🎨',
-      side: 'right',
-      x: 450, // Positioned exactly on right curve tip
-      y: 300
+      side: 'left',
+      x: 150, // Left tip of curve's leftward swing
+      y: 250
     },
     {
       id: 'implementation',
@@ -64,9 +64,9 @@ export const HowIWorkPreview: React.FC = () => {
       title: 'Implementation',
       description: 'Next.js development, iterative building, code reviews',
       icon: '⚛️',
-      side: 'left',
-      x: 150, // Positioned exactly on left curve tip
-      y: 400
+      side: 'right',
+      x: 550, // Right tip of next rightward extension
+      y: 350
     },
     {
       id: 'testing',
@@ -74,9 +74,9 @@ export const HowIWorkPreview: React.FC = () => {
       title: 'Testing & Quality',
       description: 'Jest testing, TypeScript validation, performance optimization',
       icon: '✅',
-      side: 'right',
-      x: 450, // Positioned exactly on right curve tip
-      y: 500
+      side: 'left',
+      x: 150, // Left tip of next leftward swing
+      y: 450
     },
     {
       id: 'deployment',
@@ -84,9 +84,9 @@ export const HowIWorkPreview: React.FC = () => {
       title: 'Deployment & Launch',
       description: 'Google Cloud deployment, CI/CD pipeline, monitoring setup',
       icon: '🚀',
-      side: 'left',
-      x: 150, // Positioned exactly on left curve tip
-      y: 600
+      side: 'right',
+      x: 550, // Right tip of next rightward extension
+      y: 550
     },
     {
       id: 'optimization',
@@ -94,28 +94,22 @@ export const HowIWorkPreview: React.FC = () => {
       title: 'Optimization & Support',
       description: 'Performance monitoring, continuous improvement, maintenance',
       icon: '📈',
-      side: 'right',
-      x: 450, // Positioned exactly on right curve tip
-      y: 700
+      side: 'center',
+      x: 350, // Bottom center end of curve
+      y: 650
     }
   ]
 
-  // SVG S-curve path (connecting all 7 steps)
+  // SVG S-curve path connecting all 7 steps as drawn in user's sketch
+  // Flow: center(1) → right(2) → left(3) → right(4) → left(5) → right(6) → center(7)
   const curvePath = `
-    M 300,50 
-    Q 375,75 450,100 
-    Q 525,125 450,150 
-    Q 300,175 150,200 
-    Q 0,225 150,250 
-    Q 300,275 450,300 
-    Q 600,325 450,350 
-    Q 300,375 150,400 
-    Q 0,425 150,450 
-    Q 300,475 450,500 
-    Q 600,525 450,550 
-    Q 300,575 150,600 
-    Q 0,625 150,650 
-    Q 300,675 450,700
+    M 350,50
+    Q 450,100 550,150
+    Q 450,200 150,250
+    Q 350,300 550,350
+    Q 350,400 150,450
+    Q 350,500 550,550
+    Q 450,600 350,650
   `.trim()
 
   // Calculate path length for animation
