@@ -6,6 +6,8 @@ import Hero from "./components/Hero/Hero";
 import About from "./components/About/About";
 import Results from "./components/Results/Results";
 import CaseStudiesPreview from "./components/CaseStudies/CaseStudiesPreview";
+import HowIWorkPreview from "./components/HowIWork/HowIWorkPreview";
+import TechnicalExpertisePreview from "./components/TechnicalExpertise/TechnicalExpertisePreview";
 
 export default function EnterprisePage() {
 
@@ -27,39 +29,11 @@ export default function EnterprisePage() {
         {/* Case Studies Preview Section - 4 Interactive Cards */}
         <CaseStudiesPreview />
 
-        {/* How I Work Section - Placeholder */}
-        <section
-          id="process"
-          className={styles.howIWorkSection}
-          aria-labelledby="how-i-work-title"
-          role="region"
-        >
-          <div className={styles.container}>
-            <h2 id="how-i-work-title" className={styles.sectionTitle}>
-              How I Work
-            </h2>
-            <p className={styles.placeholderText}>
-              Process methodology coming in Phase 2...
-            </p>
-          </div>
-        </section>
+        {/* How I Work Preview Section - 4 Process Highlight Cards */}
+        <HowIWorkPreview />
 
-        {/* Technical Expertise Section - Placeholder */}
-        <section
-          id="skills"
-          className={styles.technicalSection}
-          aria-labelledby="technical-title"
-          role="region"
-        >
-          <div className={styles.container}>
-            <h2 id="technical-title" className={styles.sectionTitle}>
-              Technical Expertise
-            </h2>
-            <p className={styles.placeholderText}>
-              Skills and technologies coming in Phase 2...
-            </p>
-          </div>
-        </section>
+        {/* Technical Expertise Preview Section - 4 Glassmorphism Cards */}
+        <TechnicalExpertisePreview />
 
         {/* Contact Section - Basic */}
         <section

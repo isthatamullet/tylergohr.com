@@ -1,0 +1,303 @@
+/* Technical Expertise Preview Section */
+.technicalSection {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+}
+
+/* Background overlay for glassmorphism effect */
+.backgroundOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(22, 163, 74, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(147, 51, 234, 0.05) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Section Header */
+.technicalHeader {
+  text-align: center;
+  margin-bottom: 80px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.technicalHeader.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sectionTitle {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 24px 0;
+  line-height: 1.1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.sectionDescription {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Expertise Grid - 2x2 Desktop, 1x4 Mobile */
+.expertiseGrid {
+  display: grid;
+  gap: 32px;
+  margin-bottom: 64px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+/* Expertise Card Animation Wrapper */
+.expertiseCardWrapper {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--card-index) * 0.15s);
+}
+
+.expertiseCardWrapper.cardRevealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Technical Card Styling */
+.technicalCard {
+  height: 100%;
+  min-height: 320px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 2px 8px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.technicalCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 
+    0 16px 48px rgba(0, 0, 0, 0.4),
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Section CTA */
+.sectionCTA {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.6s; /* Delayed after cards */
+}
+
+.sectionCTA.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ctaButton {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #ffffff;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  margin-bottom: 16px;
+}
+
+.ctaButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.ctaSupporting {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Tablet Layout (768px - 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .technicalSection {
+    padding: 100px 0;
+  }
+  
+  .container {
+    padding: 0 24px;
+  }
+  
+  .expertiseGrid {
+    gap: 24px;
+  }
+  
+  .technicalHeader {
+    margin-bottom: 60px;
+  }
+  
+  .technicalCard {
+    min-height: 300px;
+  }
+}
+
+/* Mobile Layout (767px and below) */
+@media (max-width: 767px) {
+  .technicalSection {
+    padding: 80px 0;
+  }
+  
+  .container {
+    padding: 0 20px;
+  }
+  
+  .expertiseGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  .technicalHeader {
+    margin-bottom: 48px;
+  }
+  
+  .sectionTitle {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+    margin-bottom: 16px;
+  }
+  
+  .sectionDescription {
+    font-size: 1.1rem;
+  }
+  
+  .technicalCard {
+    min-height: 280px;
+  }
+  
+  .expertiseCardWrapper {
+    /* Faster animation on mobile */
+    transition-delay: calc(var(--card-index) * 0.1s);
+    transform: translateY(40px) scale(0.95);
+  }
+  
+  .ctaButton {
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+}
+
+/* Extra Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .technicalSection {
+    padding: 60px 0;
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+  
+  .expertiseGrid {
+    gap: 16px;
+  }
+  
+  .technicalHeader {
+    margin-bottom: 40px;
+  }
+  
+  .technicalCard {
+    min-height: 260px;
+  }
+  
+  .ctaButton {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Accessibility and Performance */
+@media (prefers-reduced-motion: reduce) {
+  .technicalHeader,
+  .expertiseCardWrapper,
+  .sectionCTA {
+    transition: opacity 0.3s ease;
+    transform: none;
+  }
+  
+  .technicalCard:hover {
+    transform: none;
+  }
+  
+  .ctaButton:hover {
+    transform: none;
+  }
+  
+  .backgroundOverlay {
+    background: none;
+  }
+}
+
+/* GPU acceleration for smooth animations */
+.technicalHeader,
+.expertiseCardWrapper,
+.sectionCTA {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+.technicalCard {
+  will-change: transform, box-shadow, background;
+  transform: translateZ(0);
+}
+
+.backgroundOverlay {
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .technicalCard {
+    backdrop-filter: none;
+    background: rgba(0, 0, 0, 0.8);
+    border-color: #ffffff;
+  }
+  
+  .ctaButton {
+    backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #ffffff;
+  }
+}

@@ -1,0 +1,245 @@
+/* How I Work Preview Section */
+.howIWorkSection {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* Section Header */
+.howIWorkHeader {
+  text-align: center;
+  margin-bottom: 80px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.howIWorkHeader.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sectionTitle {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 24px 0;
+  line-height: 1.1;
+}
+
+.sectionDescription {
+  font-size: 1.25rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Process Grid - 2x2 Desktop, 1x4 Mobile */
+.processGrid {
+  display: grid;
+  gap: 32px;
+  margin-bottom: 64px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+/* Process Card Animation Wrapper */
+.processCardWrapper {
+  opacity: 0;
+  transform: translateY(60px) scale(0.95);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--card-index) * 0.15s);
+}
+
+.processCardWrapper.cardRevealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Process Card Styling */
+.processCard {
+  height: 100%;
+  min-height: 300px;
+  transition: all 0.3s ease;
+}
+
+.processCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 48px rgba(30, 41, 59, 0.15);
+}
+
+/* Section CTA */
+.sectionCTA {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 0.6s; /* Delayed after cards */
+}
+
+.sectionCTA.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ctaButton {
+  display: inline-block;
+  background: #16a34a;
+  color: #ffffff;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(22, 163, 74, 0.3);
+  margin-bottom: 16px;
+}
+
+.ctaButton:hover {
+  background: #15803d;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.4);
+}
+
+.ctaSupporting {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Tablet Layout (768px - 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .howIWorkSection {
+    padding: 100px 0;
+  }
+  
+  .container {
+    padding: 0 24px;
+  }
+  
+  .processGrid {
+    gap: 24px;
+  }
+  
+  .howIWorkHeader {
+    margin-bottom: 60px;
+  }
+  
+  .processCard {
+    min-height: 280px;
+  }
+}
+
+/* Mobile Layout (767px and below) */
+@media (max-width: 767px) {
+  .howIWorkSection {
+    padding: 80px 0;
+  }
+  
+  .container {
+    padding: 0 20px;
+  }
+  
+  .processGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  .howIWorkHeader {
+    margin-bottom: 48px;
+  }
+  
+  .sectionTitle {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+    margin-bottom: 16px;
+  }
+  
+  .sectionDescription {
+    font-size: 1.1rem;
+  }
+  
+  .processCard {
+    min-height: 260px;
+  }
+  
+  .processCardWrapper {
+    /* Faster animation on mobile */
+    transition-delay: calc(var(--card-index) * 0.1s);
+    transform: translateY(40px) scale(0.95);
+  }
+  
+  .ctaButton {
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+}
+
+/* Extra Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .howIWorkSection {
+    padding: 60px 0;
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+  
+  .processGrid {
+    gap: 16px;
+  }
+  
+  .howIWorkHeader {
+    margin-bottom: 40px;
+  }
+  
+  .processCard {
+    min-height: 240px;
+  }
+  
+  .ctaButton {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Accessibility and Performance */
+@media (prefers-reduced-motion: reduce) {
+  .howIWorkHeader,
+  .processCardWrapper,
+  .sectionCTA {
+    transition: opacity 0.3s ease;
+    transform: none;
+  }
+  
+  .processCard:hover {
+    transform: none;
+  }
+  
+  .ctaButton:hover {
+    transform: none;
+  }
+}
+
+/* GPU acceleration for smooth animations */
+.howIWorkHeader,
+.processCardWrapper,
+.sectionCTA {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+.processCard {
+  will-change: transform, box-shadow;
+  transform: translateZ(0);
+}
