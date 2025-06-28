@@ -36,12 +36,16 @@ delete (window as { location?: unknown }).location;
 };
 
 // Mock IntersectionObserver
-const mockIntersectionObserver = jest.fn();
-mockIntersectionObserver.mockReturnValue({
-  observe: jest.fn(),
-  unobserve: jest.fn(),
-  disconnect: jest.fn(),
-});
+const mockObserve = jest.fn();
+const mockUnobserve = jest.fn();
+const mockDisconnect = jest.fn();
+const mockIntersectionObserver = jest.fn().mockImplementation((callback, options) => ({
+  observe: mockObserve,
+  unobserve: mockUnobserve,
+  disconnect: mockDisconnect,
+  callback,
+  options
+}));
 window.IntersectionObserver = mockIntersectionObserver;
 
 // Mock requestAnimationFrame
@@ -53,6 +57,10 @@ Object.defineProperty(window, 'requestAnimationFrame', {
 describe('Navigation Component (/2 Route)', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockObserve.mockClear();
+    mockUnobserve.mockClear(); 
+    mockDisconnect.mockClear();
+    mockIntersectionObserver.mockClear();
     mockPathname.mockReturnValue('/2');
     window.location.href = '';
     window.location.hash = '';
@@ -257,8 +265,8 @@ describe('Navigation Component (/2 Route)', () => {
       expect(screen.getByRole('button', { name: /close navigation menu/i })).toBeInTheDocument();
       expect(menuButton).toHaveAttribute('aria-expanded', 'true');
       
-      const mobileNav = screen.getByRole('generic', { hidden: true });
-      expect(mobileNav).toHaveAttribute('aria-hidden', 'false');
+      const mobileNav = document.querySelector('[aria-hidden="false"]');
+      expect(mobileNav).toBeInTheDocument();
       
       // Close menu
       fireEvent.click(menuButton);
@@ -348,13 +356,6 @@ describe('Navigation Component (/2 Route)', () => {
     });
 
     it('observes all section elements on /2 landing page', () => {
-      const mockObserve = jest.fn();
-      mockIntersectionObserver.mockReturnValue({
-        observe: mockObserve,
-        unobserve: jest.fn(),
-        disconnect: jest.fn(),
-      });
-
       // Mock section elements
       const sections = ['about', 'results', 'work', 'process', 'skills', 'contact'];
       document.getElementById = jest.fn().mockImplementation((id) => 
@@ -390,13 +391,6 @@ describe('Navigation Component (/2 Route)', () => {
     });
 
     it('disconnects intersection observer on unmount', () => {
-      const mockDisconnect = jest.fn();
-      mockIntersectionObserver.mockReturnValue({
-        observe: jest.fn(),
-        unobserve: jest.fn(),
-        disconnect: mockDisconnect,
-      });
-
       const { unmount } = render(<Navigation />);
       unmount();
       

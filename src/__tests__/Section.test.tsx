@@ -86,56 +86,56 @@ describe('Section Component', () => {
       render(<Section>Hero Content</Section>);
       
       const section = screen.getByText('Hero Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--hero'));
+      expect(section?.className).toMatch(/section--hero/);
     });
 
     it('applies about background correctly', () => {
       render(<Section background="about">About Content</Section>);
       
       const section = screen.getByText('About Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--about'));
+      expect(section?.className).toMatch(/section--about/);
     });
 
     it('applies results background correctly', () => {
       render(<Section background="results">Results Content</Section>);
       
       const section = screen.getByText('Results Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--results'));
+      expect(section?.className).toMatch(/section--results/);
     });
 
     it('applies case-studies background correctly', () => {
       render(<Section background="case-studies">Case Studies Content</Section>);
       
       const section = screen.getByText('Case Studies Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--case-studies'));
+      expect(section?.className).toMatch(/section--case-studies/);
     });
 
     it('applies how-i-work background correctly', () => {
       render(<Section background="how-i-work">How I Work Content</Section>);
       
       const section = screen.getByText('How I Work Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--how-i-work'));
+      expect(section?.className).toMatch(/section--how-i-work/);
     });
 
     it('applies technical-expertise background correctly', () => {
       render(<Section background="technical-expertise">Technical Content</Section>);
       
       const section = screen.getByText('Technical Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--technical-expertise'));
+      expect(section?.className).toMatch(/section--technical-expertise/);
     });
 
     it('applies contact background correctly', () => {
       render(<Section background="contact">Contact Content</Section>);
       
       const section = screen.getByText('Contact Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--contact'));
+      expect(section?.className).toMatch(/section--contact/);
     });
 
     it('applies footer background correctly', () => {
       render(<Section background="footer">Footer Content</Section>);
       
       const section = screen.getByText('Footer Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--footer'));
+      expect(section?.className).toMatch(/section--footer/);
     });
   });
 
@@ -170,7 +170,7 @@ describe('Section Component', () => {
       render(<Section maxWidth="600px">Custom Width</Section>);
       
       const container = document.querySelector('[class*="container"]');
-      expect(container).toHaveClass(expect.stringContaining('container--custom-width'));
+      expect(container?.className).toMatch(/container--custom-width/);
     });
   });
 
@@ -179,48 +179,48 @@ describe('Section Component', () => {
       render(<Section>Default Padding</Section>);
       
       const section = screen.getByText('Default Padding').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--padding-y-lg'));
-      expect(section).toHaveClass(expect.stringContaining('section--padding-x-lg'));
+      expect(section?.className).toMatch(/section--padding-y-lg/);
+      expect(section?.className).toMatch(/section--padding-x-lg/);
     });
 
     it('applies none padding correctly', () => {
       render(<Section paddingY="none" paddingX="none">No Padding</Section>);
       
       const section = screen.getByText('No Padding').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--padding-y-none'));
-      expect(section).toHaveClass(expect.stringContaining('section--padding-x-none'));
+      expect(section?.className).toMatch(/section--padding-y-none/);
+      expect(section?.className).toMatch(/section--padding-x-none/);
     });
 
     it('applies small padding correctly', () => {
       render(<Section paddingY="sm" paddingX="sm">Small Padding</Section>);
       
       const section = screen.getByText('Small Padding').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--padding-y-sm'));
-      expect(section).toHaveClass(expect.stringContaining('section--padding-x-sm'));
+      expect(section?.className).toMatch(/section--padding-y-sm/);
+      expect(section?.className).toMatch(/section--padding-x-sm/);
     });
 
     it('applies medium padding correctly', () => {
       render(<Section paddingY="md" paddingX="md">Medium Padding</Section>);
       
       const section = screen.getByText('Medium Padding').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--padding-y-md'));
-      expect(section).toHaveClass(expect.stringContaining('section--padding-x-md'));
+      expect(section?.className).toMatch(/section--padding-y-md/);
+      expect(section?.className).toMatch(/section--padding-x-md/);
     });
 
     it('applies extra large padding correctly', () => {
       render(<Section paddingY="xl" paddingX="xl">XL Padding</Section>);
       
       const section = screen.getByText('XL Padding').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--padding-y-xl'));
-      expect(section).toHaveClass(expect.stringContaining('section--padding-x-xl'));
+      expect(section?.className).toMatch(/section--padding-y-xl/);
+      expect(section?.className).toMatch(/section--padding-x-xl/);
     });
 
     it('allows independent vertical and horizontal padding', () => {
       render(<Section paddingY="sm" paddingX="xl">Mixed Padding</Section>);
       
       const section = screen.getByText('Mixed Padding').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--padding-y-sm'));
-      expect(section).toHaveClass(expect.stringContaining('section--padding-x-xl'));
+      expect(section?.className).toMatch(/section--padding-y-sm/);
+      expect(section?.className).toMatch(/section--padding-x-xl/);
     });
   });
 
@@ -229,14 +229,14 @@ describe('Section Component', () => {
       render(<Section centered>Centered Content</Section>);
       
       const section = screen.getByText('Centered Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--centered'));
+      expect(section?.className).toMatch(/section--centered/);
     });
 
     it('does not apply centered class by default', () => {
       render(<Section>Default Content</Section>);
       
       const section = screen.getByText('Default Content').closest('section');
-      expect(section).not.toHaveClass(expect.stringContaining('section--centered'));
+      expect(section?.className).not.toMatch(/section--centered/);
     });
   });
 
@@ -285,13 +285,11 @@ describe('Section Component', () => {
       const section = screen.getByText('Complex Section Content').closest('main');
       expect(section).toBeInTheDocument();
       expect(section).toHaveAttribute('id', 'complex-test');
-      expect(section).toHaveClass(
-        expect.stringContaining('section--results'),
-        expect.stringContaining('section--padding-y-xl'),
-        expect.stringContaining('section--padding-x-sm'),
-        expect.stringContaining('section--centered'),
-        'complex-section'
-      );
+      expect(section?.className).toMatch(/section--results/);
+      expect(section?.className).toMatch(/section--padding-y-xl/);
+      expect(section?.className).toMatch(/section--padding-x-sm/);
+      expect(section?.className).toMatch(/section--centered/);
+      expect(section).toHaveClass('complex-section');
       
       const container = section?.querySelector('[class*="container"]');
       expect(container).toHaveStyle('max-width: 900px');
@@ -305,18 +303,16 @@ describe('Pre-configured Section Components', () => {
       render(<HeroSection>Hero Content</HeroSection>);
       
       const section = screen.getByText('Hero Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--hero'));
+      expect(section?.className).toMatch(/section--hero/);
     });
 
     it('passes through additional props', () => {
       render(<HeroSection paddingY="xl" centered>Hero Props</HeroSection>);
       
       const section = screen.getByText('Hero Props').closest('section');
-      expect(section).toHaveClass(
-        expect.stringContaining('section--hero'),
-        expect.stringContaining('section--padding-y-xl'),
-        expect.stringContaining('section--centered')
-      );
+      expect(section?.className).toMatch(/section--hero/);
+      expect(section?.className).toMatch(/section--padding-y-xl/);
+      expect(section?.className).toMatch(/section--centered/);
     });
   });
 
@@ -325,7 +321,7 @@ describe('Pre-configured Section Components', () => {
       render(<AboutSection>About Content</AboutSection>);
       
       const section = screen.getByText('About Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--about'));
+      expect(section?.className).toMatch(/section--about/);
     });
   });
 
@@ -334,7 +330,7 @@ describe('Pre-configured Section Components', () => {
       render(<ResultsSection>Results Content</ResultsSection>);
       
       const section = screen.getByText('Results Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--results'));
+      expect(section?.className).toMatch(/section--results/);
     });
   });
 
@@ -343,7 +339,7 @@ describe('Pre-configured Section Components', () => {
       render(<CaseStudiesSection>Case Studies Content</CaseStudiesSection>);
       
       const section = screen.getByText('Case Studies Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--case-studies'));
+      expect(section?.className).toMatch(/section--case-studies/);
     });
   });
 
@@ -352,7 +348,7 @@ describe('Pre-configured Section Components', () => {
       render(<HowIWorkSection>How I Work Content</HowIWorkSection>);
       
       const section = screen.getByText('How I Work Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--how-i-work'));
+      expect(section?.className).toMatch(/section--how-i-work/);
     });
   });
 
@@ -361,7 +357,7 @@ describe('Pre-configured Section Components', () => {
       render(<TechnicalExpertiseSection>Technical Content</TechnicalExpertiseSection>);
       
       const section = screen.getByText('Technical Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--technical-expertise'));
+      expect(section?.className).toMatch(/section--technical-expertise/);
     });
   });
 
@@ -370,7 +366,7 @@ describe('Pre-configured Section Components', () => {
       render(<ContactSection>Contact Content</ContactSection>);
       
       const section = screen.getByText('Contact Content').closest('section');
-      expect(section).toHaveClass(expect.stringContaining('section--contact'));
+      expect(section?.className).toMatch(/section--contact/);
     });
   });
 
@@ -399,12 +395,10 @@ describe('Pre-configured Section Components', () => {
         );
         
         const element = screen.getByText(`${name} content`).closest('div');
-        expect(element).toHaveClass(
-          expect.stringContaining(`section--${name}`),
-          expect.stringContaining('section--padding-y-sm'),
-          expect.stringContaining('section--centered'),
-          'test-class'
-        );
+        expect(element?.className).toMatch(new RegExp(`section--${name}`));
+        expect(element?.className).toMatch(/section--padding-y-sm/);
+        expect(element?.className).toMatch(/section--centered/);
+        expect(element).toHaveClass('test-class');
       });
     });
   });

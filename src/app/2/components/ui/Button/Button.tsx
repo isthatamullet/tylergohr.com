@@ -80,11 +80,19 @@ export const Button: React.FC<ButtonProps> = ({
       whileTap={{ 
         scale: disabled || loading ? 1 : 0.98 
       }}
+      whileFocus={{
+        scale: disabled || loading ? 1 : 1.01,
+        y: disabled || loading ? 0 : -1
+      }}
       transition={{ 
         type: "spring", 
         stiffness: 400, 
         damping: 25,
         duration: 0.15 
+      }}
+      animate={{
+        scale: 1,
+        y: 0
       }}
     >
       <button

@@ -30,8 +30,29 @@
 
 /* Hover effects */
 .caseStudyCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 48px rgba(29, 78, 216, 0.25);
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 
+    0 16px 48px rgba(29, 78, 216, 0.25),
+    0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.caseStudyCard:hover .metricBadge {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.caseStudyCard:hover .caseStudyCTA {
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* Focus states for accessibility */
+.caseStudyCard:focus-within {
+  outline: 2px solid var(--interactive-blue);
+  outline-offset: 2px;
+  transform: translateY(-4px);
+  box-shadow: 
+    0 12px 36px rgba(29, 78, 216, 0.2),
+    0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
 /* Metric Badge Styles */

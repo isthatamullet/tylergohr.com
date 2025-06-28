@@ -64,19 +64,59 @@
 .select:focus,
 .textarea:focus {
   border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 
+    0 0 0 3px rgba(59, 130, 246, 0.1),
+    0 4px 12px rgba(59, 130, 246, 0.15);
   background: rgba(30, 41, 59, 0.9);
+  transform: translateY(-1px);
+  animation: focusGlow 2s ease-in-out infinite;
+}
+
+@keyframes focusGlow {
+  0%, 100% { 
+    box-shadow: 
+      0 0 0 3px rgba(59, 130, 246, 0.1),
+      0 4px 12px rgba(59, 130, 246, 0.15);
+  }
+  50% { 
+    box-shadow: 
+      0 0 0 3px rgba(59, 130, 246, 0.2),
+      0 6px 16px rgba(59, 130, 246, 0.25);
+  }
 }
 
 /* Error States */
 .inputError {
   border-color: #dc2626 !important;
   box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
+  animation: errorShake 0.4s ease-in-out;
 }
 
 .inputError:focus {
   border-color: #dc2626 !important;
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2) !important;
+  box-shadow: 
+    0 0 0 3px rgba(220, 38, 38, 0.2) !important,
+    0 4px 12px rgba(220, 38, 38, 0.15) !important;
+  animation: errorPulse 2s ease-in-out infinite;
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+@keyframes errorPulse {
+  0%, 100% { 
+    box-shadow: 
+      0 0 0 3px rgba(220, 38, 38, 0.2),
+      0 4px 12px rgba(220, 38, 38, 0.15);
+  }
+  50% { 
+    box-shadow: 
+      0 0 0 3px rgba(220, 38, 38, 0.3),
+      0 6px 16px rgba(220, 38, 38, 0.25);
+  }
 }
 
 /* Error Text */
@@ -145,6 +185,12 @@
 .submitReady:active {
   transform: translateY(0);
   box-shadow: 0 2px 8px rgba(22, 163, 74, 0.3);
+}
+
+.submitReady:focus {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+  animation: focusPulse 2s ease-in-out infinite;
 }
 
 .submitDisabled {
@@ -311,6 +357,8 @@
   .select,
   .textarea {
     transition: none;
+    transform: none !important;
+    animation: none !important;
   }
   
   .spinner {
@@ -320,6 +368,21 @@
   .successMessage,
   .errorMessage {
     animation: none;
+  }
+  
+  .input:focus,
+  .select:focus,
+  .textarea:focus {
+    animation: none !important;
+    transform: none !important;
+  }
+  
+  .inputError {
+    animation: none !important;
+  }
+  
+  .submitReady:focus {
+    animation: none !important;
   }
 }
 

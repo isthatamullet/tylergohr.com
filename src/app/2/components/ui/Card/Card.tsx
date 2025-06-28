@@ -232,15 +232,27 @@ export const Card: React.FC<BaseCardProps> = ({
         tabIndex={0}
         whileHover={{ 
           scale: 1.02,
-          y: -4
+          y: -4,
+          rotateX: 2,
+          rotateY: 2
         }}
         whileTap={{ 
           scale: 0.98 
+        }}
+        whileFocus={{
+          scale: 1.01,
+          y: -2
         }}
         transition={{
           type: "spring",
           stiffness: 400,
           damping: 25
+        }}
+        animate={{
+          scale: 1,
+          y: 0,
+          rotateX: 0,
+          rotateY: 0
         }}
         {...htmlProps}
       >
