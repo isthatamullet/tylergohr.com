@@ -174,13 +174,6 @@
   }
 }
 
-/* Ensure hover works on devices with fine pointers (mouse, trackpad) */
-@media (hover: hover) and (pointer: fine) {
-  .dropdownItem:hover {
-    background: rgba(255, 255, 255, 0.05);
-  }
-}
-
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .dropdown {

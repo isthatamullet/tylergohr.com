@@ -307,17 +307,17 @@ export default function Navigation({ className = "" }: NavigationProps) {
 
       console.log(`Navigation: Observing ${observedCount}/${sections.length} sections`);
       
-      // If not all sections found, retry after a short delay
+      // If not all sections found, retry after a longer delay
       if (observedCount < sections.length) {
         setTimeout(() => {
           console.log('Navigation: Retrying section observation...');
           setupObserver();
-        }, 500);
+        }, 1000);
       }
     };
 
-    // Initial setup with small delay to ensure DOM is ready
-    const timeoutId = setTimeout(setupObserver, 100);
+    // Initial setup with longer delay to ensure all components are rendered
+    const timeoutId = setTimeout(setupObserver, 500);
 
     return () => {
       clearTimeout(timeoutId);
