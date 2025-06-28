@@ -119,6 +119,36 @@ export default function HowIWorkDetailPage() {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
 
+  // Handle hash-based section scrolling
+  useEffect(() => {
+    const handleHashNavigation = () => {
+      const hash = window.location.hash.slice(1)
+      if (hash) {
+        // Small delay to ensure DOM is ready
+        setTimeout(() => {
+          const element = document.getElementById(hash)
+          if (element) {
+            element.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start',
+              inline: 'nearest'
+            })
+          }
+        }, 100)
+      }
+    }
+
+    // Handle initial hash on page load
+    handleHashNavigation()
+
+    // Handle hash changes (browser back/forward)
+    window.addEventListener('hashchange', handleHashNavigation)
+    
+    return () => {
+      window.removeEventListener('hashchange', handleHashNavigation)
+    }
+  }, [])
+
   // Intersection Observer for scroll-triggered animations
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -191,6 +221,7 @@ export default function HowIWorkDetailPage() {
               {processSteps.map((step, index) => (
                 <div
                   key={step.id}
+                  id={step.id}
                   className={`${styles.processListItem} ${visibleSections.has('process') ? styles.itemRevealed : ''}`}
                   style={{
                     '--step-index': index,

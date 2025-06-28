@@ -3,20 +3,149 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { usePathname } from "next/navigation";
 import styles from "./Navigation.module.css";
+import DropdownMenu, { DropdownItem } from "./DropdownMenu";
 
 interface NavigationProps {
   className?: string;
+}
+
+interface NavLinkConfig {
+  id: string;
+  label: string;
+  href: string;
+  type: 'simple' | 'dropdown';
+  dropdownItems?: DropdownItem[];
 }
 
 export default function Navigation({ className = "" }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [expandedMobileDropdown, setExpandedMobileDropdown] = useState<string | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
 
   // Navigation height for offset calculation
   const NAV_HEIGHT = 70;
+
+  // Dropdown menu data
+  const workDropdownItems: DropdownItem[] = [
+    {
+      title: "Emmy-winning Streaming Platform",
+      description: "Technical excellence recognized by Television Academy",
+      href: "/2/case-studies?tab=emmy",
+      badge: "Emmy Award"
+    },
+    {
+      title: "Fox Corporation Cost Optimization", 
+      description: "$2M+ savings through automation architecture",
+      href: "/2/case-studies?tab=fox",
+      badge: "Cost Savings"
+    },
+    {
+      title: "Warner Bros Delivery Enhancement",
+      description: "96% success rate workflow optimization", 
+      href: "/2/case-studies?tab=warner",
+      badge: "Success Rate"
+    },
+    {
+      title: "AI-Powered Media Automation",
+      description: "Revolutionary automation for SDI Media",
+      href: "/2/case-studies?tab=ai", 
+      badge: "Innovation"
+    },
+    {
+      title: "View All Case Studies",
+      description: "Complete project portfolio and technical details",
+      href: "/2/case-studies",
+      type: "page-link"
+    }
+  ];
+
+  const processDropdownItems: DropdownItem[] = [
+    {
+      title: "Discovery & Requirements",
+      description: "Comprehensive project analysis and stakeholder alignment",
+      href: "/2/how-i-work#discovery"
+    },
+    {
+      title: "Research & Planning", 
+      description: "Technical architecture and strategic planning",
+      href: "/2/how-i-work#research"
+    },
+    {
+      title: "Design & Prototyping",
+      description: "User experience and system design validation",
+      href: "/2/how-i-work#design"
+    },
+    {
+      title: "Implementation & Development",
+      description: "Agile development with continuous integration",
+      href: "/2/how-i-work#implementation"
+    },
+    {
+      title: "Testing & Quality Assurance",
+      description: "Comprehensive testing and performance optimization",
+      href: "/2/how-i-work#testing"
+    },
+    {
+      title: "Deployment & Launch",
+      description: "Production deployment and go-live coordination",
+      href: "/2/how-i-work#deployment"
+    },
+    {
+      title: "Optimization & Support",
+      description: "Ongoing performance monitoring and enhancement",
+      href: "/2/how-i-work#optimization"
+    },
+    {
+      title: "View Full Process",
+      description: "Complete development methodology and case studies",
+      href: "/2/how-i-work",
+      type: "page-link"
+    }
+  ];
+
+  const skillsDropdownItems: DropdownItem[] = [
+    {
+      title: "Frontend Development",
+      description: "React, Next.js, TypeScript, and modern CSS",
+      href: "/2/technical-expertise?tab=frontend",
+      icon: "⚛️"
+    },
+    {
+      title: "Backend Architecture",
+      description: "Node.js, Python, database design, and API development", 
+      href: "/2/technical-expertise?tab=backend",
+      icon: "🔧"
+    },
+    {
+      title: "Cloud Infrastructure",
+      description: "AWS, Google Cloud, Docker, and DevOps automation",
+      href: "/2/technical-expertise?tab=cloud", 
+      icon: "☁️"
+    },
+    {
+      title: "Team Leadership",
+      description: "Agile methodology, project management, and mentoring",
+      href: "/2/technical-expertise?tab=leadership",
+      icon: "👥"
+    },
+    {
+      title: "AI Innovation",
+      description: "Machine learning integration and automation solutions",
+      href: "/2/technical-expertise?tab=ai",
+      icon: "🤖"
+    },
+    {
+      title: "View All Skills",
+      description: "Complete technical expertise and project examples",
+      href: "/2/technical-expertise",
+      type: "page-link"
+    }
+  ];
 
   // Throttled scroll handler for performance
   const tickingRef = useRef(false);
@@ -119,6 +248,16 @@ export default function Navigation({ className = "" }: NavigationProps) {
 
     const sections = ["about", "results", "work", "process", "skills", "contact"];
     
+    // Section priority system - higher priority sections override lower priority ones
+    const sectionPriority: Record<string, number> = {
+      'contact': 6,
+      'skills': 5,
+      'process': 4,
+      'work': 3,
+      'results': 2,
+      'about': 1
+    };
+    
     // Clean up previous observer
     if (observerRef.current) {
       observerRef.current.disconnect();
@@ -126,23 +265,29 @@ export default function Navigation({ className = "" }: NavigationProps) {
 
     observerRef.current = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const sectionId = entry.target.id;
-            if (sections.includes(sectionId)) {
-              setActiveSection(sectionId);
-              
-              // Update URL hash without causing scroll
-              if (window.location.hash !== `#${sectionId}`) {
-                window.history.replaceState(null, "", `/2#${sectionId}`);
-              }
-            }
+        // Find all currently intersecting sections
+        const intersectingSections = entries
+          .filter(entry => entry.isIntersecting)
+          .map(entry => entry.target.id)
+          .filter(id => sections.includes(id));
+        
+        if (intersectingSections.length > 0) {
+          // Select section with highest priority
+          const highestPrioritySection = intersectingSections.reduce((highest, current) => {
+            return sectionPriority[current] > sectionPriority[highest] ? current : highest;
+          });
+          
+          setActiveSection(highestPrioritySection);
+          
+          // Update URL hash without causing scroll
+          if (window.location.hash !== `#${highestPrioritySection}`) {
+            window.history.replaceState(null, "", `/2#${highestPrioritySection}`);
           }
-        });
+        }
       },
       {
-        threshold: 0.3,
-        rootMargin: `-${NAV_HEIGHT}px 0px -60% 0px`,
+        threshold: 0.6,
+        rootMargin: `-${NAV_HEIGHT}px 0px -40% 0px`,
       }
     );
 
@@ -166,14 +311,71 @@ export default function Navigation({ className = "" }: NavigationProps) {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Dropdown handlers
+  const handleDropdownEnter = useCallback((linkId: string) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    setActiveDropdown(linkId);
+  }, []);
+
+  const handleDropdownLeave = useCallback(() => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 150); // Small delay to prevent flickering
+  }, []);
+
+  const handleDropdownItemClick = useCallback((href: string) => {
+    // Close dropdown immediately
+    setActiveDropdown(null);
+    setExpandedMobileDropdown(null);
+    setIsMenuOpen(false);
+    
+    // Navigate to the href
+    window.location.href = href;
+  }, []);
+
+  // Mobile dropdown handlers
+  const toggleMobileDropdown = useCallback((linkId: string) => {
+    setExpandedMobileDropdown(expandedMobileDropdown === linkId ? null : linkId);
+  }, [expandedMobileDropdown]);
+
+  const handleMobileNavClick = useCallback((link: NavLinkConfig) => {
+    if (link.type === 'dropdown') {
+      // Toggle dropdown for dropdown links
+      toggleMobileDropdown(link.id);
+    } else {
+      // Navigate for simple links
+      navigateToSection(link.id);
+    }
+  }, [navigateToSection, toggleMobileDropdown]);
+
   // Navigation links configuration for /2 routes
-  const navLinks = [
-    { id: "about", label: "About", href: "#about", type: "section" },
-    { id: "results", label: "Results", href: "#results", type: "section" },
-    { id: "work", label: "Work", href: "#work", type: "section" },
-    { id: "process", label: "Process", href: "#process", type: "section" },
-    { id: "skills", label: "Skills", href: "#skills", type: "section" },
-    { id: "contact", label: "Contact", href: "#contact", type: "section" },
+  const navLinks: NavLinkConfig[] = [
+    { id: "about", label: "About", href: "#about", type: "simple" },
+    { id: "results", label: "Results", href: "#results", type: "simple" },
+    { 
+      id: "work", 
+      label: "Work", 
+      href: "#work", 
+      type: "dropdown",
+      dropdownItems: workDropdownItems
+    },
+    { 
+      id: "process", 
+      label: "Process", 
+      href: "#process", 
+      type: "dropdown",
+      dropdownItems: processDropdownItems
+    },
+    { 
+      id: "skills", 
+      label: "Skills", 
+      href: "#skills", 
+      type: "dropdown",
+      dropdownItems: skillsDropdownItems
+    },
+    { id: "contact", label: "Contact", href: "#contact", type: "simple" },
   ];
 
   return (
@@ -195,15 +397,32 @@ export default function Navigation({ className = "" }: NavigationProps) {
         {/* Desktop Navigation Links */}
         <div className={styles.desktopNav}>
           {navLinks.map((link) => (
-            <button
+            <div
               key={link.id}
-              onClick={() => navigateToSection(link.id)}
-              className={`${styles.navLink} ${activeSection === link.id ? styles.active : ""}`}
-              aria-label={`Navigate to ${link.label} section`}
-              aria-current={activeSection === link.id ? "page" : undefined}
+              className={`${styles.navItem} ${link.type === 'dropdown' ? styles.hasDropdown : ''}`}
+              onMouseEnter={() => link.type === 'dropdown' && handleDropdownEnter(link.id)}
+              onMouseLeave={() => link.type === 'dropdown' && handleDropdownLeave()}
             >
-              {link.label}
-            </button>
+              <button
+                onClick={() => navigateToSection(link.id)}
+                className={`${styles.navLink} ${activeSection === link.id ? styles.active : ""}`}
+                aria-label={`Navigate to ${link.label} section`}
+                aria-current={activeSection === link.id ? "page" : undefined}
+                aria-haspopup={link.type === 'dropdown' ? "menu" : undefined}
+                aria-expanded={link.type === 'dropdown' && activeDropdown === link.id ? "true" : "false"}
+              >
+                {link.label}
+              </button>
+              
+              {/* Dropdown Menu */}
+              {link.type === 'dropdown' && link.dropdownItems && (
+                <DropdownMenu
+                  items={link.dropdownItems}
+                  isVisible={activeDropdown === link.id}
+                  onItemClick={handleDropdownItemClick}
+                />
+              )}
+            </div>
           ))}
         </div>
 
@@ -235,16 +454,63 @@ export default function Navigation({ className = "" }: NavigationProps) {
           aria-hidden={!isMenuOpen}
         >
           {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => navigateToSection(link.id)}
-              className={`${styles.mobileNavLink} ${activeSection === link.id ? styles.active : ""}`}
-              tabIndex={isMenuOpen ? 0 : -1}
-              aria-label={`Navigate to ${link.label} section`}
-              aria-current={activeSection === link.id ? "page" : undefined}
-            >
-              {link.label}
-            </button>
+            <div key={link.id} className={styles.mobileNavItem}>
+              <div className={styles.mobileNavLinkContainer}>
+                <button
+                  onClick={() => handleMobileNavClick(link)}
+                  className={`${styles.mobileNavLink} ${activeSection === link.id ? styles.active : ""}`}
+                  tabIndex={isMenuOpen ? 0 : -1}
+                  aria-label={`Navigate to ${link.label} section`}
+                  aria-current={activeSection === link.id ? "page" : undefined}
+                  aria-expanded={link.type === 'dropdown' ? expandedMobileDropdown === link.id : undefined}
+                >
+                  {link.label}
+                </button>
+                
+                {/* Dropdown Toggle Arrow for mobile */}
+                {link.type === 'dropdown' && (
+                  <button
+                    onClick={() => toggleMobileDropdown(link.id)}
+                    className={`${styles.mobileDropdownToggle} ${expandedMobileDropdown === link.id ? styles.expanded : ''}`}
+                    tabIndex={isMenuOpen ? 0 : -1}
+                    aria-label={`${expandedMobileDropdown === link.id ? 'Collapse' : 'Expand'} ${link.label} menu`}
+                  >
+                    <span className={styles.dropdownArrow}>▼</span>
+                  </button>
+                )}
+              </div>
+              
+              {/* Mobile Dropdown Content */}
+              {link.type === 'dropdown' && link.dropdownItems && expandedMobileDropdown === link.id && (
+                <div className={styles.mobileDropdownContent}>
+                  {link.dropdownItems.map((item, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleDropdownItemClick(item.href)}
+                      className={`${styles.mobileDropdownItem} ${item.type === 'page-link' ? styles.mobilePageLink : ''}`}
+                      tabIndex={isMenuOpen ? 0 : -1}
+                    >
+                      <div className={styles.mobileDropdownItemContent}>
+                        {item.icon && (
+                          <span className={styles.mobileDropdownIcon}>{item.icon}</span>
+                        )}
+                        <div className={styles.mobileDropdownText}>
+                          <div className={styles.mobileDropdownTitle}>
+                            {item.title}
+                            {item.badge && (
+                              <span className={styles.mobileDropdownBadge}>{item.badge}</span>
+                            )}
+                          </div>
+                          <div className={styles.mobileDropdownDescription}>
+                            {item.description}
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </div>
 

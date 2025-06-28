@@ -332,8 +332,8 @@ describe('Navigation Component (/2 Route)', () => {
       expect(mockIntersectionObserver).toHaveBeenCalledWith(
         expect.any(Function),
         {
-          threshold: 0.3,
-          rootMargin: '-70px 0px -60% 0px',
+          threshold: 0.6,
+          rootMargin: '-70px 0px -40% 0px',
         }
       );
     });

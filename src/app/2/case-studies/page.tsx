@@ -1,7 +1,8 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, Suspense } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { Section } from '@/app/2/components/Section/Section'
 import { BrowserTabs, CaseStudyContent } from '@/app/2/components/BrowserTabs'
 import type { TabData } from '@/app/2/components/BrowserTabs'
@@ -126,9 +127,30 @@ const caseStudies: CaseStudy[] = [
   }
 ]
 
-export default function CaseStudiesDetailPage() {
+// Component that uses search params - needs to be wrapped in Suspense
+function CaseStudiesPageContent() {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
+  const searchParams = useSearchParams()
+
+  // Map URL tab parameters to actual case study IDs
+  const tabMapping = {
+    'emmy': 'emmy-streaming-platform',
+    'fox': 'content-distribution-platform', 
+    'warner': 'delivery-management-platform',
+    'ai': 'ai-content-automation'
+  }
+
+  // Get the default tab from URL parameter or fall back to first case study
+  const getDefaultTab = (): string => {
+    const tabParam = searchParams.get('tab')
+    if (tabParam && tabParam in tabMapping) {
+      return tabMapping[tabParam as keyof typeof tabMapping]
+    }
+    return 'content-distribution-platform' // Default to first tab
+  }
+
+  const [defaultTab] = useState<string>(getDefaultTab)
 
   // Intersection Observer for scroll-triggered animations
   useEffect(() => {
@@ -213,7 +235,7 @@ export default function CaseStudiesDetailPage() {
         >
           <BrowserTabs 
             tabs={caseStudyTabs}
-            defaultTab="content-distribution-platform"
+            defaultTab={defaultTab}
             onTabChange={handleTabChange}
             className={styles.caseStudiesBrowser}
           />
@@ -248,5 +270,14 @@ export default function CaseStudiesDetailPage() {
         </div>
       </Section>
     </>
+  )
+}
+
+// Main page component with Suspense boundary
+export default function CaseStudiesDetailPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CaseStudiesPageContent />
+    </Suspense>
   )
 }

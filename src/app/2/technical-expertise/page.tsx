@@ -1,7 +1,8 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, Suspense } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { Section } from '@/app/2/components/Section/Section'
 import { BrowserTabs, TechnicalExpertiseContent } from '@/app/2/components/BrowserTabs'
 import type { TabData } from '@/app/2/components/BrowserTabs'
@@ -190,9 +191,31 @@ const technicalAreas: TechnicalArea[] = [
   }
 ]
 
-export default function TechnicalExpertiseDetailPage() {
+// Component that uses search params - needs to be wrapped in Suspense
+function TechnicalExpertisePageContent() {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
+  const searchParams = useSearchParams()
+
+  // Map URL tab parameters to actual technical area IDs
+  const tabMapping = {
+    'frontend': 'frontend-architecture',
+    'backend': 'backend-systems',
+    'cloud': 'cloud-infrastructure', 
+    'leadership': 'technical-leadership',
+    'ai': 'ai-innovation'
+  }
+
+  // Get the default tab from URL parameter or fall back to first area
+  const getDefaultTab = (): string => {
+    const tabParam = searchParams.get('tab')
+    if (tabParam && tabParam in tabMapping) {
+      return tabMapping[tabParam as keyof typeof tabMapping]
+    }
+    return 'frontend-architecture' // Default to first tab
+  }
+
+  const [defaultTab] = useState<string>(getDefaultTab)
 
   // Intersection Observer for scroll-triggered animations
   useEffect(() => {
@@ -278,7 +301,7 @@ export default function TechnicalExpertiseDetailPage() {
         >
           <BrowserTabs 
             tabs={technicalExpertiseTabs}
-            defaultTab="frontend-architecture"
+            defaultTab={defaultTab}
             onTabChange={handleTabChange}
             className={styles.technicalExpertiseBrowser}
             urlPath="technical-expertise"
@@ -313,5 +336,14 @@ export default function TechnicalExpertiseDetailPage() {
         </div>
       </Section>
     </>
+  )
+}
+
+// Main page component with Suspense boundary
+export default function TechnicalExpertiseDetailPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <TechnicalExpertisePageContent />
+    </Suspense>
   )
 }
