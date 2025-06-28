@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./page.module.css";
-import Navigation from "./components/Navigation/Navigation";
+import Navigation from "./top-nav-backup";
 import Hero from "./components/Hero/Hero";
 import About from "./components/About/About";
 import Results from "./components/Results/Results";
@@ -14,7 +14,7 @@ export default function EnterprisePage() {
 
   return (
     <>
-      {/* Enterprise Solutions Navigation */}
+      {/* Enterprise Solutions Navigation - BACKUP VERSION FOR TESTING */}
       <Navigation />
       
       <main id="main-content" className={styles.main} role="main">

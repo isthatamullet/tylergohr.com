@@ -1,0 +1,291 @@
+/* Backup Top Navigation - Clean Implementation Based on Screenshot */
+
+.topNavBackup {
+  /* CRITICAL: Fixed positioning that never scrolls away */
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  
+  /* Visual design from screenshot */
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  
+  /* Defensive positioning - prevent any interference */
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  
+  /* Performance optimizations */
+  transform: translateZ(0);
+  will-change: background;
+  isolation: isolate;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  height: 70px;
+}
+
+/* TG Logo - matches screenshot gradient */
+.logo {
+  background: linear-gradient(135deg, #16a34a, #dc2626);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(22, 163, 74, 0.3);
+}
+
+.logoText {
+  color: #000000;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.025em;
+}
+
+/* Navigation Links Container */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.navItem.hasDropdown {
+  z-index: 10;
+}
+
+/* Navigation Link Buttons - matches screenshot styling */
+.navLink {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+/* Active state underline - matches screenshot green underline */
+.navLink::after {
+  content: "";
+  position: absolute;
+  bottom: -0.5rem;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #16a34a;
+  transition: width 0.3s ease;
+}
+
+.navLink:hover {
+  color: #f8fafc;
+}
+
+.navLink:hover::after {
+  width: 100%;
+}
+
+/* Active state - matches screenshot */
+.navLink.active {
+  color: #f8fafc;
+}
+
+.navLink.active::after {
+  width: 100%;
+  height: 3px;
+  background: #16a34a;
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 320px;
+  max-width: 400px;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem 0;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  z-index: 1000;
+  margin-top: 0.5rem;
+}
+
+.dropdownItem {
+  display: flex;
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background-color 0.15s ease;
+}
+
+/* Enhanced hover visibility - clearly visible effect */
+.dropdownItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdownItem:last-child {
+  border-bottom: none;
+}
+
+.itemContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+}
+
+.itemIcon {
+  font-size: 1.25rem;
+  line-height: 1;
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+}
+
+.itemText {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #f8fafc;
+  margin-bottom: 0.25rem;
+  line-height: 1.3;
+}
+
+.itemDescription {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+/* Page Link Styling - special styling for "View All" items */
+.pageLink {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: none;
+  margin-top: 0.5rem;
+}
+
+.pageLink .itemTitle {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.pageLink:hover .itemTitle {
+  color: #f8fafc;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.75rem 1rem;
+  }
+  
+  .navLinks {
+    display: none; /* Hide desktop nav on mobile - mobile menu unchanged */
+  }
+  
+  .logo {
+    padding: 0.375rem 0.625rem;
+  }
+  
+  .logoText {
+    font-size: 1.125rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .dropdownItem:hover {
+    background: transparent;
+  }
+  
+  .dropdownItem:active {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .topNavBackup {
+    background: #000000;
+    border-bottom-color: #ffffff;
+  }
+  
+  .navLink {
+    color: #ffffff;
+  }
+  
+  .logo {
+    background: #ffffff;
+  }
+  
+  .logoText {
+    color: #000000;
+  }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .topNavBackup,
+  .logo,
+  .navLink,
+  .dropdown,
+  .dropdownItem {
+    transition: none;
+  }
+  
+  .logo:hover,
+  .navLink:hover {
+    transform: none;
+  }
+}
