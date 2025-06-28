@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from 'react';
+import Image from 'next/image';
 import { ClientMotionDiv, useScroll, useTransform } from '@/app/2/lib/framer-motion-client';
 import styles from './LogoFloat.module.css';
 
@@ -89,10 +90,14 @@ export function LogoFloat() {
       data-logo-state={logoState}
     >
       <div className={styles.logoContainer}>
-        {/* Temporary logo placeholder - will be replaced with actual logo */}
-        <div className={styles.logoPlaceholder}>
-          <div className={styles.logoInitials}>TG</div>
-        </div>
+        <Image 
+          src="/images/tech-company-logo.png"
+          alt="Tyler Gohr Tech Company Logo"
+          className={styles.logoImage}
+          width={80}
+          height={80}
+          priority={true}
+        />
       </div>
     </ClientMotionDiv>
   );

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import styles from "./Navigation.module.css";
 import DropdownMenu, { DropdownItem } from "./DropdownMenu";
 
@@ -412,13 +413,20 @@ export default function Navigation({ className = "" }: NavigationProps) {
       aria-label="Main navigation"
     >
       <div className={styles.container}>
-        {/* TG Logo - with logo float animation preparation */}
+        {/* Tech Company Logo - with logo float animation preparation */}
         <button
           onClick={navigateToHome}
           className={`${styles.logo} ${isScrolled ? styles.logoScrolled : ""}`}
           aria-label="Tyler Gohr - Return to Enterprise Solutions homepage"
         >
-          <span className={styles.logoText}>TG</span>
+          <Image 
+            src="/images/tech-company-logo.png"
+            alt="Tyler Gohr Tech Company Logo"
+            className={styles.logoImage}
+            width={40}
+            height={40}
+            priority={true}
+          />
         </button>
 
         {/* Desktop Navigation Links */}

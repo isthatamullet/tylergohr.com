@@ -132,6 +132,8 @@ export const HowIWorkPreview: React.FC = () => {
       aria-labelledby="how-i-work-title"
       role="region"
     >
+      <div className={styles.backgroundOverlay} />
+      
       <div className={styles.container}>
         <header 
           className={`${styles.howIWorkHeader} ${isVisible ? styles.revealed : ''}`}

@@ -7,10 +7,24 @@
   min-height: 700px; /* Accommodate staircase height */
 }
 
+/* Background overlay for animated process visualization */
+.backgroundOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/images/how-i-work-7-step-bg.svg') center/cover no-repeat;
+  z-index: 1;
+  opacity: 0.4;
+}
+
 .container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 32px;
+  position: relative;
+  z-index: 2;
 }
 
 /* Section Header */

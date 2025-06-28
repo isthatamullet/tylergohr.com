@@ -1,0 +1,191 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Process flow gradients -->
+    <linearGradient id="processBgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#334155;stop-opacity:0.1" />
+      <stop offset="50%" style="stop-color:#475569;stop-opacity:0.05" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:0.1" />
+    </linearGradient>
+    
+    <linearGradient id="flowGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:0.6" />
+      <stop offset="30%" style="stop-color:#16a34a;stop-opacity:0.5" />
+      <stop offset="70%" style="stop-color:#059669;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#dc2626;stop-opacity:0.3" />
+    </linearGradient>
+    
+    <!-- Arrow marker -->
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="rgba(22, 163, 74, 0.6)"/>
+    </marker>
+  </defs>
+  
+  <!-- Base background -->
+  <rect width="1200" height="600" fill="url(#processBgGradient)"/>
+  
+  <!-- 7-Step Descending Staircase Process Flow -->
+  <g opacity="0.4">
+    <!-- Step 1: Discovery (Top Left) -->
+    <circle cx="100" cy="80" r="25" fill="none" stroke="rgba(37, 99, 235, 0.5)" stroke-width="3">
+      <animate attributeName="r" values="25;30;25" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <text x="100" y="130" font-family="sans-serif" font-size="10" fill="rgba(37, 99, 235, 0.7)" text-anchor="middle">Discovery</text>
+    
+    <!-- Step 2: Research -->
+    <circle cx="240" cy="140" r="25" fill="none" stroke="rgba(22, 163, 74, 0.5)" stroke-width="3">
+      <animate attributeName="r" values="25;30;25" dur="4s" repeatCount="indefinite" begin="0.6s"/>
+    </circle>
+    <text x="240" y="190" font-family="sans-serif" font-size="10" fill="rgba(22, 163, 74, 0.7)" text-anchor="middle">Research</text>
+    
+    <!-- Step 3: Design -->
+    <circle cx="380" cy="200" r="25" fill="none" stroke="rgba(16, 185, 129, 0.5)" stroke-width="3">
+      <animate attributeName="r" values="25;30;25" dur="4s" repeatCount="indefinite" begin="1.2s"/>
+    </circle>
+    <text x="380" y="250" font-family="sans-serif" font-size="10" fill="rgba(16, 185, 129, 0.7)" text-anchor="middle">Design</text>
+    
+    <!-- Step 4: Implementation (Center) -->
+    <circle cx="520" cy="260" r="25" fill="none" stroke="rgba(5, 150, 105, 0.5)" stroke-width="3">
+      <animate attributeName="r" values="25;30;25" dur="4s" repeatCount="indefinite" begin="1.8s"/>
+    </circle>
+    <text x="520" y="310" font-family="sans-serif" font-size="10" fill="rgba(5, 150, 105, 0.7)" text-anchor="middle">Implementation</text>
+    
+    <!-- Step 5: Testing -->
+    <circle cx="660" cy="320" r="25" fill="none" stroke="rgba(59, 130, 246, 0.5)" stroke-width="3">
+      <animate attributeName="r" values="25;30;25" dur="4s" repeatCount="indefinite" begin="2.4s"/>
+    </circle>
+    <text x="660" y="370" font-family="sans-serif" font-size="10" fill="rgba(59, 130, 246, 0.7)" text-anchor="middle">Testing</text>
+    
+    <!-- Step 6: Deployment -->
+    <circle cx="800" cy="380" r="25" fill="none" stroke="rgba(147, 51, 234, 0.5)" stroke-width="3">
+      <animate attributeName="r" values="25;30;25" dur="4s" repeatCount="indefinite" begin="3s"/>
+    </circle>
+    <text x="800" y="430" font-family="sans-serif" font-size="10" fill="rgba(147, 51, 234, 0.7)" text-anchor="middle">Deployment</text>
+    
+    <!-- Step 7: Optimization (Bottom Right) -->
+    <circle cx="940" cy="440" r="25" fill="none" stroke="rgba(220, 38, 38, 0.5)" stroke-width="3">
+      <animate attributeName="r" values="25;30;25" dur="4s" repeatCount="indefinite" begin="3.6s"/>
+    </circle>
+    <text x="940" y="490" font-family="sans-serif" font-size="10" fill="rgba(220, 38, 38, 0.7)" text-anchor="middle">Optimization</text>
+    
+    <!-- Connecting Flow Lines (Descending Staircase Pattern) -->
+    <path d="M 125 90 Q 180 115 215 130" stroke="url(#flowGradient)" stroke-width="3" fill="none" marker-end="url(#arrow)">
+      <animate attributeName="stroke-dasharray" values="0,200;200,200" dur="2s" repeatCount="indefinite"/>
+    </path>
+    
+    <path d="M 265 150 Q 320 175 355 190" stroke="url(#flowGradient)" stroke-width="3" fill="none" marker-end="url(#arrow)">
+      <animate attributeName="stroke-dasharray" values="0,200;200,200" dur="2s" repeatCount="indefinite" begin="0.3s"/>
+    </path>
+    
+    <path d="M 405 210 Q 460 235 495 250" stroke="url(#flowGradient)" stroke-width="3" fill="none" marker-end="url(#arrow)">
+      <animate attributeName="stroke-dasharray" values="0,200;200,200" dur="2s" repeatCount="indefinite" begin="0.6s"/>
+    </path>
+    
+    <path d="M 545 270 Q 600 295 635 310" stroke="url(#flowGradient)" stroke-width="3" fill="none" marker-end="url(#arrow)">
+      <animate attributeName="stroke-dasharray" values="0,200;200,200" dur="2s" repeatCount="indefinite" begin="0.9s"/>
+    </path>
+    
+    <path d="M 685 330 Q 740 355 775 370" stroke="url(#flowGradient)" stroke-width="3" fill="none" marker-end="url(#arrow)">
+      <animate attributeName="stroke-dasharray" values="0,200;200,200" dur="2s" repeatCount="indefinite" begin="1.2s"/>
+    </path>
+    
+    <path d="M 825 390 Q 880 415 915 430" stroke="url(#flowGradient)" stroke-width="3" fill="none" marker-end="url(#arrow)">
+      <animate attributeName="stroke-dasharray" values="0,200;200,200" dur="2s" repeatCount="indefinite" begin="1.5s"/>
+    </path>
+  </g>
+  
+  <!-- Methodology elements scattered throughout -->
+  <g opacity="0.3">
+    <!-- Agile sprint cycles -->
+    <g transform="translate(180, 520)">
+      <circle cx="0" cy="0" r="12" fill="none" stroke="rgba(22, 163, 74, 0.4)" stroke-width="2">
+        <animate attributeName="stroke-opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <text x="0" y="20" font-family="monospace" font-size="7" fill="rgba(22, 163, 74, 0.6)" text-anchor="middle">Sprint 1</text>
+    </g>
+    
+    <g transform="translate(320, 550)">
+      <circle cx="0" cy="0" r="12" fill="none" stroke="rgba(22, 163, 74, 0.4)" stroke-width="2">
+        <animate attributeName="stroke-opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" begin="1s"/>
+      </circle>
+      <text x="0" y="20" font-family="monospace" font-size="7" fill="rgba(22, 163, 74, 0.6)" text-anchor="middle">Sprint 2</text>
+    </g>
+    
+    <g transform="translate(460, 580)">
+      <circle cx="0" cy="0" r="12" fill="none" stroke="rgba(22, 163, 74, 0.4)" stroke-width="2">
+        <animate attributeName="stroke-opacity" values="0.4;0.8;0.4" dur="3s" repeatCount="indefinite" begin="2s"/>
+      </circle>
+      <text x="0" y="20" font-family="monospace" font-size="7" fill="rgba(22, 163, 74, 0.6)" text-anchor="middle">Sprint 3</text>
+    </g>
+    
+    <!-- Quality gates -->
+    <rect x="600" y="520" width="60" height="15" rx="8" fill="none" stroke="rgba(37, 99, 235, 0.4)" stroke-width="2">
+      <animate attributeName="stroke-opacity" values="0.4;0.8;0.4" dur="4s" repeatCount="indefinite"/>
+    </rect>
+    <text x="630" y="532" font-family="monospace" font-size="8" fill="rgba(37, 99, 235, 0.6)" text-anchor="middle">QA Gates</text>
+    
+    <!-- Testing phases -->
+    <polygon points="750,560 765,545 780,560 765,575" fill="none" stroke="rgba(16, 185, 129, 0.4)" stroke-width="2">
+      <animate attributeName="stroke-opacity" values="0.4;0.8;0.4" dur="3.5s" repeatCount="indefinite" begin="1s"/>
+    </polygon>
+    <text x="765" y="590" font-family="monospace" font-size="8" fill="rgba(16, 185, 129, 0.6)" text-anchor="middle">Testing</text>
+    
+    <!-- DevOps elements -->
+    <g transform="translate(900, 520)">
+      <!-- CI/CD Pipeline visualization -->
+      <rect x="-15" y="-5" width="30" height="10" rx="2" fill="none" stroke="rgba(147, 51, 234, 0.4)" stroke-width="1">
+        <animate attributeName="stroke-opacity" values="0.4;0.8;0.4" dur="2.5s" repeatCount="indefinite"/>
+      </rect>
+      <text x="0" y="15" font-family="monospace" font-size="7" fill="rgba(147, 51, 234, 0.6)" text-anchor="middle">CI/CD</text>
+    </g>
+  </g>
+  
+  <!-- Abstract workflow patterns -->
+  <g opacity="0.2">
+    <!-- Dotted workflow lines following the staircase -->
+    <path d="M 50 50 Q 200 100 400 180 Q 600 260 800 350 Q 900 400 1100 480" stroke="rgba(22, 163, 74, 0.3)" stroke-width="2" stroke-dasharray="5,5" fill="none">
+      <animate attributeName="stroke-dashoffset" values="0;-20" dur="6s" repeatCount="indefinite"/>
+    </path>
+    
+    <path d="M 80 580 Q 300 520 500 480 Q 700 440 900 400 Q 1000 380 1150 360" stroke="rgba(37, 99, 235, 0.3)" stroke-width="2" stroke-dasharray="3,3" fill="none">
+      <animate attributeName="stroke-dashoffset" values="0;-15" dur="5s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Process step icons (subtle background elements) -->
+  <g opacity="0.2">
+    <!-- Discovery icon -->
+    <circle cx="50" cy="100" r="3" fill="rgba(37, 99, 235, 0.5)">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Research icon -->
+    <rect x="200" y="160" width="6" height="4" fill="rgba(22, 163, 74, 0.5)">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="4s" repeatCount="indefinite" begin="0.6s"/>
+    </rect>
+    
+    <!-- Design icon -->
+    <polygon points="350,220 360,210 370,220 360,230" fill="rgba(16, 185, 129, 0.5)">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="4s" repeatCount="indefinite" begin="1.2s"/>
+    </polygon>
+    
+    <!-- Implementation icon -->
+    <path d="M 490 280 L 500 270 L 510 280" stroke="rgba(5, 150, 105, 0.5)" stroke-width="2" fill="none">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="4s" repeatCount="indefinite" begin="1.8s"/>
+    </path>
+    
+    <!-- Testing icon -->
+    <circle cx="630" cy="340" r="2" fill="rgba(59, 130, 246, 0.5)">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="4s" repeatCount="indefinite" begin="2.4s"/>
+    </circle>
+    
+    <!-- Deployment icon -->
+    <polygon points="770,400 780,390 790,400 780,410" fill="rgba(147, 51, 234, 0.5)">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="4s" repeatCount="indefinite" begin="3s"/>
+    </polygon>
+    
+    <!-- Optimization icon -->
+    <path d="M 920 460 Q 930 450 940 460" stroke="rgba(220, 38, 38, 0.5)" stroke-width="2" fill="none">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="4s" repeatCount="indefinite" begin="3.6s"/>
+    </path>
+  </g>
+</svg>

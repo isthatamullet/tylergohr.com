@@ -1,10 +1,23 @@
 "use client";
 
+import Image from 'next/image';
+import { useRef } from 'react';
+import { ClientMotionDiv, useScroll, useTransform } from '@/app/2/lib/framer-motion-client';
 import { Button } from '../ui/Button/Button';
 import { LogoFloat } from './LogoFloat';
 import styles from './Hero.module.css';
 
 export default function Hero() {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+
+  // Parallax transforms for the hero graphic
+  const graphicY = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const graphicScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const graphicOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.3]);
 
   const navigateToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -21,6 +34,7 @@ export default function Hero() {
 
   return (
     <section
+      ref={heroRef}
       id="hero"
       className={styles.heroSection}
       aria-labelledby="hero-title"
@@ -32,18 +46,27 @@ export default function Hero() {
       <div className={styles.heroContainer}>
         {/* Hero Graphic (Left Side) */}
         <div className={styles.heroGraphic}>
-          <div className={styles.graphicPlaceholder}>
-            <div className={styles.graphicContent}>
-              {/* Placeholder for future custom graphic */}
-              <div className={styles.techIllustration}>
-                <div className={styles.networkNode}></div>
-                <div className={styles.networkNode}></div>
-                <div className={styles.networkNode}></div>
-                <div className={styles.dataFlow}></div>
-                <div className={styles.dataFlow}></div>
-              </div>
-            </div>
-          </div>
+          <ClientMotionDiv 
+            className={styles.graphicContainer}
+            style={{
+              y: graphicY,
+              scale: graphicScale,
+              opacity: graphicOpacity
+            }}
+            transition={{
+              type: "tween",
+              ease: "linear"
+            }}
+          >
+            <Image 
+              src="/images/hero-graphic.svg"
+              alt="Enterprise Solutions Architecture - Interactive network diagram showing connected systems and data flows"
+              className={styles.heroImage}
+              width={580}
+              height={400}
+              priority={true}
+            />
+          </ClientMotionDiv>
         </div>
 
         {/* Hero Content (Right Side) */}

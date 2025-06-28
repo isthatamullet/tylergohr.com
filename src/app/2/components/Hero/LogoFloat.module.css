@@ -39,38 +39,33 @@
   transition: all 0.2s ease;
 }
 
-.logoPlaceholder {
-  /* Temporary logo styling */
+.logoImage {
+  /* Logo image styling */
   width: 60px;
   height: 60px;
   
-  /* Professional appearance */
-  background: linear-gradient(135deg, var(--accent-green), #059669);
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
+  /* High quality scaling */
+  object-fit: contain;
+  object-position: center;
   
-  /* Center content */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  /* Shadow for depth */
-  box-shadow: 
-    0 4px 20px rgba(22, 163, 74, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
+  /* Accessibility */
+  user-select: none;
   
   /* Smooth interactions */
   transition: all 0.3s ease;
   cursor: pointer;
+  
+  /* Performance optimization */
+  will-change: transform;
+  
+  /* Subtle drop shadow for depth */
+  filter: drop-shadow(0 4px 20px rgba(22, 163, 74, 0.3));
 }
 
-.logoPlaceholder:hover {
+.logoContainer:hover .logoImage {
   /* Hover effect */
   transform: scale(1.05);
-  box-shadow: 
-    0 6px 30px rgba(22, 163, 74, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+  filter: drop-shadow(0 6px 30px rgba(22, 163, 74, 0.4));
 }
 
 .logoInitials {
@@ -98,7 +93,7 @@
   }
   
   .logoContainer,
-  .logoPlaceholder {
+  .logoImage {
     width: 55px;
     height: 55px;
   }
@@ -116,7 +111,7 @@
   }
   
   .logoContainer,
-  .logoPlaceholder {
+  .logoImage {
     width: 50px;
     height: 50px;
   }
@@ -134,7 +129,7 @@
   }
   
   .logoContainer,
-  .logoPlaceholder {
+  .logoImage {
     width: 45px;
     height: 45px;
   }
@@ -229,15 +224,12 @@
 }
 
 /* Enhanced click interaction feedback */
-.logoFloat:hover .logoPlaceholder {
+.logoFloat:hover .logoImage {
   transform: scale(1.1);
-  box-shadow: 
-    0 8px 40px rgba(22, 163, 74, 0.5),
-    0 0 0 2px rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
+  filter: drop-shadow(0 8px 40px rgba(22, 163, 74, 0.5));
 }
 
-.logoFloat:active .logoPlaceholder {
+.logoFloat:active .logoImage {
   transform: scale(1.05);
   transition: transform 0.1s ease;
 }
@@ -247,26 +239,23 @@
   outline: none;
 }
 
-.logoFloat:focus .logoPlaceholder {
-  box-shadow: 
-    0 6px 30px rgba(22, 163, 74, 0.4),
-    0 0 0 3px rgba(59, 130, 246, 0.6);
-  border-color: rgba(59, 130, 246, 0.8);
+.logoFloat:focus .logoImage {
+  filter: drop-shadow(0 6px 30px rgba(22, 163, 74, 0.4)) drop-shadow(0 0 0 3px rgba(59, 130, 246, 0.6));
 }
 
 /* State-specific enhancements */
-.logoFloat--hero:hover .logoPlaceholder {
+.logoFloat--hero:hover .logoImage {
   /* Slightly more prominent in hero state */
   transform: scale(1.15);
 }
 
-.logoFloat--navigation:hover .logoPlaceholder {
+.logoFloat--navigation:hover .logoImage {
   /* Subtle interaction in navigation state */
   transform: scale(1.08);
 }
 
 /* Loading state indicator */
-.logoFloat[data-logo-state="floating"] .logoPlaceholder {
+.logoFloat[data-logo-state="floating"] .logoImage {
   /* Subtle pulsing during transition */
   animation: logoFloatPulse 1.5s ease-in-out infinite;
 }
