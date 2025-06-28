@@ -18,11 +18,17 @@ import TopNavigation from "./TopNavigation";
 export default function ConditionalTopNavigation() {
   const pathname = usePathname();
   
-  // Don't render TopNavigation on /2 routes - let /2 Navigation handle it
+  // Debug logging to verify conditional logic
+  console.log('[ConditionalTopNavigation] Current pathname:', pathname);
+  console.log('[ConditionalTopNavigation] Starts with /2:', pathname.startsWith('/2'));
+  
+  // TEMPORARILY FORCE RENDER ON /2 FOR DEBUGGING
   if (pathname.startsWith('/2')) {
-    return null;
+    console.log('[ConditionalTopNavigation] FORCE RENDERING TopNavigation on /2 for debugging');
+    return <TopNavigation />;
   }
   
   // Render TopNavigation for all other routes
+  console.log('[ConditionalTopNavigation] Rendering TopNavigation for non-/2 route');
   return <TopNavigation />;
 }

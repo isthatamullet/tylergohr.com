@@ -201,7 +201,8 @@ export default function Layout2({
         <WebVitals />
 
         {/* Navigation - /2 Redesigned Site */}
-        <Navigation />
+        {/* TEMPORARILY DISABLED FOR DEBUGGING */}
+        {/* <Navigation /> */}
 
         {/* Main application content with Framer Motion provider */}
         <div id="app-root">{children}</div>

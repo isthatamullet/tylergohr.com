@@ -27,6 +27,9 @@ export default function Navigation({ className = "" }: NavigationProps) {
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
 
+  // Debug logging to verify /2 Navigation is rendering
+  console.log('[/2 Navigation] Component is rendering, pathname:', pathname);
+
   // Navigation height for offset calculation
   const NAV_HEIGHT = 70;
 
