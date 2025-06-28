@@ -107,26 +107,42 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className }) => {
     setSubmitStatus('submitting')
 
     try {
-      // For now, simulate form submission since we don't have backend setup
-      // In production, this would make an API call to /api/contact
-      await new Promise(resolve => setTimeout(resolve, 1500)) // Simulate network delay
-      
-      // Simulate successful submission
-      setSubmitStatus('success')
-      
-      // Reset form after successful submission
-      setFormData({
-        name: '',
-        email: '',
-        projectType: 'web-app',
-        message: ''
+      // Submit form data to contact API
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       })
-      
-      // Reset success status after 5 seconds
-      setTimeout(() => setSubmitStatus('idle'), 5000)
+
+      const result = await response.json()
+
+      if (response.ok && result.success) {
+        // Successful submission
+        setSubmitStatus('success')
+        
+        // Reset form after successful submission
+        setFormData({
+          name: '',
+          email: '',
+          projectType: 'web-app',
+          message: ''
+        })
+        
+        // Reset success status after 5 seconds
+        setTimeout(() => setSubmitStatus('idle'), 5000)
+      } else {
+        // API returned an error
+        console.error('Contact form API error:', result.message)
+        setSubmitStatus('error')
+        
+        // Reset error status after 5 seconds
+        setTimeout(() => setSubmitStatus('idle'), 5000)
+      }
       
     } catch (error) {
-      console.error('Contact form error:', error)
+      console.error('Contact form submission error:', error)
       setSubmitStatus('error')
       
       // Reset error status after 5 seconds
