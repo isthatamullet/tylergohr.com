@@ -8,6 +8,30 @@
   line-height: var(--body-line-height);
 }
 
+/* Loading placeholder for lazy-loaded sections */
+.loadingPlaceholder {
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  font-family: var(--font-family-primary);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  margin: 2rem 0;
+  animation: loadingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes loadingPulse {
+  0%, 100% { 
+    opacity: 0.6; 
+  }
+  50% { 
+    opacity: 0.3; 
+  }
+}
+
 /* ==========================================================================
    HERO SECTION - Enterprise Solutions Architect
    ========================================================================== */

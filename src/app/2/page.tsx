@@ -1,14 +1,17 @@
 "use client";
 
+import { Suspense, lazy } from "react";
 import styles from "./page.module.css";
 import Navigation from "./components/Navigation/Navigation";
 import Hero from "./components/Hero/Hero";
 import About from "./components/About/About";
-import Results from "./components/Results/Results";
-import CaseStudiesPreview from "./components/CaseStudies/CaseStudiesPreview";
-import HowIWorkPreview from "./components/HowIWork/HowIWorkPreview";
-import TechnicalExpertisePreview from "./components/TechnicalExpertise/TechnicalExpertisePreview";
-import ContactSection from "./components/Contact/ContactSection";
+
+// Lazy load below-the-fold components for better performance
+const Results = lazy(() => import("./components/Results/Results"));
+const CaseStudiesPreview = lazy(() => import("./components/CaseStudies/CaseStudiesPreview"));
+const HowIWorkPreview = lazy(() => import("./components/HowIWork/HowIWorkPreview"));
+const TechnicalExpertisePreview = lazy(() => import("./components/TechnicalExpertise/TechnicalExpertisePreview"));
+const ContactSection = lazy(() => import("./components/Contact/ContactSection"));
 
 export default function EnterprisePage() {
 
@@ -25,19 +28,29 @@ export default function EnterprisePage() {
         <About />
 
         {/* Results & Impact Section - Measurable Outcomes */}
-        <Results />
+        <Suspense fallback={<div className={styles.loadingPlaceholder}>Loading metrics...</div>}>
+          <Results />
+        </Suspense>
 
         {/* Case Studies Preview Section - 4 Interactive Cards */}
-        <CaseStudiesPreview />
+        <Suspense fallback={<div className={styles.loadingPlaceholder}>Loading case studies...</div>}>
+          <CaseStudiesPreview />
+        </Suspense>
 
         {/* How I Work Preview Section - 4 Process Highlight Cards */}
-        <HowIWorkPreview />
+        <Suspense fallback={<div className={styles.loadingPlaceholder}>Loading process overview...</div>}>
+          <HowIWorkPreview />
+        </Suspense>
 
         {/* Technical Expertise Preview Section - 4 Glassmorphism Cards */}
-        <TechnicalExpertisePreview />
+        <Suspense fallback={<div className={styles.loadingPlaceholder}>Loading technical expertise...</div>}>
+          <TechnicalExpertisePreview />
+        </Suspense>
 
         {/* Contact Section - Dual-Column Form & Professional Information */}
-        <ContactSection />
+        <Suspense fallback={<div className={styles.loadingPlaceholder}>Loading contact form...</div>}>
+          <ContactSection />
+        </Suspense>
       </main>
     </>
   );
