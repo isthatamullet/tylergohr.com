@@ -18,16 +18,17 @@
   padding: 60px 0 !important;
 }
 
-.heroContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  height: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 2rem;
+.compactHero .heroContainer {
+  /* Match Technical Expertise & Case Studies positioning exactly */
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  height: 100% !important;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
   min-height: auto !important;
 }
 
