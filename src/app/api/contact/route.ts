@@ -31,8 +31,9 @@ const projectTypeLabels = {
   'other': 'Other / Let\'s Discuss'
 };
 
-// Validate environment variables
+// Validate environment variables at runtime only
 function validateConfig() {
+  // Only validate when actually sending emails, not during build
   const required = ['EMAIL_USER', 'EMAIL_PASSWORD', 'EMAIL_TO'];
   const missing = required.filter(key => !process.env[key]);
   
@@ -209,6 +210,7 @@ Source: Tyler Gohr Portfolio (tylergohr.com)
 
 // Send email notification
 async function sendEmailNotification(data: ContactFormData): Promise<void> {
+  // Validate config at runtime, not build time
   validateConfig();
   
   // Create transporter
