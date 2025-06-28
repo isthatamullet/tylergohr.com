@@ -163,14 +163,21 @@
   }
 }
 
-/* Touch device optimizations */
-@media (hover: none) {
+/* Touch device optimizations - only disable hover on pure touch devices */
+@media (hover: none) and (pointer: coarse) {
   .dropdownItem:hover {
     background: transparent;
   }
   
   .dropdownItem:active {
     background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Ensure hover works on devices with fine pointers (mouse, trackpad) */
+@media (hover: hover) and (pointer: fine) {
+  .dropdownItem:hover {
+    background: rgba(255, 255, 255, 0.05);
   }
 }
 
