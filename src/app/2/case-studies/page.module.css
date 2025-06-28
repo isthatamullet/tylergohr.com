@@ -560,8 +560,8 @@
 /* Extra Small Mobile (480px and below) */
 @media (max-width: 480px) {
   .compactHero {
-    min-height: 220px !important;
-    max-height: 220px !important;
+    min-height: 280px !important;
+    max-height: 280px !important;
     padding: 40px 0 !important;
   }
   
@@ -645,13 +645,14 @@
    ========================================================================== */
 
 .compactHero {
-  /* Standardized hero dimensions across all detail pages */
-  min-height: 300px !important;
-  max-height: 300px !important;
+  /* Keep current Case Studies blue bar dimensions */
+  min-height: 400px !important;
+  max-height: 400px !important;
   
-  /* Override default Section hero behavior */
-  display: block !important;
-  align-items: initial !important;
+  /* Center content vertically */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   
   /* Consistent padding across all detail pages */
   padding: 60px 0 !important;
@@ -662,9 +663,12 @@
 }
 
 .compactHero .heroContainer {
-  /* Override hero container centering */
+  /* Center content vertically in hero */
   min-height: auto !important;
-  justify-content: initial !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  height: 100% !important;
 }
 
 /* ==========================================================================

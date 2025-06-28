@@ -185,7 +185,7 @@ export default function CaseStudiesDetailPage() {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section - Blue Bar Only */}
       <Section background="case-studies" paddingY="md" className={styles.compactHero}>
         <div 
           ref={(el) => { sectionRefs.current['hero'] = el }}
@@ -201,16 +201,22 @@ export default function CaseStudiesDetailPage() {
               Deep-dive into strategic technical leadership delivering measurable results across Fortune 500 enterprises.
             </p>
           </header>
+        </div>
+      </Section>
 
-          {/* Browser Tab Interface */}
-          <div className={`${styles.browserSection} ${visibleSections.has('hero') ? styles.revealed : ''}`}>
-            <BrowserTabs 
-              tabs={caseStudyTabs}
-              defaultTab="content-distribution-platform"
-              onTabChange={handleTabChange}
-              className={styles.caseStudiesBrowser}
-            />
-          </div>
+      {/* Browser Section - Black Background */}
+      <Section background="hero" paddingY="lg">
+        <div 
+          ref={(el) => { sectionRefs.current['browser'] = el }}
+          data-section-id="browser"
+          className={`${styles.browserSection} ${visibleSections.has('hero') ? styles.revealed : ''}`}
+        >
+          <BrowserTabs 
+            tabs={caseStudyTabs}
+            defaultTab="content-distribution-platform"
+            onTabChange={handleTabChange}
+            className={styles.caseStudiesBrowser}
+          />
         </div>
       </Section>
 

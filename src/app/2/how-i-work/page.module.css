@@ -5,13 +5,14 @@
    ========================================================================== */
 
 .compactHero {
-  /* Standardized hero dimensions across all detail pages */
-  min-height: 300px !important;
-  max-height: 300px !important;
+  /* Match Case Studies blue bar dimensions exactly */
+  min-height: 400px !important;
+  max-height: 400px !important;
   
   /* Override default Section hero behavior */
-  display: block !important;
-  align-items: initial !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   
   /* Consistent padding across all detail pages */
   padding: 60px 0 !important;
@@ -27,6 +28,7 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 0 2rem;
+  min-height: auto !important;
 }
 
 .heroHeader {
@@ -776,8 +778,8 @@
 /* Extra Small Mobile */
 @media (max-width: 480px) {
   .compactHero {
-    min-height: 220px !important;
-    max-height: 220px !important;
+    min-height: 280px !important;
+    max-height: 280px !important;
     padding: 40px 0 !important;
   }
   
