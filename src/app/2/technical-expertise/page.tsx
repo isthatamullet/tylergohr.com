@@ -250,7 +250,7 @@ export default function TechnicalExpertiseDetailPage() {
 
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section - Blue Bar Only */}
       <Section background="technical-expertise" paddingY="md" className={styles.compactHero}>
         <div 
           ref={(el) => { sectionRefs.current['hero'] = el }}
@@ -266,17 +266,23 @@ export default function TechnicalExpertiseDetailPage() {
               16+ years of enterprise leadership experience combined with cutting-edge modern development practices and proven results.
             </p>
           </header>
+        </div>
+      </Section>
 
-          {/* Browser Tab Interface */}
-          <div className={`${styles.browserSection} ${visibleSections.has('hero') ? styles.revealed : ''}`}>
-            <BrowserTabs 
-              tabs={technicalExpertiseTabs}
-              defaultTab="frontend-architecture"
-              onTabChange={handleTabChange}
-              className={styles.technicalExpertiseBrowser}
-              urlPath="technical-expertise"
-            />
-          </div>
+      {/* Browser Section - Black Background */}
+      <Section background="hero" paddingY="lg">
+        <div 
+          ref={(el) => { sectionRefs.current['browser'] = el }}
+          data-section-id="browser"
+          className={`${styles.browserSection} ${visibleSections.has('hero') ? styles.revealed : ''}`}
+        >
+          <BrowserTabs 
+            tabs={technicalExpertiseTabs}
+            defaultTab="frontend-architecture"
+            onTabChange={handleTabChange}
+            className={styles.technicalExpertiseBrowser}
+            urlPath="technical-expertise"
+          />
         </div>
       </Section>
 
