@@ -1,0 +1,188 @@
+/* Tyler Gohr Portfolio - Enterprise Solutions Architect Brand Tokens */
+/* Implementation for /2 directory - Day 1 Foundation Setup */
+
+:root {
+  /* ==========================================================================
+     COLOR SYSTEM - Primary Palette
+     ========================================================================== */
+  
+  /* Background Colors - Final Selections */
+  --hero-bg: #0a0a0a;           /* Hero Section - Pure black */
+  --about-bg: #1a1a1a;          /* About Section - Dark grey */
+  --results-bg: #10b981;        /* Results & Impact - Bright green */
+  --case-studies-bg: #1d4ed8;   /* Case Studies - Navy blue */
+  --how-i-work-bg: #ec4899;     /* How I Work - Hot pink */
+  --contact-bg: #fbbf24;        /* Contact Section - Bright yellow */
+  --footer-bg: #000000;         /* Footer - Black */
+
+  /* Text Colors */
+  --text-on-dark: #ffffff;      /* White text on dark backgrounds */
+  --text-on-light: #000000;     /* Black text on light backgrounds */
+  --text-secondary: #94a3b8;    /* Secondary text (existing from CLAUDE.md) */
+
+  /* Accent Colors (from existing portfolio) */
+  --accent-green: #16a34a;      /* Secondary green accent */
+  --accent-red: #dc2626;        /* Red accent for urgency/alerts */
+  --interactive-blue: #2563eb;  /* Interactive elements */
+
+  /* ==========================================================================
+     TYPOGRAPHY SYSTEM - JetBrains Mono
+     ========================================================================== */
+  
+  /* Primary Font Family */
+  --font-family-primary: 'JetBrains Mono', monospace;
+
+  /* Font Weight Scale */
+  --font-light: 400;      /* Body text, paragraphs */
+  --font-medium: 500;     /* Subheadings, secondary emphasis */
+  --font-semibold: 600;   /* Buttons, strong emphasis */
+  --font-bold: 700;       /* Main headings, section titles */
+
+  /* Responsive Font Scale - JetBrains Mono Optimized */
+  --h1-size: clamp(2.5rem, 5vw, 4rem);     /* 40px-64px - Hero titles */
+  --h2-size: clamp(2rem, 4vw, 3rem);       /* 32px-48px - Section headings */
+  --h3-size: clamp(1.5rem, 3vw, 2rem);     /* 24px-32px - Subsection titles */
+  --body-size: clamp(1rem, 2vw, 1.125rem); /* 16px-18px - Paragraph text */
+  --small-size: clamp(0.875rem, 1.5vw, 1rem); /* 14px-16px - Captions, meta */
+
+  /* Line Heights - Monospace Optimized */
+  --h1-line-height: 1.1;    /* Tight for impact */
+  --h2-line-height: 1.2;    /* Slightly looser */
+  --h3-line-height: 1.3;    /* Balanced */
+  --body-line-height: 1.6;  /* Readable for monospace */
+  --small-line-height: 1.4; /* Compact but clear */
+
+  /* ==========================================================================
+     SPACING SYSTEM - Modern Container & Element Spacing
+     ========================================================================== */
+  
+  /* Modern Container System - 2025 Standards */
+  --container-max-width: 1400px;              /* Wide-screen optimized */
+  --container-padding: clamp(1rem, 5vw, 4rem); /* Responsive edge spacing */
+
+  /* Section Padding Standards */
+  --section-padding-y: clamp(4rem, 8vw, 8rem); /* Vertical rhythm */
+  --section-padding-x: clamp(1rem, 5vw, 4rem); /* Horizontal breathing room */
+
+  /* Element Spacing System */
+  --spacing-xs: 0.5rem;   /* 8px - Small gaps */
+  --spacing-sm: 1rem;     /* 16px - Standard spacing */
+  --spacing-md: 1.5rem;   /* 24px - Medium gaps */
+  --spacing-lg: 2rem;     /* 32px - Large spacing */
+  --spacing-xl: 3rem;     /* 48px - Section dividers */
+  --spacing-2xl: 4rem;    /* 64px - Major separations */
+
+  /* ==========================================================================
+     RESPONSIVE BREAKPOINTS
+     ========================================================================== */
+  
+  /* Mobile-First Breakpoint System */
+  --mobile: 320px;    /* Small phones - Base design */
+  --tablet: 768px;    /* iPads, larger phones landscape */
+  --desktop: 1200px;  /* Laptops, desktops */
+  --wide: 1400px;     /* Large monitors, 4K displays */
+
+  /* ==========================================================================
+     COMPATIBILITY WITH EXISTING PORTFOLIO
+     ========================================================================== */
+  
+  /* Maintain compatibility with existing CSS custom properties */
+  --portfolio-dark: var(--hero-bg);
+  --portfolio-text-primary: var(--text-on-dark);
+  --portfolio-text-secondary: var(--text-secondary);
+  --portfolio-accent-green: var(--accent-green);
+  --portfolio-accent-red: var(--accent-red);
+  --portfolio-interactive: var(--interactive-blue);
+
+  /* ==========================================================================
+     DETAIL PAGE LAYOUT TOKENS - Consistency System
+     ========================================================================== */
+
+  /* Hero Layout Standards - Eliminates duplication across detail pages */
+  --detail-hero-height: 360px;                          /* Standardized hero dimensions */
+  --detail-hero-padding: 60px 0;                        /* Consistent vertical padding */
+  --detail-hero-max-width: 800px;                       /* Content container width */
+  --detail-hero-container-padding: 0 2rem;              /* Horizontal padding */
+
+  /* Animation Standards */
+  --detail-reveal-transform: translateY(30px);          /* Consistent reveal animation */
+  --detail-reveal-duration: 0.8s;                       /* Animation timing */
+  --detail-reveal-easing: cubic-bezier(0.16, 1, 0.3, 1); /* Professional easing curve */
+
+  /* Typography Standards */
+  --detail-hero-title-margin: 0 0 24px 0;               /* Title spacing */
+  --detail-hero-description-size: 1.25rem;              /* Description text size */
+}
+
+/* ==========================================================================
+   UTILITY CLASSES - Quick Application of Brand Tokens
+   ========================================================================== */
+
+/* Typography Utilities */
+.heading-1 {
+  font-family: var(--font-family-primary);
+  font-size: var(--h1-size);
+  font-weight: var(--font-bold);
+  line-height: var(--h1-line-height);
+}
+
+.heading-2 {
+  font-family: var(--font-family-primary);
+  font-size: var(--h2-size);
+  font-weight: var(--font-bold);
+  line-height: var(--h2-line-height);
+}
+
+.heading-3 {
+  font-family: var(--font-family-primary);
+  font-size: var(--h3-size);
+  font-weight: var(--font-semibold);
+  line-height: var(--h3-line-height);
+}
+
+.body-text {
+  font-family: var(--font-family-primary);
+  font-size: var(--body-size);
+  font-weight: var(--font-light);
+  line-height: var(--body-line-height);
+}
+
+.small-text {
+  font-family: var(--font-family-primary);
+  font-size: var(--small-size);
+  font-weight: var(--font-light);
+  line-height: var(--small-line-height);
+}
+
+/* Color Utilities */
+.text-on-dark { color: var(--text-on-dark); }
+.text-on-light { color: var(--text-on-light); }
+.text-secondary { color: var(--text-secondary); }
+
+/* Background Utilities */
+.bg-hero { background-color: var(--hero-bg); }
+.bg-about { background-color: var(--about-bg); }
+.bg-results { background-color: var(--results-bg); }
+.bg-case-studies { background-color: var(--case-studies-bg); }
+.bg-how-i-work { background-color: var(--how-i-work-bg); }
+.bg-contact { background-color: var(--contact-bg); }
+.bg-footer { background-color: var(--footer-bg); }
+
+/* Spacing Utilities */
+.spacing-xs { margin: var(--spacing-xs); }
+.spacing-sm { margin: var(--spacing-sm); }
+.spacing-md { margin: var(--spacing-md); }
+.spacing-lg { margin: var(--spacing-lg); }
+.spacing-xl { margin: var(--spacing-xl); }
+.spacing-2xl { margin: var(--spacing-2xl); }
+
+/* Container Utilities */
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.section {
+  padding: var(--section-padding-y) var(--section-padding-x);
+}

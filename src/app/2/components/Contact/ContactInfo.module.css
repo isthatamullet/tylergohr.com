@@ -1,0 +1,389 @@
+/* Contact Info - Professional Information & Trust Elements */
+.contactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Response Time Section */
+.responseTime {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.1) 100%);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.responseIcon {
+  font-size: 2rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 8px rgba(34, 197, 94, 0.3));
+}
+
+.responseContent {
+  flex: 1;
+}
+
+.responseTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #22c55e;
+  margin: 0 0 4px 0;
+  line-height: 1.2;
+}
+
+.responseText {
+  font-size: 1rem;
+  color: #86efac;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Audience Section */
+.audienceSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.audienceCard {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.audienceCard:hover {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.cardIcon {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.cardTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 12px 0;
+  line-height: 1.3;
+}
+
+.cardDescription {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Professional Links */
+.professionalLinks {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.linksTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 20px 0;
+  line-height: 1.3;
+}
+
+.linksList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.linkItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #e2e8f0;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.linkItem::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.linkItem:hover {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: #3b82f6;
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.linkItem:hover::before {
+  left: 100%;
+}
+
+.linkIcon {
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.linkText {
+  flex: 1;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.linkArrow {
+  font-size: 1rem;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.linkItem:hover .linkArrow {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+/* Trust Elements */
+.trustElements {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.trustTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 20px 0;
+  line-height: 1.3;
+}
+
+.trustList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.trustItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+.trustIcon {
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.trustText {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Availability */
+.availability {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.availabilityTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+  line-height: 1.3;
+}
+
+.availabilityContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.availabilityText {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.availabilityText strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.availabilityNote {
+  color: #86efac;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 12px 0 0 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile Responsive */
+@media (max-width: 767px) {
+  .contactInfo {
+    gap: 32px;
+  }
+  
+  .responseTime,
+  .audienceCard,
+  .professionalLinks,
+  .trustElements,
+  .availability {
+    padding: 20px;
+  }
+  
+  .responseTime {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .responseIcon {
+    font-size: 2.5rem;
+  }
+  
+  .responseTitle {
+    font-size: 1.375rem;
+  }
+  
+  .responseText {
+    font-size: 1.1rem;
+  }
+  
+  .audienceSection {
+    gap: 20px;
+  }
+  
+  .cardIcon {
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+  }
+  
+  .cardTitle {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
+  
+  .cardDescription {
+    font-size: 1rem;
+  }
+  
+  .linkItem {
+    padding: 16px;
+  }
+  
+  .linkText {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contactInfo {
+    gap: 24px;
+  }
+  
+  .responseTime,
+  .audienceCard,
+  .professionalLinks,
+  .trustElements,
+  .availability {
+    padding: 16px;
+  }
+  
+  .responseTitle {
+    font-size: 1.25rem;
+  }
+  
+  .responseText {
+    font-size: 1rem;
+  }
+  
+  .cardTitle,
+  .linksTitle,
+  .trustTitle,
+  .availabilityTitle {
+    font-size: 1.125rem;
+  }
+  
+  .linkItem {
+    padding: 14px;
+  }
+}
+
+/* Accessibility and Performance */
+@media (prefers-reduced-motion: reduce) {
+  .audienceCard,
+  .linkItem {
+    transition: none;
+  }
+  
+  .linkItem:hover {
+    transform: none;
+  }
+  
+  .linkItem:hover .linkArrow {
+    transform: none;
+  }
+  
+  .linkItem::before {
+    transition: none;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .responseTime,
+  .audienceCard,
+  .professionalLinks,
+  .trustElements,
+  .availability {
+    border-width: 2px;
+  }
+  
+  .linkItem {
+    border-width: 2px;
+  }
+  
+  .linkItem:hover {
+    border-width: 2px;
+  }
+}
+
+/* GPU acceleration */
+.audienceCard,
+.linkItem {
+  will-change: transform;
+  transform: translateZ(0);
+}

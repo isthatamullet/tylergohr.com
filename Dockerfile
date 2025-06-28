@@ -8,7 +8,7 @@ WORKDIR /app
 
 # Copy package files for dependency installation
 COPY package.json package-lock.json ./
-RUN npm ci --only=production --frozen-lockfile
+RUN npm ci --frozen-lockfile
 
 # Stage 2: Builder
 FROM node:18-alpine AS builder

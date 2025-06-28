@@ -1,0 +1,265 @@
+/* Technical Expertise Detail Page Styles */
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+
+.heroContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Hero Header */
+.heroHeader {
+  opacity: 0;
+  transform: var(--detail-reveal-transform);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+}
+
+.heroHeader.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 24px 0;
+  line-height: 1.1;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.heroDescription {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Browser Section */
+.browserSection {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+  transition-delay: 0.2s;
+  
+  /* Performance optimization */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.browserSection.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.technicalExpertiseBrowser {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   CTA SECTION
+   ========================================================================== */
+
+.ctaSection {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+  
+  /* Performance optimization */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.ctaSection.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ctaContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ctaTitle {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 24px 0;
+  line-height: 1.2;
+}
+
+.ctaDescription {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 40px 0;
+}
+
+.ctaActions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.ctaPrimary {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent-green), #059669);
+  color: #ffffff;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(22, 163, 74, 0.3);
+  
+  /* Performance optimization */
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+}
+
+.ctaPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(22, 163, 74, 0.4);
+}
+
+.ctaSecondary {
+  display: inline-block;
+  color: var(--text-secondary);
+  padding: 12px 24px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+}
+
+.ctaSecondary:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Tablet Layout (768px - 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .heroContainer {
+    padding: 0 24px;
+  }
+}
+
+/* Mobile Layout (767px and below) */
+@media (max-width: 767px) {
+  .heroContainer {
+    padding: 0 20px;
+  }
+  
+  .heroTitle {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+    margin-bottom: 16px;
+  }
+  
+  .heroDescription {
+    font-size: 1.125rem;
+  }
+  
+  .ctaActions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .ctaPrimary,
+  .ctaSecondary {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Extra Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .compactHero {
+    min-height: 240px !important;
+    max-height: 240px !important;
+    padding: 40px 0 !important;
+  }
+  
+  .heroContainer {
+    padding: 0 16px;
+  }
+  
+  .heroHeader {
+    margin-bottom: 48px;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & PERFORMANCE
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .heroHeader,
+  .browserSection,
+  .ctaSection {
+    transition: opacity 0.3s ease;
+    transform: none;
+  }
+  
+  .ctaPrimary:hover {
+    transform: none;
+  }
+}
+
+/* GPU acceleration for smooth animations */
+.heroHeader,
+.browserSection,
+.ctaSection {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .ctaPrimary {
+    border: 2px solid #ffffff;
+  }
+}
+
+/* ==========================================================================
+   COMPACT HERO OVERRIDE - Match Case Studies Page Dimensions
+   ========================================================================== */
+
+.compactHero {
+  /* Standardized hero dimensions - reduced by 40px */
+  min-height: var(--detail-hero-height) !important;
+  max-height: var(--detail-hero-height) !important;
+  
+  /* Center content vertically */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  
+  /* Consistent padding across all detail pages */
+  padding: var(--detail-hero-padding) !important;
+}
+
+.compactHero .heroContainer {
+  /* Match How I Work positioning exactly */
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  height: 100% !important;
+  max-width: var(--detail-hero-max-width) !important;
+  margin: 0 auto !important;
+  padding: var(--detail-hero-container-padding) !important;
+  min-height: auto !important;
+}

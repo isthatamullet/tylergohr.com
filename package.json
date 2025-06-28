@@ -28,9 +28,11 @@
     "date-fns": "^4.1.0",
     "eslint": "^9.29.0",
     "eslint-config-next": "^15.3.4",
+    "framer-motion": "^12.19.1",
     "gray-matter": "^4.0.3",
     "marked": "^15.0.12",
     "next": "^15.3.4",
+    "nodemailer": "^7.0.3",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -46,11 +48,13 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
     "@types/jest-axe": "^3.5.9",
+    "@types/nodemailer": "^6.4.17",
     "@types/testing-library__jest-dom": "^5.14.9",
     "autoprefixer": "^10.4.21",
     "cssnano": "^7.0.7",
     "jest": "^30.0.2",
     "jest-axe": "^10.0.0",
-    "jest-environment-jsdom": "^30.0.2"
+    "jest-environment-jsdom": "^30.0.2",
+    "lighthouse": "^12.7.0"
   }
 }

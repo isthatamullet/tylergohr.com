@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import PerformanceOptimizations from "@/components/PerformanceOptimizations";
 import WebVitals from "@/components/WebVitals";
-import TopNavigation from "@/components/TopNavigation";
+import ConditionalTopNavigation from "@/components/ConditionalTopNavigation";
 
 export const metadata: Metadata = {
   title: "Tyler Gohr - Full-Stack Developer & Creative Problem Solver",
@@ -172,8 +172,8 @@ export default function RootLayout({
         {/* Web Vitals monitoring */}
         <WebVitals />
 
-        {/* Top Navigation */}
-        <TopNavigation />
+        {/* Conditional Top Navigation - only on non-/2 pages */}
+        <ConditionalTopNavigation />
 
         {/* Main application content */}
         <div id="app-root">{children}</div>
