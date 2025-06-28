@@ -262,7 +262,7 @@ export default function Navigation({ className = "" }: NavigationProps) {
       'hero': 1
     };
     
-    // Set up observer with DOM ready delay
+    // Set up observer with improved DOM ready delay
     const setupObserver = () => {
       // Clean up previous observer
       if (observerRef.current) {
@@ -283,6 +283,7 @@ export default function Navigation({ className = "" }: NavigationProps) {
               return sectionPriority[current] > sectionPriority[highest] ? current : highest;
             });
             
+            console.log(`/2 Navigation: Active section changed to: ${highestPrioritySection}`);
             setActiveSection(highestPrioritySection);
             
             // Update URL hash without causing scroll
@@ -304,24 +305,25 @@ export default function Navigation({ className = "" }: NavigationProps) {
         if (element) {
           observerRef.current?.observe(element);
           observedCount++;
+          console.log(`/2 Navigation: Successfully observing section: ${sectionId}`);
         } else {
-          console.warn(`Navigation: Section element not found: ${sectionId}`);
+          console.warn(`/2 Navigation: Section element not found: ${sectionId}`);
         }
       });
 
-      console.log(`Navigation: Observing ${observedCount}/${sections.length} sections`);
+      console.log(`/2 Navigation: Observing ${observedCount}/${sections.length} sections`);
       
       // If not all sections found, retry after a longer delay
       if (observedCount < sections.length) {
         setTimeout(() => {
-          console.log('Navigation: Retrying section observation...');
+          console.log('/2 Navigation: Retrying section observation with longer delay...');
           setupObserver();
-        }, 1000);
+        }, 2500); // Increased from 1000ms to 2500ms for better reliability
       }
     };
 
     // Initial setup with longer delay to ensure all components are rendered
-    const timeoutId = setTimeout(setupObserver, 500);
+    const timeoutId = setTimeout(setupObserver, 1000); // Increased from 500ms to 1000ms
 
     return () => {
       clearTimeout(timeoutId);
@@ -347,7 +349,7 @@ export default function Navigation({ className = "" }: NavigationProps) {
   const handleDropdownLeave = useCallback(() => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 150); // Small delay to prevent flickering
+    }, 50); // Reduced delay to prevent hover conflicts
   }, []);
 
   const handleDropdownItemClick = useCallback((href: string) => {
