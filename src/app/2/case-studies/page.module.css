@@ -53,14 +53,9 @@
 
 /* Hero Header */
 .heroHeader {
-  margin-bottom: 64px;
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(30px);
   transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  
-  /* Performance optimization */
-  will-change: transform, opacity;
-  backface-visibility: hidden;
 }
 
 .heroHeader.revealed {
