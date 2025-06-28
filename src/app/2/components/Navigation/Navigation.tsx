@@ -229,7 +229,7 @@ export default function Navigation({ className = "" }: NavigationProps) {
     // If we're on /2 landing page, check for hash or default to about
     if (pathname === "/2") {
       const hash = window.location.hash.slice(1);
-      if (hash && ["about", "results", "work", "process", "skills", "contact"].includes(hash)) {
+      if (hash && ["hero", "about", "results", "work", "process", "skills", "contact"].includes(hash)) {
         setActiveSection(hash);
         // Small delay to ensure DOM is ready for scrolling
         setTimeout(() => navigateToSection(hash), 100);
@@ -246,16 +246,17 @@ export default function Navigation({ className = "" }: NavigationProps) {
       return;
     }
 
-    const sections = ["about", "results", "work", "process", "skills", "contact"];
+    const sections = ["hero", "about", "results", "work", "process", "skills", "contact"];
     
     // Section priority system - higher priority sections override lower priority ones
     const sectionPriority: Record<string, number> = {
-      'contact': 6,
-      'skills': 5,
-      'process': 4,
-      'work': 3,
-      'results': 2,
-      'about': 1
+      'contact': 7,
+      'skills': 6,
+      'process': 5,
+      'work': 4,
+      'results': 3,
+      'about': 2,
+      'hero': 1
     };
     
     // Set up observer with DOM ready delay
