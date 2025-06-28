@@ -3,7 +3,8 @@ import "../globals.css";
 import "./styles/brand-tokens.css";
 import PerformanceOptimizations from "@/components/PerformanceOptimizations";
 import WebVitals from "@/components/WebVitals";
-import Navigation from "@/app/2/components/Navigation/Navigation";
+// TEMPORARILY DISABLED FOR DEBUGGING
+// import Navigation from "@/app/2/components/Navigation/Navigation";
 
 export const metadata: Metadata = {
   title: "Tyler Gohr - Enterprise Solutions Architect",
