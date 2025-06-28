@@ -191,8 +191,8 @@
 /* Extra Small Mobile (480px and below) */
 @media (max-width: 480px) {
   .compactHero {
-    min-height: 280px !important;
-    max-height: 280px !important;
+    min-height: 240px !important;
+    max-height: 240px !important;
     padding: 40px 0 !important;
   }
   
@@ -242,9 +242,9 @@
    ========================================================================== */
 
 .compactHero {
-  /* Match Case Studies and How I Work dimensions */
-  min-height: 400px !important;
-  max-height: 400px !important;
+  /* Standardized hero dimensions - reduced by 40px */
+  min-height: 360px !important;
+  max-height: 360px !important;
   
   /* Center content vertically */
   display: flex !important;

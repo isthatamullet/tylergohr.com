@@ -205,7 +205,7 @@ export default function CaseStudiesDetailPage() {
       </Section>
 
       {/* Browser Section - Black Background */}
-      <Section background="hero" paddingY="lg">
+      <Section background="hero" paddingY="sm">
         <div 
           ref={(el) => { sectionRefs.current['browser'] = el }}
           data-section-id="browser"

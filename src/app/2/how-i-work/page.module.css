@@ -5,9 +5,9 @@
    ========================================================================== */
 
 .compactHero {
-  /* Match Case Studies blue bar dimensions exactly */
-  min-height: 400px !important;
-  max-height: 400px !important;
+  /* Standardized hero dimensions - reduced by 40px */
+  min-height: 360px !important;
+  max-height: 360px !important;
   
   /* Override default Section hero behavior */
   display: flex !important;
@@ -46,16 +46,13 @@
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
   line-height: 1.1;
-  margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 0 24px 0;
+  color: #ffffff;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
 
 .heroDescription {
-  font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+  font-size: 1.25rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.9);
   max-width: 800px;
@@ -778,8 +775,8 @@
 /* Extra Small Mobile */
 @media (max-width: 480px) {
   .compactHero {
-    min-height: 280px !important;
-    max-height: 280px !important;
+    min-height: 240px !important;
+    max-height: 240px !important;
     padding: 40px 0 !important;
   }
   
