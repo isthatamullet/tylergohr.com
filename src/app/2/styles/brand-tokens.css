@@ -93,6 +93,25 @@
   --portfolio-accent-green: var(--accent-green);
   --portfolio-accent-red: var(--accent-red);
   --portfolio-interactive: var(--interactive-blue);
+
+  /* ==========================================================================
+     DETAIL PAGE LAYOUT TOKENS - Consistency System
+     ========================================================================== */
+
+  /* Hero Layout Standards - Eliminates duplication across detail pages */
+  --detail-hero-height: 360px;                          /* Standardized hero dimensions */
+  --detail-hero-padding: 60px 0;                        /* Consistent vertical padding */
+  --detail-hero-max-width: 800px;                       /* Content container width */
+  --detail-hero-container-padding: 0 2rem;              /* Horizontal padding */
+
+  /* Animation Standards */
+  --detail-reveal-transform: translateY(30px);          /* Consistent reveal animation */
+  --detail-reveal-duration: 0.8s;                       /* Animation timing */
+  --detail-reveal-easing: cubic-bezier(0.16, 1, 0.3, 1); /* Professional easing curve */
+
+  /* Typography Standards */
+  --detail-hero-title-margin: 0 0 24px 0;               /* Title spacing */
+  --detail-hero-description-size: 1.25rem;              /* Description text size */
 }
 
 /* ==========================================================================
