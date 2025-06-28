@@ -663,12 +663,17 @@
 }
 
 .compactHero .heroContainer {
-  /* Center content vertically in hero */
-  min-height: auto !important;
+  /* Match How I Work positioning exactly */
+  display: flex !important;
+  flex-direction: column !important;
   justify-content: center !important;
   align-items: center !important;
   text-align: center !important;
   height: 100% !important;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+  min-height: auto !important;
 }
 
 /* ==========================================================================
