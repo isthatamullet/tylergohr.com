@@ -258,48 +258,69 @@ export default function Navigation({ className = "" }: NavigationProps) {
       'about': 1
     };
     
-    // Clean up previous observer
-    if (observerRef.current) {
-      observerRef.current.disconnect();
-    }
+    // Set up observer with DOM ready delay
+    const setupObserver = () => {
+      // Clean up previous observer
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
 
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        // Find all currently intersecting sections
-        const intersectingSections = entries
-          .filter(entry => entry.isIntersecting)
-          .map(entry => entry.target.id)
-          .filter(id => sections.includes(id));
-        
-        if (intersectingSections.length > 0) {
-          // Select section with highest priority
-          const highestPrioritySection = intersectingSections.reduce((highest, current) => {
-            return sectionPriority[current] > sectionPriority[highest] ? current : highest;
-          });
+      observerRef.current = new IntersectionObserver(
+        (entries) => {
+          // Find all currently intersecting sections
+          const intersectingSections = entries
+            .filter(entry => entry.isIntersecting)
+            .map(entry => entry.target.id)
+            .filter(id => sections.includes(id));
           
-          setActiveSection(highestPrioritySection);
-          
-          // Update URL hash without causing scroll
-          if (window.location.hash !== `#${highestPrioritySection}`) {
-            window.history.replaceState(null, "", `/2#${highestPrioritySection}`);
+          if (intersectingSections.length > 0) {
+            // Select section with highest priority
+            const highestPrioritySection = intersectingSections.reduce((highest, current) => {
+              return sectionPriority[current] > sectionPriority[highest] ? current : highest;
+            });
+            
+            setActiveSection(highestPrioritySection);
+            
+            // Update URL hash without causing scroll
+            if (window.location.hash !== `#${highestPrioritySection}`) {
+              window.history.replaceState(null, "", `/2#${highestPrioritySection}`);
+            }
           }
+        },
+        {
+          threshold: 0.6,
+          rootMargin: `-${NAV_HEIGHT}px 0px -40% 0px`,
         }
-      },
-      {
-        threshold: 0.6,
-        rootMargin: `-${NAV_HEIGHT}px 0px -40% 0px`,
-      }
-    );
+      );
 
-    // Observe all sections
-    sections.forEach((sectionId) => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        observerRef.current?.observe(element);
+      // Observe all sections with element verification
+      let observedCount = 0;
+      sections.forEach((sectionId) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          observerRef.current?.observe(element);
+          observedCount++;
+        } else {
+          console.warn(`Navigation: Section element not found: ${sectionId}`);
+        }
+      });
+
+      console.log(`Navigation: Observing ${observedCount}/${sections.length} sections`);
+      
+      // If not all sections found, retry after a short delay
+      if (observedCount < sections.length) {
+        setTimeout(() => {
+          console.log('Navigation: Retrying section observation...');
+          setupObserver();
+        }, 500);
       }
-    });
+    };
+
+    // Initial setup with small delay to ensure DOM is ready
+    const timeoutId = setTimeout(setupObserver, 100);
 
     return () => {
+      clearTimeout(timeoutId);
       if (observerRef.current) {
         observerRef.current.disconnect();
       }
