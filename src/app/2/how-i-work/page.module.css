@@ -5,9 +5,16 @@
    ========================================================================== */
 
 .compactHero {
-  /* Override default Section hero behavior for compact layout */
-  min-height: 200px !important;
-  max-height: 200px !important;
+  /* Standardized hero dimensions across all detail pages */
+  min-height: 300px !important;
+  max-height: 300px !important;
+  
+  /* Override default Section hero behavior */
+  display: block !important;
+  align-items: initial !important;
+  
+  /* Consistent padding across all detail pages */
+  padding: 60px 0 !important;
 }
 
 .heroContainer {
@@ -769,8 +776,9 @@
 /* Extra Small Mobile */
 @media (max-width: 480px) {
   .compactHero {
-    min-height: 180px !important;
-    max-height: 180px !important;
+    min-height: 220px !important;
+    max-height: 220px !important;
+    padding: 40px 0 !important;
   }
   
   .processHeader {

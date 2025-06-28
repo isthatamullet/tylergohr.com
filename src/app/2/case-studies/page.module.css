@@ -559,6 +559,12 @@
 
 /* Extra Small Mobile (480px and below) */
 @media (max-width: 480px) {
+  .compactHero {
+    min-height: 220px !important;
+    max-height: 220px !important;
+    padding: 40px 0 !important;
+  }
+  
   .heroContainer {
     padding: 0 16px;
   }
@@ -635,24 +641,44 @@
 }
 
 /* ==========================================================================
-   COMPACT HERO OVERRIDE - Fix for Full Viewport Hero Issue
+   COMPACT HERO OVERRIDE - Standardized Detail Page Layout
    ========================================================================== */
 
 .compactHero {
-  /* Override the default 100vh hero behavior */
-  min-height: 650px !important;
-  /* Remove max-height to allow browser content to be fully visible */
+  /* Standardized hero dimensions across all detail pages */
+  min-height: 300px !important;
+  max-height: 300px !important;
   
-  /* Remove hero-specific flex centering */
+  /* Override default Section hero behavior */
   display: block !important;
   align-items: initial !important;
   
-  /* Compact padding with extra top space to prevent title cutoff */
-  padding: 80px 0 60px 0 !important;
+  /* Consistent padding across all detail pages */
+  padding: 60px 0 !important;
+  
+  /* Override case-studies gradient background for hero-only */
+  background-image: none !important;
+  background-color: var(--case-studies-bg) !important;
 }
 
 .compactHero .heroContainer {
   /* Override hero container centering */
   min-height: auto !important;
   justify-content: initial !important;
+}
+
+/* ==========================================================================
+   CONSISTENT BLACK BACKGROUND FOR CONTENT
+   ========================================================================== */
+
+/* Ensure all content sections below hero use consistent black background */
+.compactHero ~ section {
+  background-color: #0a0a0a !important;
+  background-image: none !important;
+}
+
+/* Override any gradient overlays on subsequent sections */
+.compactHero + * {
+  background-color: #0a0a0a !important;
+  background-image: none !important;
 }
