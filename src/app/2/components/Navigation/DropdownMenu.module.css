@@ -149,6 +149,13 @@
   word-wrap: break-word;
 }
 
+/* Fix for Frontend Development item - force text wrap before hover */
+/* Target the first item in Skills dropdown specifically */
+.dropdownItem:nth-child(1) .dropdownDescription {
+  max-width: 200px; /* Force "modern CSS" to wrap to second line */
+  word-wrap: break-word;
+}
+
 /* Brighter description text on hover */
 .dropdownItem:hover .dropdownDescription {
   color: rgba(255, 255, 255, 0.8);
