@@ -9,7 +9,7 @@
   min-height: var(--detail-hero-height) !important;
   max-height: var(--detail-hero-height) !important;
   
-  /* Override default Section hero behavior */
+  /* Center content vertically */
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -19,16 +19,17 @@
 }
 
 .compactHero .heroContainer {
-  /* Match Technical Expertise & Case Studies positioning exactly */
+  /* Match Case Studies & Technical Expertise positioning exactly */
   display: flex !important;
   flex-direction: column !important;
-  justify-content: center !important;
+  justify-content: flex-start !important;
   align-items: center !important;
   text-align: center !important;
   height: 100% !important;
   max-width: var(--detail-hero-max-width) !important;
   margin: 0 auto !important;
   padding: var(--detail-hero-container-padding) !important;
+  padding-top: 34px !important;
   min-height: auto !important;
 }
 

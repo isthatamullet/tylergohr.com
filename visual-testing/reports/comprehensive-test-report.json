@@ -1,0 +1,132 @@
+{
+  "timestamp": "2025-06-29T07:49:35.938Z",
+  "summary": {
+    "totalTests": 5,
+    "errors": 20,
+    "status": "ISSUES_FOUND"
+  },
+  "results": {
+    "visual": [],
+    "interactive": [
+      {
+        "component": "Browser Tabs",
+        "status": "passed"
+      }
+    ],
+    "performance": [
+      {
+        "test": "Core Web Vitals",
+        "lcp": 2168,
+        "status": "warning"
+      }
+    ],
+    "accessibility": [
+      {
+        "test": "Keyboard Navigation",
+        "status": "passed"
+      },
+      {
+        "test": "Color Contrast",
+        "passed": 109,
+        "total": 109,
+        "status": "informational"
+      },
+      {
+        "test": "Meta Information",
+        "data": {
+          "title": "Tyler Gohr - Enterprise Solutions Architect",
+          "description": "Creating powerful digital solutions that solve real business problems. From Emmy Award-winning streaming platforms to custom business solutions, I architect digital products that deliver measurable impact.",
+          "ogTitle": "Tyler Gohr - Enterprise Solutions Architect",
+          "structuredData": true
+        },
+        "status": "passed"
+      }
+    ],
+    "errors": [
+      {
+        "test": "Visual Layout - homepage (desktop)",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Visual Layout - case-studies (desktop)",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Visual Layout - technical-expertise (desktop)",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Visual Layout - how-i-work (desktop)",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Visual Layout - homepage (tablet)",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Visual Layout - case-studies (tablet)",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Visual Layout - technical-expertise (tablet)",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Visual Layout - how-i-work (tablet)",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Visual Layout - homepage (mobile)",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Visual Layout - case-studies (mobile)",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Visual Layout - technical-expertise (mobile)",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Visual Layout - how-i-work (mobile)",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Navigation Dropdowns",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Browser Tabs - /2/case-studies",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Browser Tabs - /2/technical-expertise",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Contact Form",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Logo Float Animation",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Cross-Device - desktop",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Cross-Device - tablet",
+        "error": "page.waitForTimeout is not a function"
+      },
+      {
+        "test": "Cross-Device - mobile",
+        "error": "page.waitForTimeout is not a function"
+      }
+    ]
+  },
+  "recommendations": [
+    "⚠️  Found 20 issues that need attention.",
+    "⚡ Consider optimizing Core Web Vitals for better performance."
+  ]
+}

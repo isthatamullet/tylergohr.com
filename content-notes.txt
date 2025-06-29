@@ -1,1 +1,24 @@
-we need to test all nav related elements: buttons, links, deep links from the top nav dropdown menu and the homepage section cards to 'browser' tabs on the case studies and technical expertise pages, and the top nav bar needs a bit of work: the correct top nav link should appear 'active' whenever the page is displaying that section of the homepage. all dropdown menu items must have a hover effect. also need to confirm the new /2 top nav bar is used on all FOUR pages of the site
+create an mcp server with the most up to date knowledge of my /2 site. should provide access to a sitemap, all pages, all text and visual content, all tools / libraries / dependencies / design details (like the css design token system. framer implementation, etc 
+refactor / update claude.md - reference https://www.anthropic.com/engineering/claude-code-best-practices
+scratchpads
+use prompt optimizer / refining tool
+/ commands - like one to have claude use puppeteer and / or playwright to confirm updates before commit
+.claude/commands folder
+a / command to solve github issues
+refactoring
+linting
+reviewing a PR / issue
+have claude to code reviews on PRs
+
+design tokens
+
+
+how i work
+planning
+-purpose
+-content
+-design
+-use google services
+-CLI: use gh, gcloud
+-specify existing google cloud project or set up new google cloud project in tyler.gohr@gmail.com
+-testing: playwright, puppeteer, jest
