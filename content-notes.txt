@@ -22,3 +22,5 @@ planning
 -CLI: use gh, gcloud
 -specify existing google cloud project or set up new google cloud project in tyler.gohr@gmail.com
 -testing: playwright, puppeteer, jest
+
+update claude.md so that visual changes are tested and confirmed BEFORE committing to github.

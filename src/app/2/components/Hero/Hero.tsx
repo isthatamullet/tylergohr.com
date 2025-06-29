@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useRef } from 'react';
 import { ClientMotionDiv, useScroll, useTransform } from '@/app/2/lib/framer-motion-client';
 import { Button } from '../ui/Button/Button';
-import { LogoFloat } from './LogoFloat';
 import styles from './Hero.module.css';
 
 export default function Hero() {
@@ -40,9 +39,6 @@ export default function Hero() {
       aria-labelledby="hero-title"
       role="banner"
     >
-      {/* Logo Float Animation Component */}
-      <LogoFloat />
-      
       <div className={styles.heroContainer}>
         {/* Hero Graphic (Left Side) */}
         <div className={styles.heroGraphic}>

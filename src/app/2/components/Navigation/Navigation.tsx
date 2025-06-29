@@ -453,8 +453,8 @@ export default function Navigation({ className = "" }: NavigationProps) {
             src="/images/tech-company-logo.png"
             alt="Tyler Gohr Tech Company Logo"
             className={styles.logoImage}
-            width={40}
-            height={40}
+            width={80}
+            height={80}
             priority={true}
           />
         </button>
