@@ -274,30 +274,48 @@ export default function Navigation({ className = "" }: NavigationProps) {
 
       observerRef.current = new IntersectionObserver(
         (entries) => {
-          // Find all currently intersecting sections
+          // Find all currently intersecting sections with their intersection ratios
           const intersectingSections = entries
             .filter(entry => entry.isIntersecting)
-            .map(entry => entry.target.id)
-            .filter(id => sections.includes(id));
+            .map(entry => ({
+              id: entry.target.id,
+              ratio: entry.intersectionRatio,
+              boundingRect: entry.boundingClientRect
+            }))
+            .filter(section => sections.includes(section.id));
           
           if (intersectingSections.length > 0) {
-            // Select section with highest priority
-            const highestPrioritySection = intersectingSections.reduce((highest, current) => {
-              return sectionPriority[current] > sectionPriority[highest] ? current : highest;
-            });
+            // Enhanced selection logic: prefer section with highest intersection ratio
+            // If ratios are similar, use priority system
+            let selectedSection = intersectingSections[0].id;
             
-            console.log(`/2 Navigation: Active section changed to: ${highestPrioritySection}`);
-            setActiveSection(highestPrioritySection);
+            if (intersectingSections.length > 1) {
+              // Find section with highest intersection ratio
+              const highestRatio = Math.max(...intersectingSections.map(s => s.ratio));
+              const sectionsWithHighestRatio = intersectingSections.filter(s => s.ratio >= highestRatio - 0.1);
+              
+              if (sectionsWithHighestRatio.length === 1) {
+                selectedSection = sectionsWithHighestRatio[0].id;
+              } else {
+                // If multiple sections have similar ratios, use priority system
+                selectedSection = sectionsWithHighestRatio.reduce((highest, current) => {
+                  return sectionPriority[current.id] > sectionPriority[highest.id] ? current : highest;
+                }).id;
+              }
+            }
+            
+            console.log(`/2 Navigation: Active section changed to: ${selectedSection}`);
+            setActiveSection(selectedSection);
             
             // Update URL hash without causing scroll
-            if (window.location.hash !== `#${highestPrioritySection}`) {
-              window.history.replaceState(null, "", `/2#${highestPrioritySection}`);
+            if (window.location.hash !== `#${selectedSection}`) {
+              window.history.replaceState(null, "", `/2#${selectedSection}`);
             }
           }
         },
         {
-          threshold: 0.6,
-          rootMargin: `-${NAV_HEIGHT}px 0px -40% 0px`,
+          threshold: 0.3, // Reduced from 0.6 for more responsive feel
+          rootMargin: `-${NAV_HEIGHT}px 0px -20% 0px`, // Reduced bottom margin from -40% to -20%
         }
       );
 
@@ -325,8 +343,18 @@ export default function Navigation({ className = "" }: NavigationProps) {
       }
     };
 
-    // Initial setup with longer delay to ensure all components are rendered
-    const timeoutId = setTimeout(setupObserver, 1000); // Increased from 500ms to 1000ms
+    // Enhanced setup with better DOM readiness detection
+    const timeoutId = setTimeout(() => {
+      // Check if most sections are already in DOM before setting up observer
+      const existingSections = sections.filter(id => document.getElementById(id));
+      if (existingSections.length >= sections.length - 2) { // Allow 2 missing sections for lazy loading
+        console.log('/2 Navigation: Most sections found, setting up observer immediately');
+        setupObserver();
+      } else {
+        console.log(`/2 Navigation: Only ${existingSections.length}/${sections.length} sections found, waiting longer for lazy loading`);
+        setTimeout(setupObserver, 1500); // Longer delay for lazy components
+      }
+    }, 800); // Reduced initial delay since we have smarter detection
 
     return () => {
       clearTimeout(timeoutId);
