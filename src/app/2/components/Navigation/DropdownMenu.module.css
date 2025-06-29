@@ -37,13 +37,26 @@
   display: flex;
   text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  transition: background-color 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   padding: 0;
+  position: relative;
+  overflow: hidden;
 }
 
 .dropdownItem:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(
+    135deg,
+    rgba(22, 163, 74, 0.08),
+    rgba(255, 255, 255, 0.12)
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 3px solid var(--accent-green);
+  box-shadow: 
+    0 4px 12px rgba(22, 163, 74, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateX(4px) scale(1.02);
 }
 
 .dropdownItem:focus {
@@ -69,6 +82,14 @@
   line-height: 1;
   margin-top: 0.125rem;
   flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+/* Icon hover effects - scale and glow for interactive feedback */
+.dropdownItem:hover .itemIcon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 2px 4px rgba(22, 163, 74, 0.3));
 }
 
 .itemText {
@@ -85,6 +106,12 @@
   align-items: center;
   gap: 0.5rem;
   line-height: 1.3;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced text colors on hover */
+.dropdownItem:hover .dropdownTitle {
+  color: #ffffff;
 }
 
 .badge {
@@ -97,12 +124,41 @@
   text-transform: uppercase;
   letter-spacing: 0.025em;
   flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+/* Badge hover effects - enhanced prominence on parent hover */
+.dropdownItem:hover .badge {
+  background: linear-gradient(135deg, var(--accent-green), var(--interactive-blue));
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.3);
+  transform: scale(1.05);
 }
 
 .dropdownDescription {
   font-size: 0.75rem;
   color: var(--text-secondary);
   line-height: 1.4;
+  transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Fix for Research & Planning item - force text wrap before hover */
+/* Target the second item in Process dropdown specifically */
+.dropdownItem:nth-child(2) .dropdownDescription {
+  max-width: 240px; /* Force "strategic planning" to wrap to second line */
+  word-wrap: break-word;
+}
+
+/* Fix for Frontend Development item - force text wrap before hover */
+/* Target the first item in Skills dropdown specifically */
+.dropdownItem:nth-child(1) .dropdownDescription {
+  max-width: 200px; /* Force "modern CSS" to wrap to second line */
+  word-wrap: break-word;
+}
+
+/* Brighter description text on hover */
+.dropdownItem:hover .dropdownDescription {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* Page link styling - special styling for "View All" type links */
@@ -190,10 +246,24 @@
   }
 }
 
-/* Motion preferences */
+/* Motion preferences - respect accessibility preferences */
 @media (prefers-reduced-motion: reduce) {
   .dropdown,
-  .dropdownItem {
-    transition: none;
+  .dropdownItem,
+  .itemIcon,
+  .badge {
+    transition: color 0.15s ease, background-color 0.15s ease;
+    transform: none !important;
+  }
+  
+  .dropdownItem:hover {
+    transform: none !important;
+  }
+  
+  .dropdownItem:hover .itemIcon,
+  .dropdownItem:hover .badge {
+    transform: none !important;
+    filter: none;
+    box-shadow: none;
   }
 }
