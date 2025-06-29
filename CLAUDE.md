@@ -91,11 +91,14 @@ gh pr merge <PR_NUMBER> --squash --delete-branch               # Merge to produc
 6. **Document Work** - Create GitHub issues for significant features or fixes
 
 ### 🚨 MANDATORY Pre-Commit Quality Gates
-**CRITICAL**: Always run `npm run validate` BEFORE committing to prevent GitHub Actions failures and wasted CI/CD time:
+**CRITICAL**: Always run quality gates AND visual testing BEFORE committing to prevent GitHub Actions failures and visual regressions:
 
 ```bash
 # REQUIRED before every commit - prevents CI/CD failures:
 npm run validate    # Runs: typecheck && lint && test && build (ALL must pass)
+
+# REQUIRED for ANY visual changes - prevents UI regressions:
+node tests/visual-test.js    # Visual testing with Puppeteer/Playwright (when UI changes made)
 ```
 
 **When to Run:**
@@ -128,8 +131,9 @@ npm run build       # 🔥 CRITICAL: Production build validation (SSG/SSR compat
 ```bash
 # Recommended development workflow:
 git add .
-npm run validate     # 🔥 CRITICAL: Run before commit
-git commit -m "Your commit message"
+npm run validate                    # 🔥 CRITICAL: Run before commit
+node tests/visual-test.js          # 🔥 CRITICAL: For visual changes only
+git commit -m "Your commit message [Visual Testing: ✅ if applicable]"
 git push
 ```
 
@@ -228,7 +232,8 @@ git checkout -b feature/blog-img    # Short branch name
 # ... make changes ...
 git add .
 npm run validate                    # 🔥 PREVENT CI/CD FAILURES
-git commit -m "Your changes"
+node tests/visual-test.js          # 🔥 VISUAL TESTING (if UI changes)
+git commit -m "Your changes [Visual Testing: ✅ if applicable]"
 git push -u origin feature/blog-img
 gh pr create --title "Your PR"
 ```
@@ -556,10 +561,12 @@ cat CLAUDE.md                      # For project context and structure
 
 **Live Website**: https://tylergohr.com  
 **Status**: ✅ Production Ready - Modern Next.js portfolio deployed on Google Cloud Run  
-**Last Major Update**: PR #49 - Hero Section Text Positioning Consistency (2025-06-29)  
+**Last Major Update**: PR #51 - Navigation Active Link Detection Fix (2025-06-29)  
 **Recent Enhancements**: 
-- ✅ Enhanced Dropdown Hover Effects (PR #44)
+- ✅ Navigation Active Link Detection Improvements (PR #51)
 - ✅ Hero Text Positioning Consistency (PR #49)
+- ✅ Enhanced Dropdown Hover Effects (PR #44)
+- ✅ Mandatory Visual Testing Requirements (Puppeteer/Playwright)
 - ✅ Systematic Investigation Methodology (Scratchpad System)
 - ✅ Cloud Run Environment Monitoring & Pattern Recognition
 
@@ -587,3 +594,126 @@ npm run validate    # MANDATORY - Prevents GitHub Actions failures
 - **BEFORE creating PRs** - Ensure clean pipeline runs
 
 Following these rules prevents 90% of CI/CD failures and saves significant development time.
+
+## 🔍 MANDATORY Visual Testing Requirements
+
+**CRITICAL**: ALL visual changes must be tested with Puppeteer/Playwright before committing to prevent UI regressions and ensure cross-device compatibility.
+
+### **When Visual Testing is REQUIRED**
+Visual testing is **MANDATORY** for ANY change affecting:
+- ✅ **UI/UX Changes**: Layout modifications, styling updates, color changes
+- ✅ **Component Updates**: React component modifications, new interactive elements
+- ✅ **CSS Changes**: Responsive design, animations, hover effects, transitions
+- ✅ **Navigation Changes**: Menu behavior, scroll detection, active states
+- ✅ **Visual Positioning**: Fixed elements, z-index changes, absolute positioning
+- ✅ **Animation Updates**: CSS animations, scroll-driven effects, transitions
+- ✅ **Responsive Behavior**: Mobile/desktop differences, viewport-specific styling
+
+### **🚨 MANDATORY Visual Testing Workflow**
+
+**1. Before ANY Commit with Visual Changes:**
+```bash
+# Standard quality gates PLUS visual testing:
+npm run validate                    # Standard quality gates
+node tests/visual-test.js          # Visual regression testing (REQUIRED)
+git add .
+git commit -m "Your changes [Visual Testing: ✅ Validated]"
+```
+
+**2. Required Test Scenarios:**
+- **Desktop Testing**: 1200x800 viewport minimum
+- **Mobile Testing**: 375x667 (iPhone SE) viewport  
+- **Cross-Device Validation**: Ensure consistent behavior
+- **Animation Testing**: Verify smooth 60fps performance
+- **Interaction Testing**: Hover effects, click behaviors, scroll interactions
+- **Section Boundaries**: Navigation states, scroll detection accuracy
+
+**3. Testing Tools & Environment:**
+- **Primary**: Puppeteer (already implemented in `/tests/`)
+- **Alternative**: Playwright for cross-browser testing
+- **Local Testing**: Test on `npm run dev` server first
+- **Production Testing**: ALWAYS test on Cloud Run preview URL
+- **Cross-Browser**: Chrome (primary), Firefox, Safari validation
+
+### **🎯 Visual Testing Standards**
+
+**Required Test Coverage:**
+```javascript
+// Example test scenarios (adapt based on changes):
+✅ Initial page load state
+✅ Scroll behavior through all sections  
+✅ Navigation active state accuracy
+✅ Mobile responsive behavior
+✅ Animation performance (60fps)
+✅ Cross-device interaction consistency
+✅ Hash navigation functionality
+✅ Hover and focus states
+```
+
+**Performance Requirements:**
+- **Animation Performance**: Maintain 60fps on all devices
+- **Load Time**: No regression in Core Web Vitals
+- **Responsiveness**: Smooth interactions on mobile devices
+- **Cross-Browser**: Consistent behavior across modern browsers
+
+### **📋 Visual Testing Integration**
+
+**PR Workflow Integration:**
+1. **Local Visual Testing**: Test changes on development server
+2. **Create PR**: Include visual testing results in PR description
+3. **Preview URL Testing**: Test on Cloud Run preview deployment  
+4. **Cross-Device Validation**: Test on actual mobile devices when possible
+5. **Document Results**: Include testing screenshots/videos in complex changes
+
+**PR Description Template Addition:**
+```markdown
+## Visual Testing Results ✅
+- [ ] Desktop viewport (1200x800) tested
+- [ ] Mobile viewport (375x667) tested  
+- [ ] Animation performance validated (60fps)
+- [ ] Cross-device behavior consistent
+- [ ] Preview URL tested: [insert preview URL]
+- [ ] Test scenarios documented in: [scratchpad/tests path if applicable]
+```
+
+### **🔧 Visual Testing Tools Setup**
+
+**Current Implementation:**
+- ✅ **Puppeteer**: Implemented in `/tests/navigation-scroll-test.js`
+- ✅ **Test Templates**: Available for adaptation to other components
+- ✅ **Cross-Device Testing**: Desktop and mobile viewport support
+- ✅ **Cloud Run Integration**: Tests work with preview deployments
+
+**Test File Naming Convention:**
+- **Component-Specific**: `/tests/[component]-visual-test.js`
+- **Feature-Specific**: `/tests/[feature]-behavior-test.js`  
+- **Cross-Page**: `/tests/visual-regression-test.js`
+
+### **🚫 Exceptions to Visual Testing**
+
+**When Visual Testing May Be Skipped:**
+- **Backend-Only Changes**: API modifications, database updates
+- **Configuration Changes**: Build settings, environment variables
+- **Documentation Updates**: README, CLAUDE.md content updates
+- **Non-Visual Bug Fixes**: Logic errors without UI impact
+
+**⚠️ However**: When in doubt, always test! Visual testing catches unexpected side effects.
+
+### **📊 Visual Testing Success Metrics**
+
+**Quality Standards:**
+- **Zero Visual Regressions**: No unintended UI changes
+- **Cross-Device Consistency**: Identical behavior across viewports  
+- **Performance Maintenance**: 60fps animations, no scroll lag
+- **Professional Polish**: Smooth interactions, proper positioning
+- **Accessibility Compliance**: WCAG 2.1 AA standards maintained
+
+**Continuous Improvement:**
+- **Test Coverage**: Expand tests for new components/features
+- **Automation**: Integrate visual testing into CI/CD pipeline (future)
+- **Documentation**: Maintain test scenarios in scratchpad system
+- **Knowledge Sharing**: Document patterns and common issues
+
+---
+
+**Visual Testing Golden Rule**: If it affects what users see or interact with, it MUST be tested before deployment. This ensures tylergohr.com maintains its professional, polished user experience across all devices and interactions.
