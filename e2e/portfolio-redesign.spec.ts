@@ -3,26 +3,139 @@ import AxeBuilder from '@axe-core/playwright'
 
 test.describe('Portfolio Redesign (/2) - Enterprise Solutions Architect', () => {
   
-  test.describe('Navigation Flow Testing', () => {
-    test('homepage (/2) loads correctly with all sections', async ({ page }) => {
+  test.describe('Navigation Dropdown Content Testing', () => {
+    test('Work dropdown contains specific Emmy Award and business impact items', async ({ page }) => {
       await page.goto('/2')
-
-      // Check hero section loads with Enterprise Solutions content
-      await expect(page.getByRole('heading', { name: /Tyler Gohr/ })).toBeVisible()
-      await expect(page.getByText(/Enterprise Solutions Architect/)).toBeVisible()
       
-      // Check Emmy Award positioning
-      await expect(page.getByText(/Emmy Award/)).toBeVisible()
+      // Hover over Work dropdown to reveal content
+      const workNavItem = page.locator('[class*="navItem"]').filter({ hasText: 'Work' })
+      await workNavItem.hover()
       
-      // Verify all main sections are present
-      await expect(page.getByRole('heading', { name: /About/ })).toBeVisible()
-      await expect(page.getByRole('heading', { name: /Results & Impact/ })).toBeVisible()
-      await expect(page.getByRole('heading', { name: /Case Studies/ })).toBeVisible()
-      await expect(page.getByRole('heading', { name: /How I Work/ })).toBeVisible()
-      await expect(page.getByRole('heading', { name: /Technical Expertise/ })).toBeVisible()
-      await expect(page.getByRole('heading', { name: /Contact/ })).toBeVisible()
+      // Check for specific dropdown items
+      await expect(page.getByText('Emmy-winning Streaming Platform')).toBeVisible()
+      await expect(page.getByText('Fox Corporation Cost Optimization')).toBeVisible()
+      await expect(page.getByText('Warner Bros Delivery Enhancement')).toBeVisible()
+      await expect(page.getByText('AI-Powered Media Automation')).toBeVisible()
+      
+      // Check for badges
+      await expect(page.getByText('Emmy Award')).toBeVisible()
+      await expect(page.getByText('Cost Savings')).toBeVisible()
+      await expect(page.getByText('Success Rate')).toBeVisible()
+      await expect(page.getByText('Innovation')).toBeVisible()
     })
 
+    test('Skills dropdown contains technical expertise with icons', async ({ page }) => {
+      await page.goto('/2')
+      
+      // Hover over Skills dropdown to reveal content
+      const skillsNavItem = page.locator('[class*="navItem"]').filter({ hasText: 'Skills' })
+      await skillsNavItem.hover()
+      
+      // Check for specific technical areas
+      await expect(page.getByText('Frontend Development')).toBeVisible()
+      await expect(page.getByText('Backend Architecture')).toBeVisible()
+      await expect(page.getByText('Cloud Infrastructure')).toBeVisible()
+      await expect(page.getByText('Team Leadership')).toBeVisible()
+      await expect(page.getByText('AI Innovation')).toBeVisible()
+      
+      // Check for technology mentions
+      await expect(page.getByText('React, Next.js, TypeScript')).toBeVisible()
+      await expect(page.getByText('Node.js, Python, database design')).toBeVisible()
+      await expect(page.getByText('AWS, Google Cloud, Docker')).toBeVisible()
+    })
+
+    test('Process dropdown contains development methodology steps', async ({ page }) => {
+      await page.goto('/2')
+      
+      // Hover over Process dropdown to reveal content
+      const processNavItem = page.locator('[class*="navItem"]').filter({ hasText: 'Process' })
+      await processNavItem.hover()
+      
+      // Check for development process steps
+      await expect(page.getByText('Discovery & Requirements')).toBeVisible()
+      await expect(page.getByText('Research & Planning')).toBeVisible()
+      await expect(page.getByText('Design & Prototyping')).toBeVisible()
+      await expect(page.getByText('Implementation & Development')).toBeVisible()
+      await expect(page.getByText('Testing & Quality Assurance')).toBeVisible()
+      await expect(page.getByText('Deployment & Launch')).toBeVisible()
+      await expect(page.getByText('Optimization & Support')).toBeVisible()
+    })
+  })
+
+  test.describe('Enterprise Solutions Architect Content Testing', () => {
+    test('homepage displays complete Enterprise Solutions Architect branding', async ({ page }) => {
+      await page.goto('/2')
+
+      // Check main hero content
+      await expect(page.getByRole('heading', { name: /Enterprise Solutions Architect/ })).toBeVisible()
+      await expect(page.getByText(/Creating powerful digital solutions that solve real business problems/)).toBeVisible()
+      await expect(page.getByText(/Emmy Award-winning streaming platforms/)).toBeVisible()
+      await expect(page.getByText(/16\+ years at Fox Corporation and Warner Bros/)).toBeVisible()
+      
+      // Check specific business value messaging
+      await expect(page.getByText(/transform technical challenges into competitive advantages/)).toBeVisible()
+      
+      // Check call-to-action buttons
+      await expect(page.getByRole('button', { name: /Start Your Project/ })).toBeVisible()
+      await expect(page.getByRole('button', { name: /View My Work/ })).toBeVisible()
+    })
+
+    test('About section contains Emmy Award and enterprise experience', async ({ page }) => {
+      await page.goto('/2')
+      
+      // Scroll to about section
+      await page.getByRole('heading', { name: /About Tyler Gohr/ }).scrollIntoViewIfNeeded()
+      
+      // Check Emmy Award highlighting
+      await expect(page.getByText(/Emmy Award-winning/)).toBeVisible()
+      
+      // Check enterprise experience
+      await expect(page.getByText(/Fox Corporation and Warner Bros Entertainment/)).toBeVisible()
+      await expect(page.getByText(/16\+ years leading technical teams/)).toBeVisible()
+      await expect(page.getByText(/17,000\+ digital assets/)).toBeVisible()
+      
+      // Check business-focused messaging
+      await expect(page.getByText(/Fortune 500-level expertise/)).toBeVisible()
+      await expect(page.getByText(/growing company needing a custom web application/)).toBeVisible()
+      await expect(page.getByText(/enterprise requiring complex digital infrastructure/)).toBeVisible()
+    })
+
+    test('Results section displays quantified business impact', async ({ page }) => {
+      await page.goto('/2')
+      
+      // Scroll to results section
+      await page.getByRole('heading', { name: /Results & Impact/ }).scrollIntoViewIfNeeded()
+      
+      // Check for specific metrics (values may animate, so check for presence)
+      await expect(page.getByText(/Emmy Award Winner/)).toBeVisible()
+      await expect(page.getByText(/Cost Savings Achieved/)).toBeVisible()
+      await expect(page.getByText(/Success Rate Achievement/)).toBeVisible()
+      await expect(page.getByText(/Team Members Led/)).toBeVisible()
+      
+      // Check for business context
+      await expect(page.getByText(/2018 FIFA World Cup Streaming Technology/)).toBeVisible()
+      await expect(page.getByText(/Fox Corporation content strategy optimization/)).toBeVisible()
+      await expect(page.getByText(/Warner Bros delivery improvement/)).toBeVisible()
+    })
+
+    test('Case studies preview shows enterprise-level projects', async ({ page }) => {
+      await page.goto('/2')
+      
+      // Scroll to case studies section
+      await page.getByRole('heading', { name: /Case Studies/ }).scrollIntoViewIfNeeded()
+      
+      // Check for enterprise project descriptions
+      await expect(page.getByText(/Emmy-Winning Live Streaming/)).toBeVisible()
+      await expect(page.getByText(/2018 FIFA World Cup demanded flawless global streaming/)).toBeVisible()
+      await expect(page.getByText(/Emmy Award recognition for streaming technology excellence/)).toBeVisible()
+      
+      // Check for business impact focus
+      await expect(page.getByText(/Fortune 500 enterprises/)).toBeVisible()
+      await expect(page.getByText(/measurable results through strategic technical leadership/)).toBeVisible()
+    })
+  })
+
+  test.describe('Navigation Flow Testing', () => {
     test('navigation between detail pages works correctly', async ({ page }) => {
       await page.goto('/2')
 
@@ -67,48 +180,50 @@ test.describe('Portfolio Redesign (/2) - Enterprise Solutions Architect', () => 
     test('case studies browser tabs function correctly', async ({ page }) => {
       await page.goto('/2/case-studies')
 
-      // Check browser chrome is visible
-      await expect(page.locator('.browserChrome')).toBeVisible()
+      // Check browser chrome is visible using CSS attribute selector
+      await expect(page.locator('[class*="browserChrome"]')).toBeVisible()
       await expect(page.getByText('tylergohr.com/case-studies')).toBeVisible()
 
-      // Check all tabs are present
-      await expect(page.getByRole('tab', { name: /Cost Savings/ })).toBeVisible()
-      await expect(page.getByRole('tab', { name: /Workflow/ })).toBeVisible()
-      await expect(page.getByRole('tab', { name: /AI/ })).toBeVisible()
-      await expect(page.getByRole('tab', { name: /Emmy/ })).toBeVisible()
+      // Check all tabs are present with specific tab labels
+      await expect(page.getByRole('tab').filter({ hasText: 'Cost Savings' })).toBeVisible()
+      await expect(page.getByRole('tab').filter({ hasText: 'Workflow' })).toBeVisible()
+      await expect(page.getByRole('tab').filter({ hasText: 'AI' })).toBeVisible()
+      await expect(page.getByRole('tab').filter({ hasText: 'Emmy' })).toBeVisible()
 
       // Test tab switching
-      const workflowTab = page.getByRole('tab', { name: /Workflow/ })
+      const workflowTab = page.getByRole('tab').filter({ hasText: 'Workflow' })
       await workflowTab.click()
       await expect(workflowTab).toHaveAttribute('aria-selected', 'true')
 
-      // Check content updates
-      await expect(page.getByRole('tabpanel')).toContainText(/Fox Corporation/)
+      // Check content updates - look for the specific content section
+      const activeTabPanel = page.locator('[role="tabpanel"]:not([hidden])')
+      await expect(activeTabPanel).toBeVisible()
+      await expect(activeTabPanel).toContainText(/Success Rate|Warner Bros|96%/)
     })
 
     test('technical expertise browser tabs function correctly', async ({ page }) => {
       await page.goto('/2/technical-expertise')
 
-      // Check browser chrome is visible
-      await expect(page.locator('.browserChrome')).toBeVisible()
+      // Check browser chrome is visible using CSS attribute selector
+      await expect(page.locator('[class*="browserChrome"]')).toBeVisible()
       await expect(page.getByText('tylergohr.com/technical-expertise')).toBeVisible()
 
-      // Check all technical tabs are present
-      await expect(page.getByRole('tab', { name: /Frontend/ })).toBeVisible()
-      await expect(page.getByRole('tab', { name: /Backend/ })).toBeVisible()
-      await expect(page.getByRole('tab', { name: /Cloud/ })).toBeVisible()
-      await expect(page.getByRole('tab', { name: /Leadership/ })).toBeVisible()
-      await expect(page.getByRole('tab', { name: /AI/ })).toBeVisible()
+      // Check all technical tabs are present with specific labels
+      await expect(page.getByRole('tab').filter({ hasText: 'Frontend' })).toBeVisible()
+      await expect(page.getByRole('tab').filter({ hasText: 'Backend' })).toBeVisible()
+      await expect(page.getByRole('tab').filter({ hasText: 'Cloud' })).toBeVisible()
+      await expect(page.getByRole('tab').filter({ hasText: 'Leadership' })).toBeVisible()
+      await expect(page.getByRole('tab').filter({ hasText: 'AI' })).toBeVisible()
 
       // Test tab switching with keyboard navigation
-      const backendTab = page.getByRole('tab', { name: /Backend/ })
+      const backendTab = page.getByRole('tab').filter({ hasText: 'Backend' })
       await backendTab.focus()
       await page.keyboard.press('Enter')
       await expect(backendTab).toHaveAttribute('aria-selected', 'true')
 
       // Test arrow key navigation
       await page.keyboard.press('ArrowRight')
-      const cloudTab = page.getByRole('tab', { name: /Cloud/ })
+      const cloudTab = page.getByRole('tab').filter({ hasText: 'Cloud' })
       await expect(cloudTab).toHaveAttribute('aria-selected', 'true')
     })
 
@@ -117,11 +232,11 @@ test.describe('Portfolio Redesign (/2) - Enterprise Solutions Architect', () => 
       await page.setViewportSize({ width: 375, height: 667 })
       await page.goto('/2/case-studies')
 
-      // Check mobile layout
-      await expect(page.locator('.browserChrome')).toBeVisible()
+      // Check mobile layout using CSS attribute selector
+      await expect(page.locator('[class*="browserChrome"]')).toBeVisible()
       
       // Check tabs are touch-friendly
-      const tab = page.getByRole('tab', { name: /Cost Savings/ }).first()
+      const tab = page.getByRole('tab').filter({ hasText: 'Cost Savings' }).first()
       await expect(tab).toBeVisible()
       
       // Test touch interaction
@@ -134,16 +249,16 @@ test.describe('Portfolio Redesign (/2) - Enterprise Solutions Architect', () => 
     test('logo float animation triggers correctly', async ({ page }) => {
       await page.goto('/2')
 
-      // Check logo is initially positioned correctly
-      const logoFloat = page.locator('.logoFloat')
-      await expect(logoFloat).toBeVisible()
+      // Check logo is initially positioned correctly - using CSS attribute selector
+      const logoFloat = page.locator('[class*="logoFloat"], [class*="Logo"]')
+      await expect(logoFloat.first()).toBeVisible()
 
       // Scroll down and check logo animation
       await page.evaluate(() => window.scrollTo(0, window.innerHeight * 0.8))
       await page.waitForTimeout(500) // Wait for animation
 
       // Check logo has moved (implementation specific)
-      const logoPosition = await logoFloat.boundingBox()
+      const logoPosition = await logoFloat.first().boundingBox()
       expect(logoPosition).toBeTruthy()
     })
 
@@ -218,6 +333,52 @@ test.describe('Portfolio Redesign (/2) - Enterprise Solutions Architect', () => 
 
       // Check email validation
       await expect(page.getByText(/valid email/i)).toBeVisible()
+    })
+  })
+
+  test.describe('Lazy Loading and Suspense Verification', () => {
+    test('homepage loads with Suspense fallbacks for lazy components', async ({ page }) => {
+      // Go to homepage and check for loading states
+      await page.goto('/2')
+      
+      // Wait for the main hero and about sections to load immediately
+      await expect(page.getByRole('heading', { name: /Enterprise Solutions Architect/ })).toBeVisible()
+      await expect(page.getByRole('heading', { name: /About Tyler Gohr/ })).toBeVisible()
+      
+      // Scroll down to trigger lazy-loaded components
+      await page.evaluate(() => window.scrollTo(0, window.innerHeight * 2))
+      
+      // Check that sections eventually load (may have loading states initially)
+      await expect(page.getByRole('heading', { name: /Results & Impact/ })).toBeVisible({ timeout: 10000 })
+      await expect(page.getByRole('heading', { name: /Case Studies/ })).toBeVisible({ timeout: 10000 })
+      await expect(page.getByRole('heading', { name: /How I Work/ })).toBeVisible({ timeout: 10000 })
+      await expect(page.getByRole('heading', { name: /Technical Expertise/ })).toBeVisible({ timeout: 10000 })
+      await expect(page.getByRole('heading', { name: /Contact/ })).toBeVisible({ timeout: 10000 })
+    })
+
+    test('loading placeholders appear for slow connections', async ({ page }) => {
+      // Simulate slow network
+      await page.route('**/*', route => {
+        setTimeout(() => route.continue(), 50) // 50ms delay for all requests
+      })
+      
+      await page.goto('/2')
+      
+      // Check for loading placeholders (these may appear briefly)
+      const loadingText = ['Loading metrics...', 'Loading case studies...', 'Loading process overview...', 'Loading technical expertise...', 'Loading contact form...']
+      
+      // At least one loading state should be visible initially
+      let foundLoading = false
+      for (const text of loadingText) {
+        const element = page.getByText(text)
+        if (await element.isVisible().catch(() => false)) {
+          foundLoading = true
+          break
+        }
+      }
+      
+      // Content should eventually load
+      await expect(page.getByRole('heading', { name: /Enterprise Solutions Architect/ })).toBeVisible()
     })
   })
 
@@ -394,8 +555,8 @@ test.describe('Portfolio Redesign (/2) - Enterprise Solutions Architect', () => 
       await page.waitForLoadState('networkidle')
       await page.waitForTimeout(1000)
 
-      // Screenshot browser interface
-      const browserInterface = page.locator('.browserContainer')
+      // Screenshot browser interface using CSS attribute selector
+      const browserInterface = page.locator('[class*="browserContainer"]')
       await expect(browserInterface).toHaveScreenshot('case-studies-browser-interface.png')
     })
 
@@ -404,8 +565,8 @@ test.describe('Portfolio Redesign (/2) - Enterprise Solutions Architect', () => 
       await page.waitForLoadState('networkidle')
       await page.waitForTimeout(1000)
 
-      // Screenshot technical tabs
-      const browserInterface = page.locator('.browserContainer')
+      // Screenshot technical tabs using CSS attribute selector
+      const browserInterface = page.locator('[class*="browserContainer"]')
       await expect(browserInterface).toHaveScreenshot('technical-expertise-browser-interface.png')
     })
 

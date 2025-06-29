@@ -33,6 +33,7 @@
     "pre-commit": "npm run validate"
   },
   "dependencies": {
+    "@modelcontextprotocol/server-puppeteer": "^2025.5.12",
     "@types/node": "^24.0.3",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
@@ -45,6 +46,7 @@
     "next": "^15.3.4",
     "nodemailer": "^7.0.3",
     "prism-react-renderer": "^2.4.1",
+    "puppeteer": "^24.11.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "typescript": "^5.8.3",
