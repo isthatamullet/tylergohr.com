@@ -140,6 +140,12 @@
   color: var(--text-secondary);
   line-height: 1.4;
   transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Prevent text wrapping changes on hover */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: calc(0.75rem * 1.4 * 2); /* Reserve space for 2 lines */
 }
 
 /* Brighter description text on hover */
