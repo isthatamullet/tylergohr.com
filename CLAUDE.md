@@ -19,8 +19,11 @@
 
 ### 📋 Issue-Based Status System
 - **Primary Planning**: #1 - High-End Portfolio Website Implementation (overall roadmap)
-- **Latest Completion**: #13 - Professional PR Workflow with Staging Previews (enterprise-grade CI/CD)
-- **Previous Milestone**: #5 - Phase 5.5 Jest Testing Framework & Domain Setup
+- **Latest Completion**: PR #49 - Hero Section Text Positioning Consistency (2025-06-29)
+- **Recent Milestones**: 
+  - PR #44 - Enhanced Dropdown Hover Effects for /2 Navigation
+  - #13 - Professional PR Workflow with Staging Previews (enterprise-grade CI/CD)
+  - #5 - Phase 5.5 Jest Testing Framework & Domain Setup
 - **Current Work**: Check most recent GitHub issues for active development
 - **Next Priorities**: Reference open issues labeled with phase numbers
 
@@ -30,6 +33,7 @@
 gh issue list --state open --label "current-work"
 
 # Check latest completed work
+gh pr view 49    # Latest hero positioning fix
 gh issue view 5  # Phase 5.5 completion details
 
 # View overall roadmap
@@ -149,13 +153,52 @@ git push
 - `.env*` files (any environment configuration)
 - `next.config.js`, `package.json` (except with explicit permission)
 - Any file containing API keys or future deployment credentials
+- `docs/scratchpad/investigations/` (preserve investigation history)
+- Debug/testing artifacts (`*.png`, `test-*.js` files - clean up after use)
 
 ### 🧪 Testing Best Practices
-- **Component Testing**: Jest + React Testing Library for interactive components
+- **Component Testing**: Jest + React Testing Library for interactive components ✅ OPERATIONAL
+- **Visual Testing**: Puppeteer automation for cross-page UI validation ✅ IMPLEMENTED
 - **Performance Testing**: Lighthouse CI for Core Web Vitals monitoring
 - **Cross-Browser Testing**: Modern browser support with graceful degradation
 - **Accessibility Testing**: WCAG 2.1 AA compliance verification
 - **Animation Testing**: Smooth 60fps performance across devices
+- **Environment Testing**: Cloud Run deployment validation and timing analysis
+
+### 🔍 Systematic Investigation Methodology
+
+#### **Scratchpad System Integration** ✅ OPERATIONAL
+**Purpose**: Maintain context and systematic approach for complex debugging sessions
+
+**When to Use Scratchpads:**
+- Complex multi-step investigations (3+ steps or actions)
+- Environment-specific debugging (local vs production differences)
+- CSS/UI issues that require systematic testing
+- Any issue that might span multiple Claude sessions
+
+**Scratchpad Structure:**
+```bash
+docs/scratchpad/
+├── investigations/           # Bug and issue investigations
+├── templates/               # Investigation templates
+│   ├── investigation.md     # Bug investigation template
+│   ├── feature-planning.md  # Feature planning template
+│   └── experiment.md        # Code experiment template
+└── README.md               # Scratchpad system documentation
+```
+
+**Investigation Workflow:**
+1. **Create Investigation**: Use template in `docs/scratchpad/investigations/`
+2. **Document Systematically**: Timeline, findings, hypotheses, testing results
+3. **Maintain Context**: Update scratchpad throughout investigation
+4. **Reference Solutions**: Link to final resolution and lessons learned
+5. **Knowledge Preservation**: Keep successful investigations for future reference
+
+**Cloud Run Environment Considerations:**
+- Always check `docs/CLOUD-RUN-MONITORING.md` for known patterns
+- Use "reload test" as first diagnostic for UI issues
+- Document transient vs persistent issues
+- Consider container timing and hydration patterns
 
 ### 🔄 Git Commit Best Practices
 - **Portfolio-Focused Commits**: "Add interactive project showcase", "Implement scroll-driven animations"
@@ -233,6 +276,7 @@ gh pr create --title "Your PR"
 - **No Trailing Hyphens**: Docker sanitization can cause tag format errors
 
 **Safe Examples**:
+- ✅ `fix/hero-pos` (12 chars) - Recent successful example
 - ✅ `feature/nav-fix` (14 chars)
 - ✅ `feature/blog-img` (16 chars) 
 - ✅ `fix/mobile-ui` (13 chars)
@@ -268,6 +312,12 @@ echo "feature/your-branch-name" | wc -c  # Should be ≤ 15 characters
 **Mobile Differences**: Change visible on desktop but not mobile
 - **Solution**: Add mobile-specific CSS with media queries
 - **Test**: Use actual devices, not just browser dev tools
+
+**UI Component Issues** (Navigation, Hover Effects, Fixed Positioning):
+- **FIRST**: Check `docs/CLOUD-RUN-MONITORING.md` for known transient patterns
+- **Diagnostic**: Try page reload - if issue resolves, it's likely container timing
+- **Investigation**: Use scratchpad methodology for systematic debugging
+- **Pattern**: Issues that self-resolve are typically Cloud Run environment timing
 
 ## Featured Project Integration
 
@@ -413,14 +463,17 @@ gh issue list --label "next-phase" --state open
 - **TypeScript**: Strict configuration for code quality
 - **CSS Architecture**: CSS Modules with cutting-edge features
 - **Performance**: Built-in optimization and monitoring
-- **Testing**: Jest + React Testing Library (when implemented)
+- **Testing**: Jest + React Testing Library ✅ OPERATIONAL
+- **Visual Testing**: Puppeteer automation for UI validation ✅ IMPLEMENTED
+- **Investigation Tools**: Scratchpad system for systematic debugging ✅ OPERATIONAL
 
-### 🌐 Future Deployment Planning
-- **Platform**: Google Cloud Run (when ready to deploy)
-- **Domain**: tylergohr.com custom domain setup
-- **CI/CD**: GitHub Actions for automated deployment
-- **Monitoring**: Performance and uptime tracking
-- **Analytics**: Portfolio interaction insights
+### 🌐 Deployment & Monitoring
+- **Platform**: Google Cloud Run ✅ LIVE at tylergohr.com
+- **Domain**: tylergohr.com custom domain ✅ OPERATIONAL
+- **CI/CD**: GitHub Actions automated deployment ✅ OPERATIONAL
+- **Environment Monitoring**: Cloud Run timing pattern recognition ✅ IMPLEMENTED
+- **Preview System**: PR-based staging environments ✅ OPERATIONAL
+- **Investigation Framework**: Systematic debugging methodology ✅ OPERATIONAL
 
 ## Success Metrics for Creative Portfolio
 
@@ -470,36 +523,49 @@ gh issue list --label "next-phase" --state open
 ### 🔗 Key Documentation Sources
 - **GitHub Issues**: Primary source for current status and detailed work logs
 - **docs/DEPLOYMENT.md**: Complete technical deployment procedures and troubleshooting
+- **docs/CLOUD-RUN-MONITORING.md**: Environment-specific issue patterns and debugging guidance ✅ CRITICAL
+- **docs/scratchpad/**: Systematic investigation methodology and templates ✅ OPERATIONAL
 - **docs/BLOG-IMAGES.md**: Comprehensive blog image system documentation with focal point controls
 - **CLAUDE.md** (this file): Core project structure and reference system
 - **README.md**: Public project overview and setup instructions
 
 ### 📋 Status Reference Hierarchy
 1. **Real-time Status**: GitHub issues (most current)
-2. **Technical Procedures**: docs/DEPLOYMENT.md (deployment & troubleshooting)
-3. **Project Structure**: CLAUDE.md (core context & navigation)
-4. **Historical Context**: Closed GitHub issues (completed work & decisions)
+2. **Environment Issues**: docs/CLOUD-RUN-MONITORING.md (known patterns & debugging)
+3. **Technical Procedures**: docs/DEPLOYMENT.md (deployment & troubleshooting)
+4. **Investigation Context**: docs/scratchpad/ (systematic debugging methodology)
+5. **Project Structure**: CLAUDE.md (core context & navigation)
+6. **Historical Context**: Closed GitHub issues (completed work & decisions)
 
 ### 🎯 Quick Navigation for Claude Sessions
 ```bash
 # Start any session with these commands
-gh issue view 5              # Latest major completion (Phase 5.5)
+gh pr view 49                # Latest completed work (Hero positioning fix)
 gh issue view 1              # Overall project roadmap
 gh issue list --state open   # Current priorities
 
 # Reference technical procedures
-cat docs/DEPLOYMENT.md       # When working on deployment/infrastructure
-cat docs/BLOG-IMAGES.md      # When working on blog images and focal points
-cat CLAUDE.md               # For project context and structure
+cat docs/CLOUD-RUN-MONITORING.md  # FIRST: Check for known environment patterns
+cat docs/DEPLOYMENT.md             # When working on deployment/infrastructure
+cat docs/scratchpad/README.md      # When starting complex investigations
+cat docs/BLOG-IMAGES.md            # When working on blog images and focal points
+cat CLAUDE.md                      # For project context and structure
 ```
 
 ## 🚀 Current Production Status
 
 **Live Website**: https://tylergohr.com  
 **Status**: ✅ Production Ready - Modern Next.js portfolio deployed on Google Cloud Run  
-**Last Major Update**: Phase 5.5 Complete (Jest Testing Framework + Domain Setup)  
+**Last Major Update**: PR #49 - Hero Section Text Positioning Consistency (2025-06-29)  
+**Recent Enhancements**: 
+- ✅ Enhanced Dropdown Hover Effects (PR #44)
+- ✅ Hero Text Positioning Consistency (PR #49)
+- ✅ Systematic Investigation Methodology (Scratchpad System)
+- ✅ Cloud Run Environment Monitoring & Pattern Recognition
+
 **Pipeline Optimization**: ⚡ Fast-track deployment for content changes implemented  
 **Preview System**: 🌐 Enterprise-grade PR preview deployments with automatic Cloud Run staging  
+**Environment Monitoring**: 🔍 Transient issue pattern recognition and documentation system  
 **Next Development**: Check GitHub issues for current priorities
 
 This dynamic documentation system ensures Claude always has access to current, accurate project information while maintaining comprehensive technical references for all deployment and development procedures.

@@ -1,0 +1,46 @@
+{
+  "files.associations": {
+    "**/scratchpad/**/*.md": "markdown"
+  },
+  "markdown.preview.breaks": true,
+  "markdown.preview.linkify": true,
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/dist": true,
+    "**/.next": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.next": true,
+    "**/scratchpad/archived": true
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "emmet.includeLanguages": {
+    "markdown": "html"
+  },
+  "files.defaultLanguage": "markdown",
+  "workbench.tree.indent": 15,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.md": "${capture}.draft.md, ${capture}.backup.md",
+    "investigation.md": "investigation.*.md",
+    "feature-planning.md": "feature-planning.*.md", 
+    "experiment.md": "experiment.*.md"
+  },
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
+  },
+  "markdown.extension.toc.levels": "2..6",
+  "markdown.extension.preview.autoShowPreviewToSide": false
+}
