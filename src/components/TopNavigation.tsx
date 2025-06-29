@@ -16,6 +16,10 @@ export default function TopNavigation({ className = "" }: NavigationProps) {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const pathname = usePathname();
 
+  // Debug logging to track TopNavigation rendering
+  console.log('[TopNavigation] 🚨 COMPONENT IS RENDERING, pathname:', pathname);
+  console.log('[TopNavigation] This should NOT render on /2 routes!');
+
   // Navigation height for offset calculation
   const NAV_HEIGHT = 70;
 
