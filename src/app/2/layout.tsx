@@ -3,8 +3,7 @@ import "../globals.css";
 import "./styles/brand-tokens.css";
 import PerformanceOptimizations from "@/components/PerformanceOptimizations";
 import WebVitals from "@/components/WebVitals";
-// TEMPORARILY DISABLED FOR DEBUGGING
-// import Navigation from "@/app/2/components/Navigation/Navigation";
+import Navigation from "@/app/2/components/Navigation/Navigation";
 
 export const metadata: Metadata = {
   title: "Tyler Gohr - Enterprise Solutions Architect",
@@ -202,8 +201,7 @@ export default function Layout2({
         <WebVitals />
 
         {/* Navigation - /2 Redesigned Site */}
-        {/* TEMPORARILY DISABLED FOR DEBUGGING */}
-        {/* <Navigation /> */}
+        <Navigation />
 
         {/* Main application content with Framer Motion provider */}
         <div id="app-root">{children}</div>

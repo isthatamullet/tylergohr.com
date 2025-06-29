@@ -2,7 +2,6 @@
 
 import { Suspense, lazy } from "react";
 import styles from "./page.module.css";
-import Navigation from "./components/Navigation/Navigation";
 import Hero from "./components/Hero/Hero";
 import About from "./components/About/About";
 
@@ -17,9 +16,6 @@ export default function EnterprisePage() {
 
   return (
     <>
-      {/* Enterprise Solutions Navigation */}
-      <Navigation />
-      
       <main id="main-content" className={styles.main} role="main">
         {/* Hero Section - Enterprise Solutions Architect */}
         <Hero />
