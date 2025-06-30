@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, Suspense } from 'react'
 import Link from 'next/link'
 import { Section } from '@/app/2/components/Section/Section'
 import styles from './page.module.css'
@@ -115,7 +115,8 @@ const processSteps: ProcessStep[] = [
   }
 ]
 
-export default function HowIWorkDetailPage() {
+// Component that needs to be wrapped in Suspense
+function HowIWorkPageContent() {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
 
@@ -292,5 +293,14 @@ export default function HowIWorkDetailPage() {
         </div>
       </Section>
     </>
+  )
+}
+
+// Main page component with Suspense boundary
+export default function HowIWorkDetailPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HowIWorkPageContent />
+    </Suspense>
   )
 }

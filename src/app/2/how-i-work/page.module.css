@@ -29,7 +29,6 @@
   max-width: var(--detail-hero-max-width) !important;
   margin: 0 auto !important;
   padding: var(--detail-hero-container-padding) !important;
-  padding-top: 32px !important;
   min-height: auto !important;
 }
 
