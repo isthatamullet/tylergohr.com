@@ -414,8 +414,56 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   max-height: 100px;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.3s ease;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* iOS smooth touch scrolling */
+  
+  /* Custom scrollbar styling for modern browsers */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(22, 163, 74, 0.3) transparent;
+}
+
+/* Webkit scrollbar styling for Chrome, Safari, Edge */
+.technicalCardSkills::-webkit-scrollbar {
+  width: 4px;
+}
+
+.technicalCardSkills::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.technicalCardSkills::-webkit-scrollbar-thumb {
+  background: rgba(22, 163, 74, 0.3);
+  border-radius: 2px;
+}
+
+.technicalCardSkills::-webkit-scrollbar-thumb:hover {
+  background: rgba(22, 163, 74, 0.5);
+}
+
+/* Enhanced scrollbar visibility on card hover for better discoverability */
+.card--technical:hover .technicalCardSkills::-webkit-scrollbar-thumb {
+  background: rgba(22, 163, 74, 0.4);
+}
+
+.card--technical:hover .technicalCardSkills {
+  scrollbar-color: rgba(22, 163, 74, 0.4) transparent;
+}
+
+/* Accessibility: Keyboard navigation support */
+.technicalCardSkills:focus-within {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+}
+
+/* Accessibility: Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .technicalCardSkills {
+    scroll-behavior: auto;
+    transition: none;
+  }
 }
 
 .skills--expanded {
@@ -555,7 +603,7 @@
   }
   
   .technicalCardSkills {
-    max-height: 60px; /* More restrictive on mobile */
+    max-height: 80px; /* Slightly increased for better scrollable experience */
   }
   
   .processCardStep {
