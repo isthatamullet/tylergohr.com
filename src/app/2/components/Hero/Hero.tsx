@@ -1,22 +1,10 @@
 "use client";
 
 import Image from 'next/image';
-import { useRef } from 'react';
-import { ClientMotionDiv, useScroll, useTransform } from '@/app/2/lib/framer-motion-client';
 import { Button } from '../ui/Button/Button';
 import styles from './Hero.module.css';
 
 export default function Hero() {
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"]
-  });
-
-  // Parallax transforms for the hero graphic
-  const graphicY = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const graphicScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-  const graphicOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.3]);
 
   const navigateToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -33,7 +21,6 @@ export default function Hero() {
 
   return (
     <section
-      ref={heroRef}
       id="hero"
       className={styles.heroSection}
       aria-labelledby="hero-title"
@@ -42,18 +29,7 @@ export default function Hero() {
       <div className={styles.heroContainer}>
         {/* Hero Graphic (Left Side) */}
         <div className={styles.heroGraphic}>
-          <ClientMotionDiv 
-            className={styles.graphicContainer}
-            style={{
-              y: graphicY,
-              scale: graphicScale,
-              opacity: graphicOpacity
-            }}
-            transition={{
-              type: "tween",
-              ease: "linear"
-            }}
-          >
+          <div className={styles.graphicContainer}>
             <Image 
               src="/images/hero-graphic.svg"
               alt="Enterprise Solutions Architecture - Interactive network diagram showing connected systems and data flows"
@@ -62,7 +38,7 @@ export default function Hero() {
               height={400}
               priority={true}
             />
-          </ClientMotionDiv>
+          </div>
         </div>
 
         {/* Hero Content (Right Side) */}
