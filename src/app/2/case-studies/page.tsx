@@ -135,10 +135,10 @@ function CaseStudiesPageContent() {
 
   // Map URL tab parameters to actual case study IDs
   const tabMapping = {
-    'emmy': 'emmy-streaming-platform',
+    'emmy': 'emmy-winning-streaming',
     'fox': 'content-distribution-platform', 
-    'warner': 'delivery-management-platform',
-    'ai': 'ai-content-automation'
+    'warner': 'workflow-transformation',
+    'ai': 'ai-powered-innovation'
   }
 
   // Get the default tab from URL parameter or fall back to first case study

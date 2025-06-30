@@ -200,9 +200,9 @@ function TechnicalExpertisePageContent() {
   // Map URL tab parameters to actual technical area IDs
   const tabMapping = {
     'frontend': 'frontend-architecture',
-    'backend': 'backend-systems',
-    'cloud': 'cloud-infrastructure', 
-    'leadership': 'technical-leadership',
+    'backend': 'backend-apis',
+    'cloud': 'cloud-devops', 
+    'leadership': 'leadership-strategy',
     'ai': 'ai-innovation'
   }
 
