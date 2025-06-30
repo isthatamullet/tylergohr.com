@@ -208,7 +208,7 @@ function CaseStudiesPageContent() {
   return (
     <>
       {/* Hero Section - Blue Bar Only */}
-      <Section background="case-studies" paddingY="md" className={styles.compactHero}>
+      <Section background="case-studies" paddingY="none" className={styles.compactHero}>
         <div 
           ref={(el) => { sectionRefs.current['hero'] = el }}
           data-section-id="hero"

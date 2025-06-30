@@ -182,7 +182,7 @@ function HowIWorkPageContent() {
   return (
     <>
       {/* Hero Section */}
-      <Section background="how-i-work" paddingY="md" className={styles.compactHero}>
+      <Section background="how-i-work" paddingY="none" className={styles.compactHero}>
         <div 
           ref={(el) => { sectionRefs.current['hero'] = el }}
           data-section-id="hero"

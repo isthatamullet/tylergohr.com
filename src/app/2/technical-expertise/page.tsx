@@ -274,7 +274,7 @@ function TechnicalExpertisePageContent() {
   return (
     <>
       {/* Hero Section - Blue Bar Only */}
-      <Section background="technical-expertise" paddingY="md" className={styles.compactHero}>
+      <Section background="technical-expertise" paddingY="none" className={styles.compactHero}>
         <div 
           ref={(el) => { sectionRefs.current['hero'] = el }}
           data-section-id="hero"
