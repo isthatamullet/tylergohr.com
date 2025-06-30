@@ -358,11 +358,19 @@ Issue implementation ready for stakeholder review.
 - Maintains file protection rules
 
 ### **Enhanced Scratchpad System**
-- **Prior Art Integration**: Automatic search of related scratchpads
+- **Prior Art Integration**: Automatic search of related scratchpads and archives
 - **GitHub Context**: Links to issues, PRs, and implementation history
-- **Pattern Recognition**: Identifies successful implementation approaches
-- **Knowledge Preservation**: Builds institutional memory over time
+- **Pattern Recognition**: Identifies successful implementation approaches from archives
+- **Knowledge Preservation**: Builds institutional memory through organized archival
 - **Cross-Reference Network**: Links related implementations and decisions
+- **Completion Workflow**: Automatic archival upon successful implementation
+
+### **Archival System Integration**
+Upon implementation completion, scratchpads are:
+1. **Completed**: Final results, achievements, and lessons learned documented
+2. **Archived**: Moved to `docs/scratchpad/archive/2025/[type]/` for future reference
+3. **Indexed**: Available for prior art research in future implementations
+4. **Linked**: Referenced from GitHub PRs and issues for historical context
 
 ### **CI/CD Pipeline**
 - Leverages existing GitHub Actions workflow

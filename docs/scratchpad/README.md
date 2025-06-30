@@ -51,7 +51,8 @@ cp docs/scratchpad/templates/experiment.md docs/scratchpad/experiments/css-grid-
 2. **Document investigation process** as you work
 3. **Test solutions** in scratchpad before implementing
 4. **Convert findings** to formal documentation or GitHub issues
-5. **Archive completed** scratchpads for future reference
+5. **Complete scratchpad** with final results and lessons learned
+6. **Archive completed** scratchpads to organized archive system
 
 ### Context Sharing
 When starting a new Claude session:
@@ -116,12 +117,39 @@ The hero positioning investigation could have been documented as:
 - Puppeteer testing invaluable for precise positioning validation
 ```
 
+## 🗃️ Archival System
+
+### **Archive Structure**
+Completed scratchpads are organized in `docs/scratchpad/archive/` by year and type:
+```
+archive/
+├── 2025/
+│   ├── investigations/    # Completed bug investigations
+│   ├── experiments/       # Completed experiments  
+│   └── planning/          # Completed planning docs
+└── README.md             # Archival procedures and search guidance
+```
+
+### **Completion Workflow**
+Before archiving, scratchpads must be completed with:
+- ✅ **Final Status**: Update status to "✅ Complete"
+- 📊 **Results Summary**: Fill in actual measurements, timelines, and outcomes
+- 🎯 **Key Achievements**: Document what was accomplished
+- 📚 **Lessons Learned**: Capture insights for future reference
+- 🔗 **Links**: Reference related GitHub PRs, issues, and deployments
+
+### **Archive Navigation** 
+- **Browse**: `docs/scratchpad/archive/2025/[type]/`
+- **Search by topic**: `grep -r "navigation" docs/scratchpad/archive/`
+- **Search by date**: `find docs/scratchpad/archive/ -name "*2025-06*"`
+- **Recent archives**: `find docs/scratchpad/archive/ -type f -mtime -30`
+
 ## 🎯 Future Enhancements
 
 - **Template automation**: Scripts to generate scratchpads from templates
 - **Integration with GitHub Issues**: Convert scratchpad findings to formal issues
-- **Search functionality**: Quick search across all scratchpads
-- **Archival system**: Organize completed investigations by project phase
+- **Advanced search functionality**: Indexed search across all archived content
+- **Archive analytics**: Track resolution patterns and knowledge reuse
 
 ---
 

@@ -391,5 +391,26 @@ Priority: Low
 - [ ] [Follow-up task 1]
 - [ ] [Follow-up task 2]
 
+## 🗃️ Archival Checklist
+
+### **Pre-Archive Completion**
+- [ ] **Status Updated**: Change status to "✅ Complete"
+- [ ] **Results Documented**: Fill in actual measurements, timelines, and outcomes
+- [ ] **Achievements Listed**: Document key accomplishments and improvements
+- [ ] **Lessons Captured**: Record insights and methodologies for future reference
+- [ ] **Links Updated**: Include GitHub PR, issue, and deployment URLs
+- [ ] **Files Modified**: List all changed files with descriptions
+
+### **Archive Workflow**
+1. **Complete Scratchpad**: Fill in all placeholder sections with actual results
+2. **Update Status**: Change header status to "✅ Complete"
+3. **Move to Archive**: Transfer to `docs/scratchpad/archive/2025/[type]/`
+4. **Update References**: Ensure GitHub PRs/issues link to archived location
+
+### **Archive Location**
+- **Target Directory**: `docs/scratchpad/archive/2025/investigations/`
+- **Naming Convention**: Keep original filename for consistency
+- **Final Status**: `✅ Complete | 📋 Documentation Archived | 🚀 Live in Production`
+
 ---
 **Workflow Status**: ✅ Complete | 📋 Documentation Archived | 🚀 Live in Production
