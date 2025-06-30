@@ -1,0 +1,42 @@
+{
+  "title": {
+    "text": "Technical Expertise",
+    "top": 103,
+    "left": 232,
+    "width": 736,
+    "height": 66,
+    "styles": {
+      "marginTop": "0px",
+      "marginBottom": "24px",
+      "paddingTop": "0px",
+      "paddingBottom": "0px",
+      "fontSize": "60px",
+      "lineHeight": "66px"
+    }
+  },
+  "description": {
+    "text": "16+ years of enterprise leadership experience combined with cutting-edge modern development practice...",
+    "top": 193,
+    "left": 232,
+    "width": 736,
+    "height": 64,
+    "styles": {
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "paddingTop": "0px",
+      "paddingBottom": "0px",
+      "fontSize": "20px",
+      "lineHeight": "32px"
+    }
+  },
+  "container": {
+    "top": 0,
+    "left": 0,
+    "width": 1200,
+    "height": 360
+  },
+  "viewport": {
+    "width": 1200,
+    "height": 800
+  }
+}
