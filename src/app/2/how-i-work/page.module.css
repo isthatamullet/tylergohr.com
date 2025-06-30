@@ -22,7 +22,7 @@
   /* Match Case Studies & Technical Expertise positioning exactly */
   display: flex !important;
   flex-direction: column !important;
-  justify-content: flex-start !important;
+  justify-content: center !important;
   align-items: center !important;
   text-align: center !important;
   height: 100% !important;
@@ -776,9 +776,9 @@
 /* Extra Small Mobile */
 @media (max-width: 480px) {
   .compactHero {
-    min-height: 240px !important;
-    max-height: 240px !important;
-    padding: 40px 0 !important;
+    min-height: var(--detail-hero-height) !important;
+    max-height: var(--detail-hero-height) !important;
+    padding: var(--detail-hero-padding) !important;
   }
   
   .processHeader {
