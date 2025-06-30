@@ -1,0 +1,42 @@
+{
+  "title": {
+    "text": "How I Work",
+    "top": 104,
+    "left": 232,
+    "width": 736,
+    "height": 66,
+    "styles": {
+      "marginTop": "0px",
+      "marginBottom": "24px",
+      "paddingTop": "0px",
+      "paddingBottom": "0px",
+      "fontSize": "60px",
+      "lineHeight": "66px"
+    }
+  },
+  "description": {
+    "text": "Enterprise methodology from discovery to optimization, combining strategic planning with modern deve...",
+    "top": 194,
+    "left": 232,
+    "width": 736,
+    "height": 96,
+    "styles": {
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "paddingTop": "0px",
+      "paddingBottom": "0px",
+      "fontSize": "20px",
+      "lineHeight": "32px"
+    }
+  },
+  "container": {
+    "top": 0,
+    "left": 0,
+    "width": 1200,
+    "height": 360
+  },
+  "viewport": {
+    "width": 1200,
+    "height": 800
+  }
+}

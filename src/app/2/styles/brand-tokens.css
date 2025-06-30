@@ -100,7 +100,7 @@
 
   /* Hero Layout Standards - Eliminates duplication across detail pages */
   --detail-hero-height: 360px;                          /* Standardized hero dimensions */
-  --detail-hero-padding: 60px 0;                        /* Consistent vertical padding */
+  --detail-hero-padding: 140px 0 60px 0;                /* Top padding clears navigation with safe margin, bottom maintains balance */
   --detail-hero-max-width: 800px;                       /* Content container width */
   --detail-hero-container-padding: 0 2rem;              /* Horizontal padding */
 

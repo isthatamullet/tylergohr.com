@@ -186,9 +186,9 @@
 /* Extra Small Mobile (480px and below) */
 @media (max-width: 480px) {
   .compactHero {
-    min-height: 240px !important;
-    max-height: 240px !important;
-    padding: 40px 0 !important;
+    min-height: var(--detail-hero-height) !important;
+    max-height: var(--detail-hero-height) !important;
+    padding: var(--detail-hero-padding) !important;
   }
   
   .heroContainer {
@@ -237,29 +237,36 @@
    ========================================================================== */
 
 .compactHero {
-  /* Standardized hero dimensions - reduced by 40px */
-  min-height: var(--detail-hero-height) !important;
-  max-height: var(--detail-hero-height) !important;
+  /* Fixed height - no variables, no inheritance */
+  height: 360px !important;
+  min-height: 360px !important;
+  max-height: 360px !important;
   
-  /* Center content vertically */
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  /* Container setup */
+  position: relative !important;
   
-  /* Consistent padding across all detail pages */
-  padding: var(--detail-hero-padding) !important;
+  /* Remove all padding/margin */
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .compactHero .heroContainer {
-  /* Match How I Work positioning exactly */
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
+  /* Absolute positioning for complete control */
+  position: absolute !important;
+  top: 135px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  
+  /* Text alignment */
   text-align: center !important;
-  height: 100% !important;
-  max-width: var(--detail-hero-max-width) !important;
-  margin: 0 auto !important;
-  padding: var(--detail-hero-container-padding) !important;
-  min-height: auto !important;
+  
+  /* Width control */
+  width: 800px !important;
+  max-width: 90vw !important;
+  
+  /* Remove all other positioning */
+  display: block !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
