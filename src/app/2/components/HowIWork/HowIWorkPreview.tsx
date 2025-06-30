@@ -61,7 +61,7 @@ export const HowIWorkPreview: React.FC = () => {
       step: 4,
       title: 'Implementation',
       description: 'Next.js development, iterative building, code reviews',
-      icon: '⚡',
+      icon: '⚡️',
       side: 'right',
       x: 36, // Down and right 36%
       y: 36
