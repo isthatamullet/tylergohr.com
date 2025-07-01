@@ -656,10 +656,28 @@
   }
 }
 
-/* Mobile Layout */
+/* Mobile Layout - Clean Override with Increased Specificity */
 @media (max-width: 768px) {
-  .heroContainer {
-    padding: 0 1rem;
+  .compactHero.compactHero .heroContainer {
+    /* Override absolute positioning on mobile to match other detail pages */
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    
+    /* Use normal layout like case-studies and technical-expertise */
+    max-width: 1200px;
+    margin: 0 auto;
+    width: auto;
+    
+    /* Ensure proper vertical centering using design tokens */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(var(--detail-hero-height) - 100px);
+    
+    /* Mobile padding using design tokens */
+    padding: var(--detail-hero-container-padding);
   }
   
   .processContainer {
