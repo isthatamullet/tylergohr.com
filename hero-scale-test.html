@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Image Scale Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #0a0a0a;
+            color: white;
+            font-family: monospace;
+        }
+
+        .test-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .image-test {
+            border: 2px solid #333;
+            padding: 10px;
+            background: #111;
+        }
+
+        .image-wrapper {
+            width: 300px;
+            height: 200px;
+            position: relative;
+            border: 1px solid #666;
+            margin: 10px 0;
+        }
+
+        .test-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .contain { object-fit: contain; }
+        .cover { object-fit: cover; }
+        .fill { object-fit: fill; }
+        .none { object-fit: none; }
+
+        h3 {
+            color: #22c55e;
+            margin: 0 0 10px 0;
+        }
+
+        .label {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+        }
+
+        .dimensions {
+            font-size: 11px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .stacked-test {
+            width: 400px;
+            height: 300px;
+            position: relative;
+            border: 2px solid #22c55e;
+            margin: 20px 0;
+        }
+
+        .stacked-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .layer1 { z-index: 1; }
+        .layer2 { z-index: 2; opacity: 0.8; }
+        .layer3 { z-index: 3; opacity: 0.8; }
+        .layer4 { z-index: 4; opacity: 0.8; }
+
+        .debug-info {
+            background: #1a1a1a;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 3px solid #22c55e;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hero Image Scale Test - Debug Analysis</h1>
+    
+    <div class="debug-info">
+        <h3>Current Issue:</h3>
+        <p>Main wizard image not scaling up with clouds. Testing different object-fit behaviors to identify cause.</p>
+    </div>
+
+    <!-- Individual Image Tests -->
+    <h2>Individual Image Scaling Test</h2>
+    <div class="test-container">
+        <!-- Main Hero Image Tests -->
+        <div class="image-test">
+            <h3>Main Wizard (hero-main.png)</h3>
+            
+            <div class="label">object-fit: contain (current)</div>
+            <div class="image-wrapper">
+                <img src="/images/hero-main.png" class="test-image contain" alt="Main wizard contain">
+            </div>
+            
+            <div class="label">object-fit: cover</div>
+            <div class="image-wrapper">
+                <img src="/images/hero-main.png" class="test-image cover" alt="Main wizard cover">
+            </div>
+            
+            <div class="label">object-fit: fill</div>
+            <div class="image-wrapper">
+                <img src="/images/hero-main.png" class="test-image fill" alt="Main wizard fill">
+            </div>
+        </div>
+
+        <!-- Cloud 1 Tests -->
+        <div class="image-test">
+            <h3>Cloud 1 (hero-cloud-1.png)</h3>
+            
+            <div class="label">object-fit: contain (current)</div>
+            <div class="image-wrapper">
+                <img src="/images/hero-cloud-1.png" class="test-image contain" alt="Cloud 1 contain">
+            </div>
+            
+            <div class="label">object-fit: cover</div>
+            <div class="image-wrapper">
+                <img src="/images/hero-cloud-1.png" class="test-image cover" alt="Cloud 1 cover">
+            </div>
+            
+            <div class="label">object-fit: fill</div>
+            <div class="image-wrapper">
+                <img src="/images/hero-cloud-1.png" class="test-image fill" alt="Cloud 1 fill">
+            </div>
+        </div>
+
+        <!-- Cloud 2 Tests -->
+        <div class="image-test">
+            <h3>Cloud 2 (hero-cloud-2.png)</h3>
+            
+            <div class="label">object-fit: contain (current)</div>
+            <div class="image-wrapper">
+                <img src="/images/hero-cloud-2.png" class="test-image contain" alt="Cloud 2 contain">
+            </div>
+            
+            <div class="label">object-fit: cover</div>
+            <div class="image-wrapper">
+                <img src="/images/hero-cloud-2.png" class="test-image cover" alt="Cloud 2 cover">
+            </div>
+            
+            <div class="label">object-fit: fill</div>
+            <div class="image-wrapper">
+                <img src="/images/hero-cloud-2.png" class="test-image fill" alt="Cloud 2 fill">
+            </div>
+        </div>
+
+        <!-- Cloud 3 Tests -->
+        <div class="image-test">
+            <h3>Cloud 3 (hero-cloud-3.png)</h3>
+            
+            <div class="label">object-fit: contain (current)</div>
+            <div class="image-wrapper">
+                <img src="/images/hero-cloud-3.png" class="test-image contain" alt="Cloud 3 contain">
+            </div>
+            
+            <div class="label">object-fit: cover</div>
+            <div class="image-wrapper">
+                <img src="/images/hero-cloud-3.png" class="test-image cover" alt="Cloud 3 cover">
+            </div>
+            
+            <div class="label">object-fit: fill</div>
+            <div class="image-wrapper">
+                <img src="/images/hero-cloud-3.png" class="test-image fill" alt="Cloud 3 fill">
+            </div>
+        </div>
+    </div>
+
+    <!-- Stacked Test -->
+    <h2>Stacked Layer Test (Current Implementation)</h2>
+    <div class="debug-info">
+        <p>This simulates the current hero implementation with all 4 images stacked:</p>
+    </div>
+    
+    <div class="stacked-test">
+        <img src="/images/hero-main.png" class="stacked-image layer1" alt="Main wizard">
+        <img src="/images/hero-cloud-1.png" class="stacked-image layer2" alt="Cloud 1">
+        <img src="/images/hero-cloud-2.png" class="stacked-image layer3" alt="Cloud 2">
+        <img src="/images/hero-cloud-3.png" class="stacked-image layer4" alt="Cloud 3">
+    </div>
+
+    <!-- Intrinsic Dimensions Check -->
+    <h2>Image Dimensions Analysis</h2>
+    <div class="debug-info">
+        <p>Check browser developer tools to see the natural dimensions of each image.</p>
+        <p><strong>Expected Issue</strong>: If images have different aspect ratios, object-fit: contain will scale them differently.</p>
+        <p><strong>Solution</strong>: Use object-fit: cover or object-fit: fill to ensure uniform scaling.</p>
+    </div>
+
+    <script>
+        // Log actual image dimensions when loaded
+        const images = document.querySelectorAll('img');
+        images.forEach((img, index) => {
+            img.onload = function() {
+                console.log(`Image ${index + 1} (${img.src}):`, {
+                    naturalWidth: img.naturalWidth,
+                    naturalHeight: img.naturalHeight,
+                    aspectRatio: (img.naturalWidth / img.naturalHeight).toFixed(2)
+                });
+            };
+        });
+
+        // Also log after all images are loaded
+        window.addEventListener('load', () => {
+            console.log('\n=== HERO IMAGE DIMENSIONS ANALYSIS ===');
+            
+            const mainImg = document.querySelector('img[src="/images/hero-main.png"]');
+            const cloud1 = document.querySelector('img[src="/images/hero-cloud-1.png"]');
+            const cloud2 = document.querySelector('img[src="/images/hero-cloud-2.png"]');
+            const cloud3 = document.querySelector('img[src="/images/hero-cloud-3.png"]');
+            
+            console.log('Main Wizard:', {
+                width: mainImg.naturalWidth,
+                height: mainImg.naturalHeight,
+                ratio: (mainImg.naturalWidth / mainImg.naturalHeight).toFixed(2)
+            });
+            
+            console.log('Cloud 1:', {
+                width: cloud1.naturalWidth,
+                height: cloud1.naturalHeight,
+                ratio: (cloud1.naturalWidth / cloud1.naturalHeight).toFixed(2)
+            });
+            
+            console.log('Cloud 2:', {
+                width: cloud2.naturalWidth,
+                height: cloud2.naturalHeight,
+                ratio: (cloud2.naturalWidth / cloud2.naturalHeight).toFixed(2)
+            });
+            
+            console.log('Cloud 3:', {
+                width: cloud3.naturalWidth,
+                height: cloud3.naturalHeight,
+                ratio: (cloud3.naturalWidth / cloud3.naturalHeight).toFixed(2)
+            });
+            
+            console.log('\nIf aspect ratios are different, that explains the scaling issue!');
+        });
+    </script>
+</body>
+</html>

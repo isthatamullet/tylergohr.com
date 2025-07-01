@@ -138,6 +138,8 @@
 /* Main hero image - base layer */
 .heroImage {
   z-index: 1;
+  /* Use cover to scale up wizard to match cloud scaling behavior */
+  object-fit: cover !important;
   /* Subtle hover effect */
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
