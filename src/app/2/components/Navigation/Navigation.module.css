@@ -469,7 +469,6 @@
   
   /* Performance optimization */
   will-change: opacity;
-  backdrop-filter: blur(2px);
 }
 
 @keyframes fadeIn {
