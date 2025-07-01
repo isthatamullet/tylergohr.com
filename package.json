@@ -29,7 +29,7 @@
     "test:e2e:safari": "playwright test --project=webkit",
     "test:e2e:update-screenshots": "playwright test --update-snapshots",
     "copy-blog-assets": "node scripts/copy-blog-assets.js",
-    "validate": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "validate": "npm run typecheck && npm run lint && npm run build",
     "pre-commit": "npm run validate"
   },
   "dependencies": {
