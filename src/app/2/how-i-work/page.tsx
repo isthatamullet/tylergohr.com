@@ -194,7 +194,7 @@ function HowIWorkPageContent() {
               How I Work
             </h1>
             <p className={styles.heroDescription}>
-              Enterprise methodology combining strategic planning with modern development practices to deliver scalable, maintainable business solutions.
+              Strategic enterprise approach combining modern development practices to deliver scalable, reliable solutions.
             </p>
           </header>
         </div>
