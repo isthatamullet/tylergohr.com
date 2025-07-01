@@ -37,8 +37,8 @@ export default function Navigation({ className = "" }: NavigationProps) {
   console.log('[/2 Navigation] This should be the ONLY navigation on /2 routes');
   console.log('[/2 Navigation] Component mounted at:', new Date().toISOString());
 
-  // Navigation height for offset calculation
-  const NAV_HEIGHT = 70;
+  // Navigation height for offset calculation - use brand token
+  const NAV_HEIGHT = 70; // TODO: Replace with getComputedStyle to read CSS custom property
 
   // Dropdown menu data
   const workDropdownItems: DropdownItem[] = [

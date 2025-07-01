@@ -50,6 +50,8 @@
   justify-content: space-between;
   padding: 0 var(--container-padding);
   position: relative;
+  /* Use brand token for navigation height consistency */
+  min-height: var(--navigation-height);
 }
 
 /* Tech Company Logo with Logo Float Animation Preparation */

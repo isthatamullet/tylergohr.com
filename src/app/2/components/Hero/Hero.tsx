@@ -10,7 +10,8 @@ export default function Hero() {
     const element = document.getElementById(sectionId);
     if (element) {
       const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - 70; // Navigation height
+      // Use consistent navigation height from CSS custom property (70px)
+      const offsetPosition = elementPosition - 70; // TODO: Read from CSS custom property --navigation-height
 
       window.scrollTo({
         top: offsetPosition,

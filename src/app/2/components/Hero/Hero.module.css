@@ -317,8 +317,10 @@
 
 @media (max-width: 767px) {
   .heroSection {
-    padding: 1rem;
-    min-height: 100vh;
+    /* Add top padding to clear fixed navigation */
+    padding: var(--hero-mobile-padding-top) 1rem 1rem 1rem;
+    /* Adjust viewport calculation to account for navigation */
+    min-height: calc(100vh - var(--navigation-height));
   }
   
   .heroContainer {
