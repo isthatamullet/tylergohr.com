@@ -349,10 +349,16 @@
   margin-left: 1rem;
   animation: slideDown 0.3s ease;
   
-  /* Constrain dropdown height for internal scrolling */
-  max-height: calc(50vh);
+  /* Enhanced scroll containment for all dropdown types */
+  max-height: calc(40vh);
   overflow-y: auto;
   overscroll-behavior: contain;
+  
+  /* Additional containment properties */
+  position: relative;
+  contain: layout style;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 @keyframes slideDown {
@@ -362,7 +368,7 @@
   }
   to {
     opacity: 1;
-    max-height: calc(50vh);
+    max-height: calc(40vh);
   }
 }
 
@@ -430,6 +436,13 @@
   text-transform: uppercase;
   letter-spacing: 0.025em;
   flex-shrink: 0;
+  
+  /* Prevent badge layout from breaking containment */
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mobileDropdownDescription {
