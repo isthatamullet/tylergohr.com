@@ -667,6 +667,10 @@
     font-size: 1.125rem;
   }
   
+  .heroContainer {
+    padding: 0 20px;
+  }
+  
   .processContainer {
     padding: 0 1rem;
   }
@@ -791,6 +795,10 @@
     min-height: var(--detail-hero-height) !important;
     max-height: var(--detail-hero-height) !important;
     padding: var(--detail-hero-padding) !important;
+  }
+  
+  .heroContainer {
+    padding: 0 16px;
   }
   
   .processHeader {
