@@ -235,6 +235,12 @@
   visibility: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 1rem var(--container-padding) 2rem;
+  
+  /* Height constraints for viewport containment */
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -342,6 +348,17 @@
   border-left: 2px solid var(--accent-green);
   margin-left: 1rem;
   animation: slideDown 0.3s ease;
+  
+  /* Enhanced scroll containment for all dropdown types */
+  max-height: calc(40vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  
+  /* Additional containment properties */
+  position: relative;
+  contain: layout style;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 @keyframes slideDown {
@@ -351,7 +368,7 @@
   }
   to {
     opacity: 1;
-    max-height: 500px;
+    max-height: calc(40vh);
   }
 }
 
@@ -419,6 +436,13 @@
   text-transform: uppercase;
   letter-spacing: 0.025em;
   flex-shrink: 0;
+  
+  /* Prevent badge layout from breaking containment */
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .mobileDropdownDescription {
@@ -446,14 +470,18 @@
 /* Mobile Overlay */
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 99998;
   opacity: 0;
   animation: fadeIn 0.3s ease forwards;
+  
+  /* Prevent touch scroll bleeding */
+  touch-action: none;
+  overscroll-behavior: contain;
+  
+  /* Performance optimization */
+  will-change: opacity;
 }
 
 @keyframes fadeIn {

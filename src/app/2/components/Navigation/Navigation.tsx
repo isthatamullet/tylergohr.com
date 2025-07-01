@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import styles from "./Navigation.module.css";
 import DropdownMenu, { DropdownItem } from "./DropdownMenu";
+import { useScrollLock } from "../../hooks/useScrollLock";
 
 interface NavigationProps {
   className?: string;
@@ -27,6 +28,9 @@ export default function Navigation({ className = "" }: NavigationProps) {
   const observerRef = useRef<IntersectionObserver | null>(null);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pathname = usePathname();
+
+  // Lock body scroll when mobile menu is open
+  useScrollLock(isMenuOpen);
 
   // Enhanced debug logging to verify /2 Navigation is rendering
   console.log('[/2 Navigation] Component is rendering, pathname:', pathname);
@@ -364,10 +368,25 @@ export default function Navigation({ className = "" }: NavigationProps) {
     };
   }, [pathname]);
 
-  // Handle mobile menu toggle
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  // Enhanced keyboard support for mobile menu
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isMenuOpen) {
+        setIsMenuOpen(false);
+        setExpandedMobileDropdown(null);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => document.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [isMenuOpen]);
+
+  // Handle mobile menu toggle with enhanced state management
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen(prev => !prev);
+  }, []);
 
   // Dropdown handlers
   const handleDropdownEnter = useCallback((linkId: string) => {
