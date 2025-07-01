@@ -119,7 +119,7 @@
 
   /* Navigation Height Management */
   --navigation-height: 70px;                            /* Fixed navigation bar height */
-  --hero-mobile-padding-top: calc(var(--navigation-height) + 1rem); /* Hero mobile offset */
+  --hero-mobile-padding-top: calc(var(--navigation-height) + 3rem); /* Hero mobile offset - increased for better clearance */
 }
 
 /* ==========================================================================
