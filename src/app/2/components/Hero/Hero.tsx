@@ -35,8 +35,8 @@ export default function Hero() {
               src="/images/hero-main.png"
               alt="Enterprise Solutions Architecture - Interactive visualization of connected systems and data flows"
               className={styles.heroImage}
-              width={580}
-              height={400}
+              width={783}
+              height={540}
               priority={true}
             />
             
@@ -45,8 +45,8 @@ export default function Hero() {
               src="/images/hero-cloud-1.png"
               alt=""
               className={styles.cloud1}
-              width={580}
-              height={400}
+              width={783}
+              height={540}
               aria-hidden="true"
             />
             
@@ -55,8 +55,8 @@ export default function Hero() {
               src="/images/hero-cloud-2.png"
               alt=""
               className={styles.cloud2}
-              width={580}
-              height={400}
+              width={783}
+              height={540}
               aria-hidden="true"
             />
             
@@ -65,8 +65,8 @@ export default function Hero() {
               src="/images/hero-cloud-3.png"
               alt=""
               className={styles.cloud3}
-              width={580}
-              height={400}
+              width={783}
+              height={540}
               aria-hidden="true"
             />
           </div>

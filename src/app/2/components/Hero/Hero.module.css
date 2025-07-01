@@ -63,8 +63,8 @@
 
 .graphicContainer {
   /* Container for hero graphic */
-  width: 580px;
-  height: 400px;
+  width: 783px;
+  height: 540px;
   
   /* Center content */
   display: flex;
@@ -286,8 +286,8 @@
   }
   
   .graphicContainer {
-    width: 460px;
-    height: 320px;
+    width: 621px;
+    height: 432px;
   }
   
   /* Tablet cloud adjustments */
@@ -338,8 +338,8 @@
   .graphicContainer {
     /* Mobile dimensions */
     width: 100%;
-    max-width: 350px;
-    height: 250px;
+    max-width: 473px;
+    height: 338px;
   }
   
   .heroContent {
@@ -402,7 +402,7 @@
   }
   
   .graphicContainer {
-    height: 200px;
+    height: 270px;
   }
   
   /* Mobile cloud optimizations */
