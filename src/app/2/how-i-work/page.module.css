@@ -19,24 +19,10 @@
 }
 
 .compactHero .heroContainer {
-  /* Absolute positioning for complete control */
-  position: absolute !important;
-  top: 135px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  
-  /* Text alignment */
-  text-align: center !important;
-  
-  /* Width control */
-  width: 800px !important;
-  max-width: 90vw !important;
-  
-  /* Remove all other positioning */
-  display: block !important;
-  height: auto !important;
-  padding: 0 !important;
-  margin: 0 !important;
+  /* Simple centered approach - matches Case Studies and Technical Expertise */
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .heroHeader {
@@ -656,22 +642,13 @@
   }
 }
 
-/* Mobile Layout - Strategic !important Override */
+/* Mobile Layout - Simple Responsive Override */
 @media (max-width: 768px) {
-  .compactHero.compactHero .heroContainer {
-    /* Override desktop !important rules - only use !important where necessary */
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    transform: none !important;
-    display: flex !important;
-    
-    /* Clean properties without !important */
+  .compactHero .heroContainer {
+    /* Mobile-specific layout adjustments */
+    display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    width: auto;
     min-height: calc(var(--detail-hero-height) - 100px);
     padding: var(--detail-hero-container-padding);
   }

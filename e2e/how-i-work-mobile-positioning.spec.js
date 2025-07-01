@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test.describe('How I Work Mobile Positioning Fix', () => {
+test.describe('How I Work Unified Hero Positioning', () => {
   test('mobile hero positioning works correctly', async ({ page }) => {
     console.log('🔍 Testing How I Work mobile positioning fix...');
     
@@ -36,17 +36,17 @@ test.describe('How I Work Mobile Positioning Fix', () => {
     
     console.log('📊 Mobile styles applied:', mobileStyles);
     
-    // Assert mobile positioning is correct
-    expect(mobileStyles.position).toBe('relative');
+    // Assert mobile positioning is correct (unified simple approach)
+    expect(mobileStyles.position).toBe('static'); // Simple positioning, no absolute
     expect(mobileStyles.display).toBe('flex');
-    expect(mobileStyles.maxWidth).toBe('337.5px'); // 90% of 375px mobile viewport
-    expect(mobileStyles.top).toBe('0px'); // auto computes to 0px
-    expect(mobileStyles.left).toBe('0px'); // auto computes to 0px
+    expect(mobileStyles.maxWidth).toBe('1200px'); // Full container width on mobile
+    expect(mobileStyles.top).toBe('auto'); 
+    expect(mobileStyles.left).toBe('auto');
     expect(mobileStyles.transform).toBe('none');
     
     // Verify hero text is visible in viewport
     const heroTitle = page.getByRole('heading', { name: 'How I Work' });
-    const heroDescription = page.getByText('Enterprise methodology from discovery to optimization');
+    const heroDescription = page.getByText('Enterprise methodology combining strategic planning with modern development practices');
     
     await expect(heroTitle).toBeVisible();
     await expect(heroDescription).toBeVisible();
@@ -62,8 +62,8 @@ test.describe('How I Work Mobile Positioning Fix', () => {
     console.log('✅ Mobile hero text positioning verified');
   });
   
-  test('desktop positioning remains unchanged', async ({ page }) => {
-    console.log('🖥️ Testing desktop positioning preservation...');
+  test('desktop positioning uses unified approach', async ({ page }) => {
+    console.log('🖥️ Testing desktop unified positioning approach...');
     
     // Set desktop viewport
     await page.setViewportSize({ width: 1200, height: 800 });
@@ -94,18 +94,18 @@ test.describe('How I Work Mobile Positioning Fix', () => {
     
     console.log('📊 Desktop styles preserved:', desktopStyles);
     
-    // Assert desktop absolute positioning is preserved
-    expect(desktopStyles.position).toBe('absolute');
-    expect(desktopStyles.top).toBe('135px');
-    expect(desktopStyles.left).toBe('600px'); // 50% of 1200px desktop viewport
-    expect(desktopStyles.transform).toContain('matrix(1, 0, 0, 1, -400, 0)'); // translateX(-50%) computed
-    expect(desktopStyles.width).toBe('800px');
+    // Assert desktop simple positioning (unified approach)
+    expect(desktopStyles.position).toBe('static'); // Simple positioning, matches other pages
+    expect(desktopStyles.top).toBe('auto');
+    expect(desktopStyles.left).toBe('auto');
+    expect(desktopStyles.transform).toBe('none');
+    expect(desktopStyles.width).toBe('1080px'); // Container width based on max-width: 1200px
     
     console.log('✅ Desktop positioning preserved');
   });
   
-  test('mobile vs desktop comparison', async ({ page }) => {
-    console.log('📱🖥️ Comparing mobile vs desktop layouts...');
+  test('unified positioning approach validation', async ({ page }) => {
+    console.log('📱🖥️ Validating unified positioning across devices...');
     
     // Test mobile first
     await page.setViewportSize({ width: 375, height: 667 });
@@ -132,11 +132,11 @@ test.describe('How I Work Mobile Positioning Fix', () => {
       return window.getComputedStyle(element).position;
     });
     
-    // Verify they are different as expected
-    expect(mobilePosition).toBe('relative');
-    expect(desktopPosition).toBe('absolute');
+    // Verify they use unified simple positioning approach
+    expect(mobilePosition).toBe('static');
+    expect(desktopPosition).toBe('static');
     
-    console.log(`✅ Layout differs correctly: Mobile(${mobilePosition}) vs Desktop(${desktopPosition})`);
+    console.log(`✅ Unified positioning approach: Mobile(${mobilePosition}) and Desktop(${desktopPosition})`);
   });
   
   test('take comparison screenshots', async ({ page }) => {
