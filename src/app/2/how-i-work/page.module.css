@@ -19,28 +19,13 @@
 }
 
 .compactHero .heroContainer {
-  /* Absolute positioning for complete control - matches Case Studies and Technical Expertise exactly */
-  position: absolute !important;
-  top: 135px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  
-  /* Text alignment */
-  text-align: center !important;
-  
-  /* Width control */
-  width: 800px !important;
-  max-width: 90vw !important;
-  
-  /* Remove all other positioning */
-  display: block !important;
-  height: auto !important;
-  padding: 0 !important;
-  margin: 0 !important;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .heroHeader {
-  opacity: 0;
+  opacity: 1;
   transform: var(--detail-reveal-transform);
   transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
 }
@@ -85,7 +70,7 @@
 .processHeader {
   text-align: center;
   margin-bottom: 4rem;
-  opacity: 0;
+  opacity: 1;
   transform: var(--detail-reveal-transform);
   transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
 }
@@ -119,7 +104,7 @@
   position: relative;
   margin: 4rem 0;
   height: 700px;
-  opacity: 0;
+  opacity: 1;
   transform: translateY(40px);
   transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -164,7 +149,7 @@
 
 .processStep {
   position: absolute;
-  opacity: 0;
+  opacity: 1;
   transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
 }
 
@@ -391,7 +376,7 @@
 .processListContainer {
   max-width: 900px;
   margin: 0 auto;
-  opacity: 0;
+  opacity: 1;
   transform: translateY(40px);
   transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -411,7 +396,7 @@
     0 2px 4px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(226, 232, 240, 0.6);
   backdrop-filter: blur(10px);
-  opacity: 0;
+  opacity: 1;
   transform: var(--detail-reveal-transform);
   transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
 }
@@ -557,7 +542,7 @@
    ========================================================================== */
 
 .ctaSection {
-  opacity: 0;
+  opacity: 1;
   transform: var(--detail-reveal-transform);
   transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
 }
