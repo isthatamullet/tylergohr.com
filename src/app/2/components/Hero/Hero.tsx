@@ -30,13 +30,44 @@ export default function Hero() {
         {/* Hero Graphic (Left Side) */}
         <div className={styles.heroGraphic}>
           <div className={styles.graphicContainer}>
+            {/* Stacked hero images - main image + 3 floating cloud layers */}
             <Image 
-              src="/images/hero-graphic.svg"
-              alt="Enterprise Solutions Architecture - Interactive network diagram showing connected systems and data flows"
+              src="/images/hero-main.png"
+              alt="Enterprise Solutions Architecture - Interactive visualization of connected systems and data flows"
               className={styles.heroImage}
               width={580}
               height={400}
               priority={true}
+            />
+            
+            {/* Cloud layer 1 - floating on top */}
+            <Image 
+              src="/images/hero-cloud-1.png"
+              alt=""
+              className={styles.cloud1}
+              width={580}
+              height={400}
+              aria-hidden="true"
+            />
+            
+            {/* Cloud layer 2 - floating on top */}
+            <Image 
+              src="/images/hero-cloud-2.png"
+              alt=""
+              className={styles.cloud2}
+              width={580}
+              height={400}
+              aria-hidden="true"
+            />
+            
+            {/* Cloud layer 3 - floating on top */}
+            <Image 
+              src="/images/hero-cloud-3.png"
+              alt=""
+              className={styles.cloud3}
+              width={580}
+              height={400}
+              aria-hidden="true"
             />
           </div>
         </div>

@@ -108,6 +108,100 @@
 }
 
 /* ==========================================================================
+   STACKED HERO IMAGES - MAIN + FLOATING CLOUD LAYERS
+   ========================================================================== */
+
+/* Base styles for all hero images (main + clouds) */
+.heroImage,
+.cloud1,
+.cloud2,
+.cloud3 {
+  /* Stack all images in the same position */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* High quality scaling */
+  object-fit: contain;
+  object-position: center;
+  
+  /* Performance optimization */
+  will-change: transform;
+  
+  /* Accessibility */
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Main hero image - base layer */
+.heroImage {
+  z-index: 1;
+  /* Subtle hover effect */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Cloud layers - floating on top with different z-indexes */
+.cloud1 {
+  z-index: 2;
+  animation: cloudFloat1 6s ease-in-out infinite;
+}
+
+.cloud2 {
+  z-index: 3;
+  animation: cloudFloat2 8s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.cloud3 {
+  z-index: 4;
+  animation: cloudFloat3 7s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+/* Floating animation keyframes - subtle floating effect */
+@keyframes cloudFloat1 {
+  0%, 100% {
+    transform: translateY(0px) scale(1) translateZ(0);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.02) translateZ(0);
+  }
+}
+
+@keyframes cloudFloat2 {
+  0%, 100% {
+    transform: translateY(0px) scale(1) translateZ(0);
+  }
+  50% {
+    transform: translateY(-8px) scale(0.98) translateZ(0);
+  }
+}
+
+@keyframes cloudFloat3 {
+  0%, 100% {
+    transform: translateY(0px) scale(1) translateZ(0);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.03) translateZ(0);
+  }
+}
+
+/* Hover enhancement - clouds respond to graphic container hover */
+.graphicContainer:hover .cloud1 {
+  animation-duration: 4s;
+}
+
+.graphicContainer:hover .cloud2 {
+  animation-duration: 5s;
+}
+
+.graphicContainer:hover .cloud3 {
+  animation-duration: 4.5s;
+}
+
+/* ==========================================================================
    HERO CONTENT (RIGHT SIDE)
    ========================================================================== */
 
@@ -194,6 +288,14 @@
   .graphicContainer {
     width: 460px;
     height: 320px;
+  }
+  
+  /* Tablet cloud adjustments */
+  .cloud1,
+  .cloud2,
+  .cloud3 {
+    width: clamp(50px, 7vw, 100px);
+    height: clamp(35px, 4.5vw, 70px);
   }
   
   .heroTitle {
@@ -302,6 +404,20 @@
   .graphicContainer {
     height: 200px;
   }
+  
+  /* Mobile cloud optimizations */
+  .cloud1,
+  .cloud2,
+  .cloud3 {
+    width: clamp(30px, 10vw, 60px);
+    height: clamp(20px, 7vw, 40px);
+    animation-duration: 8s; /* Slower animations for better mobile visibility */
+  }
+  
+  /* Adjust positioning for mobile to match reference layout */
+  .cloud1 { top: 10%; left: 10%; }
+  .cloud2 { top: 5%; right: 10%; }
+  .cloud3 { bottom: 30%; right: 15%; }
 }
 
 /* ==========================================================================
@@ -316,6 +432,20 @@
   .graphicContainer:hover .heroImage {
     transform: none;
     filter: none;
+  }
+  
+  /* Disable cloud animations for reduced motion */
+  .cloud1,
+  .cloud2,
+  .cloud3 {
+    animation: none;
+    transform: translateY(0px) scale(1) translateZ(0);
+  }
+  
+  .graphicContainer:hover .cloud1,
+  .graphicContainer:hover .cloud2,
+  .graphicContainer:hover .cloud3 {
+    animation: none;
   }
 }
 
@@ -332,5 +462,13 @@
   
   .heroImage {
     filter: contrast(1.2) brightness(1.1);
+  }
+  
+  /* Enhanced visibility for clouds in high contrast */
+  .cloud1,
+  .cloud2,
+  .cloud3 {
+    opacity: 1;
+    filter: contrast(1.3) brightness(1.2);
   }
 }
