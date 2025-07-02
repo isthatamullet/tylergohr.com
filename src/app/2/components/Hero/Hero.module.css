@@ -335,6 +335,7 @@
   .heroGraphic {
     order: 1; /* Graphic first */
     max-width: 100%;
+    margin-top: 6rem; /* Push hero image down to clear fixed navigation */
   }
   
   .graphicContainer {
@@ -407,19 +408,12 @@
     height: 200px;
   }
   
-  /* Mobile cloud optimizations */
+  /* Mobile cloud optimizations - maintain same dimensions as main hero image */
   .cloud1,
   .cloud2,
   .cloud3 {
-    width: clamp(30px, 10vw, 60px);
-    height: clamp(20px, 7vw, 40px);
     animation-duration: 8s; /* Slower animations for better mobile visibility */
   }
-  
-  /* Adjust positioning for mobile to match reference layout */
-  .cloud1 { top: 10%; left: 10%; }
-  .cloud2 { top: 5%; right: 10%; }
-  .cloud3 { bottom: 30%; right: 15%; }
 }
 
 /* ==========================================================================
