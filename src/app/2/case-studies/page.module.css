@@ -555,13 +555,16 @@
 /* Extra Small Mobile (480px and below) */
 @media (max-width: 480px) {
   .compactHero {
-    min-height: var(--detail-hero-height) !important;
-    max-height: var(--detail-hero-height) !important;
-    padding: var(--detail-hero-padding) !important;
+    height: 280px !important;
+    min-height: 280px !important;
+    max-height: 280px !important;
   }
   
-  .heroContainer {
+  .compactHero .heroContainer {
+    top: 90px !important;
     padding: 0 16px;
+    width: 100% !important;
+    max-width: calc(100vw - 32px) !important;
   }
   
   .heroHeader {
