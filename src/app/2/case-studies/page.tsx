@@ -1,12 +1,15 @@
 "use client"
 
-import React, { useEffect, useRef, useState, Suspense } from 'react'
+import React, { useEffect, useRef, useState, Suspense, lazy } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Section } from '@/app/2/components/Section/Section'
 import { BrowserTabs, CaseStudyContent } from '@/app/2/components/BrowserTabs'
 import type { TabData } from '@/app/2/components/BrowserTabs'
 import styles from './page.module.css'
+
+// Lazy load footer for better performance
+const Footer = lazy(() => import('@/app/2/components/Footer/Footer'))
 
 interface CaseStudy {
   id: string
@@ -269,6 +272,11 @@ function CaseStudiesPageContent() {
           </div>
         </div>
       </Section>
+
+      {/* Footer Section - Navigation Links & Professional Information */}
+      <Suspense fallback={<div>Loading footer...</div>}>
+        <Footer />
+      </Suspense>
     </>
   )
 }

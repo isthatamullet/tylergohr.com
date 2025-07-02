@@ -11,6 +11,7 @@ const CaseStudiesPreview = lazy(() => import("./components/CaseStudies/CaseStudi
 const HowIWorkPreview = lazy(() => import("./components/HowIWork/HowIWorkPreview"));
 const TechnicalExpertisePreview = lazy(() => import("./components/TechnicalExpertise/TechnicalExpertisePreview"));
 const ContactSection = lazy(() => import("./components/Contact/ContactSection"));
+const Footer = lazy(() => import("./components/Footer/Footer"));
 
 export default function EnterprisePage() {
 
@@ -48,6 +49,11 @@ export default function EnterprisePage() {
           <ContactSection />
         </Suspense>
       </main>
+
+      {/* Footer Section - Navigation Links & Professional Information */}
+      <Suspense fallback={<div className={styles.loadingPlaceholder}>Loading footer...</div>}>
+        <Footer />
+      </Suspense>
     </>
   );
 }
