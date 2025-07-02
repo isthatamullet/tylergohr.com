@@ -335,6 +335,7 @@
   .heroGraphic {
     order: 1; /* Graphic first */
     max-width: 100%;
+    margin-top: 2rem; /* Push hero image down to clear fixed navigation */
   }
   
   .graphicContainer {
