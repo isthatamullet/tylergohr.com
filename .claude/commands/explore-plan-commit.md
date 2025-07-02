@@ -76,6 +76,10 @@ Automate the "Explore, plan, code, commit" workflow - the most versatile pattern
    - Implement with performance optimization for 60fps smooth animations
    - Maintain WCAG 2.1 AA accessibility compliance throughout
    - Test changes incrementally using `npm run dev`
+   - **NEW**: Use fast development testing for immediate feedback:
+     - `npm run test:e2e:smoke` for ultra-fast validation during coding (<1min)
+     - `npm run test:e2e:dev` for functional testing without visual overhead (2-3min)
+   - **NEW**: Use deterministic wait utilities from `e2e/utils/dev-test-helpers.ts`
    - Verify mobile responsiveness and cross-device compatibility
    - Ensure creative elements enhance rather than distract from content
 
@@ -85,18 +89,26 @@ Automate the "Explore, plan, code, commit" workflow - the most versatile pattern
 1. **Technical Validation**:
    - Execute `npm run typecheck` for TypeScript validation
    - Run `npm run lint` for code quality and standards
-   - Test production build with `npm run build` 
-   - Run relevant Playwright tests based on changes made:
-     - Visual changes: `npx playwright test e2e/visual-regression-2.spec.ts`
-     - Navigation changes: `npx playwright test e2e/navigation-component.spec.ts`
-     - Accessibility: `npx playwright test e2e/accessibility-enhanced.spec.ts`
-     - Component changes: `npx playwright test e2e/contact-component.spec.ts`
+   - Test production build with `npm run build`
+   - **NEW**: Use optimized testing workflow based on changes:
+     - Fast functional validation: `npm run test:e2e:dev` (2-3min)
+     - Visual changes: `npm run test:e2e:visual` for comprehensive visual regression
+     - Navigation changes: `npm run test:e2e:navigation` for behavior testing
+     - Accessibility changes: `npm run test:e2e:accessibility` for enhanced a11y testing
+     - Component changes: `npm run test:e2e:component` for focused component testing
+   - **NEW**: Use environment-aware testing:
+     - `SKIP_VISUAL=true npm run test:e2e:portfolio` for functionality focus
+     - `FAST_MODE=true` options for rapid development cycles
 
 2. **Performance & Accessibility Validation**:
    - Verify Core Web Vitals performance targets maintained
    - Test interactive elements and animations across devices
+   - **NEW**: Generate visual review for comprehensive validation:
+     - `npm run test:e2e:claude-review:current` for visual state capture
+     - `npm run test:e2e:screenshot` for quick visual documentation
    - Validate creative storytelling effectiveness and professional presentation
    - Ensure smooth 60fps performance and accessibility compliance
+   - **NEW**: Use Claude screenshot integration for final visual approval
 
 ### **Git Integration & Documentation**
 1. **Professional Commit Process**:
@@ -140,5 +152,8 @@ Automate the "Explore, plan, code, commit" workflow - the most versatile pattern
 - **File Protection**: Never modify .env*, next.config.js, package.json without confirmation
 - **Read Before Edit**: Always read files before making changes
 - **Testing Integration**: Leverage Playwright-only testing strategy (100% reliability)
+- **NEW**: Fast development testing with 80% speed improvement
+- **NEW**: Environment-aware testing with `SKIP_VISUAL=true` and `FAST_MODE=true` options
+- **NEW**: Claude visual review integration with automated screenshot generation
 
 This systematic approach transforms complex problems into manageable, high-quality implementations that showcase technical mastery through creative, interactive portfolio experiences.

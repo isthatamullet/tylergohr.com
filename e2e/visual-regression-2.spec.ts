@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { waitForCounterAnimationsComplete, waitForNetworkAnimationReady, conditionalScreenshot } from './utils/dev-test-helpers'
 
 test.describe('Visual Regression Testing - /2 Redesign', () => {
   
@@ -30,18 +31,22 @@ test.describe('Visual Regression Testing - /2 Redesign', () => {
       
       // Scroll to about section
       await page.getByRole('heading', { name: /About Tyler Gohr/ }).scrollIntoViewIfNeeded()
-      await page.waitForTimeout(1500) // Wait for network animation to initialize
+      await waitForNetworkAnimationReady(page) // Deterministic wait for network animation
       
       const aboutSection = page.locator('#about')
       
       // Desktop
       await page.setViewportSize({ width: 1200, height: 800 })
-      await expect(aboutSection).toHaveScreenshot('about-section-desktop.png')
+      if (process.env.SKIP_VISUAL !== 'true') {
+        await expect(aboutSection).toHaveScreenshot('about-section-desktop.png')
+      }
       
       // Mobile
       await page.setViewportSize({ width: 375, height: 667 })
-      await page.waitForTimeout(500)
-      await expect(aboutSection).toHaveScreenshot('about-section-mobile.png')
+      await page.waitForTimeout(100)
+      if (process.env.SKIP_VISUAL !== 'true') {
+        await expect(aboutSection).toHaveScreenshot('about-section-mobile.png')
+      }
     })
 
     test('results section with animated metrics visual consistency', async ({ page }) => {
@@ -50,13 +55,15 @@ test.describe('Visual Regression Testing - /2 Redesign', () => {
       
       // Scroll to results section
       await page.getByRole('heading', { name: /Results & Impact/ }).scrollIntoViewIfNeeded()
-      await page.waitForTimeout(2000) // Wait for counter animations to complete
+      await waitForCounterAnimationsComplete(page) // Deterministic wait for counter animations
       
       const resultsSection = page.locator('#results')
       
       // Desktop
       await page.setViewportSize({ width: 1200, height: 800 })
-      await expect(resultsSection).toHaveScreenshot('results-section-desktop.png')
+      if (process.env.SKIP_VISUAL !== 'true') {
+        await expect(resultsSection).toHaveScreenshot('results-section-desktop.png')
+      }
       
       // Mobile
       await page.setViewportSize({ width: 375, height: 667 })

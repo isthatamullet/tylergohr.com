@@ -65,7 +65,17 @@ npm run dev                 # Next.js dev server (localhost:3000)
 npm run build              # Production build test
 npm run validate           # 🔥 MANDATORY before commits
 
-# /2-Specific Testing Commands
+# 🚀 FAST DEVELOPMENT TESTING (/2 Optimized - New)
+npm run test:e2e:dev                    # Functional testing, skip visual regression (2-3min)
+npm run test:e2e:smoke                  # Essential tests only for quick validation (<1min)
+npm run test:e2e:debug                  # Enhanced headed mode for interactive debugging
+
+# 📸 CLAUDE VISUAL REVIEW (/2 Specific - New)
+npm run test:e2e:claude-review          # Complete /2 page set across viewports
+npm run test:e2e:screenshot             # Quick /2 full page capture (<30sec)
+npm run test:e2e:preview                # Pre-commit /2 visual preview
+
+# /2-Specific Testing Commands (Comprehensive)
 npm run test:e2e:portfolio              # /2 redesign E2E tests
 npm run test:e2e:navigation             # /2 navigation comprehensive tests
 npm run test:e2e:visual                 # Visual consistency tests for /2
@@ -156,13 +166,22 @@ Each major section follows a consistent preview → detail pattern:
 
 ### **🚨 /2-Specific Quality Gates**
 ```bash
-# Before committing /2 changes:
-npm run validate                    # Standard quality gates
-npm run test:e2e:portfolio         # /2-specific E2E validation
+# ⚡ FAST DEVELOPMENT WORKFLOW (New - Primary for Daily Work)
+npm run test:e2e:smoke             # Quick validation before coding (<1min)
+npm run test:e2e:dev               # Functional testing during development (2-3min)
+npm run test:e2e:claude-review:current  # Visual review with Claude
+
+# 🎯 BEFORE COMMITTING /2 CHANGES:
+npm run validate                    # Standard quality gates (TypeScript + ESLint + Build)
+npm run test:e2e:portfolio         # /2-specific E2E validation (optimized)
 npm run test:e2e:visual            # Visual regression for /2 components
 
-# Cross-device testing for /2:
+# 📱 CROSS-DEVICE TESTING FOR /2:
 npm run test:e2e:mobile            # Mobile responsiveness validation
+
+# 🛠️ ENVIRONMENT-AWARE TESTING (New Options):
+SKIP_VISUAL=true npm run test:e2e:portfolio  # Skip visual regression during development
+FAST_MODE=true npm run test:e2e:navigation   # Ultra-fast essential testing
 ```
 
 ### **PR Workflow - /2 Development**
@@ -212,12 +231,65 @@ npm run test:e2e:mobile            # Mobile responsiveness validation
 - **Previous Jest Issues**: 25% success rate, mocking complexity, React 19 compatibility
 - **Current Success**: 100% Playwright test reliability with enterprise-grade coverage
 
+### **🚨 FIRST-TIME PLAYWRIGHT SETUP (MANDATORY)**
+
+**BEFORE running any Playwright tests for the first time, Claude MUST install all required dependencies:**
+
+```bash
+# 1. Install Playwright browsers and system dependencies (REQUIRES SUDO)
+sudo npx playwright install-deps
+
+# 2. Install Playwright browsers
+npx playwright install
+
+# 3. Verify installation works
+npx playwright --version
+
+# 4. Test basic functionality (optional verification)
+npm run test:e2e:smoke
+```
+
+**⚠️ CRITICAL REQUIREMENTS:**
+- **Use `sudo`** for `npx playwright install-deps` - system dependencies require root privileges
+- **Run this setup** before attempting any `npm run test:e2e:*` commands
+- **Verify success** by running a quick smoke test
+- **If installation fails**, run individual browser installs: `npx playwright install chromium firefox webkit`
+
+**📋 What gets installed:**
+- **System Dependencies**: Browser libraries, fonts, media codecs
+- **Browser Binaries**: Chromium, Firefox, WebKit for cross-browser testing
+- **Playwright Runtime**: Testing framework and automation libraries
+
+**🔍 Troubleshooting first-time setup:**
+```bash
+# If sudo playwright install-deps fails, try:
+sudo apt-get update
+sudo apt-get install -y libnss3 libatk-bridge2.0-0 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libxss1 libasound2
+
+# Then retry Playwright installation:
+sudo npx playwright install-deps
+npx playwright install
+```
+
 ### **Essential Testing Commands**
 ```bash
 # Quality Gates (MANDATORY before commits)
 npm run validate                    # typecheck + lint + build (Jest removed)
 
-# Core Test Suites
+# 🚀 FAST DEVELOPMENT TESTS (New - Primary for Active Development)
+npm run test:e2e:dev               # Functional testing, skip visual regression (2-3min)
+npm run test:e2e:smoke             # Essential tests only for quick validation (<1min)
+npm run test:e2e:component         # Single component testing for focused changes
+npm run test:e2e:debug             # Enhanced headed mode for interactive debugging
+
+# 📸 SCREENSHOT GENERATION FOR CLAUDE REVIEW (New)
+npm run test:e2e:claude-review              # Complete page set across viewports
+npm run test:e2e:claude-review:current      # Current state capture for Claude analysis
+npm run test:e2e:screenshot                 # Quick full page capture (<30sec)
+npm run test:e2e:screenshot:mobile          # Mobile viewport screenshots only
+npm run test:e2e:preview                    # Pre-commit visual preview
+
+# Core Test Suites (Comprehensive - Use for Final Validation)
 npm run test:e2e:portfolio         # /2 redesign comprehensive E2E tests
 npm run test:e2e:navigation        # Navigation behavior + intersection observers
 npm run test:e2e:visual           # Visual regression across viewports
@@ -229,10 +301,39 @@ npx playwright test e2e/contact-component.spec.ts     # Form validation + submis
 npx playwright test e2e/navigation-component.spec.ts  # Navigation behavior (21 tests)
 npx playwright test e2e/visual-regression-2.spec.ts   # Visual consistency (100+ screenshots)
 npx playwright test e2e/accessibility-enhanced.spec.ts # Enterprise accessibility (24 tests)
+npx playwright test e2e/screenshot-generation.spec.ts  # Claude review screenshot generation
 ```
 
 ### **Testing Workflow Integration**
 ```bash
+# 🎯 DAILY DEVELOPMENT WORKFLOW (New Optimized Pattern)
+# 1. Start coding:
+npm run test:e2e:smoke             # Quick validation (<1min)
+
+# 2. Component work:
+npm run test:e2e:component -- --grep "ComponentName"  # Focused testing
+
+# 3. Feature testing:
+npm run test:e2e:dev               # Functional validation (2-3min)
+
+# 4. Visual review with Claude:
+npm run test:e2e:claude-review:current  # Generate screenshots for Claude analysis
+
+# 5. Pre-commit validation:
+npm run test:e2e:portfolio         # Comprehensive check (8-10min)
+
+# 🎨 CLAUDE VISUAL REVIEW WORKFLOW (New)
+npm run test:e2e:claude-review              # Complete analysis set
+npm run test:e2e:screenshot -- --section="hero"         # Hero section only
+npm run test:e2e:screenshot -- --component="BrowserTabs" # Component isolation
+npm run test:e2e:preview                    # Pre-commit visual preview
+
+# 🛠️ ENVIRONMENT-AWARE TESTING (New)
+SKIP_VISUAL=true npm run test:e2e:portfolio         # Skip visual regression during development
+FAST_MODE=true npm run test:e2e:navigation          # Ultra-fast essential testing
+npm run test:e2e:debug                              # Interactive debugging
+
+# TRADITIONAL WORKFLOW (Use for Final Validation)
 # Before /2 development:
 npm run test:e2e:portfolio         # Validate current state
 
@@ -251,13 +352,18 @@ npx playwright test --reporter=html                         # Generate HTML repo
 ```
 
 ### **Test Coverage Highlights**
-- **Component Testing**: ContactSection (19 tests), Navigation (21 tests)
+- **Fast Development Tests**: Sub-2-minute functional validation for daily workflow
+- **Claude Review Integration**: Automated screenshot generation for visual analysis
+- **Component Testing**: ContactSection (19 tests), Navigation (21 tests), Screenshot generation
 - **Visual Regression**: 100+ screenshots across viewports and components
 - **Accessibility**: WCAG 2.1 AA/AAA + Section 508 compliance (24 tests)
-- **Performance**: Core Web Vitals, animation performance, scroll optimization
+- **Performance**: Core Web Vitals, animation performance, scroll optimization (80% speed improvement)
 - **Cross-Device**: Mobile, tablet, desktop responsive validation
+- **Environment-Aware**: Skip visual regression during development, fast mode testing
 
-**📖 Full Testing Guide**: See `docs/testing/playwright-workflow.md` for comprehensive documentation
+**📖 Full Testing Guides**: 
+- `docs/testing/playwright-workflow.md` - Comprehensive testing documentation
+- `docs/testing/testing-enhancements-summary.md` - New capabilities implementation guide
 
 ## Performance Standards - Enterprise Presentation
 
@@ -301,9 +407,12 @@ npm run dev    # Then visit localhost:3000/2
 # Reference: src/app/2/styles/brand-tokens.css
 # Use: CSS custom properties for consistency
 
-# Testing /2 changes
-npm run test:e2e:portfolio     # Full /2 E2E validation
-npm run test:e2e:visual       # Visual regression testing
+# Testing /2 changes (New Optimized Workflow)
+npm run test:e2e:smoke        # Quick validation during coding (<1min)
+npm run test:e2e:dev          # Functional validation (2-3min)
+npm run test:e2e:claude-review:current  # Visual review with Claude
+npm run test:e2e:portfolio    # Full /2 E2E validation (when ready for commit)
+npm run test:e2e:visual       # Visual regression testing (final validation)
 ```
 
 ### **Cross-Page Navigation Development**
@@ -381,7 +490,30 @@ claude code    # Gets general portfolio context
 2. **Launch Claude**: `claude code` (loads this context)
 3. **Check Status**: `gh issue list --label "redesign"`
 4. **Start Dev**: `npm run dev` → test at `localhost:3000/2`
-5. **Quality Gates**: `npm run validate` before commits
-6. **Test /2**: `npm run test:e2e:portfolio` for full validation
+5. **🚀 NEW: Fast Testing**: `npm run test:e2e:smoke` for quick validation
+6. **📸 NEW: Claude Review**: `npm run test:e2e:claude-review:current` for visual analysis
+7. **Quality Gates**: `npm run validate` before commits
+8. **Final Test**: `npm run test:e2e:portfolio` for comprehensive validation
+
+## 🎯 **NEW: Daily Development Testing Pattern**
+
+**Optimized workflow for faster development feedback:**
+
+```bash
+# 1. Quick validation before starting work
+npm run test:e2e:smoke                    # <1 minute
+
+# 2. During active development  
+npm run test:e2e:dev                      # 2-3 minutes functional testing
+
+# 3. Visual review with Claude
+npm run test:e2e:claude-review:current    # Generate screenshots for Claude analysis
+
+# 4. Component-specific testing
+npm run test:e2e:component -- --grep "ComponentName"  # Focused testing
+
+# 5. Pre-commit comprehensive validation
+npm run test:e2e:portfolio                # Full validation when ready
+```
 
 **Enterprise Solutions Architect Portfolio - Built for Business Impact** 🏢

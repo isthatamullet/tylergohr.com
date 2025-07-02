@@ -10,12 +10,7 @@
     - img "Tyler Gohr - Enterprise Solutions Architect"
   - button "Navigate to About section": About
   - button "Navigate to Results section": Results
-  - button "Navigate to Work section" [expanded]: Work
-  - menuitem "Emmy-winning Streaming Platform Emmy Award Technical excellence recognized by Television Academy"
-  - menuitem "Fox Corporation Cost Optimization Cost Savings $2M+ savings through automation architecture"
-  - menuitem "Warner Bros Delivery Enhancement Success Rate 96% success rate workflow optimization"
-  - menuitem "AI-Powered Media Automation Innovation Revolutionary automation for SDI Media"
-  - menuitem "View All Case Studies Complete project portfolio and technical details"
+  - button "Navigate to Work section": Work
   - button "Navigate to Process section": Process
   - button "Navigate to Skills section": Skills
   - button "Navigate to Contact section": Contact
@@ -177,10 +172,4 @@
       - strong: "Project Consultations:"
       - text: Available for detailed discussions
     - paragraph: Currently accepting new projects and leadership opportunities
-- alert
-- button "Open Next.js Dev Tools":
-  - img
-- button "Open issues overlay": 1 Issue
-- button "Collapse issues badge":
-  - img
 ```

@@ -62,6 +62,9 @@ Execute tasks using Tyler Gohr Portfolio's proven workflow patterns.
 
 8. **Test Changes Incrementally**:
    - Test changes as you implement them using `npm run dev`
+   - Use fast development testing for immediate feedback:
+     - `npm run test:e2e:smoke` for quick validation during coding (<1min)
+     - `npm run test:e2e:dev` for functional testing without visual overhead (2-3min)
    - Verify mobile responsiveness and cross-device compatibility
    - Check performance impact of animations and effects
    - Ensure creative elements enhance rather than distract from content
@@ -71,14 +74,19 @@ Execute tasks using Tyler Gohr Portfolio's proven workflow patterns.
 9. **Run Comprehensive Quality Gates**:
    - Execute `npm run typecheck` for TypeScript validation
    - Run `npm run lint` for code quality and standards
-   - Execute `npm test` if tests are available
+   - Use optimized testing workflow:
+     - `npm run test:e2e:dev` for functional validation (fast, 2-3min)
+     - `npm run test:e2e:portfolio` for comprehensive validation when ready for commit
    - Test production build with `npm run build`
    - Verify Core Web Vitals performance targets
 
 10. **Creative & Performance Validation**:
     - Test interactive elements and animations across devices
     - Verify smooth 60fps performance
-    - Check accessibility compliance
+    - Check accessibility compliance with `npm run test:e2e:accessibility`
+    - **NEW**: Generate visual review for Claude analysis:
+      - `npm run test:e2e:claude-review:current` for UI/visual changes
+      - Use screenshots to validate design implementation with Claude
     - Validate creative storytelling effectiveness
     - Ensure professional portfolio presentation standards
 
@@ -113,6 +121,8 @@ Execute tasks using Tyler Gohr Portfolio's proven workflow patterns.
 - **Never modify without confirmation**: .env* files, next.config.js, package.json
 - **Read before edit**: Always read files before making changes
 - **Quality first**: Run typecheck and lint before considering task complete
+- **Fast development testing**: Use `npm run test:e2e:dev` for rapid feedback during development
+- **Environment-aware testing**: Use `SKIP_VISUAL=true` options when focusing on functionality
 
 ### 📊 Performance & Accessibility:
 - **Core Web Vitals**: LCP <2.5s, FID <100ms, CLS <0.1

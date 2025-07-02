@@ -26,6 +26,8 @@ Automate visual mock-driven development with screenshot comparison, iterative re
 ### **Screenshot Infrastructure Leverage**
 1. **Configure Playwright Visual Testing** (using your existing setup):
    - Leverage existing `e2e/visual-regression-2.spec.ts` infrastructure (100+ screenshots)
+   - **NEW**: Use `e2e/screenshot-generation.spec.ts` for automated Claude review screenshot generation
+   - **NEW**: Utilize `e2e/utils/dev-test-helpers.ts` deterministic wait utilities for reliable screenshots
    - Set up viewport configurations matching your current testing matrix
    - Establish baseline comparison system using your proven visual regression framework
    - Configure screenshot capture across mobile, tablet, desktop viewports
@@ -53,12 +55,25 @@ Automate visual mock-driven development with screenshot comparison, iterative re
 
 ### **Screenshot Capture & Visual Comparison**
 1. **Multi-Viewport Screenshot Generation**:
+   - **NEW**: Use fast screenshot commands for rapid iteration:
+     - `npm run test:e2e:screenshot` for quick full page capture (<30sec)
+     - `npm run test:e2e:claude-review` for comprehensive Claude analysis sets
+     - `npm run test:e2e:claude-review:current` for current state capture
+   - **NEW**: Section-specific screenshot generation with `--section="hero"` or `--component="BrowserTabs"`
    - Capture screenshots across specified viewports (mobile/tablet/desktop/all)
-   - Use existing Playwright infrastructure for consistent, reliable screenshots
+   - Use existing Playwright infrastructure with deterministic waits for consistent, reliable screenshots
    - Generate visual diff reports comparing against target mock
    - Leverage your proven 100+ screenshot baseline system
 
 2. **Gap Analysis & Improvement Planning**:
+   - **NEW**: Generate screenshots for Claude visual analysis:
+     - `npm run test:e2e:claude-review:current` for current state capture
+     - Use Claude to analyze design alignment and suggest improvements
+     - Generate component isolation screenshots for detailed analysis
+     - Use `generateClaudeReviewScreenshots()` from dev-test-helpers for automated capture
+   - **NEW**: Fast iteration workflow with environment-aware testing:
+     - `SKIP_VISUAL=true npm run test:e2e:portfolio` when focusing on functionality
+     - `FAST_MODE=true` options for rapid development cycles
    - Identify visual discrepancies using AI-powered difference detection
    - Prioritize fixes based on visual impact and user experience importance
    - Plan iterative improvements with clear success criteria
@@ -69,7 +84,14 @@ Automate visual mock-driven development with screenshot comparison, iterative re
 ### **Improvement Cycles with Real-Time Feedback**
 1. **Targeted Visual Improvements**:
    - Make focused improvements based on visual diff analysis
-   - Re-capture screenshots after each significant change
+   - **NEW**: Use fast development testing for rapid iteration:
+     - `npm run test:e2e:dev` for functional testing during visual development (2-3min)
+     - `npm run test:e2e:smoke` for ultra-fast validation during coding (<1min)
+     - `SKIP_VISUAL=true npm run test:e2e:portfolio` when focusing on functionality
+   - **NEW**: Use deterministic wait utilities for reliable testing:
+     - `waitForAnimationComplete()` for animation-dependent screenshots
+     - `waitForNetworkAnimationReady()` for complex interactive elements
+   - Re-capture screenshots after each significant change using `npm run test:e2e:screenshot`
    - Compare progress against target using automated diff analysis
    - Track improvement progress with visual similarity metrics
 
@@ -119,7 +141,10 @@ Automate visual mock-driven development with screenshot comparison, iterative re
      - `npm run typecheck` for TypeScript validation
      - `npm run lint` for code quality standards
      - `npm run build` for production build verification
-     - Visual regression test suite for baseline update
+     - **NEW**: Use optimized testing workflow:
+       - `npm run test:e2e:dev` for functional validation
+       - `npm run test:e2e:visual` for visual regression testing
+       - `npm run test:e2e:claude-review` for final visual approval
    - Update visual regression baselines with approved changes
 
 ### **Professional Commit & Documentation**
@@ -138,6 +163,8 @@ Automate visual mock-driven development with screenshot comparison, iterative re
 ## Visual-Specific Features & Advanced Capabilities
 
 ### **Smart Visual Analysis**
+- **Claude Integration**: Automated screenshot generation for intelligent visual analysis and feedback
+- **Fast Iteration Workflow**: Use `npm run test:e2e:dev` and screenshot commands for rapid visual development
 - **AI-Powered Diff Detection**: Intelligent visual difference analysis with actionable feedback
 - **Progressive Enhancement Workflow**: Layer visual improvements systematically for maximum impact
 - **Accessibility-First Visual Design**: Ensure visual changes enhance rather than compromise accessibility
@@ -164,6 +191,9 @@ Automate visual mock-driven development with screenshot comparison, iterative re
 - `--capture-animations`: Include animation frame capture for motion design
 - `--accessibility-overlay`: Include accessibility overlay in visual comparison
 - `--performance-monitoring`: Track performance metrics during visual development
+- `--claude-integration`: Use `npm run test:e2e:claude-review` for AI-powered visual analysis
+- `--fast-iteration`: Use `npm run test:e2e:dev` and skip visual regression for rapid development
+- `--environment-aware`: Use `SKIP_VISUAL=true` options for functionality-focused development
 
 ## Tyler Gohr Portfolio Visual Development Advantages
 

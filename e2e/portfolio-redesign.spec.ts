@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
+import { waitForPageReady, conditionalScreenshot } from './utils/dev-test-helpers'
 
 test.describe('Portfolio Redesign (/2) - Enterprise Solutions Architect', () => {
   
@@ -539,8 +540,7 @@ test.describe('Portfolio Redesign (/2) - Enterprise Solutions Architect', () => 
   test.describe('Visual Regression Testing', () => {
     test('homepage visual consistency', async ({ page }) => {
       await page.goto('/2')
-      await page.waitForLoadState('networkidle')
-      await page.waitForTimeout(1000) // Wait for animations to settle
+      await waitForPageReady(page) // Optimized page ready state
 
       // Take full page screenshot
       await expect(page).toHaveScreenshot('redesign-homepage-full.png', { fullPage: true })

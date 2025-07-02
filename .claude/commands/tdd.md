@@ -16,12 +16,14 @@ Automate test-driven development workflow with clear test/code separation, commi
    - Analyze integration points with current Tyler Gohr Portfolio architecture
 
 2. **Test Framework Integration** (Playwright-focused):
-   - Auto-detect project's Playwright testing setup (your 81 comprehensive tests)
+   - Auto-detect project's Playwright testing setup (your 93 comprehensive tests)
    - Leverage existing test infrastructure:
      - `e2e/contact-component.spec.ts` patterns for component testing
      - `e2e/navigation-component.spec.ts` patterns for interaction testing
      - `e2e/visual-regression-2.spec.ts` patterns for visual validation
      - `e2e/accessibility-enhanced.spec.ts` patterns for a11y compliance
+     - **NEW**: `e2e/utils/dev-test-helpers.ts` deterministic wait utilities
+     - **NEW**: `e2e/screenshot-generation.spec.ts` for Claude visual integration
 
 3. **Test Suite Generation**:
    - Create comprehensive Playwright test suite covering all requirements
@@ -76,7 +78,10 @@ test('WCAG 2.1 AA compliance', async ({ page }) => {
      - Container Queries, CSS Grid Subgrid, Scroll-driven Animations
 
 2. **Test-Code Cycle Automation**:
-   - Run tests after each code change: `npx playwright test [test-file]`
+   - Use fast development testing for rapid TDD iteration:
+     - `npm run test:e2e:dev` for functional testing without visual overhead (2-3min)
+     - `SKIP_VISUAL=true npm run test:e2e:portfolio` for faster comprehensive testing
+     - `npx playwright test [test-file]` for specific test file iteration
    - Iterate systematically until all tests pass
    - Maintain test integrity (no test modifications during implementation)
    - Progress tracking with TodoWrite for each test group
@@ -111,10 +116,10 @@ test('WCAG 2.1 AA compliance', async ({ page }) => {
 ### **Verification with Advanced Testing**
 1. **Comprehensive Validation**:
    - Run full relevant test suite based on changes:
-     - Component changes: All component tests
-     - Visual changes: Visual regression test suite
-     - Navigation changes: Navigation comprehensive tests
-     - Accessibility changes: Enhanced accessibility test suite
+     - Component changes: `npm run test:e2e:component` for focused testing
+     - Visual changes: `npm run test:e2e:visual` and `npm run test:e2e:claude-review` for comprehensive visual validation
+     - Navigation changes: `npm run test:e2e:navigation` for behavior testing
+     - Accessibility changes: `npm run test:e2e:accessibility` for enhanced a11y testing
 
 2. **Cross-Device & Performance Testing**:
    - Mobile responsiveness: `npm run test:e2e:mobile`
@@ -127,7 +132,10 @@ test('WCAG 2.1 AA compliance', async ({ page }) => {
    - Execute `npm run typecheck` for TypeScript validation
    - Run `npm run lint` for code quality standards
    - Test production build: `npm run build`
-   - Validate all tests pass: `npm run test:e2e`
+   - Use optimized testing workflow:
+     - `npm run test:e2e:dev` for fast functional validation
+     - `npm run test:e2e:portfolio` for comprehensive E2E validation
+     - `npm run test:e2e:claude-review:current` for visual validation
 
 2. **Professional Commit & Documentation**:
    - Generate comprehensive commit message linking to requirements
@@ -144,10 +152,12 @@ test('WCAG 2.1 AA compliance', async ({ page }) => {
 - **Cross-Device Testing**: Integrate with mobile, tablet, desktop viewport testing
 
 ### **Test Framework Auto-Detection**
-- **Playwright Integration**: Seamlessly integrate with your existing 81 comprehensive tests
+- **Playwright Integration**: Seamlessly integrate with your existing 93 comprehensive tests
+- **Fast Development Testing**: Automatic use of `npm run test:e2e:dev` and `npm run test:e2e:smoke` for rapid TDD cycles
+- **Environment-Aware Testing**: Leverage `SKIP_VISUAL=true` and `FAST_MODE=true` options during TDD iteration
 - **Coverage Analysis**: Report test coverage metrics and identify gaps
 - **Failure Analysis**: Intelligent test failure debugging with actionable suggestions
-- **Performance Monitoring**: Track test execution time and optimize for speed
+- **Performance Monitoring**: Track test execution time and optimize for speed (80% improvement achieved)
 
 ### **Portfolio-Specific TDD Benefits**
 - **Real Browser Testing**: No mocking complexity - test actual user experience
@@ -159,9 +169,11 @@ test('WCAG 2.1 AA compliance', async ({ page }) => {
 
 ### **Available Options**
 - `--test-framework=playwright` (default, matches your setup)
-- `--test-pattern=e2e` (default), `component`, `visual`, `accessibility`
+- `--test-pattern=e2e` (default), `component`, `visual`, `accessibility`, `dev`, `smoke`
 - `--coverage-threshold=80` (default): Minimum test coverage requirement
-- `--fast-iteration`: Skip some comprehensive checks for rapid development
+- `--fast-iteration`: Use `npm run test:e2e:dev` and skip visual regression for rapid TDD cycles
+- `--visual-validation`: Include `npm run test:e2e:claude-review` for visual TDD workflow
+- `--environment-aware`: Use `SKIP_VISUAL=true` and `FAST_MODE=true` for focused testing
 
 ### **Integration with Existing Workflow**
 - **TodoWrite Integration**: Automatic task breakdown and progress tracking

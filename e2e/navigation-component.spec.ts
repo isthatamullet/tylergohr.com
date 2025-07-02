@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
+import { waitForIntersectionObserver } from './utils/dev-test-helpers'
 
 test.describe('Navigation Component Testing', () => {
   
@@ -8,7 +9,7 @@ test.describe('Navigation Component Testing', () => {
       await page.goto('/2')
       
       // Wait for intersection observer to be set up
-      await page.waitForTimeout(1000)
+      await waitForIntersectionObserver(page)
       
       // Check initial active section (should be about)
       const aboutNavLink = page.getByRole('button', { name: /Navigate to About section/ })
@@ -16,7 +17,7 @@ test.describe('Navigation Component Testing', () => {
       
       // Scroll to results section
       await page.getByRole('heading', { name: /Results & Impact/ }).scrollIntoViewIfNeeded()
-      await page.waitForTimeout(500) // Wait for intersection observer
+      await page.waitForTimeout(100) // Brief settle time for scroll
       
       // Check results section becomes active
       const resultsNavLink = page.getByRole('button', { name: /Navigate to Results section/ })
