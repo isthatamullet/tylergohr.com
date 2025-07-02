@@ -12,7 +12,7 @@ export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   /**
    * Semantic HTML element to render
    */
-  as?: 'section' | 'div' | 'main' | 'article' | 'aside'
+  as?: 'section' | 'div' | 'main' | 'article' | 'aside' | 'footer'
   
   /**
    * Content of the section
