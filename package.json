@@ -68,6 +68,7 @@
     "jest": "^30.0.2",
     "jest-axe": "^10.0.0",
     "jest-environment-jsdom": "^30.0.2",
-    "lighthouse": "^12.7.0"
+    "lighthouse": "^12.7.0",
+    "svgo": "^4.0.0"
   }
 }

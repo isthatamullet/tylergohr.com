@@ -1,0 +1,7 @@
+please update visual-iterate.md so claude code knows to install playwright dependencies when needed
+
+kick off sub agents to address each of the following:
+1. research actual standard UX best practices from FAANG style companies and b2c SaaS giants and grade our implementation against it
+2. check out our style guide and ensure our app conforms to it, screen by screen, kicking off sub agents for each screen
+3. research performance optimization for Expo and see how our app structure can be optimized further
+4. use the context7 mcp to check out relevant, up to date documentation on (topic or tool) and build a plan (but don't implement) and place the results in a new scratchpad .md doc

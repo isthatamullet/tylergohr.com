@@ -1,0 +1,42 @@
+# Page snapshot
+
+```yaml
+- 'heading "Application error: a client-side exception has occurred while loading localhost (see the browser console for more information)." [level=2]'
+- button "Open Next.js Dev Tools":
+  - img
+- button "Open issues overlay": 2 Issue
+- button "Collapse issues badge":
+  - img
+- navigation:
+  - button "previous" [disabled]:
+    - img "previous"
+  - text: 1/2
+  - button "next":
+    - img "next"
+- img
+- img
+- text: Next.js 15.3.4 Webpack
+- img
+- dialog "Runtime Error":
+  - text: Runtime Error
+  - button "Copy Stack Trace":
+    - img
+  - button "No related documentation found" [disabled]:
+    - img
+  - link "Learn more about enabling Node.js inspector for server code with Chrome DevTools":
+    - /url: https://nextjs.org/docs/app/building-your-application/configuring/debugging#server-side-code
+    - img
+  - paragraph: "Error: Cannot read properties of undefined (reading 'call')"
+  - paragraph: Call Stack 32
+  - button "Show 13 ignore-listed frame(s)":
+    - text: Show 13 ignore-listed frame(s)
+    - img
+  - text: options.factory .next/static/chunks/webpack.js (712:31) __webpack_require__ .next/static/chunks/webpack.js (37:33) fn .next/static/chunks/webpack.js (369:21) eval ./src/app/2/components/BrowserTabs/BrowserTabs.tsx ./src/app/2/components/BrowserTabs/BrowserTabs.tsx .next/static/chunks/app/2/case-studies/page.js (159:1) options.factory .next/static/chunks/webpack.js (712:31) __webpack_require__ .next/static/chunks/webpack.js (37:33) fn .next/static/chunks/webpack.js (369:21) eval ./src/app/2/components/BrowserTabs/index.ts ./src/app/2/components/BrowserTabs/index.ts .next/static/chunks/app/2/case-studies/page.js (192:1) options.factory .next/static/chunks/webpack.js (712:31) __webpack_require__ .next/static/chunks/webpack.js (37:33) fn .next/static/chunks/webpack.js (369:21) eval ./src/app/2/case-studies/page.tsx ./src/app/2/case-studies/page.tsx .next/static/chunks/app/2/case-studies/page.js (148:1) options.factory .next/static/chunks/webpack.js (712:31) __webpack_require__ .next/static/chunks/webpack.js (37:33) fn .next/static/chunks/webpack.js (369:21) JSON.parse <anonymous> (0:0)
+- contentinfo:
+  - region "Error feedback":
+    - paragraph:
+      - link "Was this helpful?":
+        - /url: https://nextjs.org/telemetry#error-feedback
+    - button "Mark as helpful"
+    - button "Mark as not helpful"
+```
