@@ -19,9 +19,24 @@
 }
 
 .compactHero .heroContainer {
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
+  /* Absolute positioning for complete control */
+  position: absolute !important;
+  top: 135px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  
+  /* Text alignment */
+  text-align: center !important;
+  
+  /* Width control */
+  width: 800px !important;
+  max-width: 90vw !important;
+  
+  /* Remove all other positioning */
+  display: block !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .heroHeader {
