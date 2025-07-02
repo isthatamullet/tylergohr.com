@@ -2,9 +2,229 @@
 
 Automate visual mock-driven development with screenshot comparison, iterative refinement, and integration with Tyler Gohr Portfolio's comprehensive Playwright visual testing infrastructure.
 
-**Usage**: `/visual-iterate "UI feature description" --mock=path/to/mockup.png [--viewport=mobile|tablet|desktop|all] [--iterations=3] [--threshold=0.95]`
+**Usage**: `/visual-iterate "UI feature description" [--mock=path/to/mockup.png] [--viewport=mobile|tablet|desktop|all] [--iterations=3] [--threshold=0.95]`
 
 **For task**: $ARGUMENTS
+
+## 🚀 Reliability-First Execution Strategy
+
+**ALWAYS START HERE**: Determine the appropriate mode based on the user's request:
+
+### **Mode 1: Quick Screenshots** (Default for simple requests)
+- **Triggers**: "take screenshots", "show me", "capture current state", "how does X look"
+- **Approach**: Use simplified screenshot generation for immediate visual review
+- **Time**: 2-3 minutes, highly reliable
+- **Output**: Mobile + Desktop screenshots of requested pages
+
+### **Mode 2: Visual Development** (For iterative design work)  
+- **Triggers**: "--mock=" parameter provided, "iterate", "compare with", "improve design"
+- **Approach**: Full visual development workflow with mock comparison
+- **Time**: 15-30 minutes, comprehensive analysis
+- **Output**: Before/after comparisons, iterative improvements, production-ready code
+
+### **Execution Order** (Reliability-First):
+1. **Environment Check** → Validate prerequisites & fix issues
+2. **Mode Detection** → Simple screenshots OR complex development
+3. **Quick Success** → Get screenshots working first  
+4. **Progressive Enhancement** → Add complexity only if requested
+
+## Prerequisites & Environment Setup (Essential First Steps)
+
+### **🔍 Environment Validation & Auto-Setup**
+Before attempting any screenshot generation, verify and setup the required infrastructure:
+
+1. **Playwright Installation Check**:
+   ```bash
+   # Check if Playwright is installed and browsers are available
+   npx playwright --version
+   
+   # If missing or browsers not installed, run setup:
+   sudo npx playwright install-deps    # Install system dependencies
+   npx playwright install              # Install browser binaries
+   
+   # Verify installation with a quick test:
+   npx playwright test --help
+   ```
+
+2. **Dev Server Health Check**:
+   ```bash
+   # Check if dev server is running and responsive
+   curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:3000/2
+   
+   # If timeout or not running, restart dev server:
+   pkill -f "next-server|npm run dev"  # Kill hung processes
+   npm run dev &                       # Start fresh dev server
+   
+   # Wait for server to be ready before continuing
+   ```
+
+3. **Playwright Configuration Validation**:
+   ```bash
+   # Ensure headless mode is configured to avoid X server issues
+   # Check playwright.config.ts has: headless: true
+   
+   # Test basic screenshot capability:
+   npx playwright test --grep "simple" --project=chromium
+   ```
+
+### **📸 Quick Screenshot Mode (For Immediate Visual Review)**
+
+When the request is simply "take screenshots" or "show me the current state", use this streamlined approach:
+
+1. **Simple Screenshot Test Creation**:
+   ```typescript
+   // Create: e2e/quick-screenshots.spec.ts
+   import { test } from '@playwright/test'
+   
+   test.describe('Quick Screenshots for Visual Review', () => {
+     const pages = [
+       '/2',                    // Homepage
+       '/2/case-studies',       // Case Studies  
+       '/2/how-i-work',         // Process
+       '/2/technical-expertise' // Technical Skills
+     ]
+     
+     const viewports = [
+       { name: 'mobile', width: 375, height: 667 },
+       { name: 'desktop', width: 1200, height: 800 }
+     ]
+   
+     for (const route of pages) {
+       for (const viewport of viewports) {
+         test(`${route.replace('/2/', '') || 'homepage'} - ${viewport.name}`, async ({ page }) => {
+           await page.setViewportSize(viewport)
+           await page.goto(route)
+           await page.waitForLoadState('networkidle')
+           await page.waitForTimeout(1000) // Brief settle
+           
+           const filename = `${route.replace('/2/', '') || 'homepage'}-${viewport.name}.png`
+           await page.screenshot({ 
+             path: `screenshots/quick-review/${filename}`,
+             fullPage: true 
+           })
+         })
+       }
+     }
+   })
+   ```
+
+2. **Quick Execution Command**:
+   ```bash
+   # Fast, reliable screenshot generation (2-3 minutes)
+   npx playwright test e2e/quick-screenshots.spec.ts --project=chromium
+   
+   # Results in: screenshots/quick-review/*.png
+   ```
+
+### **🛠️ Common Issues & Auto-Recovery**
+
+**Issue 1: Playwright Dependencies Missing**
+```bash
+# Symptoms: libgtk-4.so.1 errors, browser launch failures
+# Fix:
+sudo npx playwright install-deps
+npx playwright install
+```
+
+**Issue 2: Hung Dev Server** 
+```bash
+# Symptoms: Timeouts on /2 route, curl timeouts
+# Fix:
+pkill -f "next-server|npm run dev"
+npm run dev &
+sleep 5  # Wait for startup
+```
+
+**Issue 3: X Server/Display Issues**
+```bash
+# Symptoms: "Missing X server or $DISPLAY" errors
+# Fix: Ensure playwright.config.ts has headless: true
+# Or use: DISPLAY=:99 xvfb-run npx playwright test
+```
+
+**Issue 4: Complex Tests Timing Out**
+```bash
+# Symptoms: screenshot-generation.spec.ts fails with timeouts
+# Fix: Use simple mode instead
+npx playwright test e2e/quick-screenshots.spec.ts --project=chromium
+```
+
+### **🎯 Mode Detection & Execution Strategy**
+
+**Simple Requests** (just want to see current state):
+- "take screenshots of [pages]"
+- "show me how [page] looks"  
+- "capture the current design"
+→ **Use Quick Screenshot Mode**
+
+**Complex Requests** (visual development/iteration):
+- "compare against this mockup"
+- "iterate on this design"
+- "comprehensive visual analysis"
+→ **Use Full Visual Iterate Workflow**
+
+---
+
+## 🎯 Implementation Guide for Claude
+
+### **Step-by-Step Execution for Screenshot Requests**
+
+**When user requests screenshots (e.g., "take screenshots of /2's detail pages"):**
+
+1. **First, ALWAYS run environment checks:**
+   ```bash
+   # Check dev server health
+   curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:3000/2
+   
+   # If not 200, fix dev server:
+   pkill -f "next-server|npm run dev" && npm run dev &
+   ```
+
+2. **For simple screenshot requests, use Quick Mode:**
+   ```bash
+   # Create screenshots/quick-review directory if needed
+   mkdir -p screenshots/quick-review
+   
+   # Run quick screenshot test (2-3 minutes, reliable)
+   npx playwright test e2e/quick-screenshots.spec.ts --project=chromium
+   
+   # Display results from screenshots/quick-review/*.png
+   ```
+
+3. **Only use complex modes when specifically requested:**
+   - User provides a mock image: Use full visual development workflow
+   - User asks for "comprehensive analysis": Use advanced testing
+   - User wants "iteration": Use comparison features
+
+### **Failure Recovery Pattern**
+
+If quick screenshots fail:
+1. **Check Playwright setup:**
+   ```bash
+   sudo npx playwright install-deps
+   npx playwright install
+   ```
+
+2. **Verify headless configuration:**
+   ```bash
+   # Ensure playwright.config.ts has: headless: true
+   ```
+
+3. **Try even simpler approach:**
+   ```bash
+   # Create a basic one-off test if needed
+   npx playwright test --grep "single test" --project=chromium
+   ```
+
+### **Success Indicators**
+- ✅ Screenshots generated in 2-3 minutes
+- ✅ Files appear in screenshots/quick-review/
+- ✅ Both mobile and desktop versions captured
+- ✅ User can immediately see visual results
+
+**Remember:** The goal is to make "take screenshots" requests **just work** quickly and reliably, not to run comprehensive visual testing unless specifically requested.
+
+---
 
 ## Phase 1: Visual Target Establishment & Infrastructure Setup
 

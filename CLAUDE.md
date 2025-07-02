@@ -71,8 +71,9 @@ npm run test:e2e:smoke                  # Essential tests only for quick validat
 npm run test:e2e:debug                  # Enhanced headed mode for interactive debugging
 
 # 📸 CLAUDE VISUAL REVIEW (/2 Specific - New)
-npm run test:e2e:claude-review          # Complete /2 page set across viewports
-npm run test:e2e:screenshot             # Quick /2 full page capture (<30sec)
+npx playwright test e2e/quick-screenshots.spec.ts --project=chromium  # Fast, reliable screenshots (2-3min)
+npm run test:e2e:claude-review          # Complete /2 page set across viewports (complex, use if quick fails)
+npm run test:e2e:screenshot             # Quick /2 full page capture (complex, use if quick fails)
 npm run test:e2e:preview                # Pre-commit /2 visual preview
 
 # /2-Specific Testing Commands (Comprehensive)
@@ -283,9 +284,10 @@ npm run test:e2e:component         # Single component testing for focused change
 npm run test:e2e:debug             # Enhanced headed mode for interactive debugging
 
 # 📸 SCREENSHOT GENERATION FOR CLAUDE REVIEW (New)
-npm run test:e2e:claude-review              # Complete page set across viewports
-npm run test:e2e:claude-review:current      # Current state capture for Claude analysis
-npm run test:e2e:screenshot                 # Quick full page capture (<30sec)
+npx playwright test e2e/quick-screenshots.spec.ts --project=chromium      # RECOMMENDED: Fast, reliable screenshots (2-3min)
+npx playwright test e2e/detail-pages-screenshots.spec.ts --project=chromium  # Detail pages only (1-2min)
+npm run test:e2e:claude-review              # Complete page set across viewports (complex)
+npm run test:e2e:screenshot                 # Quick full page capture (complex, <30sec if working)
 npm run test:e2e:screenshot:mobile          # Mobile viewport screenshots only
 npm run test:e2e:preview                    # Pre-commit visual preview
 
@@ -302,6 +304,28 @@ npx playwright test e2e/navigation-component.spec.ts  # Navigation behavior (21 
 npx playwright test e2e/visual-regression-2.spec.ts   # Visual consistency (100+ screenshots)
 npx playwright test e2e/accessibility-enhanced.spec.ts # Enterprise accessibility (24 tests)
 npx playwright test e2e/screenshot-generation.spec.ts  # Claude review screenshot generation
+npx playwright test e2e/quick-screenshots.spec.ts --project=chromium     # NEW: Fast, reliable screenshots
+npx playwright test e2e/detail-pages-screenshots.spec.ts --project=chromium  # NEW: Detail pages only
+```
+
+### **Screenshot Output Locations**
+```bash
+# Quick screenshots (recommended for Claude review)
+screenshots/quick-review/
+├── homepage-desktop.png & homepage-mobile.png
+├── case-studies-desktop.png & case-studies-mobile.png  
+├── how-i-work-desktop.png & how-i-work-mobile.png
+└── technical-expertise-desktop.png & technical-expertise-mobile.png
+
+# Detail pages screenshots (alternative)
+screenshots/detail-pages/
+├── case-studies-desktop.png & case-studies-mobile.png
+├── how-i-work-desktop.png & how-i-work-mobile.png
+└── technical-expertise-desktop.png & technical-expertise-mobile.png
+
+# Complex screenshot outputs (use if simple methods fail)
+screenshots/claude-review/
+└── [timestamp-based subdirectories with comprehensive screenshots]
 ```
 
 ### **Testing Workflow Integration**
@@ -317,7 +341,7 @@ npm run test:e2e:component -- --grep "ComponentName"  # Focused testing
 npm run test:e2e:dev               # Functional validation (2-3min)
 
 # 4. Visual review with Claude:
-npm run test:e2e:claude-review:current  # Generate screenshots for Claude analysis
+npx playwright test e2e/quick-screenshots.spec.ts --project=chromium  # Generate screenshots for Claude analysis
 
 # 5. Pre-commit validation:
 npm run test:e2e:portfolio         # Comprehensive check (8-10min)
@@ -361,9 +385,40 @@ npx playwright test --reporter=html                         # Generate HTML repo
 - **Cross-Device**: Mobile, tablet, desktop responsive validation
 - **Environment-Aware**: Skip visual regression during development, fast mode testing
 
+### **🔧 Screenshot Testing Troubleshooting**
+
+**If screenshots fail, follow this recovery pattern:**
+
+1. **Check Playwright Setup** (if first time):
+   ```bash
+   sudo npx playwright install-deps    # Install system dependencies
+   npx playwright install              # Install browser binaries
+   ```
+
+2. **Check Dev Server Health**:
+   ```bash
+   curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:3000/2
+   # If not 200, restart: pkill -f "next-server|npm run dev" && npm run dev &
+   ```
+
+3. **Use Simple Screenshot Mode**:
+   ```bash
+   # Create output directory
+   mkdir -p screenshots/quick-review
+   
+   # Run quick, reliable screenshots
+   npx playwright test e2e/quick-screenshots.spec.ts --project=chromium
+   ```
+
+4. **If still failing, try single page**:
+   ```bash
+   npx playwright test e2e/quick-screenshots.spec.ts --project=chromium --grep "homepage only"
+   ```
+
 **📖 Full Testing Guides**: 
 - `docs/testing/playwright-workflow.md` - Comprehensive testing documentation
 - `docs/testing/testing-enhancements-summary.md` - New capabilities implementation guide
+- `.claude/commands/visual-iterate.md` - Screenshot generation and visual development workflow
 
 ## Performance Standards - Enterprise Presentation
 
@@ -410,7 +465,7 @@ npm run dev    # Then visit localhost:3000/2
 # Testing /2 changes (New Optimized Workflow)
 npm run test:e2e:smoke        # Quick validation during coding (<1min)
 npm run test:e2e:dev          # Functional validation (2-3min)
-npm run test:e2e:claude-review:current  # Visual review with Claude
+npx playwright test e2e/quick-screenshots.spec.ts --project=chromium  # Visual review with Claude (2-3min)
 npm run test:e2e:portfolio    # Full /2 E2E validation (when ready for commit)
 npm run test:e2e:visual       # Visual regression testing (final validation)
 ```
@@ -491,7 +546,7 @@ claude code    # Gets general portfolio context
 3. **Check Status**: `gh issue list --label "redesign"`
 4. **Start Dev**: `npm run dev` → test at `localhost:3000/2`
 5. **🚀 NEW: Fast Testing**: `npm run test:e2e:smoke` for quick validation
-6. **📸 NEW: Claude Review**: `npm run test:e2e:claude-review:current` for visual analysis
+6. **📸 NEW: Quick Screenshots**: `npx playwright test e2e/quick-screenshots.spec.ts --project=chromium` for visual analysis
 7. **Quality Gates**: `npm run validate` before commits
 8. **Final Test**: `npm run test:e2e:portfolio` for comprehensive validation
 
@@ -507,7 +562,7 @@ npm run test:e2e:smoke                    # <1 minute
 npm run test:e2e:dev                      # 2-3 minutes functional testing
 
 # 3. Visual review with Claude
-npm run test:e2e:claude-review:current    # Generate screenshots for Claude analysis
+npx playwright test e2e/quick-screenshots.spec.ts --project=chromium    # Generate screenshots for Claude analysis
 
 # 4. Component-specific testing
 npm run test:e2e:component -- --grep "ComponentName"  # Focused testing
