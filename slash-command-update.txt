@@ -7,4 +7,3 @@ kick off sub agents to address each of the following:
 4. use the context7 mcp to check out relevant, up to date documentation on (topic or tool) and build a plan (but don't implement) and place the results in a new scratchpad .md doc
 
 
-so do these new hooks get invoked automatically, or do i need to do anything different when prompting claude code so the hooks are invoked?
