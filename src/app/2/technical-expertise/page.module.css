@@ -189,13 +189,44 @@
     height: 280px !important;
     min-height: 280px !important;
     max-height: 280px !important;
+    contain: layout style !important;
+    isolation: isolate !important;
+    position: relative !important;
   }
   
   .compactHero .heroContainer {
+    position: absolute !important;
     top: 90px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 10 !important;
+    contain: layout !important;
+    isolation: isolate !important;
     padding: 0 16px;
     width: 100% !important;
     max-width: calc(100vw - 32px) !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* ULTRA-SPECIFIC HERO TEXT UNIFORMITY RULES */
+  .compactHero .heroContainer .heroTitle {
+    font-size: clamp(2rem, 8vw, 2.5rem) !important;
+    font-weight: 700 !important;
+    line-height: 1.1 !important;
+    margin: 0 0 16px 0 !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
+    text-align: center !important;
+  }
+  
+  .compactHero .heroContainer .heroDescription {
+    font-size: 1.125rem !important;
+    line-height: 1.6 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin: 0 auto !important;
+    max-width: 800px !important;
+    text-align: center !important;
   }
   
   .heroHeader {
