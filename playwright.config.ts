@@ -17,7 +17,8 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Base URL will be auto-detected from webServer */
+    /* Base URL uses dynamic port detection */
+    baseURL: `http://localhost:${process.env.ACTIVE_DEV_PORT || '3000'}`,
     
     /* Run headless by default to avoid X server issues */
     headless: true,
@@ -73,7 +74,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     command: 'npm run dev',
-    port: 3000,
+    port: parseInt(process.env.ACTIVE_DEV_PORT || '3000'),
     reuseExistingServer: !process.env.CI,
   },
 })

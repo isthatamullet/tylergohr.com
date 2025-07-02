@@ -1,0 +1,200 @@
+{
+  "visual_change_patterns": {
+    "css_files": {
+      "extensions": [".css", ".scss", ".module.css"],
+      "patterns": [
+        "*.css",
+        "*.scss", 
+        "*.module.css",
+        "brand-tokens.css"
+      ],
+      "change_type": "styling",
+      "screenshot_requirement": "component_focused"
+    },
+    "component_files": {
+      "extensions": [".tsx", ".jsx"],
+      "patterns": [
+        "components/*.tsx",
+        "components/*.jsx",
+        "app/2/components/*.tsx",
+        "src/components/*.tsx"
+      ],
+      "change_type": "component",
+      "screenshot_requirement": "component_focused"
+    },
+    "layout_files": {
+      "extensions": [".tsx"],
+      "patterns": [
+        "layout.tsx",
+        "page.tsx", 
+        "template.tsx",
+        "app/layout.tsx",
+        "app/page.tsx"
+      ],
+      "change_type": "layout",
+      "screenshot_requirement": "full_page"
+    },
+    "design_system_files": {
+      "extensions": [".css"],
+      "patterns": [
+        "brand-tokens.css",
+        "globals.css",
+        "design-system.css"
+      ],
+      "change_type": "design_tokens",
+      "screenshot_requirement": "comprehensive_visual"
+    },
+    "image_assets": {
+      "extensions": [".png", ".jpg", ".jpeg", ".svg", ".webp"],
+      "patterns": [
+        "public/images/*",
+        "public/*.svg",
+        "assets/images/*",
+        "*.png",
+        "*.jpg",
+        "*.jpeg",
+        "*.svg",
+        "*.webp"
+      ],
+      "change_type": "image_asset",
+      "screenshot_requirement": "asset_verification"
+    }
+  },
+  "screenshot_strategies": {
+    "component_focused": {
+      "command": "npx playwright test e2e/quick-screenshots.spec.ts --project=chromium",
+      "description": "Fast component-focused screenshots",
+      "estimated_time": "2-3 minutes",
+      "output_location": "screenshots/quick-review/",
+      "viewports": ["desktop", "mobile"],
+      "coverage": "Main page sections with component changes"
+    },
+    "comprehensive_visual": {
+      "command": "npm run test:e2e:visual",
+      "description": "Full visual regression testing",
+      "estimated_time": "5-8 minutes",
+      "output_location": "e2e/visual-regression-2.spec.ts-snapshots/",
+      "viewports": ["desktop", "tablet", "mobile"],
+      "coverage": "Complete visual baseline comparison"
+    },
+    "full_page": {
+      "command": "npm run test:e2e:claude-review",
+      "description": "Complete page screenshots for layout changes",
+      "estimated_time": "5-8 minutes",
+      "output_location": "screenshots/claude-review/",
+      "viewports": ["desktop", "tablet", "mobile"],
+      "coverage": "Full page layouts and navigation"
+    },
+    "asset_verification": {
+      "command": "npx playwright test e2e/quick-screenshots.spec.ts --project=chromium",
+      "description": "Asset loading and display verification",
+      "estimated_time": "2-3 minutes",
+      "output_location": "screenshots/quick-review/",
+      "viewports": ["desktop", "mobile"],
+      "coverage": "Image assets and visual elements"
+    }
+  },
+  "context_specific_patterns": {
+    "redesign_2": {
+      "patterns": [
+        "src/app/2/*",
+        "app/2/*"
+      ],
+      "special_handling": {
+        "brand_tokens": {
+          "file": "src/app/2/styles/brand-tokens.css",
+          "screenshot_requirement": "comprehensive_visual",
+          "additional_validation": ["brand_consistency", "enterprise_standards"]
+        },
+        "navigation": {
+          "patterns": ["*Navigation*", "*BrowserTabs*"],
+          "screenshot_requirement": "component_focused",
+          "additional_testing": ["navigation_behavior", "scroll_detection"]
+        }
+      }
+    },
+    "main_portfolio": {
+      "patterns": [
+        "src/app/page*",
+        "src/app/layout*",
+        "src/components/*"
+      ],
+      "special_handling": {
+        "global_styles": {
+          "file": "src/app/globals.css",
+          "screenshot_requirement": "comprehensive_visual",
+          "additional_validation": ["cross_page_impact"]
+        }
+      }
+    }
+  },
+  "change_impact_analysis": {
+    "low_impact": {
+      "patterns": [
+        "*.md",
+        "*.txt",
+        "documentation/*",
+        "scripts/*"
+      ],
+      "screenshot_requirement": "none",
+      "description": "Documentation and script changes"
+    },
+    "medium_impact": {
+      "patterns": [
+        "components/*.tsx",
+        "*.module.css",
+        "hooks/*"
+      ],
+      "screenshot_requirement": "component_focused",
+      "description": "Component and styling changes"
+    },
+    "high_impact": {
+      "patterns": [
+        "layout.tsx",
+        "page.tsx",
+        "brand-tokens.css",
+        "globals.css"
+      ],
+      "screenshot_requirement": "comprehensive_visual",
+      "description": "Layout and design system changes"
+    }
+  },
+  "automated_actions": {
+    "on_visual_change": [
+      "generate_screenshots",
+      "run_visual_tests",
+      "validate_responsive_design"
+    ],
+    "on_design_system_change": [
+      "comprehensive_visual_testing",
+      "brand_consistency_check",
+      "cross_page_validation"
+    ],
+    "on_component_change": [
+      "component_screenshot",
+      "accessibility_check",
+      "interaction_testing"
+    ],
+    "on_layout_change": [
+      "full_page_screenshots",
+      "navigation_testing",
+      "responsive_validation"
+    ]
+  },
+  "quality_gates": {
+    "visual_consistency": {
+      "threshold_percent": 5,
+      "description": "Maximum allowed visual difference percentage"
+    },
+    "performance_impact": {
+      "css_size_increase_limit": "10%",
+      "animation_fps_minimum": 55,
+      "description": "Performance impact limits for visual changes"
+    },
+    "accessibility_compliance": {
+      "color_contrast_minimum": 4.5,
+      "touch_target_minimum": "44px",
+      "description": "Accessibility requirements for visual elements"
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "critical_files": [
+    "package.json",
+    "package-lock.json",
+    "next.config.js",
+    "tsconfig.json",
+    "playwright.config.ts"
+  ],
+  "important_files": [
+    "CLAUDE.md",
+    "README.md",
+    "Dockerfile",
+    "docker-compose.yml",
+    ".gitignore"
+  ],
+  "design_system_files": [
+    "src/app/2/styles/brand-tokens.css",
+    "src/app/globals.css"
+  ],
+  "configuration_files": [
+    ".env*",
+    "postcss.config.js",
+    ".eslintrc*",
+    "eslint.config.js"
+  ],
+  "system_directories": [
+    ".git",
+    "node_modules", 
+    ".next",
+    "dist",
+    "build",
+    "coverage"
+  ],
+  "protection_levels": {
+    "critical": {
+      "description": "Essential system files that could break functionality",
+      "confirmation_required": true,
+      "backup_before_edit": true,
+      "audit_log": true
+    },
+    "important": {
+      "description": "Important documentation and configuration",
+      "confirmation_required": true,
+      "backup_before_edit": true,
+      "audit_log": true
+    },
+    "design_system": {
+      "description": "Design system and brand consistency files",
+      "confirmation_required": true,
+      "backup_before_edit": true,
+      "audit_log": true,
+      "brand_validation": true
+    },
+    "configuration": {
+      "description": "Development and deployment configuration",
+      "confirmation_required": true,
+      "backup_before_edit": false,
+      "audit_log": true
+    },
+    "system": {
+      "description": "System files that should never be modified",
+      "confirmation_required": true,
+      "backup_before_edit": true,
+      "audit_log": true,
+      "additional_warnings": [
+        "This could corrupt the repository",
+        "Modification is strongly discouraged"
+      ]
+    }
+  },
+  "bypass_conditions": [
+    "HOOK_BYPASS_PROTECTION=true",
+    "explicit_user_override",
+    "emergency_fix_mode"
+  ],
+  "file_patterns": {
+    "environment_files": [
+      ".env",
+      ".env.*",
+      "*.env"
+    ],
+    "config_files": [
+      "*.config.js",
+      "*.config.ts",
+      "*.config.json"
+    ],
+    "documentation": [
+      "*.md",
+      "*.txt",
+      "CHANGELOG*",
+      "LICENSE*"
+    ]
+  }
+}

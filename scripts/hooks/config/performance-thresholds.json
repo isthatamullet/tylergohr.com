@@ -1,0 +1,170 @@
+{
+  "core_web_vitals": {
+    "lcp": {
+      "excellent": 2.5,
+      "good": 4.0,
+      "unit": "seconds",
+      "description": "Largest Contentful Paint - Enterprise credibility standard"
+    },
+    "fid": {
+      "excellent": 0.1,
+      "good": 0.3,
+      "unit": "seconds", 
+      "description": "First Input Delay - Professional responsiveness"
+    },
+    "cls": {
+      "excellent": 0.1,
+      "good": 0.25,
+      "unit": "score",
+      "description": "Cumulative Layout Shift - Stable business presentation"
+    }
+  },
+  "lighthouse_scores": {
+    "performance": {
+      "enterprise_minimum": 90,
+      "good": 80,
+      "description": "Lighthouse Performance Score"
+    },
+    "accessibility": {
+      "enterprise_minimum": 95,
+      "good": 90,
+      "description": "Lighthouse Accessibility Score"
+    },
+    "best_practices": {
+      "enterprise_minimum": 90,
+      "good": 80,
+      "description": "Lighthouse Best Practices Score"
+    },
+    "seo": {
+      "enterprise_minimum": 90,
+      "good": 80,
+      "description": "Lighthouse SEO Score"
+    }
+  },
+  "animation_performance": {
+    "target_fps": 60,
+    "minimum_fps": 55,
+    "frame_budget_ms": 16.67,
+    "description": "60fps smooth animations for Enterprise presentation"
+  },
+  "bundle_size": {
+    "javascript": {
+      "warning_threshold_kb": 500,
+      "critical_threshold_kb": 1000,
+      "description": "JavaScript bundle size limits"
+    },
+    "css": {
+      "warning_threshold_kb": 100,
+      "critical_threshold_kb": 200,
+      "description": "CSS bundle size limits"
+    },
+    "images": {
+      "warning_threshold_kb": 300,
+      "critical_threshold_kb": 500,
+      "description": "Individual image size limits"
+    }
+  },
+  "load_times": {
+    "time_to_interactive": {
+      "excellent": 3.0,
+      "good": 5.0,
+      "unit": "seconds",
+      "description": "Time to Interactive"
+    },
+    "first_meaningful_paint": {
+      "excellent": 1.5,
+      "good": 2.5,
+      "unit": "seconds",
+      "description": "First Meaningful Paint"
+    }
+  },
+  "enterprise_standards": {
+    "portfolio_redesign_2": {
+      "lcp_target": 2.5,
+      "fid_target": 0.1,
+      "cls_target": 0.1,
+      "lighthouse_minimum": 90,
+      "animation_fps": 60,
+      "description": "Enterprise Solutions Architect presentation standards"
+    },
+    "main_portfolio": {
+      "lcp_target": 3.0,
+      "fid_target": 0.15,
+      "cls_target": 0.15,
+      "lighthouse_minimum": 85,
+      "animation_fps": 60,
+      "description": "Creative portfolio standards with technical excellence"
+    }
+  },
+  "css_performance": {
+    "heavy_properties": {
+      "box-shadow": {
+        "performance_impact": "medium",
+        "recommendation": "Use sparingly, prefer simple shadows"
+      },
+      "filter": {
+        "performance_impact": "high", 
+        "recommendation": "Avoid complex filters, use CSS transforms instead"
+      },
+      "backdrop-filter": {
+        "performance_impact": "high",
+        "recommendation": "Use for glassmorphism effects only, ensure browser support"
+      },
+      "clip-path": {
+        "performance_impact": "medium",
+        "recommendation": "Simple paths only, avoid complex animations"
+      }
+    },
+    "animation_properties": {
+      "transform": {
+        "performance_impact": "low",
+        "gpu_accelerated": true,
+        "recommendation": "Preferred for animations"
+      },
+      "opacity": {
+        "performance_impact": "low",
+        "gpu_accelerated": true,
+        "recommendation": "Excellent for fade effects"
+      },
+      "left": {
+        "performance_impact": "high",
+        "gpu_accelerated": false,
+        "recommendation": "Avoid - use transform: translateX() instead"
+      },
+      "top": {
+        "performance_impact": "high", 
+        "gpu_accelerated": false,
+        "recommendation": "Avoid - use transform: translateY() instead"
+      },
+      "width": {
+        "performance_impact": "high",
+        "gpu_accelerated": false,
+        "recommendation": "Avoid animating - causes layout thrashing"
+      },
+      "height": {
+        "performance_impact": "high",
+        "gpu_accelerated": false,
+        "recommendation": "Avoid animating - causes layout thrashing"
+      }
+    }
+  },
+  "monitoring_intervals": {
+    "real_time": "30s",
+    "development": "5m", 
+    "production": "1h",
+    "description": "Performance monitoring check intervals"
+  },
+  "alerts": {
+    "performance_regression": {
+      "lcp_increase_threshold": 0.5,
+      "fid_increase_threshold": 0.05,
+      "cls_increase_threshold": 0.05,
+      "description": "Thresholds for performance regression alerts"
+    },
+    "bundle_size_increase": {
+      "javascript_threshold_percent": 10,
+      "css_threshold_percent": 15,
+      "description": "Bundle size increase alert thresholds"
+    }
+  }
+}

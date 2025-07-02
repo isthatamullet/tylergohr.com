@@ -1,0 +1,97 @@
+{
+  "port_detection": {
+    "common_ports": [3000, 3001, 3002, 3003, 3004, 3005],
+    "cache_ttl_seconds": 1800,
+    "quick_check_timeout": 2,
+    "detection_timeout": 10,
+    "max_detection_attempts": 3
+  },
+  "operation_contexts": {
+    "visual_development": {
+      "description": "UI component changes, CSS modifications, visual workflows",
+      "cache_ttl_seconds": 900,
+      "requires_server_validation": true,
+      "trigger_patterns": [
+        "Edit.*\\.(tsx|css|module\\.css)$",
+        "Write.*components/",
+        ".*visual.*",
+        ".*screenshot.*"
+      ]
+    },
+    "testing": {
+      "description": "Test operations, E2E testing, performance checks",
+      "cache_ttl_seconds": 600,
+      "requires_server_validation": true,
+      "trigger_patterns": [
+        ".*test.*",
+        ".*e2e.*",
+        ".*playwright.*"
+      ]
+    },
+    "performance_monitoring": {
+      "description": "Performance checks, accessibility testing, Core Web Vitals",
+      "cache_ttl_seconds": 300,
+      "requires_server_validation": true,
+      "trigger_patterns": [
+        ".*performance.*",
+        ".*accessibility.*",
+        ".*core-web-vitals.*"
+      ]
+    },
+    "general": {
+      "description": "General development operations",
+      "cache_ttl_seconds": 1800,
+      "requires_server_validation": false,
+      "trigger_patterns": [".*"]
+    }
+  },
+  "skip_patterns": {
+    "documentation": [
+      "Edit.*\\.md$",
+      "Edit.*\\.txt$",
+      "Edit.*README.*",
+      "Edit.*CHANGELOG.*"
+    ],
+    "configuration": [
+      "Edit.*\\.json$",
+      "Edit.*\\.yml$",
+      "Edit.*\\.yaml$",
+      "Edit.*\\.toml$"
+    ],
+    "typescript_only": [
+      "Edit.*\\.d\\.ts$",
+      "Edit.*types/.*\\.ts$"
+    ],
+    "git_operations": [
+      ".*git.*",
+      ".*commit.*",
+      ".*push.*",
+      ".*pull.*"
+    ]
+  },
+  "fallback_strategies": {
+    "no_server_found": {
+      "action": "warn_and_continue",
+      "message": "No development server found. Some operations may fail.",
+      "suggest_command": "npm run dev"
+    },
+    "cache_corruption": {
+      "action": "clear_and_retry",
+      "max_retries": 2
+    },
+    "port_conflict": {
+      "action": "detect_alternative",
+      "check_alternative_ports": true
+    }
+  },
+  "performance_thresholds": {
+    "max_detection_time_ms": 100,
+    "max_cache_read_time_ms": 10,
+    "max_validation_time_ms": 2000
+  },
+  "logging": {
+    "level": "info",
+    "include_timing": true,
+    "include_process_info": true
+  }
+}

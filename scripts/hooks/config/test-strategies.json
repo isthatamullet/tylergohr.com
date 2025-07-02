@@ -1,0 +1,174 @@
+{
+  "test_strategies": {
+    "smoke": {
+      "command": "npm run test:e2e:smoke",
+      "description": "Essential functionality validation",
+      "estimated_time": "< 1 minute",
+      "coverage": "Critical user flows and basic functionality",
+      "environment": {
+        "FAST_MODE": "true",
+        "SKIP_VISUAL": "true"
+      }
+    },
+    "component": {
+      "command": "npm run test:e2e:dev",
+      "description": "Component behavior and integration testing",
+      "estimated_time": "2-3 minutes",
+      "coverage": "Component interactions, form validation, navigation",
+      "environment": {
+        "SKIP_VISUAL": "true"
+      }
+    },
+    "visual": {
+      "command": "npm run test:e2e:visual",
+      "description": "Visual regression and design consistency",
+      "estimated_time": "5-8 minutes",
+      "coverage": "Cross-viewport visual consistency, design system compliance",
+      "environment": {}
+    },
+    "navigation": {
+      "command": "npm run test:e2e:navigation",
+      "description": "Navigation behavior and scroll detection",
+      "estimated_time": "3-4 minutes",
+      "coverage": "Menu interactions, active link detection, scroll behavior",
+      "environment": {}
+    },
+    "accessibility": {
+      "command": "npm run test:e2e:accessibility",
+      "description": "WCAG 2.1 AA compliance and screen reader compatibility",
+      "estimated_time": "2-3 minutes",
+      "coverage": "Keyboard navigation, screen reader support, color contrast",
+      "environment": {}
+    },
+    "performance": {
+      "command": "npm run test:e2e:performance",
+      "description": "Core Web Vitals and performance metrics",
+      "estimated_time": "4-6 minutes",
+      "coverage": "LCP, FID, CLS, animation performance, bundle analysis",
+      "environment": {}
+    },
+    "mobile": {
+      "command": "npm run test:e2e:mobile",
+      "description": "Cross-device responsive validation",
+      "estimated_time": "3-5 minutes",
+      "coverage": "Mobile interactions, touch targets, responsive layouts",
+      "environment": {}
+    },
+    "comprehensive": {
+      "command": "npm run test:e2e:portfolio",
+      "description": "Full portfolio functionality and quality validation",
+      "estimated_time": "8-10 minutes",
+      "coverage": "Complete test suite across all areas",
+      "environment": {}
+    },
+    "skip": {
+      "command": "echo 'Skipping tests for non-critical change'",
+      "description": "No testing required",
+      "estimated_time": "0 seconds",
+      "coverage": "Documentation changes, non-functional updates",
+      "environment": {}
+    }
+  },
+  "file_type_mappings": {
+    "tsx": {
+      "default": "component",
+      "patterns": {
+        "components/Navigation": "navigation",
+        "app/2/components/": "component",
+        "layout.tsx": "comprehensive",
+        "page.tsx": "comprehensive"
+      }
+    },
+    "ts": {
+      "default": "component",
+      "patterns": {
+        "hooks/": "component",
+        "lib/": "smoke",
+        "types/": "smoke"
+      }
+    },
+    "css": {
+      "default": "visual",
+      "patterns": {
+        "brand-tokens.css": "visual",
+        "globals.css": "visual",
+        ".module.css": "visual"
+      }
+    },
+    "json": {
+      "default": "smoke",
+      "patterns": {
+        "package.json": "comprehensive",
+        "tsconfig.json": "comprehensive"
+      }
+    },
+    "js": {
+      "default": "component",
+      "patterns": {
+        ".config.js": "comprehensive",
+        "scripts/": "smoke"
+      }
+    },
+    "md": {
+      "default": "skip"
+    }
+  },
+  "context_overrides": {
+    "redesign_2": {
+      "comprehensive": "component",
+      "visual": "visual",
+      "default_fast_mode": true
+    },
+    "fast": {
+      "comprehensive": "smoke",
+      "visual": "smoke",
+      "component": "smoke"
+    },
+    "performance": {
+      "component": "performance",
+      "visual": "performance"
+    },
+    "testing": {
+      "default": "smoke",
+      "skip_visual": true
+    }
+  },
+  "special_conditions": {
+    "design_system_change": {
+      "strategy": "visual",
+      "description": "Design token or brand system modifications require full visual testing"
+    },
+    "navigation_change": {
+      "strategy": "navigation",
+      "description": "Navigation component changes need specialized navigation testing"
+    },
+    "performance_critical": {
+      "strategy": "performance",
+      "description": "Changes to performance-critical files need Core Web Vitals validation"
+    },
+    "accessibility_critical": {
+      "strategy": "accessibility", 
+      "description": "Changes affecting accessibility need WCAG compliance validation"
+    }
+  },
+  "screenshot_generation": {
+    "visual_changes": {
+      "command": "npx playwright test e2e/quick-screenshots.spec.ts --project=chromium",
+      "description": "Quick screenshot generation for visual review",
+      "output_location": "screenshots/quick-review/",
+      "estimated_time": "2-3 minutes"
+    },
+    "comprehensive_review": {
+      "command": "npm run test:e2e:claude-review",
+      "description": "Complete visual documentation for Claude analysis",
+      "output_location": "screenshots/claude-review/",
+      "estimated_time": "5-8 minutes"
+    },
+    "detail_pages": {
+      "command": "npx playwright test e2e/detail-pages-screenshots.spec.ts --project=chromium",
+      "description": "Detail page screenshots only",
+      "output_location": "screenshots/detail-pages/",
+      "estimated_time": "1-2 minutes"
+    }
+  }
+}

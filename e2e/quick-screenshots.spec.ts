@@ -26,17 +26,25 @@ test.describe('Quick Screenshots for Visual Review', () => {
         await browserPage.setViewportSize(viewport)
         
         // Navigate to page
-        await browserPage.goto(page.route)
+        await browserPage.goto(page.route, { waitUntil: 'networkidle' })
         
-        // Wait for page to be ready (simplified waiting)
-        await browserPage.waitForLoadState('networkidle')
-        await browserPage.waitForTimeout(1000) // Brief settle time
+        // CRITICAL: Wait for Framer Motion page transition to complete
+        // The template.tsx uses duration: 0.35s, so wait for animation + buffer
+        await browserPage.waitForTimeout(1000); // 1s > 0.35s animation duration
+        
+        // Wait for all lazy-loaded React components to mount (Footer is lazy-loaded)
+        await browserPage.waitForTimeout(4000);
+        
+        // Ensure main content and footer are visible
+        await browserPage.waitForSelector('main', { state: 'visible' });
+        await browserPage.waitForSelector('footer', { state: 'visible', timeout: 5000 });
         
         // Take screenshot
         const filename = `${page.name}-${viewport.name}.png`
         await browserPage.screenshot({ 
           path: `screenshots/quick-review/${filename}`,
-          fullPage: true 
+          fullPage: true,
+          animations: 'disabled' // Disable CSS animations during screenshot
         })
         
         console.log(`📸 Quick screenshot saved: ${filename}`)
@@ -58,13 +66,18 @@ test.describe('Single Page Screenshots', () => {
 
     for (const viewport of viewports) {
       await page.setViewportSize(viewport)
-      await page.goto('/2')
-      await page.waitForLoadState('networkidle')
-      await page.waitForTimeout(500)
+      await page.goto('/2', { waitUntil: 'networkidle' })
+      
+      // Wait for Framer Motion page transition and lazy components
+      await page.waitForTimeout(1000); // Animation duration
+      await page.waitForTimeout(4000); // Lazy-loaded components
+      await page.waitForSelector('main', { state: 'visible' });
+      await page.waitForSelector('footer', { state: 'visible', timeout: 5000 });
       
       await page.screenshot({ 
         path: `screenshots/quick-review/homepage-${viewport.name}.png`,
-        fullPage: true 
+        fullPage: true,
+        animations: 'disabled'
       })
     }
   })
@@ -77,13 +90,18 @@ test.describe('Single Page Screenshots', () => {
 
     for (const viewport of viewports) {
       await page.setViewportSize(viewport)
-      await page.goto('/2/case-studies')
-      await page.waitForLoadState('networkidle')
-      await page.waitForTimeout(500)
+      await page.goto('/2/case-studies', { waitUntil: 'networkidle' })
+      
+      // Wait for Framer Motion page transition and lazy components
+      await page.waitForTimeout(1000); // Animation duration
+      await page.waitForTimeout(4000); // Lazy-loaded components
+      await page.waitForSelector('main', { state: 'visible' });
+      await page.waitForSelector('footer', { state: 'visible', timeout: 5000 });
       
       await page.screenshot({ 
         path: `screenshots/quick-review/case-studies-${viewport.name}.png`,
-        fullPage: true 
+        fullPage: true,
+        animations: 'disabled'
       })
     }
   })
@@ -96,13 +114,18 @@ test.describe('Single Page Screenshots', () => {
 
     for (const viewport of viewports) {
       await page.setViewportSize(viewport)
-      await page.goto('/2/how-i-work')
-      await page.waitForLoadState('networkidle')
-      await page.waitForTimeout(500)
+      await page.goto('/2/how-i-work', { waitUntil: 'networkidle' })
+      
+      // Wait for Framer Motion page transition and lazy components
+      await page.waitForTimeout(1000); // Animation duration
+      await page.waitForTimeout(4000); // Lazy-loaded components
+      await page.waitForSelector('main', { state: 'visible' });
+      await page.waitForSelector('footer', { state: 'visible', timeout: 5000 });
       
       await page.screenshot({ 
         path: `screenshots/quick-review/how-i-work-${viewport.name}.png`,
-        fullPage: true 
+        fullPage: true,
+        animations: 'disabled'
       })
     }
   })
@@ -115,13 +138,18 @@ test.describe('Single Page Screenshots', () => {
 
     for (const viewport of viewports) {
       await page.setViewportSize(viewport)
-      await page.goto('/2/technical-expertise')
-      await page.waitForLoadState('networkidle')
-      await page.waitForTimeout(500)
+      await page.goto('/2/technical-expertise', { waitUntil: 'networkidle' })
+      
+      // Wait for Framer Motion page transition and lazy components
+      await page.waitForTimeout(1000); // Animation duration
+      await page.waitForTimeout(4000); // Lazy-loaded components
+      await page.waitForSelector('main', { state: 'visible' });
+      await page.waitForSelector('footer', { state: 'visible', timeout: 5000 });
       
       await page.screenshot({ 
         path: `screenshots/quick-review/technical-expertise-${viewport.name}.png`,
-        fullPage: true 
+        fullPage: true,
+        animations: 'disabled'
       })
     }
   })
