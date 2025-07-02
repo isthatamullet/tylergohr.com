@@ -262,7 +262,7 @@
    RESPONSIVE DESIGN
    ========================================================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .heroTitle {
     font-size: clamp(2rem, 8vw, 3rem);
   }

@@ -54,7 +54,7 @@
 }
 
 /* Mobile Layout - 1x8 Grid */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .resultsSection {
     padding: 80px 0;
   }

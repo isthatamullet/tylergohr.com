@@ -209,7 +209,7 @@
 }
 
 /* Mobile Responsiveness */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .metricCard {
     padding: 24px 20px;
     min-height: 140px;
