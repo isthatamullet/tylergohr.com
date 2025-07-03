@@ -177,7 +177,7 @@ jobs:
             --concurrency=10
             --timeout=300
             --allow-unauthenticated
-            --set-env-vars="NODE_ENV=production,NEXT_TELEMETRY_DISABLED=1"
+            --set-env-vars="NODE_ENV=production,NEXT_TELEMETRY_DISABLED=1,EMAIL_USER=${{ secrets.EMAIL_USER }},EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }},EMAIL_TO=${{ secrets.EMAIL_TO }},CONTACT_FROM_NAME=${{ secrets.CONTACT_FROM_NAME }}"
           tag: pr-${{ github.event.number }}
       
       - name: 'Get Preview URL'

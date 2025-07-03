@@ -289,7 +289,7 @@ jobs:
             --concurrency=100 \
             --timeout=300 \
             --allow-unauthenticated \
-            --set-env-vars="NODE_ENV=production,NEXT_TELEMETRY_DISABLED=1" \
+            --set-env-vars="NODE_ENV=production,NEXT_TELEMETRY_DISABLED=1,EMAIL_USER=${{ secrets.EMAIL_USER }},EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }},EMAIL_TO=${{ secrets.EMAIL_TO }},CONTACT_FROM_NAME=${{ secrets.CONTACT_FROM_NAME }}" \
             --tag=${{ needs.validate.outputs.version }}
           
           echo "✅ Fast-track deployment completed"
@@ -349,7 +349,7 @@ jobs:
             --concurrency=100
             --timeout=300
             --allow-unauthenticated
-            --set-env-vars="NODE_ENV=production,NEXT_TELEMETRY_DISABLED=1"
+            --set-env-vars="NODE_ENV=production,NEXT_TELEMETRY_DISABLED=1,EMAIL_USER=${{ secrets.EMAIL_USER }},EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }},EMAIL_TO=${{ secrets.EMAIL_TO }},CONTACT_FROM_NAME=${{ secrets.CONTACT_FROM_NAME }}"
           tag: ${{ needs.validate.outputs.version }}
 
       - name: 'Configure Traffic Allocation'
