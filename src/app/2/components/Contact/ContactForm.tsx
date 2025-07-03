@@ -157,7 +157,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className }) => {
       {submitStatus === 'success' && (
         <div className={styles.successMessage} role="alert">
           <h4>Message Sent Successfully!</h4>
-          <p>Thanks for reaching out. I&apos;ll review your project details and get back to you within 24 hours.</p>
+          <p>Thanks for reaching out. I{"'"}ll review your project details and get back to you within 24 hours.</p>
         </div>
       )}
 

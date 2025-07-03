@@ -30,7 +30,7 @@ export const ContactInfo: React.FC<ContactInfoProps> = ({ className }) => {
           <div className={styles.cardIcon} aria-hidden="true">👨‍💻</div>
           <h4 className={styles.cardTitle}>For Tech Professionals</h4>
           <p className={styles.cardDescription}>
-            Looking for a senior technical leader who combines enterprise-scale experience with cutting-edge development practices? Let&apos;s connect about opportunities where strategic thinking and technical excellence drive innovation.
+            Looking for a senior technical leader who combines enterprise-scale experience with cutting-edge development practices? Let{"'"}s connect about opportunities where strategic thinking and technical excellence drive innovation.
           </p>
         </div>
 

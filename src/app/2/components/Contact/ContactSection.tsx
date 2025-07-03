@@ -56,7 +56,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ className }) => 
             Ready to transform your technical challenges?
           </h2>
           <p className={styles.sectionDescription}>
-            Let&apos;s discuss your project and explore how my Emmy-winning expertise and modern development approach can deliver the results you need.
+            Let{"'"}s discuss your project and explore how my Emmy-winning expertise and modern development approach can deliver the results you need.
           </p>
         </header>
 

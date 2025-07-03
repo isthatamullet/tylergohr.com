@@ -324,7 +324,7 @@ function TechnicalExpertisePageContent() {
               Ready to leverage this expertise for your project?
             </h2>
             <p className={styles.ctaDescription}>
-              From modern frontend applications to enterprise backend systems, let&apos;s discuss how my technical 
+              From modern frontend applications to enterprise backend systems, let{"'"}s discuss how my technical 
               experience can deliver the innovative solutions your business needs.
             </p>
             <div className={styles.ctaActions}>
