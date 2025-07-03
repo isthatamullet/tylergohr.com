@@ -1,10 +1,40 @@
 {
   "port_detection": {
-    "common_ports": [3000, 3001, 3002, 3003, 3004, 3005],
+    "dynamic_port_range": {
+      "start": 3000,
+      "end": 4010,
+      "description": "Dynamic port range for scanning when process discovery fails"
+    },
     "cache_ttl_seconds": 1800,
-    "quick_check_timeout": 2,
+    "quick_check_timeout": 5,
     "detection_timeout": 10,
-    "max_detection_attempts": 3
+    "max_detection_attempts": 3,
+    "cloud_environments": {
+      "google_cloud_workstations": {
+        "url_pattern": "https://{port}-{hostname}.cluster-cbx7armcmnaqcxcx5fojjql2bo.cloudworkstations.dev",
+        "detection_method": "environment_variable",
+        "environment_variable": "GOOGLE_CLOUD_WORKSTATIONS",
+        "expected_value": "true",
+        "validation_timeout": 10
+      },
+      "github_codespaces": {
+        "url_pattern": "https://{codespace_name}-{port}.preview.app.github.dev",
+        "detection_method": "environment_variable",
+        "environment_variable": "CODESPACE_NAME",
+        "validation_timeout": 8
+      },
+      "gitpod": {
+        "url_pattern": "https://{port}-{workspace_id}.{cluster_host}",
+        "detection_method": "environment_variable",
+        "environment_variable": "GITPOD_WORKSPACE_ID",
+        "validation_timeout": 8
+      },
+      "local": {
+        "url_pattern": "http://localhost:{port}",
+        "detection_method": "fallback",
+        "validation_timeout": 5
+      }
+    }
   },
   "operation_contexts": {
     "visual_development": {

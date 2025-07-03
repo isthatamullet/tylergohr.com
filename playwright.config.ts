@@ -17,8 +17,8 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Base URL uses dynamic port detection */
-    baseURL: `http://localhost:${process.env.ACTIVE_DEV_PORT || '3000'}`,
+    /* Base URL uses cloud-aware dynamic detection */
+    baseURL: process.env.ACTIVE_DEV_URL || `http://localhost:${process.env.ACTIVE_DEV_PORT || '3000'}`,
     
     /* Run headless by default to avoid X server issues */
     headless: true,
