@@ -26,6 +26,18 @@ needs_port_detection() {
     local tool_name="$1"
     local tool_args="$2"
     
+    # PRIORITY: Check for dev server operations
+    if [[ "$tool_name" == "Bash" && "$tool_args" =~ npm.*run.*dev ]]; then
+        echo "dev_server_start"
+        return 0
+    fi
+    
+    # Check for testing operations that need live server
+    if [[ "$tool_name" == "Bash" && ("$tool_args" =~ playwright || "$tool_args" =~ test:e2e) ]]; then
+        echo "testing"
+        return 0
+    fi
+    
     # Check for visual/UI operations
     if [[ "$tool_args" =~ \.(tsx|css|module\.css)$ ]]; then
         echo "visual_development"
@@ -112,22 +124,42 @@ main() {
     if operation_context=$(needs_port_detection "$TOOL_NAME" "$TOOL_ARGS"); then
         log_operation_decision "true" "$operation_context" "$TOOL_ARGS"
         
-        # Port detection is needed - proceed with detection
-        log_info "🔍 Initiating smart port detection..."
-        
-        # Check if we already have a valid port in the current session
-        if [[ -n "$ACTIVE_DEV_PORT" ]]; then
-            log_success "Using existing session port: $ACTIVE_DEV_PORT"
+        # Special handling for dev server start operations
+        if [[ "$operation_context" == "dev_server_start" ]]; then
+            log_info "🚀 Dev server start detected - ensuring clean port"
+            
+            # Kill any existing dev servers on common ports to prevent conflicts
+            log_info "Cleaning up existing dev servers..."
+            pkill -f "next-server\|npm run dev" 2>/dev/null || true
+            sleep 1
+            
+            # Wait for port to be freed
+            for port in 3000 3001 3002 3003; do
+                if ! lsof -i ":$port" >/dev/null 2>&1; then
+                    log_info "✅ Port $port is available for dev server"
+                    break
+                fi
+            done
+            
+            log_info "🔍 Port detection will update after dev server starts..."
         else
-            # Attempt to get active port with caching
-            if get_active_port "$operation_context"; then
-                log_success "Port detection successful: $ACTIVE_DEV_PORT"
+            # Regular port detection for testing/visual operations
+            log_info "🔍 Initiating smart port detection..."
+            
+            # Check if we already have a valid port in the current session
+            if [[ -n "$ACTIVE_DEV_PORT" ]]; then
+                log_success "Using existing session port: $ACTIVE_DEV_PORT"
             else
-                log_warning "No development server detected"
-                log_info "💡 Consider running: npm run dev"
-                
-                # Set a flag that other hooks can check
-                export DEV_SERVER_UNAVAILABLE="true"
+                # Attempt to get active port with caching
+                if get_active_port "$operation_context"; then
+                    log_success "Port detection successful: $ACTIVE_DEV_PORT"
+                else
+                    log_warning "No development server detected"
+                    log_info "💡 Consider running: npm run dev"
+                    
+                    # Set a flag that other hooks can check
+                    export DEV_SERVER_UNAVAILABLE="true"
+                fi
             fi
         fi
         

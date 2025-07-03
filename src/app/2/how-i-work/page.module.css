@@ -1,43 +1,9 @@
-/* How I Work Detail Page Styles */
+/* How I Work Detail Page Styles - Hero section now matches Case Studies mobile layout */
 
 /* ==========================================================================
    HERO SECTION
    ========================================================================== */
 
-.compactHero {
-  /* Fixed height - no variables, no inheritance */
-  height: 360px !important;
-  min-height: 360px !important;
-  max-height: 360px !important;
-  
-  /* Container setup */
-  position: relative !important;
-  
-  /* Remove all padding/margin */
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.compactHero .heroContainer {
-  /* Absolute positioning for complete control */
-  position: absolute !important;
-  top: 135px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  
-  /* Text alignment */
-  text-align: center !important;
-  
-  /* Width control */
-  width: 800px !important;
-  max-width: 90vw !important;
-  
-  /* Remove all other positioning */
-  display: block !important;
-  height: auto !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
 
 .heroHeader {
   opacity: 1;
@@ -835,6 +801,10 @@
     text-align: center !important;
   }
   
+  .heroHeader {
+    margin-bottom: 48px;
+  }
+  
   .processHeader {
     margin-bottom: 3rem;
   }
@@ -842,4 +812,57 @@
   .stepDetails {
     padding: 1rem;
   }
+}
+
+/* ==========================================================================
+   COMPACT HERO OVERRIDE - Standardized Detail Page Layout (DESKTOP)
+   ========================================================================== */
+
+.compactHero {
+  /* Fixed height - no variables, no inheritance */
+  height: 360px !important;
+  min-height: 360px !important;
+  max-height: 360px !important;
+  
+  /* Container setup */
+  position: relative !important;
+  
+  /* Remove all padding/margin */
+  padding: 0 !important;
+  margin: 0 !important;
+  
+  /* Override how-i-work gradient background for hero-only */
+  background-image: none !important;
+  background-color: var(--how-i-work-bg) !important;
+}
+
+.compactHero .heroContainer {
+  /* Absolute positioning for complete control */
+  position: absolute !important;
+  top: 135px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  
+  /* Text alignment */
+  text-align: center !important;
+  
+  /* Width control */
+  width: 800px !important;
+  max-width: 90vw !important;
+  
+  /* Remove all other positioning */
+  display: block !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* ==========================================================================
+   CONSISTENT CONTENT BACKGROUND
+   ========================================================================== */
+
+/* Ensure first section after hero gets proper background */
+.compactHero + section {
+  background-color: var(--about-bg) !important;
+  background-image: none !important;
 }

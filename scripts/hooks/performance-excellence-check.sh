@@ -91,10 +91,8 @@ fi
 if [[ "$CHANGE_TYPE" == "ui-component" ]]; then
     log_info "Checking accessibility performance impact..."
     
-    # Quick accessibility performance check
-    if ! FAST_MODE=true npm run test:e2e:accessibility --grep "performance" --reporter=line 2>/dev/null; then
-        log_warning "Accessibility performance tests failed - review impact"
-    fi
+    # Skip accessibility tests in hooks to prevent timeouts
+    log_info "Accessibility performance check skipped in hooks - run manually if needed"
 fi
 
 # 6. Bundle Size Impact (for JS/TS changes)
