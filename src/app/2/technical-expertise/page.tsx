@@ -49,7 +49,7 @@ const technicalAreas: TechnicalArea[] = [
     ],
     achievements: [
       'Built Emmy Award-winning streaming interfaces for global FIFA World Cup',
-      'Designed content management systems handling 17,000+ digital titles',
+      'Designed content management systems handling 50,000+ digital titles',
       'Created enterprise dashboards for Fortune 500 C-level executives',
       'Delivered 90+ Lighthouse scores across all production applications'
     ],
@@ -135,7 +135,7 @@ const technicalAreas: TechnicalArea[] = [
       'Cross-Functional Coordination: Managed relationships between technical teams and executives',
       'Training & Development: Created comprehensive onboarding and technical documentation',
       'Budget & Resource Management: Cost optimization with focus on measurable ROI',
-      'Platform Architecture: Defined requirements for enterprise systems handling 17,000+ titles',
+      'Platform Architecture: Defined requirements for enterprise systems handling 50,000+ titles',
       'Stakeholder Communication: Progress reporting to C-level executives and technical teams',
       'Quality Standards: Established protocols improving success rates from 32% to 96%',
       'Change Management: Led organization-wide process improvements and technology adoption'

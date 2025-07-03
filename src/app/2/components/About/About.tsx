@@ -59,7 +59,7 @@ export const About: React.FC = () => {
           </h2>
           
           <p className={`${styles.aboutParagraph} ${styles.paragraph1} ${isVisible ? styles.paragraphRevealed : ''}`}>
-            I{"'"}m Tyler Gohr, an <span className={styles.emmyHighlight}>Emmy Award-winning</span> Enterprise Solutions Architect who transforms complex technical challenges into competitive business advantages. Over 16+ years leading technical teams at <span className={styles.enterpriseHighlight}>Fox Corporation and Warner Bros Entertainment</span>, I{"'"}ve architected platforms serving millions of users while managing systems with 17,000+ digital assets.
+            I{"'"}m Tyler Gohr, an <span className={styles.emmyHighlight}>Emmy Award-winning</span> Enterprise Solutions Architect who transforms complex technical challenges into competitive business advantages. Over 16+ years leading technical teams at <span className={styles.enterpriseHighlight}>Fox Corporation and Warner Bros Entertainment</span>, I{"'"}ve architected platforms serving millions of users while managing systems with 50,000+ digital assets.
           </p>
           
           <p className={`${styles.aboutParagraph} ${styles.paragraph2} ${isVisible ? styles.paragraphRevealed : ''}`}>

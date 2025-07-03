@@ -29,7 +29,7 @@ export const CaseStudiesPreview: React.FC = () => {
     {
       id: 'content-distribution-platform',
       title: 'Content Distribution Platform Revolution',
-      challengeTeaser: 'Fox Corporation needed to manage 17,000+ titles while reducing costs by millions.',
+      challengeTeaser: 'Fox Corporation needed to manage 50,000+ titles while reducing costs by millions.',
       keyImpact: 'Saved "a few million bucks" through strategic optimization',
       metricBadge: '$2M+ Cost Savings',
       metricCategory: 'savings',

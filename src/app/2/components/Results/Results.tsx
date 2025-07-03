@@ -49,7 +49,7 @@ const metrics: Metric[] = [
   },
   {
     id: 'content-scale',
-    number: '17,000+',
+    number: '50,000+',
     label: 'Titles Managed',
     description: 'Plus 30,000+ digital assets, enterprise-scale content distribution platforms',
     icon: '📚',
