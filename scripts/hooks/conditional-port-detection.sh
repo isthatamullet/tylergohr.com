@@ -32,8 +32,8 @@ needs_port_detection() {
         return 0
     fi
     
-    # Check for testing operations that need live server
-    if [[ "$tool_name" == "Bash" && ("$tool_args" =~ playwright || "$tool_args" =~ test:e2e) ]]; then
+    # Check for testing operations that need live server (enhanced for direct npx commands)
+    if [[ "$tool_name" == "Bash" && ("$tool_args" =~ playwright || "$tool_args" =~ test:e2e || "$tool_args" =~ npx.*playwright) ]]; then
         echo "testing"
         return 0
     fi
