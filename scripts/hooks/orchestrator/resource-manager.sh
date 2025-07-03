@@ -359,16 +359,21 @@ get_shared_dev_server_health() {
         fi
     fi
     
-    # Check server health
-    local response_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "http://localhost:$port" 2>/dev/null || echo "000")
+    # Source cloud environment utilities if not already loaded
+    if [[ -z "${PORT_DETECTION_UTILS_LOADED:-}" ]]; then
+        source "$SCRIPT_DIR/../lib/port-detection-utils.sh"
+    fi
     
-    if [[ "$response_code" =~ ^[2-5][0-9][0-9]$ ]]; then
+    # Check server health using cloud-aware connectivity
+    if test_server_connectivity "$port" 5; then
         write_shared_state "dev_server_health" "healthy"
-        log_info "Dev server healthy on port $port"
+        local server_url=$(construct_test_url "$port")
+        log_info "Dev server healthy on port $port ($server_url)"
         return 0
     else
         write_shared_state "dev_server_health" "unhealthy"
-        log_warning "Dev server unhealthy on port $port (response: $response_code)"
+        local server_url=$(construct_test_url "$port")
+        log_warning "Dev server unhealthy on port $port ($server_url)"
         return 1
     fi
 }
