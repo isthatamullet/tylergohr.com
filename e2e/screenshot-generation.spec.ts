@@ -1,11 +1,9 @@
-import { test, expect } from '@playwright/test'
+import { test } from '@playwright/test'
 import { 
   generateClaudeReviewScreenshots, 
-  captureComponentScreenshot,
   waitForPageReady,
   waitForNetworkAnimationReady,
   waitForCounterAnimationsComplete,
-  getViewportSize,
   VIEWPORT_SIZES
 } from './utils/dev-test-helpers'
 
