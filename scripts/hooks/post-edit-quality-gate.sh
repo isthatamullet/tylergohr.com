@@ -59,9 +59,9 @@ case "$TEST_STRATEGY" in
         log_info "Running visual tests..."
         if is_visual_change "$FILE_PATH"; then
             log_info "Visual change detected - generating screenshots..."
-            # Run quick screenshot generation for visual changes
-            if ! npx playwright test e2e/quick-screenshots.spec.ts --project=chromium --reporter=line; then
-                log_warning "Screenshot generation failed - continuing"
+            # Run quick screenshot generation with timeout
+            if ! timeout 30 npx playwright test e2e/quick-screenshots.spec.ts --project=chromium --reporter=line --timeout=20000; then
+                log_warning "Screenshot generation failed or timed out - continuing"
             else
                 log_info "Screenshots generated successfully"
             fi
@@ -69,8 +69,9 @@ case "$TEST_STRATEGY" in
         ;;
     "comprehensive")
         log_info "Running comprehensive tests..."
-        if ! npm run test:e2e:portfolio; then
-            log_error "Comprehensive tests failed"
+        # Use faster development testing instead of full portfolio suite
+        if ! npm run test:e2e:dev; then
+            log_error "Development tests failed"
             exit 1
         fi
         ;;

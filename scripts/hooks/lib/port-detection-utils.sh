@@ -16,7 +16,7 @@ PORT_CONFIG_FILE="$(dirname "$SCRIPT_DIR")/config/port-detection-config.json"
 mkdir -p "$PORT_CACHE_DIR"
 
 # Port detection configuration
-COMMON_PORTS=(3000 3001 3002 3003 3004 3005)
+COMMON_PORTS=(3000 3001 3002 3003 3004 3005 3006 3007 3008 3009 4000 4001 4002 4003 4004 4005)
 CACHE_TTL_SECONDS=1800  # 30 minutes
 QUICK_CHECK_TIMEOUT=2   # 2 seconds for port responsiveness
 
@@ -60,12 +60,13 @@ is_port_serving_nextjs() {
 
 # Function to find Next.js process and its port
 find_nextjs_process_port() {
-    # Method 1: Check process list for Next.js
-    local nextjs_processes=$(ps aux | grep -E "(next|npm run dev)" | grep -v grep | awk '{print $2}')
+    # Method 1: Find most recent Next.js server process
+    # Get next-server processes sorted by PID (most recent first)
+    local nextjs_processes=$(ps aux | grep "next-server" | grep -v grep | sort -k2 -nr | awk '{print $2}')
     
     for pid in $nextjs_processes; do
         # Use lsof or netstat to find listening ports for this PID
-        local port=$(lsof -i -P -n | grep "$pid" | grep LISTEN | grep -o ":300[0-9]" | head -1 | cut -d: -f2)
+        local port=$(lsof -i -P -n | grep "$pid" | grep LISTEN | grep -o ":[3-9][0-9][0-9][0-9]" | head -1 | cut -d: -f2)
         if [[ -n "$port" ]]; then
             if is_port_serving_nextjs "$port" >/dev/null; then
                 echo "$port"

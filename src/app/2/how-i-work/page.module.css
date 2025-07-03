@@ -1,28 +1,9 @@
-/* How I Work Detail Page Styles */
+/* How I Work Detail Page Styles - Hero section now matches Case Studies mobile layout */
 
 /* ==========================================================================
    HERO SECTION
    ========================================================================== */
 
-.compactHero {
-  /* Fixed height - no variables, no inheritance */
-  height: 360px !important;
-  min-height: 360px !important;
-  max-height: 360px !important;
-  
-  /* Container setup */
-  position: relative !important;
-  
-  /* Remove all padding/margin */
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.compactHero .heroContainer {
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-}
 
 .heroHeader {
   opacity: 1;
@@ -777,13 +758,51 @@
 /* Extra Small Mobile */
 @media (max-width: 480px) {
   .compactHero {
-    min-height: var(--detail-hero-height) !important;
-    max-height: var(--detail-hero-height) !important;
-    padding: var(--detail-hero-padding) !important;
+    height: 280px !important;
+    min-height: 280px !important;
+    max-height: 280px !important;
+    contain: layout style !important;
+    isolation: isolate !important;
+    position: relative !important;
   }
   
-  .heroContainer {
+  .compactHero .heroContainer {
+    position: absolute !important;
+    top: 90px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 10 !important;
+    contain: layout !important;
+    isolation: isolate !important;
     padding: 0 16px;
+    width: 100% !important;
+    max-width: calc(100vw - 32px) !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* ULTRA-SPECIFIC HERO TEXT UNIFORMITY RULES */
+  .compactHero .heroContainer .heroTitle {
+    font-size: clamp(2rem, 8vw, 2.5rem) !important;
+    font-weight: 700 !important;
+    line-height: 1.1 !important;
+    margin: 0 0 16px 0 !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
+    text-align: center !important;
+  }
+  
+  .compactHero .heroContainer .heroDescription {
+    font-size: 1.125rem !important;
+    line-height: 1.6 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin: 0 auto !important;
+    max-width: 800px !important;
+    text-align: center !important;
+  }
+  
+  .heroHeader {
+    margin-bottom: 48px;
   }
   
   .processHeader {
@@ -793,4 +812,57 @@
   .stepDetails {
     padding: 1rem;
   }
+}
+
+/* ==========================================================================
+   COMPACT HERO OVERRIDE - Standardized Detail Page Layout (DESKTOP)
+   ========================================================================== */
+
+.compactHero {
+  /* Fixed height - no variables, no inheritance */
+  height: 360px !important;
+  min-height: 360px !important;
+  max-height: 360px !important;
+  
+  /* Container setup */
+  position: relative !important;
+  
+  /* Remove all padding/margin */
+  padding: 0 !important;
+  margin: 0 !important;
+  
+  /* Override how-i-work gradient background for hero-only */
+  background-image: none !important;
+  background-color: var(--how-i-work-bg) !important;
+}
+
+.compactHero .heroContainer {
+  /* Absolute positioning for complete control */
+  position: absolute !important;
+  top: 135px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  
+  /* Text alignment */
+  text-align: center !important;
+  
+  /* Width control */
+  width: 800px !important;
+  max-width: 90vw !important;
+  
+  /* Remove all other positioning */
+  display: block !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* ==========================================================================
+   CONSISTENT CONTENT BACKGROUND
+   ========================================================================== */
+
+/* Ensure first section after hero gets proper background */
+.compactHero + section {
+  background-color: var(--about-bg) !important;
+  background-image: none !important;
 }
