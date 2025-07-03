@@ -1,146 +1,271 @@
 #!/bin/bash
 
-# Active Port Detection Script
-# Detects the actual running dev server port and sets environment variables
+# Tyler Gohr Portfolio - Standalone Port Detection Helper
+# Detects active development servers and exports environment variables
+# Works independently of Claude Code hooks for manual command execution
 
 set -e
 
-# Function to detect active dev server port
-detect_active_port() {
-    local detected_port=""
+# Get script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Source required utilities
+source "$SCRIPT_DIR/hooks/lib/hook-utils.sh" 2>/dev/null || {
+    # Fallback if hook-utils.sh is not available
+    log_info() { echo "[INFO] $*"; }
+    log_success() { echo "[SUCCESS] $*"; }
+    log_warning() { echo "[WARNING] $*"; }
+    log_error() { echo "[ERROR] $*"; }
+}
+
+source "$SCRIPT_DIR/testing/lib/cloud-environment-utils.sh"
+source "$SCRIPT_DIR/hooks/lib/port-detection-utils.sh"
+
+# Configuration
+QUIET_MODE="${1:-false}"
+EXPORT_FORMAT="${2:-shell}"
+
+# Usage information
+show_usage() {
+    cat << EOF
+Tyler Gohr Portfolio - Standalone Port Detection
+
+USAGE:
+    $0 [quiet] [format]
+
+ARGUMENTS:
+    quiet     - Suppress informational output (default: false)
+    format    - Output format: shell|export|json (default: shell)
+
+EXAMPLES:
+    # Interactive mode with full output
+    $0
+
+    # Quiet mode for scripting
+    $0 quiet
+
+    # Export format for sourcing
+    $0 quiet export
+
+    # JSON format for programmatic use
+    $0 quiet json
+
+    # Source into current shell
+    eval "\$($0 quiet export)"
+
+CLOUD ENVIRONMENTS:
+    Automatically detects and supports:
+    • Google Cloud Workstations
+    • GitHub Codespaces  
+    • Gitpod
+    • Local development
+
+OUTPUT:
+    Sets ACTIVE_DEV_PORT and ACTIVE_DEV_URL environment variables
+    Playwright and other tools will automatically use these values
+
+INTEGRATION:
+    Works with existing Claude Code hook system when available
+    Falls back to standalone detection when hooks are not active
+EOF
+}
+
+# Helper to log only in non-quiet mode
+conditional_log() {
+    local level="$1"
+    shift
+    if [[ "$QUIET_MODE" != "quiet" ]]; then
+        case "$level" in
+            "info") log_info "$@" ;;
+            "success") log_success "$@" ;;
+            "warning") log_warning "$@" ;;
+            "error") log_error "$@" ;;
+        esac
+    fi
+}
+
+# Main port detection function
+detect_and_export_port() {
+    conditional_log info "Starting standalone port detection..."
     
-    echo "🔍 Scanning for active development server..." >&2
+    # Show environment info in non-quiet mode
+    if [[ "$QUIET_MODE" != "quiet" ]]; then
+        print_environment_info
+    fi
     
-    # Check common Next.js ports
-    for port in 3000 3001 3002 3003 3004 3005; do
-        if curl -s -o /dev/null -w "%{http_code}" --max-time 2 "http://localhost:$port" | grep -q "200"; then
-            # Verify it's actually a Next.js server by checking for Next.js indicators
-            if curl -s --max-time 2 "http://localhost:$port" | grep -q "next\|_next\|__next" 2>/dev/null; then
-                detected_port="$port"
-                echo "✅ Found Next.js dev server on port $port" >&2
-                break
+    # Try to get port from existing cache/session first
+    if [[ -n "$ACTIVE_DEV_PORT" ]]; then
+        conditional_log info "Using existing session port: $ACTIVE_DEV_PORT"
+        local validation_url=$(construct_test_url "$ACTIVE_DEV_PORT")
+        
+        # Validate it's still working
+        if validate_nextjs_server_cloud "$ACTIVE_DEV_PORT" 3 >/dev/null 2>&1; then
+            export ACTIVE_DEV_URL="$validation_url"
+            conditional_log success "Existing port validated: $ACTIVE_DEV_PORT"
+            conditional_log info "Server URL: $validation_url"
+            return 0
+        else
+            conditional_log warning "Existing port $ACTIVE_DEV_PORT no longer valid, detecting new port..."
+            unset ACTIVE_DEV_PORT ACTIVE_DEV_URL
+        fi
+    fi
+    
+    # For quiet mode, skip hook system to avoid log noise
+    if [[ "$QUIET_MODE" != "quiet" ]]; then
+        # Attempt to use hook system if available
+        if [[ -f "$SCRIPT_DIR/hooks/orchestrator/resource-manager.sh" ]]; then
+            conditional_log info "Attempting to use Claude Code hook infrastructure..."
+            
+            if source "$SCRIPT_DIR/hooks/orchestrator/resource-manager.sh" 2>/dev/null; then
+                if get_shared_port_detection "standalone" >/dev/null 2>&1; then
+                    if [[ -n "$ACTIVE_DEV_PORT" ]]; then
+                        local validation_url=$(construct_test_url "$ACTIVE_DEV_PORT")
+                        export ACTIVE_DEV_URL="$validation_url"
+                        conditional_log success "Port detected via hook system: $ACTIVE_DEV_PORT"
+                        conditional_log info "Server URL: $validation_url"
+                        return 0
+                    fi
+                fi
+            fi
+            conditional_log info "Hook system not available, using standalone detection..."
+        fi
+        
+        # Standalone detection using direct port detection utilities (non-quiet mode)
+        conditional_log info "Performing standalone dynamic port detection..."
+        
+        if get_active_port "standalone" >/dev/null 2>&1; then
+            if [[ -n "$ACTIVE_DEV_PORT" ]]; then
+                local validation_url=$(construct_test_url "$ACTIVE_DEV_PORT")
+                export ACTIVE_DEV_URL="$validation_url"
+                conditional_log success "Port detected: $ACTIVE_DEV_PORT"
+                conditional_log info "Server URL: $validation_url"
+                conditional_log info "Environment: $(detect_environment)"
+                return 0
+            fi
+        fi
+    fi
+    
+    # Final fallback - try manual detection
+    conditional_log warning "Automated detection failed, trying manual detection..."
+    
+    # Simplified manual detection without logging
+    local nextjs_processes=$(ps aux | grep -E "next-server|next dev" | grep -v grep | awk '{print $2}')
+    for pid in $nextjs_processes; do
+        local ports=$(lsof -i -P -n | grep "$pid" | grep LISTEN | grep -o ":[0-9]\+" | cut -d: -f2 | sort -n | uniq)
+        for port in $ports; do
+            if [[ "$port" =~ ^[0-9]+$ ]] && [[ $port -ge 3000 ]] && [[ $port -le 65535 ]]; then
+                if validate_nextjs_server_cloud "$port" 3 >/dev/null 2>&1; then
+                    export ACTIVE_DEV_PORT="$port"
+                    local validation_url=$(construct_test_url "$port")
+                    export ACTIVE_DEV_URL="$validation_url"
+                    conditional_log success "Manual detection successful: $port"
+                    conditional_log info "Server URL: $validation_url"
+                    return 0
+                fi
+            fi
+        done
+    done
+    
+    # Try scanning active ports directly
+    local active_ports=$(netstat -tuln 2>/dev/null | grep LISTEN | grep -o ":[0-9]\+" | cut -d: -f2 | sort -n | uniq)
+    for port in $active_ports; do
+        if [[ $port -ge 3000 ]] && [[ $port -le 4010 ]]; then
+            if validate_nextjs_server_cloud "$port" 3 >/dev/null 2>&1; then
+                export ACTIVE_DEV_PORT="$port"
+                local validation_url=$(construct_test_url "$port")
+                export ACTIVE_DEV_URL="$validation_url"
+                conditional_log success "Network scan detection successful: $port"
+                conditional_log info "Server URL: $validation_url"
+                return 0
             fi
         fi
     done
     
-    if [ -z "$detected_port" ]; then
-        echo "❌ No active development server found" >&2
-        echo "💡 Start dev server with: npm run dev" >&2
+    # No server found
+    conditional_log warning "No active development server detected"
+    conditional_log info "💡 Consider running: npm run dev"
+    conditional_log info "💡 Or start dev server on a specific port: PORT=3000 npm run dev"
+    return 1
+}
+
+# Output results in requested format
+output_results() {
+    local port="$ACTIVE_DEV_PORT"
+    local url="$ACTIVE_DEV_URL"
+    local environment=$(detect_environment)
+    
+    if [[ -z "$port" ]]; then
+        case "$EXPORT_FORMAT" in
+            "json")
+                echo '{"error": "No active development server found", "active_port": null, "active_url": null}'
+                ;;
+            "export")
+                echo "# No active development server found"
+                echo "# export ACTIVE_DEV_PORT="
+                echo "# export ACTIVE_DEV_URL="
+                ;;
+            "shell"|*)
+                echo "No active development server found"
+                echo "ACTIVE_DEV_PORT: (not set)"
+                echo "ACTIVE_DEV_URL: (not set)"
+                ;;
+        esac
         return 1
     fi
     
-    echo "$detected_port"
-    return 0
-}
-
-# Function to update environment files
-update_environment() {
-    local port="$1"
-    
-    # Update .env.local
-    local env_file="/home/user/tylergohr.com/.env.local"
-    
-    if [ -f "$env_file" ]; then
-        # Remove existing ACTIVE_DEV_PORT line
-        sed -i '/^ACTIVE_DEV_PORT=/d' "$env_file"
-    fi
-    
-    # Add current active port
-    echo "ACTIVE_DEV_PORT=$port" >> "$env_file"
-    echo "📝 Updated .env.local with ACTIVE_DEV_PORT=$port"
-    
-    # Export for current session
-    export ACTIVE_DEV_PORT="$port"
-    echo "🔧 Exported ACTIVE_DEV_PORT=$port for current session"
-}
-
-# Function to update hook cache
-update_hook_cache() {
-    local port="$1"
-    local cache_file="/home/user/.claude/hooks/active-port.cache"
-    local cache_dir=$(dirname "$cache_file")
-    
-    # Create cache directory if it doesn't exist
-    mkdir -p "$cache_dir"
-    
-    # Create cache entry
-    cat > "$cache_file" << EOF
+    case "$EXPORT_FORMAT" in
+        "json")
+            cat << EOF
 {
-  "port": $port,
-  "timestamp": $(date +%s),
-  "validation_url": "http://localhost:$port",
-  "operation_context": "active_detection",
-  "process_info": {
-    "pid": $(lsof -t -i :$port 2>/dev/null | head -1),
-    "process_name": "$(ps -p $(lsof -t -i :$port 2>/dev/null | head -1) -o comm= 2>/dev/null)"
-  }
+  "active_port": $port,
+  "active_url": "$url",
+  "environment": "$environment",
+  "detection_time": "$(date -Iseconds)",
+  "success": true
 }
 EOF
-    
-    echo "💾 Updated hook cache with port $port"
-}
-
-# Function to validate port is working
-validate_port() {
-    local port="$1"
-    
-    echo "🧪 Validating port $port..."
-    
-    local status_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "http://localhost:$port")
-    
-    if [ "$status_code" = "200" ]; then
-        echo "✅ Port $port is responding correctly (HTTP $status_code)"
-        return 0
-    else
-        echo "❌ Port $port validation failed (HTTP $status_code)"
-        return 1
-    fi
+            ;;
+        "export")
+            echo "export ACTIVE_DEV_PORT=\"$port\""
+            echo "export ACTIVE_DEV_URL=\"$url\""
+            ;;
+        "shell"|*)
+            echo "Active port detected: $port"
+            echo "ACTIVE_DEV_PORT: $port"
+            echo "ACTIVE_DEV_URL: $url"
+            echo "Environment: $environment"
+            echo ""
+            echo "🎯 Ready for testing! Your tools will now use the correct URLs."
+            echo ""
+            echo "💡 To use in current shell:"
+            echo "   eval \"\$($0 quiet export)\""
+            echo ""
+            echo "💡 Example test commands:"
+            echo "   npm run test:e2e:smoke"
+            echo "   npx playwright test e2e/quick-screenshots.spec.ts --project=chromium"
+            ;;
+    esac
 }
 
 # Main execution
 main() {
-    echo "🚀 Active Port Detection Script"
-    echo "================================"
+    # Handle help requests
+    if [[ "$1" =~ ^(-h|--help|help)$ ]]; then
+        show_usage
+        exit 0
+    fi
     
-    # Detect active port
-    if detected_port=$(detect_active_port); then
-        echo ""
-        echo "🎯 Active port detected: $detected_port"
-        
-        # Validate the port
-        if validate_port "$detected_port"; then
-            # Update all configurations
-            update_environment "$detected_port"
-            update_hook_cache "$detected_port"
-            
-            echo ""
-            echo "✅ Port detection complete!"
-            echo "📋 Summary:"
-            echo "   - Active Port: $detected_port"
-            echo "   - Environment: Updated"
-            echo "   - Hook Cache: Updated"
-            echo "   - Status: Ready for testing"
-            
-            # Output for shell evaluation
-            echo ""
-            echo "🔧 To use in current shell:"
-            echo "   export ACTIVE_DEV_PORT=$detected_port"
-            
-            return 0
-        else
-            echo "❌ Port validation failed"
-            return 1
-        fi
+    # Perform detection
+    if detect_and_export_port; then
+        output_results
+        exit 0
     else
-        echo ""
-        echo "❌ No active development server found"
-        echo "💡 Next steps:"
-        echo "   1. Start development server: npm run dev"
-        echo "   2. Wait for server to start"
-        echo "   3. Run this script again: ./scripts/detect-active-port.sh"
-        return 1
+        output_results
+        exit 1
     fi
 }
 
-# Execute main function
-main "$@"
+# Execute if called directly
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

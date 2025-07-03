@@ -273,6 +273,61 @@ SKIP_VISUAL=true npm run test:e2e:portfolio  # Skip visual regression during dev
 FAST_MODE=true npm run test:e2e:navigation   # Ultra-fast essential testing
 ```
 
+### **🔧 Manual Port Detection for Cloud Environments**
+
+**ISSUE SOLVED**: Manual test commands (like `npx playwright test`) now work correctly in cloud environments by automatically detecting the correct port and constructing cloud-aware URLs.
+
+#### **Quick Start for Manual Testing**
+```bash
+# Set environment variables for current shell
+eval "$(./scripts/detect-active-port.sh quiet export)"
+
+# Now run any test command - it will use the correct URLs
+npx playwright test e2e/quick-screenshots.spec.ts --project=chromium
+npm run test:e2e:smoke
+```
+
+#### **Manual Port Detection Commands**
+```bash
+# Interactive mode with full diagnostics
+./scripts/detect-active-port.sh
+
+# Export format for setting environment variables
+./scripts/detect-active-port.sh quiet export
+
+# JSON format for programmatic use
+./scripts/detect-active-port.sh quiet json
+
+# Initialize shell environment automatically
+source ./scripts/init-port-env.sh
+```
+
+#### **Cloud Environment Support**
+The system automatically detects and constructs appropriate URLs for:
+- **Google Cloud Workstations**: `https://3000-tylergohr.cluster-cbx7armcmnaqcxcx5fojjql2bo.cloudworkstations.dev`
+- **GitHub Codespaces**: `https://{codespace}-{port}.preview.app.github.dev`
+- **Gitpod**: `https://{port}-{workspace}.{cluster}`
+- **Local Development**: `http://localhost:{port}`
+
+#### **Integration with Existing Infrastructure**
+- **Reuses Claude Code hooks** when available for consistency
+- **Falls back to standalone detection** when hooks aren't active
+- **Maintains caching** for performance optimization
+- **Zero configuration** required - works automatically
+
+#### **Troubleshooting Manual Commands**
+```bash
+# Check current environment variables
+echo "Port: $ACTIVE_DEV_PORT, URL: $ACTIVE_DEV_URL"
+
+# Re-detect if server port changed
+./scripts/detect-active-port.sh
+eval "$(./scripts/detect-active-port.sh quiet export)"
+
+# Verify server is responding
+curl -s -k "$ACTIVE_DEV_URL" | head -5
+```
+
 ### **PR Workflow - /2 Development**
 1. **Create Feature Branch**: `git checkout -b feature/2-short-name` (identify /2 work)
 2. **Develop in /2 Context**: Work within `src/app/2/` architecture
