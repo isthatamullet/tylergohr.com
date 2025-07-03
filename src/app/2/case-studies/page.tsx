@@ -46,7 +46,7 @@ const caseStudies: CaseStudy[] = [
       'Revenue Growth: Contributed to successful launches of Fox Nation and Fox Weather platforms',
       'Quality Excellence: Achieved industry-leading content standards across 17,000+ titles'
     ],
-    businessValue: 'Whether you&apos;re managing hundreds of products or thousands of digital assets, the right systems architecture makes the difference between chaos and success. I bring the same strategic thinking to businesses of every size—from custom e-commerce platforms to content management solutions that scale with your growth.',
+    businessValue: 'Whether you&apos;re managing hundreds of products or thousands of digital assets, the right systems architecture makes the difference between chaos and success. I bring the same strategic thinking to businesses of every size — from custom e-commerce platforms to content management solutions that scale with your growth.',
     badge: {
       label: 'Cost Savings',
       value: '$2M+',
@@ -71,7 +71,7 @@ const caseStudies: CaseStudy[] = [
       'Industry Recognition: Hosted visits from Warner Bros executives and Apple&apos;s head of iTunes Movies',
       'Knowledge Transfer: Created comprehensive training materials for cross-departmental use'
     ],
-    businessValue: 'Every business has processes that could work better. I specialize in identifying what&apos;s not working, why it&apos;s failing, and implementing solutions that deliver measurable improvements. Whether it&apos;s your customer onboarding, order fulfillment, or content workflow—strategic process optimization drives real business results.',
+    businessValue: 'Every business has processes that could work better. I specialize in identifying what&apos;s not working, why it&apos;s failing, and implementing solutions that deliver measurable improvements. Whether it&apos;s your customer onboarding, order fulfillment, or content workflow — strategic process optimization drives real business results.',
     badge: {
       label: 'Success Rate',
       value: '96%',
@@ -96,7 +96,7 @@ const caseStudies: CaseStudy[] = [
       'Innovation Leadership: Pioneered AI implementation in content production workflows',
       'Competitive Advantage: Advanced capabilities ahead of industry standard adoption'
     ],
-    businessValue: 'AI isn&apos;t just for big corporations—smart automation can streamline any business process. From customer service chatbots to inventory management, I help businesses identify where AI can eliminate repetitive tasks, reduce errors, and free up your team to focus on what matters most: growing your business.',
+    businessValue: 'AI isn&apos;t just for big corporations — smart automation can streamline any business process. From customer service chatbots to inventory management, I help businesses identify where AI can eliminate repetitive tasks, reduce errors, and free up your team to focus on what matters most: growing your business.',
     badge: {
       label: 'Efficiency Gains',
       value: '50%',
@@ -121,7 +121,7 @@ const caseStudies: CaseStudy[] = [
       'Technical Achievement: Industry recognition for streaming technology innovation',
       'Reliability: Perfect uptime during critical live broadcast periods'
     ],
-    businessValue: 'When your business depends on technology performing flawlessly, you need solutions built to the highest standards. Whether it&apos;s your e-commerce platform during Black Friday, your booking system during peak season, or your app launch—I build systems that perform when it matters most.',
+    businessValue: 'When your business depends on technology performing flawlessly, you need solutions built to the highest standards. Whether it&apos;s your e-commerce platform during Black Friday, your booking system during peak season, or your app launch — I build systems that perform when it matters most.',
     badge: {
       label: 'Emmy Award',
       value: 'Winner',
@@ -258,7 +258,7 @@ function CaseStudiesPageContent() {
               Ready to deliver similar results for your business?
             </h2>
             <p className={styles.ctaDescription}>
-              Let&apos;s discuss your project and explore how my proven approach to strategic technical leadership 
+              Let{"'"}s discuss your project and explore how my proven approach to strategic technical leadership 
               can deliver the measurable outcomes your business needs.
             </p>
             <div className={styles.ctaActions}>

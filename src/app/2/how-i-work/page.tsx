@@ -282,7 +282,7 @@ function HowIWorkPageContent() {
               Ready to experience this proven process?
             </h2>
             <p className={styles.ctaDescription}>
-              From discovery to deployment, let&apos;s work together to build something exceptional that delivers real business value and scales with your success.
+              From discovery to deployment, let{"'"}s work together to build something exceptional that delivers real business value and scales with your success.
             </p>
             <div className={styles.ctaActions}>
               <Link href="/2#contact" className={styles.ctaPrimary}>

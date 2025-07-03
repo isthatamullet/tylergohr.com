@@ -1,6 +1,16 @@
 import React from 'react'
 import styles from './CaseStudyContent.module.css'
 
+// Utility function to decode HTML entities
+function decodeHtmlEntities(str: string): string {
+  return str
+    .replace(/&apos;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+}
+
 interface CaseStudy {
   id: string
   title: string
@@ -39,7 +49,7 @@ export default function CaseStudyContent({ study }: CaseStudyContentProps) {
         {/* Challenge */}
         <div className={styles.contentSection}>
           <h3 className={styles.contentTitle}>The Challenge</h3>
-          <p className={styles.contentText}>{study.challenge}</p>
+          <p className={styles.contentText}>{decodeHtmlEntities(study.challenge)}</p>
         </div>
 
         {/* Solution */}
@@ -54,7 +64,7 @@ export default function CaseStudyContent({ study }: CaseStudyContentProps) {
           <ul className={styles.contentList}>
             {study.implementation.map((item, i) => (
               <li key={i} className={styles.contentListItem}>
-                {item}
+                {decodeHtmlEntities(item)}
               </li>
             ))}
           </ul>
@@ -66,7 +76,7 @@ export default function CaseStudyContent({ study }: CaseStudyContentProps) {
           <ul className={styles.contentList}>
             {study.results.map((result, i) => (
               <li key={i} className={styles.contentListItem}>
-                {result}
+                {decodeHtmlEntities(result)}
               </li>
             ))}
           </ul>
@@ -76,7 +86,7 @@ export default function CaseStudyContent({ study }: CaseStudyContentProps) {
       {/* Business Value */}
       <div className={styles.businessValue}>
         <h3 className={styles.businessValueTitle}>What This Means for Your Business</h3>
-        <p className={styles.businessValueText}>{study.businessValue}</p>
+        <p className={styles.businessValueText}>{decodeHtmlEntities(study.businessValue)}</p>
       </div>
     </div>
   )

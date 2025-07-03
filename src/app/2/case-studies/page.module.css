@@ -713,17 +713,11 @@
 }
 
 /* ==========================================================================
-   CONSISTENT BLACK BACKGROUND FOR CONTENT
+   BROWSER SECTION BLACK BACKGROUND
    ========================================================================== */
 
-/* Ensure all content sections below hero use consistent black background */
-.compactHero ~ section {
-  background-color: #0a0a0a !important;
-  background-image: none !important;
-}
-
-/* Override any gradient overlays on subsequent sections */
-.compactHero + * {
+/* Ensure browser section uses black background, allow CTA section to show gold */
+.compactHero + section {
   background-color: #0a0a0a !important;
   background-image: none !important;
 }

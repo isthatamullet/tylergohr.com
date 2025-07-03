@@ -64,7 +64,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
 
   // Extract numeric value from metric.number for animation
   const getNumericValue = (numberString: string): number => {
-    // Handle different formats: "1", "$2M+", "96%", "10+", "17,000+", "50%", "16+", "3"
+    // Handle different formats: "1", "$2M+", "96%", "10+", "50,000+", "50%", "16+", "3"
     const cleanedString = numberString.replace(/[$,%+M]/g, '').replace(/,/g, '')
     const numValue = parseFloat(cleanedString)
     return isNaN(numValue) ? 0 : numValue

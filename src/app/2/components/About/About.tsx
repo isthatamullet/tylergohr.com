@@ -59,11 +59,11 @@ export const About: React.FC = () => {
           </h2>
           
           <p className={`${styles.aboutParagraph} ${styles.paragraph1} ${isVisible ? styles.paragraphRevealed : ''}`}>
-            I&apos;m Tyler Gohr, an <span className={styles.emmyHighlight}>Emmy Award-winning</span> Enterprise Solutions Architect who transforms complex technical challenges into competitive business advantages. Over 16+ years leading technical teams at <span className={styles.enterpriseHighlight}>Fox Corporation and Warner Bros Entertainment</span>, I&apos;ve architected platforms serving millions of users while managing systems with 17,000+ digital assets.
+            I{"'"}m Tyler Gohr, an <span className={styles.emmyHighlight}>Emmy Award-winning</span> Enterprise Solutions Architect who transforms complex technical challenges into competitive business advantages. Over 16+ years leading technical teams at <span className={styles.enterpriseHighlight}>Fox Corporation and Warner Bros Entertainment</span>, I{"'"}ve architected platforms serving millions of users while managing systems with 50,000+ digital assets.
           </p>
           
           <p className={`${styles.aboutParagraph} ${styles.paragraph2} ${isVisible ? styles.paragraphRevealed : ''}`}>
-            My approach combines Fortune 500-level expertise with a passion for solving real business problems. Whether you&apos;re a growing company needing a custom web application or an enterprise requiring complex digital infrastructure, I bring the same strategic thinking and technical precision to every project—from initial concept through deployment and optimization.
+            My approach combines Fortune 500-level expertise with a passion for solving real business problems. Whether you{"'"}re a growing company needing a custom web application or an enterprise requiring complex digital infrastructure, I bring the same strategic thinking and technical precision to every project — from initial concept through deployment and optimization.
           </p>
           
           <p className={`${styles.aboutParagraph} ${styles.paragraph3} ${isVisible ? styles.paragraphRevealed : ''}`}>
