@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 
 test('Debug footer visibility', async ({ page }) => {
   // Set mobile viewport

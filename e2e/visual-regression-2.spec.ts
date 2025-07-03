@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { waitForCounterAnimationsComplete, waitForNetworkAnimationReady, conditionalScreenshot } from './utils/dev-test-helpers'
+import { waitForCounterAnimationsComplete, waitForNetworkAnimationReady } from './utils/dev-test-helpers'
 
 test.describe('Visual Regression Testing - /2 Redesign', () => {
   

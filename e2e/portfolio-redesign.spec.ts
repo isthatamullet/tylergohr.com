@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
-import { waitForPageReady, conditionalScreenshot } from './utils/dev-test-helpers'
+import { waitForPageReady } from './utils/dev-test-helpers'
 
 test.describe('Portfolio Redesign (/2) - Enterprise Solutions Architect', () => {
   

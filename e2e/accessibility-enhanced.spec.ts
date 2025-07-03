@@ -541,7 +541,6 @@ test.describe('Enhanced Accessibility Testing - /2 Enterprise Portfolio', () => 
       await expect(mobileNav).toHaveAttribute('aria-hidden', 'false')
       
       // Test mobile dropdown accessibility
-      const workButton = page.getByRole('button', { name: /Navigate to Work section/ })
       const dropdownToggle = page.getByRole('button', { name: /Expand Work menu/ })
       
       await expect(dropdownToggle).toHaveAttribute('aria-label', /Expand Work menu/)
@@ -622,9 +621,6 @@ test.describe('Enhanced Accessibility Testing - /2 Enterprise Portfolio', () => 
     test('enterprise-level accessibility documentation', async ({ page }) => {
       await page.goto('/2')
       await page.waitForLoadState('networkidle')
-      
-      // Check for accessibility statement or documentation
-      const a11yLinks = page.locator('a').filter({ hasText: /accessibility|a11y/i })
       
       // Check document language is set
       const htmlLang = await page.locator('html').getAttribute('lang')

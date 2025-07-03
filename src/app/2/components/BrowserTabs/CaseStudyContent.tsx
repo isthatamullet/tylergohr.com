@@ -2,13 +2,14 @@ import React from 'react'
 import styles from './CaseStudyContent.module.css'
 
 // Utility function to decode HTML entities
+// Note: &amp; is decoded LAST to prevent double-decoding vulnerabilities
 function decodeHtmlEntities(str: string): string {
   return str
-    .replace(/&apos;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&amp;/g, '&')  // Must be last to prevent double-decoding
 }
 
 interface CaseStudy {
