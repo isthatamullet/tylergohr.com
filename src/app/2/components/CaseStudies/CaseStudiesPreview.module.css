@@ -50,6 +50,16 @@
   grid-template-columns: repeat(4, 1fr);
 }
 
+/* 3D Scene Container */
+.caseStudies3DScene {
+  width: 100%;
+  height: 600px;
+  margin-bottom: 64px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+}
+
 /* Section CTA */
 .sectionCTA {
   text-align: center;

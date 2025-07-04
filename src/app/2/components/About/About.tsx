@@ -1,8 +1,13 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, Suspense } from 'react'
 import { NetworkAnimation } from './NetworkAnimation'
+import { Scene, WebGLDetection } from '../WebGL'
+import { NetworkFallback } from '../WebGL/FallbackRenderer'
 import styles from './About.module.css'
+
+// Lazy load 3D components for better performance
+const NetworkAnimation3D = React.lazy(() => import('./NetworkAnimation3D'))
 
 /**
  * About Section Component - Enterprise Solutions Architect positioning
@@ -10,7 +15,7 @@ import styles from './About.module.css'
  * Features:
  * - 60/40 grid layout (text/animation) on desktop
  * - Emmy Award emphasis with gold highlighting
- * - Network animation demonstrating technical expertise
+ * - Progressive enhancement: 3D WebGL network animation with 2D fallback
  * - Mobile responsive stacking layout
  * - Scroll-triggered staggered animations for content reveals
  */
@@ -73,7 +78,23 @@ export const About: React.FC = () => {
 
         {/* Animation Side - 40% */}
         <div className={`${styles.aboutAnimation} ${isVisible ? styles.animationRevealed : ''}`}>
-          <NetworkAnimation />
+          <WebGLDetection
+            fallback={<NetworkAnimation />}
+            onCapabilitiesDetected={(capabilities) => {
+              if (process.env.NODE_ENV === 'development') {
+                console.log('About section WebGL capabilities:', capabilities);
+              }
+            }}
+          >
+            <Scene
+              className={styles.networkScene}
+              fallback={<NetworkFallback />}
+            >
+              <Suspense fallback={<NetworkAnimation />}>
+                <NetworkAnimation3D />
+              </Suspense>
+            </Scene>
+          </WebGLDetection>
         </div>
         
       </div>

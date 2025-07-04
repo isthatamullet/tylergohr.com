@@ -1,8 +1,12 @@
 "use client"
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, Suspense } from 'react'
 import { CaseStudyCard } from './CaseStudyCard'
+import { WebGLDetection } from '../WebGL'
 import styles from './CaseStudiesPreview.module.css'
+
+// Lazy load 3D scene for performance
+const CaseStudies3DScene = React.lazy(() => import('./CaseStudies3DScene'))
 
 export interface CaseStudy {
   id: string
@@ -110,17 +114,47 @@ export const CaseStudiesPreview: React.FC = () => {
           </p>
         </header>
 
-        <div className={styles.caseStudiesGrid}>
-          {caseStudies.map((caseStudy, index) => (
-            <CaseStudyCard
-              key={caseStudy.id}
-              caseStudy={caseStudy}
-              animationDelay={index * 150} // 150ms stagger as specified
+        {/* Progressive Enhancement: 3D Scene or 2D Grid */}
+        <WebGLDetection
+          fallback={
+            <div className={styles.caseStudiesGrid}>
+              {caseStudies.map((caseStudy, index) => (
+                <CaseStudyCard
+                  key={caseStudy.id}
+                  caseStudy={caseStudy}
+                  animationDelay={index * 150} // 150ms stagger as specified
+                  isVisible={isVisible}
+                  cardIndex={index}
+                />
+              ))}
+            </div>
+          }
+          onCapabilitiesDetected={(capabilities) => {
+            if (process.env.NODE_ENV === 'development') {
+              console.log('Case Studies WebGL capabilities:', capabilities);
+            }
+          }}
+        >
+          <Suspense fallback={
+            <div className={styles.caseStudiesGrid}>
+              {caseStudies.map((caseStudy, index) => (
+                <CaseStudyCard
+                  key={caseStudy.id}
+                  caseStudy={caseStudy}
+                  animationDelay={index * 150}
+                  isVisible={isVisible}
+                  cardIndex={index}
+                />
+              ))}
+            </div>
+          }>
+            <CaseStudies3DScene
+              caseStudies={caseStudies}
               isVisible={isVisible}
-              cardIndex={index}
+              className={styles.caseStudies3DScene}
             />
-          ))}
-        </div>
+          </Suspense>
+        </WebGLDetection>
 
         <div className={`${styles.sectionCTA} ${isVisible ? styles.revealed : ''}`}>
           <a 
