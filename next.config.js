@@ -1,4 +1,14 @@
 /** @type {import('next').NextConfig} */
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [require('remark-gfm')],
+    rehypePlugins: [require('rehype-slug')],
+    // Enable JSX in markdown
+    providerImportSource: '@mdx-js/react',
+  },
+});
+
 const nextConfig = {
   // Output configuration for containerized deployment
   output: 'standalone',
@@ -97,4 +107,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = withMDX(nextConfig)
