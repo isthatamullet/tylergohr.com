@@ -48,23 +48,25 @@ src/
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [require('remark-gfm')],
-    rehypePlugins: [require('rehype-slug')],
+    remarkPlugins: [],
+    rehypePlugins: [],
     providerImportSource: '@mdx-js/react',
   },
 });
 ```
+
+**Note**: Plugins removed for CI compatibility. Advanced markdown features can be added later with custom MDX components.
 
 ### **Dependencies Added**
 ```json
 {
   "@next/mdx": "^15.3.5",
   "@mdx-js/loader": "^3.1.0", 
-  "@mdx-js/react": "^3.1.0",
-  "remark-gfm": "^4.0.1",
-  "rehype-slug": "^6.0.0"
+  "@mdx-js/react": "^3.1.0"
 }
 ```
+
+**Note**: GitHub Actions CI compatibility required removing `remark-gfm` and `rehype-slug` plugins due to ES module conflicts in Node.js 18 environment. Core MDX functionality remains fully operational.
 
 ## ✨ **Key Features Implemented**
 

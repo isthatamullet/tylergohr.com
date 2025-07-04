@@ -2,8 +2,8 @@
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [require('remark-gfm')],
-    rehypePlugins: [require('rehype-slug')],
+    remarkPlugins: [],
+    rehypePlugins: [],
     // Enable JSX in markdown
     providerImportSource: '@mdx-js/react',
   },
