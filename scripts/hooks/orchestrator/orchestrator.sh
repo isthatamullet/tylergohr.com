@@ -14,21 +14,32 @@ source "$SCRIPT_DIR/operation-planner.sh"
 source "$SCRIPT_DIR/execution-engine.sh"
 source "$SCRIPT_DIR/resource-manager.sh"
 
+# NEW: Source enhanced orchestration libraries
+source "$SCRIPT_DIR/lib/subagent-stop-handler.sh"
+source "$SCRIPT_DIR/lib/background-queue.sh"
+source "$SCRIPT_DIR/lib/timeout-manager.sh"
+
 # Orchestrator configuration
-ORCHESTRATOR_VERSION="1.0.0"
+ORCHESTRATOR_VERSION="2.0.0"
 TIMEOUT_LIMIT="${ORCHESTRATOR_TIMEOUT:-45}"  # Default 45 seconds for Claude timeout compliance
 FALLBACK_ENABLED="${ORCHESTRATOR_FALLBACK:-true}"
 DEBUG_MODE="${ORCHESTRATOR_DEBUG:-false}"
+
+# NEW: Enhanced hook event detection with hook_event_name support
+HOOK_EVENT="${HOOK_EVENT_NAME:-$1}"  # Direct from environment or fallback to $1
+TOOL_NAME="$2"
+TOOL_ARGS="$3"
+FILE_PATH="${4:-}"
 
 # Performance tracking
 ORCHESTRATOR_START_TIME=$(date +%s%3N)
 
 # Main orchestrator function
 orchestrate_hook_execution() {
-    local hook_phase="$1"
-    local tool_name="$2"
-    local tool_args="$3"
-    local file_path="${4:-}"
+    local hook_phase="$HOOK_EVENT"  # NEW: Use enhanced hook event detection
+    local tool_name="$TOOL_NAME"
+    local tool_args="$TOOL_ARGS"
+    local file_path="$FILE_PATH"
     
     log_hook_start "ORCHESTRATOR_${hook_phase}" "intelligent_coordination"
     log_info "Orchestrator v$ORCHESTRATOR_VERSION starting for $hook_phase"
@@ -309,11 +320,85 @@ Manual Commands:
 EOF
 }
 
+# Enhanced orchestration dispatch with new hook events
+orchestrate_hook_dispatch() {
+    case "$HOOK_EVENT" in
+        "PreToolUse")
+            # Quick validation (10s timeout)
+            TIMEOUT_LIMIT=10
+            orchestrate_hook_execution
+            ;;
+        "PostToolUse")
+            # Comprehensive validation (45s timeout)
+            TIMEOUT_LIMIT=45
+            orchestrate_hook_execution
+            ;;
+        "Notification")
+            # Minimal notification (5s timeout)
+            TIMEOUT_LIMIT=5
+            orchestrate_hook_execution
+            ;;
+        "Stop")
+            # Immediate cleanup (15s timeout)
+            TIMEOUT_LIMIT=15
+            orchestrate_immediate_cleanup
+            ;;
+        "SubagentStop")
+            # Comprehensive analysis (120s timeout)
+            TIMEOUT_LIMIT=120
+            orchestrate_comprehensive_analysis
+            ;;
+        *)
+            log_error "Unknown hook event: $HOOK_EVENT"
+            return 1
+            ;;
+    esac
+}
+
+# NEW: Immediate cleanup for Stop hook (15s timeout)
+orchestrate_immediate_cleanup() {
+    log_info "Starting immediate cleanup (15s timeout)"
+    
+    # Essential resource cleanup
+    cleanup_temp_files
+    cleanup_process_state
+    
+    # Save critical state
+    save_session_state
+    
+    log_info "Immediate cleanup complete"
+}
+
+# NEW: Comprehensive analysis for SubagentStop hook (120s timeout)
+orchestrate_comprehensive_analysis() {
+    log_info "Starting comprehensive session analysis (120s timeout)"
+    
+    # Initialize background queue system
+    initialize_queue_system
+    
+    # Extended timeout allows for comprehensive operations
+    generate_performance_report
+    
+    # Comprehensive testing suite
+    run_comprehensive_test_suite
+    
+    # Background optimization
+    optimize_cache_and_state
+    
+    # Advanced logging and metrics
+    generate_session_metrics
+    
+    # Process any queued background operations
+    process_background_queue
+    
+    log_info "Comprehensive analysis complete"
+}
+
 # Command line interface
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     case "${1:-}" in
-        "PreToolUse"|"PostToolUse"|"Notification"|"Stop")
-            orchestrate_hook_execution "$1" "$2" "$3" "$4"
+        "PreToolUse"|"PostToolUse"|"Notification"|"Stop"|"SubagentStop")
+            orchestrate_hook_dispatch
             ;;
         "health")
             orchestrator_health_check
@@ -323,14 +408,21 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
             ;;
         "test")
             ORCHESTRATOR_DEBUG=true
-            orchestrate_hook_execution "PostToolUse" "Edit" "test.tsx" "src/test.tsx"
+            HOOK_EVENT="PostToolUse"
+            TOOL_NAME="Edit"
+            TOOL_ARGS="test.tsx"
+            FILE_PATH="src/test.tsx"
+            orchestrate_hook_dispatch
             ;;
         *)
-            echo "Usage: $0 {PreToolUse|PostToolUse|Notification|Stop|health|info|test} [TOOL_NAME] [TOOL_ARGS] [FILE_PATH]"
+            echo "Usage: $0 {PreToolUse|PostToolUse|Notification|Stop|SubagentStop|health|info|test} [TOOL_NAME] [TOOL_ARGS] [FILE_PATH]"
             echo ""
-            echo "Main Usage (replaces 22 individual hook matchers):"
-            echo "  $0 PreToolUse \"\$TOOL_NAME\" \"\$TOOL_ARGS\""
-            echo "  $0 PostToolUse \"\$TOOL_NAME\" \"\$TOOL_ARGS\" \"\$FILE_PATH\""
+            echo "Main Usage (enhanced orchestration system v2.0.0):"
+            echo "  $0 PreToolUse \"\$TOOL_NAME\" \"\$TOOL_ARGS\"          # 10s timeout"
+            echo "  $0 PostToolUse \"\$TOOL_NAME\" \"\$TOOL_ARGS\" \"\$FILE_PATH\" # 45s timeout"
+            echo "  $0 Notification \"\$TOOL_NAME\" \"\$TOOL_ARGS\"       # 5s timeout"
+            echo "  $0 Stop \"\$TOOL_NAME\" \"\$TOOL_ARGS\"              # 15s timeout - immediate cleanup"
+            echo "  $0 SubagentStop \"\$TOOL_NAME\" \"\$TOOL_ARGS\"       # 120s timeout - comprehensive analysis"
             echo ""
             echo "Utility Commands:"
             echo "  $0 health    - Run system health check"
@@ -338,9 +430,16 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
             echo "  $0 test      - Run debug test execution"
             echo ""
             echo "Environment Variables:"
-            echo "  ORCHESTRATOR_TIMEOUT=45     # Timeout limit in seconds"
-            echo "  ORCHESTRATOR_FALLBACK=true  # Enable fallback to original hooks"
-            echo "  ORCHESTRATOR_DEBUG=false    # Enable debug logging"
+            echo "  HOOK_EVENT_NAME=PreToolUse   # Direct hook event name (NEW)"
+            echo "  ORCHESTRATOR_TIMEOUT=45      # Timeout limit in seconds"
+            echo "  ORCHESTRATOR_FALLBACK=true   # Enable fallback to original hooks"
+            echo "  ORCHESTRATOR_DEBUG=false     # Enable debug logging"
+            echo ""
+            echo "New Features in v2.0.0:"
+            echo "  - SubagentStop hook with 120s timeout for comprehensive analysis"
+            echo "  - Timeout-aware operations (10s/45s/5s/15s/120s)"
+            echo "  - Direct hook_event_name support"
+            echo "  - Split cleanup: Stop (immediate) vs SubagentStop (comprehensive)"
             exit 1
             ;;
     esac
