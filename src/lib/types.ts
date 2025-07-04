@@ -52,6 +52,36 @@ export interface ProjectChallenge {
   codeExample?: string;
 }
 
+// Professional Photography Types
+export interface PhotoAsset {
+  id: string;
+  title: string;
+  description?: string;
+  category: 'professional' | 'projects' | 'behind-scenes' | 'blog';
+  filename: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+  tags?: string[];
+  featured?: boolean;
+  dateTaken?: string;
+  location?: string;
+  camera?: string;
+  settings?: {
+    aperture?: string;
+    shutterSpeed?: string;
+    iso?: number;
+    focalLength?: string;
+  };
+}
+
+export interface PhotoFilter {
+  category?: PhotoAsset['category'];
+  tag?: string;
+  featured?: boolean;
+}
+
 export interface Project {
   id: string;
   title: string;

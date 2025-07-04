@@ -1,24 +1,34 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { CodeExample } from "@/lib/types";
 import styles from "./CodeDemo.module.css";
+
+// Dynamically import Monaco Editor with code splitting
+const MonacoEditor = lazy(() => import('@monaco-editor/react'));
 
 interface CodeDemoProps {
   codeExample: CodeExample;
   autoType?: boolean;
   typingSpeed?: number;
+  mode?: 'preview' | 'interactive';
+  enableModeSwitch?: boolean;
 }
 
 export default function CodeDemo({
   codeExample,
   autoType = true,
   typingSpeed = 30,
+  mode = 'preview',
+  enableModeSwitch = false,
 }: CodeDemoProps) {
+  const [currentMode, setCurrentMode] = useState<'preview' | 'interactive'>(mode);
   const [isTyping, setIsTyping] = useState(false);
   const [displayedCode, setDisplayedCode] = useState("");
   const [showExplanation, setShowExplanation] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [monacoValue, setMonacoValue] = useState(codeExample.code);
+  const [isMonacoReady, setIsMonacoReady] = useState(false);
   const codeRef = useRef<HTMLPreElement>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -42,6 +52,61 @@ export default function CodeDemo({
         .replace(/\b(\d+\.?\d*)\b/g, '<span class="number">$1</span>');
     }
     return code;
+  };
+
+  // Language mapping for Monaco Editor
+  const getMonacoLanguage = (language: string): string => {
+    const languageMap: Record<string, string> = {
+      'typescript': 'typescript',
+      'javascript': 'javascript',
+      'jsx': 'javascript',
+      'tsx': 'typescript',
+      'python': 'python',
+      'sql': 'sql',
+      'json': 'json',
+      'css': 'css',
+      'html': 'html',
+      'shell': 'shell',
+      'bash': 'shell',
+    };
+    return languageMap[language.toLowerCase()] || 'plaintext';
+  };
+
+  // Monaco Editor configuration
+  const monacoOptions = {
+    minimap: { enabled: false },
+    scrollBeyondLastLine: false,
+    wordWrap: 'on' as const,
+    automaticLayout: true,
+    fontSize: 14,
+    lineNumbers: 'on' as const,
+    roundedSelection: false,
+    scrollbar: {
+      verticalScrollbarSize: 8,
+      horizontalScrollbarSize: 8,
+    },
+    theme: 'vs-dark',
+    folding: false,
+    lineDecorationsWidth: 0,
+    lineNumbersMinChars: 3,
+    renderLineHighlight: 'line' as const,
+  };
+
+  // Mode switching handler
+  const handleModeSwitch = () => {
+    setCurrentMode(currentMode === 'preview' ? 'interactive' : 'preview');
+  };
+
+  // Monaco Editor change handler
+  const handleMonacoChange = (value: string | undefined) => {
+    if (value !== undefined) {
+      setMonacoValue(value);
+    }
+  };
+
+  // Monaco Editor mount handler
+  const handleMonacoMount = () => {
+    setIsMonacoReady(true);
   };
 
   // Animated typing effect
@@ -96,7 +161,8 @@ export default function CodeDemo({
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(codeExample.code);
+      const textToCopy = currentMode === 'interactive' ? monacoValue : codeExample.code;
+      await navigator.clipboard.writeText(textToCopy);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -121,7 +187,36 @@ export default function CodeDemo({
         </div>
 
         <div className={styles.codeActions}>
-          {autoType && (
+          {enableModeSwitch && (
+            <button
+              className={`${styles.actionButton} ${styles.modeButton}`}
+              onClick={handleModeSwitch}
+              aria-label={`Switch to ${currentMode === 'preview' ? 'interactive' : 'preview'} mode`}
+              title={`Switch to ${currentMode === 'preview' ? 'interactive' : 'preview'} mode`}
+            >
+              {currentMode === 'preview' ? (
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M14.6 16.6L19.2 12L14.6 7.4L16 6L22 12L16 18L14.6 16.6ZM9.4 16.6L4.8 12L9.4 7.4L8 6L2 12L8 18L9.4 16.6Z" />
+                </svg>
+              ) : (
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M8.5 13.5L11 16L16 11L14.59 9.59L11 13.17L9.91 12.09L8.5 13.5ZM12 2C6.48 2 2 6.48 2 12S6.48 22 12 22 22 17.52 22 12 17.52 2 12 2M12 20C7.59 20 4 16.41 4 12S7.59 4 12 4 20 7.59 20 12 16.41 20 12 20Z" />
+                </svg>
+              )}
+            </button>
+          )}
+
+          {autoType && currentMode === 'preview' && (
             <button
               className={styles.actionButton}
               onClick={handleReplay}
@@ -192,34 +287,74 @@ export default function CodeDemo({
             <span className={styles.windowControl}></span>
             <span className={styles.windowControl}></span>
           </div>
-          <span className={styles.languageLabel}>{codeExample.language}</span>
+          <span className={styles.languageLabel}>
+            {codeExample.language}
+            {currentMode === 'interactive' && ' (Interactive)'}
+          </span>
         </div>
 
-        <pre ref={codeRef} className={styles.codeBlock}>
-          <code
-            className={styles.code}
-            dangerouslySetInnerHTML={{
-              __html: highlightSyntax(codeToDisplay, codeExample.language),
-            }}
-          />
-          {isTyping && <span className={styles.cursor}>|</span>}
-        </pre>
+        {currentMode === 'preview' ? (
+          // Preview Mode - Existing animated typing functionality
+          <>
+            <pre ref={codeRef} className={styles.codeBlock}>
+              <code
+                className={styles.code}
+                dangerouslySetInnerHTML={{
+                  __html: highlightSyntax(codeToDisplay, codeExample.language),
+                }}
+              />
+              {isTyping && <span className={styles.cursor}>|</span>}
+            </pre>
 
-        {/* Line Numbers */}
-        <div className={styles.lineNumbers}>
-          {codeToDisplay.split("\n").map((_, index) => (
-            <span
-              key={index + 1}
-              className={`${styles.lineNumber} ${
-                codeExample.highlightLines?.includes(index + 1)
-                  ? styles.highlighted
-                  : ""
-              }`}
+            {/* Line Numbers */}
+            <div className={styles.lineNumbers}>
+              {codeToDisplay.split("\n").map((_, index) => (
+                <span
+                  key={index + 1}
+                  className={`${styles.lineNumber} ${
+                    codeExample.highlightLines?.includes(index + 1)
+                      ? styles.highlighted
+                      : ""
+                  }`}
+                >
+                  {index + 1}
+                </span>
+              ))}
+            </div>
+          </>
+        ) : (
+          // Interactive Mode - Monaco Editor
+          <div className={styles.monacoContainer}>
+            <Suspense 
+              fallback={
+                <div className={styles.monacoLoading}>
+                  <div className={styles.loadingSpinner}></div>
+                  <span>Loading interactive editor...</span>
+                </div>
+              }
             >
-              {index + 1}
-            </span>
-          ))}
-        </div>
+              <MonacoEditor
+                height="300px"
+                language={getMonacoLanguage(codeExample.language)}
+                value={monacoValue}
+                options={monacoOptions}
+                onChange={handleMonacoChange}
+                onMount={handleMonacoMount}
+                loading={
+                  <div className={styles.monacoLoading}>
+                    <div className={styles.loadingSpinner}></div>
+                    <span>Initializing Monaco Editor...</span>
+                  </div>
+                }
+              />
+              {isMonacoReady && (
+                <div className={styles.monacoStatus}>
+                  <span>✓ Interactive mode ready</span>
+                </div>
+              )}
+            </Suspense>
+          </div>
+        )}
       </div>
 
       {/* Explanation Panel */}

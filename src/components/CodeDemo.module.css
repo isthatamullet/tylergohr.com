@@ -72,6 +72,19 @@
   outline-offset: 2px;
 }
 
+/* Mode Switch Button */
+.modeButton {
+  background: rgba(22, 163, 74, 0.15);
+  border-color: rgba(22, 163, 74, 0.3);
+  color: var(--portfolio-accent-green);
+}
+
+.modeButton:hover {
+  background: rgba(22, 163, 74, 0.25);
+  border-color: var(--portfolio-accent-green);
+  transform: scale(1.05);
+}
+
 /* Code Container */
 .codeContainer {
   position: relative;
@@ -257,6 +270,57 @@
   font-size: var(--font-size-xs);
   font-weight: 500;
   border: 1px solid rgba(255, 123, 114, 0.2);
+}
+
+/* Monaco Editor */
+.monacoContainer {
+  position: relative;
+  min-height: 300px;
+  background: #1e1e1e;
+}
+
+.monacoLoading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  background: #1e1e1e;
+  color: #cccccc;
+  gap: var(--space-3);
+}
+
+.loadingSpinner {
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid rgba(22, 163, 74, 0.3);
+  border-top: 2px solid var(--portfolio-accent-green);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.monacoStatus {
+  position: absolute;
+  bottom: var(--space-2);
+  right: var(--space-2);
+  background: rgba(22, 163, 74, 0.9);
+  color: white;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  z-index: 5;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(0.5rem); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Copy Success Message */
