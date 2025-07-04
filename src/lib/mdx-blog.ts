@@ -61,7 +61,7 @@ async function processMDXContent(content: string): Promise<string> {
     return String(compiledSource);
   } catch (error) {
     console.error('Error processing MDX:', error);
-    throw new Error(`MDX compilation failed: ${error}`);
+    throw new Error(`MDX compilation failed`, { cause: error });
   }
 }
 
