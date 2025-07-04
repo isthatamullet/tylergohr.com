@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useReportWebVitals } from "next/web-vitals";
 import type { Metric } from "web-vitals";
+import DOMPurify from "dompurify";
 
 export default function PerformanceOptimizations() {
   // Report Web Vitals for monitoring
@@ -67,11 +68,9 @@ export default function PerformanceOptimizations() {
                   dataSrc.startsWith("https://") ||
                   dataSrc.startsWith("/"))
               ) {
-                // Security: dataSrc validated above to prevent XSS (lines 64-69)
-                // Additional protection: CSP headers block script execution in next.config.js
-                // CodeQL false positive: no user-controlled input in portfolio context
-                // All image sources controlled via codebase - static portfolio site
-                img.src = dataSrc;
+                // Sanitize dataSrc to prevent XSS
+                const sanitizedSrc = DOMPurify.sanitize(dataSrc);
+                img.src = sanitizedSrc;
                 img.removeAttribute("data-src");
               }
               imageObserver.unobserve(img);
