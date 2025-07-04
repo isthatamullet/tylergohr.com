@@ -57,7 +57,8 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "typescript": "^5.8.3",
-    "web-vitals": "^5.0.3"
+    "web-vitals": "^5.0.3",
+    "dompurify": "^3.2.6"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
