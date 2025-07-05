@@ -1,0 +1,192 @@
+# Page snapshot
+
+```yaml
+- link "Skip to main content":
+  - /url: "#main-content"
+- link "Skip to main content":
+  - /url: "#main-content"
+- navigation "Main navigation":
+  - button "Tyler Gohr - Return to Enterprise Solutions homepage":
+    - img "Tyler Gohr - Enterprise Solutions Architect"
+  - button "Navigate to About section": About
+  - button "Navigate to Results section": Results
+  - button "Navigate to Work section": Work
+  - button "Navigate to Process section": Process
+  - button "Navigate to Skills section": Skills
+  - button "Navigate to Contact section": Contact
+- main:
+  - banner "Enterprise Solutions Architect":
+    - img "Enterprise Solutions Architecture - Interactive visualization of connected systems and data flows"
+    - heading "Enterprise Solutions Architect" [level=1]
+    - paragraph: Creating powerful digital solutions that solve real business problems
+    - paragraph: From Emmy Award-winning streaming platforms to custom business solutions, I architect digital products that deliver measurable impact. With 16+ years at Fox Corporation and Warner Bros, I transform technical challenges into competitive advantages.
+    - button "Start your project - navigate to contact section": Start Your Project
+    - button "View my work - navigate to case studies section": View My Work
+  - 'heading "Phase 2.1: Three.js Import Validation" [level=3]'
+  - paragraph:
+    - text: "Three.js Version:"
+    - strong: "178"
+  - paragraph: ✅ Three.js imports working successfully
+  - paragraph: This component validates basic Three.js dependency installation. If you can see this message and the version number, Phase 2.1 is successful.
+  - region "About Tyler Gohr":
+    - heading "About Tyler Gohr" [level=2]
+    - paragraph: I'm Tyler Gohr, an Emmy Award-winning Enterprise Solutions Architect who transforms complex technical challenges into competitive business advantages. Over 16+ years leading technical teams at Fox Corporation and Warner Bros Entertainment, I've architected platforms serving millions of users while managing systems with 50,000+ digital assets.
+    - paragraph: My approach combines Fortune 500-level expertise with a passion for solving real business problems. Whether you're a growing company needing a custom web application or an enterprise requiring complex digital infrastructure, I bring the same strategic thinking and technical precision to every project — from initial concept through deployment and optimization.
+    - paragraph: I specialize in AI-powered automation, content distribution systems, and full-stack development, always focusing on solutions that deliver measurable impact while scaling with your business goals.
+    - img "Enterprise network architecture visualization"
+  - region "Delivering measurable impact through strategic technical leadership":
+    - heading "Delivering measurable impact through strategic technical leadership" [level=2]
+    - text: "0"
+    - heading "Emmy Award Winner" [level=3]
+    - paragraph: 2018 FIFA World Cup Streaming Technology, The National Academy of Television Arts & Sciences
+    - text: "0"
+    - heading "Cost Savings Achieved" [level=3]
+    - paragraph: Fox Corporation content strategy optimization, streamlined workflows and enhanced efficiency
+    - text: "0"
+    - heading "Success Rate Achievement" [level=3]
+    - paragraph: Warner Bros delivery improvement (from 32%), achieved in first 3 months through strategic redesign
+    - text: "0"
+    - heading "Team Members Led" [level=3]
+    - paragraph: Across global organizations (Fox Corporation, Warner Bros, SDI Media)
+    - text: "0"
+    - heading "Titles Managed" [level=3]
+    - paragraph: Plus 30,000+ digital assets, enterprise-scale content distribution platforms
+    - text: "0"
+    - heading "Efficiency Gains" [level=3]
+    - paragraph: AI-powered automation implementation, reduced manual review time and error rates
+    - text: "0"
+    - heading "Years Experience" [level=3]
+    - paragraph: Enterprise technical leadership, Fortune 500 companies and global platforms
+    - text: "0"
+    - heading "Major Platform Contributions" [level=3]
+    - paragraph: Fox Nation, Fox Weather, FIFA World Cup - successful launches with millions of users
+  - region "Case Studies":
+    - heading "Case Studies" [level=2]
+    - paragraph: Delivering measurable results through strategic technical leadership across Fortune 500 enterprises.
+    - article "Content Distribution Platform Revolution":
+      - text: $2M+ Cost Savings
+      - heading "Content Distribution Platform Revolution" [level=3]
+      - paragraph: Fox Corporation needed to manage 50,000+ titles while reducing costs by millions.
+      - paragraph:
+        - strong: Saved "a few million bucks" through strategic optimization
+      - link "See How I Did It - Content Distribution Platform Revolution":
+        - /url: /2/case-studies?tab=fox
+        - text: See How I Did It
+    - article "Workflow Transformation Success":
+      - text: 96% Success Rate
+      - heading "Workflow Transformation Success" [level=3]
+      - paragraph: Warner Bros delivery success rates stuck at just 32% - industry demanded perfection.
+      - paragraph:
+        - strong: Boosted success rate from 32% to 96% in 3 months
+      - link "Read the Strategy - Workflow Transformation Success":
+        - /url: /2/case-studies?tab=warner
+        - text: Read the Strategy
+    - article "AI-Powered Innovation Pioneer":
+      - text: 50% Efficiency Gains
+      - heading "AI-Powered Innovation Pioneer" [level=3]
+      - paragraph: Manual content review was bottlenecking high-volume TV production growth.
+      - paragraph:
+        - strong: Reduced manual review time and errors by 50% with AI automation
+      - link "Explore the Solution - AI-Powered Innovation Pioneer":
+        - /url: /2/case-studies?tab=ai
+        - text: Explore the Solution
+    - article "Emmy-Winning Live Streaming":
+      - text: Emmy Award Winner
+      - heading "Emmy-Winning Live Streaming" [level=3]
+      - paragraph: 2018 FIFA World Cup demanded flawless global streaming with zero tolerance for failure.
+      - paragraph:
+        - strong: Emmy Award recognition for streaming technology excellence
+      - link "Discover the Tech - Emmy-Winning Live Streaming":
+        - /url: /2/case-studies?tab=emmy
+        - text: Discover the Tech
+    - link "View all detailed case studies":
+      - /url: /2/case-studies/
+      - text: View All Case Studies →
+    - paragraph: Explore detailed business impact stories with technical implementation insights
+  - region "How I Work":
+    - heading "How I Work" [level=2]
+    - paragraph: Enterprise methodology from discovery to optimization, ensuring scalable solutions and measurable outcomes.
+    - heading "Discovery" [level=3]
+    - heading "Research" [level=3]
+    - heading "Design" [level=3]
+    - heading "Implementation" [level=3]
+    - heading "Testing" [level=3]
+    - heading "Deployment" [level=3]
+    - heading "Optimization" [level=3]
+    - link "View complete development process methodology":
+      - /url: /2/how-i-work
+      - text: View Full Process →
+    - paragraph: Discover the complete methodology behind enterprise-quality development
+  - region "Technical Expertise":
+    - heading "Technical Expertise" [level=2]
+    - paragraph: Cutting-edge technologies and enterprise leadership experience driving innovation across Fortune 500 organizations.
+    - text: ⚛️ Modern Frontend 8+ years React 19 Next.js 14 TypeScript Advanced CSS Framer Motion CSS Grid Subgrid
+    - strong: "Current:"
+    - text: This portfolio built with Next.js 14 + TypeScript ☁️ Backend & Cloud 10+ years Node.js Express APIs Google Cloud Platform PostgreSQL Prisma ORM Docker
+    - strong: "Current:"
+    - text: Google Cloud Run deployment with CI/CD automation 👥 Enterprise Leadership 16+ years Team Leadership (10+ people) AI Implementation Pioneer Product Management Strategic Planning
+    - strong: "Current:"
+    - text: Leading Warner Bros & Fox Corporation technical initiatives 🔧 Integration & Automation 12+ years Stripe Payment Processing Real-time Socket.IO AI-Powered Automation API Integration
+    - strong: "Current:"
+    - text: Invoice Chaser automation reducing payment times 25-40%
+    - link "View complete technical expertise and project examples":
+      - /url: /2/technical-expertise
+      - text: View Full Technical Portfolio →
+    - paragraph: Explore detailed project implementations and technical leadership case studies
+  - region "Ready to transform your technical challenges?":
+    - heading "Ready to transform your technical challenges?" [level=2]
+    - paragraph: Let's discuss your project and explore how my Emmy-winning expertise and modern development approach can deliver the results you need.
+    - heading "Ready to Start Your Project?" [level=3]
+    - text: Name *
+    - textbox "Name *"
+    - text: Email *
+    - textbox "Email *"
+    - text: Project Type
+    - combobox "Project Type":
+      - option "Web Application Development" [selected]
+      - option "E-commerce Platform"
+      - option "Technical Leadership Role"
+      - option "System Integration & APIs"
+      - option "Other / Let's Discuss"
+    - text: Message *
+    - textbox "Message *"
+    - button "Send Message" [disabled]
+    - paragraph: Please fill in all required fields
+    - heading "Response Time" [level=3]
+    - paragraph: Within 24 hours for all inquiries
+    - heading "For Tech Professionals" [level=4]
+    - paragraph: Looking for a senior technical leader who combines enterprise-scale experience with cutting-edge development practices? Let's connect about opportunities where strategic thinking and technical excellence drive innovation.
+    - heading "For Small Business" [level=4]
+    - paragraph: Need a custom web application, e-commerce platform, or digital solution that actually grows your business? I bring Fortune 500-level expertise to projects of every size, ensuring your investment delivers measurable results.
+    - heading "Professional Links" [level=4]
+    - link "Connect on LinkedIn (opens in new tab)":
+      - /url: https://linkedin.com/in/tyler-gohr
+      - text: LinkedIn Profile
+    - link "View code on GitHub (opens in new tab)":
+      - /url: https://github.com/isthatamullet
+      - text: GitHub Profile
+    - link "Download resume PDF (opens in new tab)":
+      - /url: /tyler-gohr-resume.pdf
+      - text: Download Resume
+    - heading "Why Work With Me?" [level=4]
+    - text: Emmy Award winner with proven track record $2M+ in documented cost savings delivered 96% project success rate across global teams 16+ years of enterprise technical leadership
+    - heading "Availability" [level=4]
+    - paragraph:
+      - strong: "Monday-Friday:"
+      - text: 9 AM - 6 PM PST
+    - paragraph:
+      - strong: "Project Consultations:"
+      - text: Available for detailed discussions
+    - paragraph: Currently accepting new projects and leadership opportunities
+- contentinfo:
+  - button "Visit Tyler Gohr's GitHub profile (opens in new tab)": GitHub
+  - navigation "Footer navigation":
+    - button "Scroll to About section": About
+    - button "Scroll to Results section": Results
+    - button "Scroll to Case Studies section": Work
+    - button "Scroll to How I Work section": Process
+    - button "Scroll to Technical Expertise section": Skills
+    - button "Scroll to Contact section": Contact
+  - button "Scroll to top of page": Home
+- alert
+```

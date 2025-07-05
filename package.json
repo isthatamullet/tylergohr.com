@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "./scripts/smart-dev.sh",
     "dev:3000": "./scripts/smart-dev-port.sh 3000",
-    "dev:3001": "./scripts/smart-dev-port.sh 3001", 
+    "dev:3001": "./scripts/smart-dev-port.sh 3001",
     "dev:4000": "./scripts/smart-dev-port.sh 4000",
     "build": "npm run copy-blog-assets && next build",
     "start": "next start",
@@ -67,6 +67,7 @@
     "@types/prismjs": "^1.26.5",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@types/three": "^0.178.0",
     "date-fns": "^4.1.0",
     "dompurify": "^3.2.6",
     "eslint": "^9.29.0",
@@ -81,6 +82,7 @@
     "puppeteer": "^24.11.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "three": "^0.178.0",
     "typescript": "^5.8.3",
     "web-vitals": "^5.0.3"
   },
