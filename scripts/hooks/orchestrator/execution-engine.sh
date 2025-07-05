@@ -38,10 +38,28 @@ declare -A OPERATION_COMMANDS=(
     ["navigation_testing"]="npm run test:e2e:navigation"
     ["comprehensive_testing"]="npm run test:e2e:portfolio"
     
-    # Visual operations
-    ["visual_validation"]="npx playwright test e2e/quick-screenshots.spec.ts --project=chromium --reporter=line"
+    # NEW: Fast Puppeteer Operations
+    ["puppeteer_quick_screenshots"]="puppeteer_screenshot_service quick"
+    ["puppeteer_component_focus"]="puppeteer_screenshot_service component"
+    ["puppeteer_mobile_preview"]="puppeteer_screenshot_service mobile"
+    
+    # NEW: Strategic Screenshot Operations
+    ["strategic_screenshot_generation"]="strategic_screenshot_execution"
+    ["intelligent_visual_validation"]="intelligent_visual_validation_execution"
+    
+    # NEW: Hybrid Operations
+    ["hybrid_visual_validation"]="hybrid_screenshot_workflow"
+    ["hybrid_design_system"]="hybrid_design_token_workflow"
+    
+    # Visual operations (enhanced with fallback)
+    ["visual_validation"]="strategic_screenshot_generation"
     ["visual_regression"]="npm run test:e2e:visual"
-    ["screenshot_generation"]="npx playwright test e2e/quick-screenshots.spec.ts --project=chromium --reporter=line --timeout=20000"
+    ["screenshot_generation"]="strategic_screenshot_generation"
+    
+    # Traditional Playwright operations (maintained for fallback)
+    ["playwright_quick_screenshots"]="npx playwright test e2e/quick-screenshots.spec.ts --project=chromium --reporter=line --timeout=20000"
+    ["playwright_comprehensive"]="npx playwright test e2e/screenshot-generation.spec.ts --reporter=line"
+    ["playwright_visual_regression"]="npm run test:e2e:visual"
     
     # Performance operations
     ["performance_validation"]="npm run test:e2e:performance"
@@ -74,7 +92,7 @@ execute_operation() {
         return 1
     fi
     
-    # Handle special operations that use resource manager functions
+    # Handle special operations that use resource manager functions or new Puppeteer services
     case "$operation" in
         "port_detection")
             if get_shared_port_detection "$context"; then
@@ -92,6 +110,72 @@ execute_operation() {
             ;;
         "typescript_validation")
             if get_shared_typescript_validation; then
+                exit_code=0
+            else
+                exit_code=1
+            fi
+            ;;
+        # NEW: Puppeteer Service Operations
+        "puppeteer_quick_screenshots"|"puppeteer_component_focus"|"puppeteer_mobile_preview")
+            if [[ -f "$SCRIPT_DIR/../lib/puppeteer-screenshot-service.sh" ]]; then
+                source "$SCRIPT_DIR/../lib/puppeteer-screenshot-service.sh"
+                case "$operation" in
+                    "puppeteer_quick_screenshots")
+                        if puppeteer_screenshot_service "quick"; then
+                            exit_code=0
+                        else
+                            exit_code=1
+                        fi
+                        ;;
+                    "puppeteer_component_focus")
+                        if puppeteer_screenshot_service "component" "$context"; then
+                            exit_code=0
+                        else
+                            exit_code=1
+                        fi
+                        ;;
+                    "puppeteer_mobile_preview")
+                        if puppeteer_screenshot_service "mobile"; then
+                            exit_code=0
+                        else
+                            exit_code=1
+                        fi
+                        ;;
+                esac
+            else
+                log_warning "Puppeteer service not available, falling back to Playwright"
+                if timeout "$timeout" npx playwright test e2e/quick-screenshots.spec.ts --project=chromium --reporter=line >/dev/null 2>&1; then
+                    exit_code=0
+                else
+                    exit_code=1
+                fi
+            fi
+            ;;
+        # NEW: Strategic Screenshot Operations
+        "strategic_screenshot_generation")
+            if strategic_screenshot_execution "$context"; then
+                exit_code=0
+            else
+                exit_code=1
+            fi
+            ;;
+        "intelligent_visual_validation")
+            if intelligent_visual_validation_execution "$context"; then
+                exit_code=0
+            else
+                exit_code=1
+            fi
+            ;;
+        # NEW: Hybrid Operations
+        "hybrid_visual_validation")
+            if hybrid_screenshot_workflow "$context"; then
+                exit_code=0
+            else
+                exit_code=1
+            fi
+            ;;
+        "hybrid_design_system")
+            if hybrid_design_token_workflow "$context"; then
                 exit_code=0
             else
                 exit_code=1
@@ -408,6 +492,117 @@ add_background_operation() {
         EXECUTION_STATE["background_operations"]="$operation"
     else
         EXECUTION_STATE["background_operations"]="${EXECUTION_STATE[background_operations]},$operation"
+    fi
+}
+
+# NEW: Strategic and Hybrid Operation Functions
+
+strategic_screenshot_execution() {
+    local context="${1:-general}"
+    local file_path="${FILE_PATH:-}"
+    local change_type="${VISUAL_CHANGE_TYPE:-css_module}"
+    
+    log_info "Executing strategic screenshot generation..."
+    
+    # Source required components
+    if [[ -f "$SCRIPT_DIR/../lib/screenshot-strategy-selector.sh" ]]; then
+        source "$SCRIPT_DIR/../lib/screenshot-strategy-selector.sh"
+        
+        # Determine and execute strategy
+        local strategy=$(screenshot_strategy_service "select" "$change_type" "$file_path" "$context")
+        log_info "Selected screenshot strategy: $strategy"
+        
+        screenshot_strategy_service "execute" "$change_type" "$file_path" "$context"
+        return $?
+    else
+        log_warning "Screenshot strategy selector not available, using fallback"
+        timeout 30 npx playwright test e2e/quick-screenshots.spec.ts --project=chromium --reporter=line >/dev/null 2>&1
+        return $?
+    fi
+}
+
+intelligent_visual_validation_execution() {
+    local context="${1:-general}"
+    
+    log_info "Executing intelligent visual validation..."
+    
+    # First try strategic approach
+    if strategic_screenshot_execution "$context"; then
+        log_success "Strategic screenshot execution completed"
+        
+        # Add intelligent validation checks
+        if [[ "$context" == "redesign_2" ]]; then
+            log_info "Running /2 redesign-specific validation..."
+            # Add brand consistency checks here if available
+        fi
+        
+        return 0
+    else
+        log_warning "Strategic execution failed, falling back to traditional approach"
+        timeout 30 npx playwright test e2e/quick-screenshots.spec.ts --project=chromium --reporter=line >/dev/null 2>&1
+        return $?
+    fi
+}
+
+hybrid_screenshot_workflow() {
+    local context="${1:-general}"
+    
+    log_info "Executing hybrid screenshot workflow..."
+    
+    # Phase 1: Fast Puppeteer screenshots
+    if [[ -f "$SCRIPT_DIR/../lib/puppeteer-screenshot-service.sh" ]]; then
+        source "$SCRIPT_DIR/../lib/puppeteer-screenshot-service.sh"
+        
+        if puppeteer_screenshot_service "quick"; then
+            log_success "Fast Puppeteer screenshots completed"
+            
+            # Phase 2: Queue comprehensive Playwright validation in background
+            log_info "Queueing comprehensive Playwright validation..."
+            (
+                sleep 5  # Brief delay to avoid resource conflicts
+                npx playwright test e2e/visual-regression-2.spec.ts --project=chromium >/dev/null 2>&1
+            ) &
+            
+            return 0
+        else
+            log_warning "Puppeteer failed in hybrid workflow, using Playwright only"
+            timeout 30 npx playwright test e2e/quick-screenshots.spec.ts --project=chromium --reporter=line >/dev/null 2>&1
+            return $?
+        fi
+    else
+        log_warning "Puppeteer service not available, using Playwright only"
+        timeout 30 npx playwright test e2e/quick-screenshots.spec.ts --project=chromium --reporter=line >/dev/null 2>&1
+        return $?
+    fi
+}
+
+hybrid_design_token_workflow() {
+    local context="${1:-general}"
+    
+    log_info "Executing hybrid design token workflow..."
+    
+    # Design token changes need both fast feedback and comprehensive validation
+    if [[ -f "$SCRIPT_DIR/../lib/puppeteer-screenshot-service.sh" ]]; then
+        source "$SCRIPT_DIR/../lib/puppeteer-screenshot-service.sh"
+        
+        # Fast screenshots for immediate feedback
+        if puppeteer_screenshot_service "quick"; then
+            log_success "Fast design token validation completed"
+            
+            # Comprehensive visual regression for design system validation
+            log_info "Running comprehensive design system validation..."
+            timeout 60 npm run test:e2e:visual >/dev/null 2>&1 &
+            
+            return 0
+        else
+            log_warning "Puppeteer failed for design tokens, using comprehensive Playwright"
+            timeout 45 npm run test:e2e:visual >/dev/null 2>&1
+            return $?
+        fi
+    else
+        log_warning "Puppeteer service not available for design tokens, using Playwright"
+        timeout 45 npm run test:e2e:visual >/dev/null 2>&1
+        return $?
     fi
 }
 

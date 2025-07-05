@@ -299,3 +299,14 @@ Bash(npx playwright test e2e/quick-screenshots.spec.ts --project=chromium)
 
 
   that last command opened port 9323 which is listed as inactive in console ports 
+
+
+
+
+
+Bash(npm run test:e2e:task-managed)
+  ⎿  Error: Command timed out after 2m 0.0s
+
+
+Bash(time npm run test:e2e:smoke)
+  ⎿  Error: Command timed out after 2m 0.0s

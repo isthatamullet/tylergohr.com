@@ -1,9 +1,53 @@
 {
-  "files.associations": {
-    "**/scratchpad/**/*.md": "markdown"
+  // Terminal Environment Variables - Cross-Platform (VS Code Tasks Integration)
+  "terminal.integrated.env.linux": {
+    "ACTIVE_DEV_PORT": "3000",
+    "ACTIVE_DEV_URL": "http://localhost:3000",
+    "DEV_SERVER_MANAGED": "true",
+    "SKIP_VISUAL": "false",
+    "FAST_MODE": "false"
   },
+  "terminal.integrated.env.osx": {
+    "ACTIVE_DEV_PORT": "3000", 
+    "ACTIVE_DEV_URL": "http://localhost:3000",
+    "DEV_SERVER_MANAGED": "true",
+    "SKIP_VISUAL": "false",
+    "FAST_MODE": "false"
+  },
+  "terminal.integrated.env.windows": {
+    "ACTIVE_DEV_PORT": "3000",
+    "ACTIVE_DEV_URL": "http://localhost:3000",
+    "DEV_SERVER_MANAGED": "true",
+    "SKIP_VISUAL": "false",
+    "FAST_MODE": "false"
+  },
+
+  // Tyler Gohr Portfolio Specific Configuration
+  "tylergohr.devServerPort": 3000,
+  "tylergohr.autoDetectPort": false,
+  "tylergohr.developmentContext": "main_portfolio",
+  "tylergohr.enableVisualWorkflow": true,
+  "tylergohr.enablePerformanceMonitoring": true,
+
+  // Claude Code Hooks Integration
+  "claude.hooks.enabled": true,
+  "claude.hooks.autoDetectChanges": true,
+  "claude.hooks.screenshotStrategy": "task-managed",
+
+  // File Associations (Enhanced)
+  "files.associations": {
+    "**/scratchpad/**/*.md": "markdown",
+    "*.css": "css",
+    "*.module.css": "css"
+  },
+
+  // Markdown Configuration (Existing)
   "markdown.preview.breaks": true,
   "markdown.preview.linkify": true,
+  "markdown.extension.toc.levels": "2..6",
+  "markdown.extension.preview.autoShowPreviewToSide": false,
+
+  // File Exclusions (Enhanced)
   "files.exclude": {
     "**/node_modules": true,
     "**/.git": true,
@@ -15,24 +59,48 @@
     "**/node_modules": true,
     "**/dist": true,
     "**/.next": true,
-    "**/scratchpad/archived": true
+    "**/scratchpad/archived": true,
+    "**/coverage": true,
+    "**/*.log": true,
+    "**/screenshots": true,
+    "**/.claude": true
   },
+
+  // Editor Configuration (Enhanced)
   "editor.quickSuggestions": {
     "strings": true
   },
   "editor.suggest.snippetsPreventQuickSuggestions": false,
-  "emmet.includeLanguages": {
-    "markdown": "html"
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
   },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Emmet Configuration (Enhanced)
+  "emmet.includeLanguages": {
+    "markdown": "html",
+    "css": "css"
+  },
+
+  // File Configuration
   "files.defaultLanguage": "markdown",
   "workbench.tree.indent": 15,
+
+  // Explorer Configuration (Enhanced)
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "*.md": "${capture}.draft.md, ${capture}.backup.md",
     "investigation.md": "investigation.*.md",
     "feature-planning.md": "feature-planning.*.md", 
-    "experiment.md": "experiment.*.md"
+    "experiment.md": "experiment.*.md",
+    "*.ts": "${capture}.js",
+    "*.tsx": "${capture}.js",
+    "package.json": "package-lock.json,yarn.lock,pnpm-lock.yaml",
+    "next.config.js": "next-env.d.ts"
   },
+
+  // Language-Specific Configuration
   "[markdown]": {
     "editor.wordWrap": "on",
     "editor.quickSuggestions": {
@@ -41,6 +109,41 @@
       "other": "off"
     }
   },
-  "markdown.extension.toc.levels": "2..6",
-  "markdown.extension.preview.autoShowPreviewToSide": false
+
+  // TypeScript Configuration
+  "typescript.preferences.includePackageJsonAutoImports": "auto",
+  "typescript.suggest.autoImports": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  // ESLint Configuration
+  "eslint.workingDirectories": ["./"],
+  "eslint.format.enable": true,
+
+  // Git Configuration
+  "git.autofetch": true,
+  "git.confirmSync": false,
+
+  // Testing Configuration
+  "playwright.showTrace": true,
+  "playwright.reuseBrowser": true,
+
+  // Task Configuration
+  "task.autoDetect": "on",
+  "task.showDecorations": true,
+  "task.promptOnCloseTerminal": false,
+
+  // Terminal Configuration
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.profiles.linux": {
+    "bash": {
+      "path": "bash",
+      "icon": "terminal-bash"
+    }
+  },
+  "terminal.integrated.automationProfile.linux": {
+    "path": "bash"
+  },
+
+  // Problems Configuration
+  "problems.showCurrentInStatus": true
 }
