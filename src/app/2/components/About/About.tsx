@@ -1,8 +1,16 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from 'react'
+import dynamic from 'next/dynamic'
 import { NetworkAnimation } from './NetworkAnimation'
+import { isWebGLReady } from '../../lib/webgl-detection'
 import styles from './About.module.css'
+
+// Dynamically import 3D component to prevent SSR issues
+const NetworkAnimation3D = dynamic(() => import('./NetworkAnimation3D'), {
+  ssr: false,
+  loading: () => <NetworkAnimation /> // Use 2D version as loading fallback
+})
 
 /**
  * About Section Component - Enterprise Solutions Architect positioning
@@ -16,6 +24,7 @@ import styles from './About.module.css'
  */
 export const About: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false)
+  const [webglReady, setWebglReady] = useState<boolean | null>(null) // null = checking, boolean = determined
   const sectionRef = useRef<HTMLElement>(null)
 
   // Intersection Observer for scroll-triggered section animation
@@ -38,6 +47,22 @@ export const About: React.FC = () => {
     }
 
     return () => observer.disconnect()
+  }, [])
+
+  // Client-only WebGL detection for progressive enhancement
+  useEffect(() => {
+    // Small delay to ensure client-side hydration is complete
+    const timer = setTimeout(() => {
+      try {
+        const isReady = isWebGLReady()
+        setWebglReady(isReady)
+      } catch (error) {
+        console.warn('WebGL detection failed, using 2D fallback:', error)
+        setWebglReady(false)
+      }
+    }, 150) // Slightly longer delay for stability
+
+    return () => clearTimeout(timer)
   }, [])
 
   return (
@@ -71,9 +96,13 @@ export const About: React.FC = () => {
           </p>
         </div>
 
-        {/* Animation Side - 40% */}
+        {/* Animation Side - 40% - Progressive Enhancement: 3D or 2D */}
         <div className={`${styles.aboutAnimation} ${isVisible ? styles.animationRevealed : ''}`}>
-          <NetworkAnimation />
+          {webglReady === true ? (
+            <NetworkAnimation3D />
+          ) : (
+            <NetworkAnimation />
+          )}
         </div>
         
       </div>
