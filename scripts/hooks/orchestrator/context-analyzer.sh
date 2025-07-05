@@ -22,6 +22,9 @@ declare -A ANALYSIS_RESULT=(
     ["execution_strategy"]=""
     ["estimated_time"]=""
     ["priority"]=""
+    ["complexity_score"]=""
+    ["subagent_recommendation"]=""
+    ["timeout_risk"]=""
 )
 
 # Analyze file type and extension
@@ -420,6 +423,128 @@ estimate_execution_time() {
     esac
 }
 
+# Calculate complexity score for sub-agent delegation
+calculate_complexity_score() {
+    local operations="$1"
+    local context="$2"
+    local estimated_time="$3"
+    local component_scope="$4"
+    local tool_name="$5"
+    
+    local score=0
+    
+    # Operation complexity (0-10)
+    case "$operations" in
+        *"comprehensive_testing"*) score=$((score + 5)) ;;
+        *"visual_regression"*) score=$((score + 4)) ;;
+        *"performance_profiling"*) score=$((score + 4)) ;;
+        *"port_detection"*) score=$((score + 2)) ;;
+    esac
+    
+    # Time complexity (0-5)
+    if [[ $estimated_time -gt 120 ]]; then
+        score=$((score + 5))
+    elif [[ $estimated_time -gt 60 ]]; then
+        score=$((score + 3))
+    elif [[ $estimated_time -gt 30 ]]; then
+        score=$((score + 1))
+    fi
+    
+    # Context complexity (0-3)
+    case "$context" in
+        "testing") score=$((score + 3)) ;;
+        "redesign_2") score=$((score + 2)) ;;
+        "dev_server") score=$((score + 2)) ;;
+    esac
+    
+    # Tool complexity (0-2)
+    case "$tool_name" in
+        "Bash") 
+            if [[ "$operations" =~ (test|playwright|puppeteer) ]]; then
+                score=$((score + 2))
+            fi
+            ;;
+    esac
+    
+    echo $score
+}
+
+# Determine sub-agent recommendation
+determine_subagent_recommendation() {
+    local complexity_score="$1"
+    local operations="$2"
+    local estimated_time="$3"
+    local tool_name="$4"
+    local tool_args="$5"
+    
+    # High complexity threshold for sub-agent delegation
+    if [[ $complexity_score -ge 8 ]]; then
+        if [[ "$operations" =~ (comprehensive_testing|visual_regression) ]]; then
+            echo "test_execution_agent"
+        elif [[ "$operations" =~ port_detection ]]; then
+            echo "environment_setup_agent"
+        else
+            echo "complex_workflow_agent"
+        fi
+        return
+    fi
+    
+    # Medium complexity with specific patterns
+    if [[ $complexity_score -ge 5 ]]; then
+        if [[ "$tool_name" == "Bash" && "$tool_args" =~ (npm.*test|playwright|puppeteer) ]]; then
+            echo "test_execution_agent"
+        elif [[ "$operations" =~ port_detection ]]; then
+            echo "environment_setup_agent"
+        elif [[ $estimated_time -gt 90 ]]; then
+            echo "timeout_prevention_agent"
+        fi
+        return
+    fi
+    
+    # Specific timeout-prone patterns
+    if [[ "$tool_args" =~ (npm.*run.*test|playwright.*test|npm.*run.*dev) ]]; then
+        echo "timeout_prevention_agent"
+        return
+    fi
+    
+    echo "none"
+}
+
+# Assess timeout risk
+assess_timeout_risk() {
+    local complexity_score="$1"
+    local estimated_time="$2"
+    local operations="$3"
+    local tool_name="$4"
+    local tool_args="$5"
+    
+    # High risk patterns
+    if [[ $estimated_time -gt 90 || $complexity_score -ge 8 ]]; then
+        echo "high"
+        return
+    fi
+    
+    # Known timeout patterns from user's experience
+    if [[ "$tool_args" =~ (npm.*run.*test.*smoke|playwright.*test.*quick-screenshots|npm.*run.*dev.*&) ]]; then
+        echo "high"
+        return
+    fi
+    
+    # Medium risk
+    if [[ $estimated_time -gt 45 || $complexity_score -ge 5 ]]; then
+        echo "medium"
+        return
+    fi
+    
+    # Testing operations have inherent timeout risk
+    if [[ "$operations" =~ (testing|visual_regression|performance) ]]; then
+        echo "medium"
+        return
+    fi
+    
+    echo "low"
+}
+
 # Determine priority
 determine_priority() {
     local component_scope="$1"
@@ -477,6 +602,11 @@ analyze_change_context() {
     ANALYSIS_RESULT["execution_strategy"]=$(determine_execution_strategy "${ANALYSIS_RESULT[required_operations]}" "${ANALYSIS_RESULT[context]}" "${ANALYSIS_RESULT[estimated_time]}")
     ANALYSIS_RESULT["priority"]=$(determine_priority "${ANALYSIS_RESULT[component_scope]}" "${ANALYSIS_RESULT[visual_impact]}" "${ANALYSIS_RESULT[performance_impact]}")
     
+    # NEW: Sub-agent analysis
+    ANALYSIS_RESULT["complexity_score"]=$(calculate_complexity_score "${ANALYSIS_RESULT[required_operations]}" "${ANALYSIS_RESULT[context]}" "${ANALYSIS_RESULT[estimated_time]}" "${ANALYSIS_RESULT[component_scope]}" "$tool_name")
+    ANALYSIS_RESULT["subagent_recommendation"]=$(determine_subagent_recommendation "${ANALYSIS_RESULT[complexity_score]}" "${ANALYSIS_RESULT[required_operations]}" "${ANALYSIS_RESULT[estimated_time]}" "$tool_name" "$tool_args")
+    ANALYSIS_RESULT["timeout_risk"]=$(assess_timeout_risk "${ANALYSIS_RESULT[complexity_score]}" "${ANALYSIS_RESULT[estimated_time]}" "${ANALYSIS_RESULT[required_operations]}" "$tool_name" "$tool_args")
+    
     log_info "Analysis complete:"
     log_info "  Context: ${ANALYSIS_RESULT[context]}"
     log_info "  Component Scope: ${ANALYSIS_RESULT[component_scope]}"
@@ -484,6 +614,9 @@ analyze_change_context() {
     log_info "  Execution Strategy: ${ANALYSIS_RESULT[execution_strategy]}"
     log_info "  Estimated Time: ${ANALYSIS_RESULT[estimated_time]}s"
     log_info "  Priority: ${ANALYSIS_RESULT[priority]}"
+    log_info "  🤖 Complexity Score: ${ANALYSIS_RESULT[complexity_score]}/15"
+    log_info "  🤖 Sub-agent Recommendation: ${ANALYSIS_RESULT[subagent_recommendation]}"
+    log_info "  ⚠️  Timeout Risk: ${ANALYSIS_RESULT[timeout_risk]}"
 }
 
 # Export analysis result as JSON
@@ -499,7 +632,10 @@ export_analysis_json() {
   "required_operations": "${ANALYSIS_RESULT[required_operations]}",
   "execution_strategy": "${ANALYSIS_RESULT[execution_strategy]}",
   "estimated_time": ${ANALYSIS_RESULT[estimated_time]},
-  "priority": "${ANALYSIS_RESULT[priority]}"
+  "priority": "${ANALYSIS_RESULT[priority]}",
+  "complexity_score": ${ANALYSIS_RESULT[complexity_score]},
+  "subagent_recommendation": "${ANALYSIS_RESULT[subagent_recommendation]}",
+  "timeout_risk": "${ANALYSIS_RESULT[timeout_risk]}"
 }
 EOF
 }
