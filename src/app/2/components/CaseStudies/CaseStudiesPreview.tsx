@@ -1,8 +1,16 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from 'react'
+import dynamic from 'next/dynamic'
 import { CaseStudyCard } from './CaseStudyCard'
+import { isWebGLReady } from '../../lib/webgl-detection'
 import styles from './CaseStudiesPreview.module.css'
+
+// Dynamically import 3D component to prevent SSR issues
+const CaseStudyCard3D = dynamic(() => import('./CaseStudyCard3D'), {
+  ssr: false,
+  loading: () => null // Use 2D version as loading fallback (handled by progressive enhancement)
+})
 
 export interface CaseStudy {
   id: string
@@ -22,6 +30,7 @@ export interface CaseStudy {
  */
 export const CaseStudiesPreview: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false)
+  const [webglReady, setWebglReady] = useState<boolean | null>(null) // null = checking, boolean = determined
   const sectionRef = useRef<HTMLElement>(null)
 
   // Case studies data from PORTFOLIO-REDESIGN-CONTENT-CONDENSED.md
@@ -90,6 +99,22 @@ export const CaseStudiesPreview: React.FC = () => {
     return () => observer.disconnect()
   }, [])
 
+  // Client-only WebGL detection for progressive enhancement
+  useEffect(() => {
+    // Small delay to ensure client-side hydration is complete
+    const timer = setTimeout(() => {
+      try {
+        const isReady = isWebGLReady()
+        setWebglReady(isReady)
+      } catch (error) {
+        console.warn('WebGL detection failed for 3D cards, using 2D fallback:', error)
+        setWebglReady(false)
+      }
+    }, 150) // Slightly longer delay for stability
+
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <section
       ref={sectionRef}
@@ -111,15 +136,20 @@ export const CaseStudiesPreview: React.FC = () => {
         </header>
 
         <div className={styles.caseStudiesGrid}>
-          {caseStudies.map((caseStudy, index) => (
-            <CaseStudyCard
-              key={caseStudy.id}
-              caseStudy={caseStudy}
-              animationDelay={index * 150} // 150ms stagger as specified
-              isVisible={isVisible}
-              cardIndex={index}
-            />
-          ))}
+          {caseStudies.map((caseStudy, index) => {
+            // Progressive Enhancement: Use 3D cards when WebGL ready, otherwise 2D
+            const CardComponent = webglReady === true ? CaseStudyCard3D : CaseStudyCard;
+            
+            return (
+              <CardComponent
+                key={caseStudy.id}
+                caseStudy={caseStudy}
+                animationDelay={index * 150} // 150ms stagger as specified
+                isVisible={isVisible}
+                cardIndex={index}
+              />
+            );
+          })}
         </div>
 
         <div className={`${styles.sectionCTA} ${isVisible ? styles.revealed : ''}`}>

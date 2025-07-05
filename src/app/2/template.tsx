@@ -15,7 +15,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
         exit={{ x: -300, opacity: 0 }}
         transition={{ 
           duration: 0.35, 
-          ease: [0.25, 0.46, 0.45, 0.94] // Custom easing for smooth, professional feel
+          ease: [0.25, 0.46, 0.45, 0.94]
         }}
         className="min-h-screen"
       >
