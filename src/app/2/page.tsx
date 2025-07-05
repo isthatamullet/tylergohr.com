@@ -4,7 +4,8 @@ import { Suspense, lazy } from "react";
 import styles from "./page.module.css";
 import Hero from "./components/Hero/Hero";
 import About from "./components/About/About";
-import ThreeJSTest from "./components/Test/ThreeJSTest";
+import BasicScene from "./components/Scene/BasicScene";
+import SceneErrorBoundary from "./components/Scene/SceneErrorBoundary";
 
 // Lazy load below-the-fold components for better performance
 const Results = lazy(() => import("./components/Results/Results"));
@@ -22,8 +23,10 @@ export default function EnterprisePage() {
         {/* Hero Section - Enterprise Solutions Architect */}
         <Hero />
 
-        {/* Phase 2.1 Validation - Three.js Import Test (TEMPORARY) */}
-        <ThreeJSTest />
+        {/* Phase 2.2 Validation - React Three Fiber Integration */}
+        <SceneErrorBoundary>
+          <BasicScene />
+        </SceneErrorBoundary>
 
         {/* About Section - Network Animation */}
         <About />

@@ -322,3 +322,37 @@ Bash(npm run dev &)
 
 Bash(npm run dev &)
   ⎿  Error: Command timed out after 2m 0.0s
+
+
+
+
+
+Bash(npm run dev &)
+  ⎿  Error: Command timed out after 2m 0.0s
+
+     > tylergohr.com@1.0.0 dev
+     > ./scripts/smart-dev.sh
+
+     🚀 Smart Development Server Starter
+     =======================================
+     [INFO] Checking for existing development server...
+     [INFO] Scanning for existing Next.js servers...
+     [INFO] Found Next.js servers on ports: 3000 3001 3002 
+     … +5 lines (ctrl+r to see all)
+
+✻ Thinking…
+
+  Great! The development server is already running on port 3002. Let me take a quick screenshot to see the React Three Fiber 
+  integration working:
+
+
+
+
+
+
+
+  Perfect! The dev server is running on port 3002. Let me take a quick screenshot to verify the React Three Fiber integration is
+  working:
+
+  Bash(npx playwright test e2e/quick-screenshots.spec.ts --project=chromium --grep "homepage")
+  shouldn't puppeteer be used for 

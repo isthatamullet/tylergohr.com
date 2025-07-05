@@ -64,12 +64,12 @@ jobs:
             bundle_size=$(du -sk .next/static | cut -f1)
             echo "Bundle size: ${bundle_size}KB"
             
-            # Check bundle size budget (2.4MB limit - increased for Phase 2 Three.js integration)
-            if [ $bundle_size -gt 2400 ]; then
-              echo "❌ Bundle size exceeds budget: ${bundle_size}KB > 2.4MB"
+            # Check bundle size budget (2.6MB limit - increased for Phase 2.2 React Three Fiber integration)
+            if [ $bundle_size -gt 2600 ]; then
+              echo "❌ Bundle size exceeds budget: ${bundle_size}KB > 2.6MB"
               exit 1
             else
-              echo "✅ Bundle size within budget: ${bundle_size}KB (< 2.4MB)"
+              echo "✅ Bundle size within budget: ${bundle_size}KB (< 2.6MB)"
             fi
           fi
 

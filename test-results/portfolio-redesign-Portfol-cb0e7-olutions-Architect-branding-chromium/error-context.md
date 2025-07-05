@@ -22,12 +22,9 @@
     - paragraph: From Emmy Award-winning streaming platforms to custom business solutions, I architect digital products that deliver measurable impact. With 16+ years at Fox Corporation and Warner Bros, I transform technical challenges into competitive advantages.
     - button "Start your project - navigate to contact section": Start Your Project
     - button "View my work - navigate to case studies section": View My Work
-  - 'heading "Phase 2.1: Three.js Import Validation" [level=3]'
-  - paragraph:
-    - text: "Three.js Version:"
-    - strong: "178"
-  - paragraph: ✅ Three.js imports working successfully
-  - paragraph: This component validates basic Three.js dependency installation. If you can see this message and the version number, Phase 2.1 is successful.
+  - 'heading "Phase 2.2: WebGL Fallback Mode" [level=3]'
+  - paragraph: WebGL not available or performance insufficient
+  - paragraph: Displaying 2D alternative for optimal user experience
   - region "About Tyler Gohr":
     - heading "About Tyler Gohr" [level=2]
     - paragraph: I'm Tyler Gohr, an Emmy Award-winning Enterprise Solutions Architect who transforms complex technical challenges into competitive business advantages. Over 16+ years leading technical teams at Fox Corporation and Warner Bros Entertainment, I've architected platforms serving millions of users while managing systems with 50,000+ digital assets.
