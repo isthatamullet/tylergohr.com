@@ -175,6 +175,33 @@ export default function Layout2({
           href="https://fonts.gstatic.com"
           crossOrigin=""
         />
+        
+        {/* Hero image preloading for faster LCP */}
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-main.png"
+          imageSizes="(max-width: 768px) 100vw, 580px"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-cloud-1.png"
+          imageSizes="(max-width: 768px) 100vw, 580px"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-cloud-2.png"
+          imageSizes="(max-width: 768px) 100vw, 580px"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/images/hero-cloud-3.png"
+          imageSizes="(max-width: 768px) 100vw, 580px"
+        />
       </head>
       <body className="bg-portfolio-dark text-portfolio-text-primary antialiased">
         {/* Skip Navigation for Accessibility */}
