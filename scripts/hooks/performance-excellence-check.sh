@@ -11,6 +11,11 @@ source "$SCRIPT_DIR/lib/hook-utils.sh"
 source "$SCRIPT_DIR/lib/performance-monitoring.sh"
 source "$SCRIPT_DIR/lib/context-detection.sh"
 
+# NEW: Source VS Code task integration for enhanced port management
+if [[ -f "$SCRIPT_DIR/lib/vscode-task-integration.sh" ]]; then
+    source "$SCRIPT_DIR/lib/vscode-task-integration.sh"
+fi
+
 # Parse command line arguments
 CHANGE_TYPE="${1:-general}"
 FILE_PATH="${2:-}"

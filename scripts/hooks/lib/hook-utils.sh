@@ -123,25 +123,38 @@ wait_for_dev_server() {
     return 1
 }
 
-# Function to validate or detect port if not set
+# Function to validate or detect port if not set (enhanced with VS Code task integration)
 ensure_active_port() {
     if [[ -z "$ACTIVE_DEV_PORT" ]]; then
-        log_info "ACTIVE_DEV_PORT not set, attempting detection..."
+        log_info "ACTIVE_DEV_PORT not set, attempting enhanced detection..."
         
-        # Try to source port detection utilities if available
+        # NEW: Try VS Code task integration first
+        local vscode_task_utils="$(dirname "${BASH_SOURCE[0]}")/vscode-task-integration.sh"
+        if [[ -f "$vscode_task_utils" ]]; then
+            source "$vscode_task_utils"
+            if ensure_active_port_task_managed; then
+                log_success "Port detected via VS Code task integration: $ACTIVE_DEV_PORT"
+                return 0
+            fi
+        fi
+        
+        # FALLBACK: Try traditional port detection utilities
         local port_utils="$(dirname "${BASH_SOURCE[0]}")/port-detection-utils.sh"
         if [[ -f "$port_utils" ]]; then
             source "$port_utils"
             if get_active_port "fallback"; then
-                log_success "Port detected: $ACTIVE_DEV_PORT"
+                log_success "Port detected via traditional method: $ACTIVE_DEV_PORT"
+                return 0
             else
-                log_warning "Port detection failed, using default 3000"
+                log_warning "Traditional port detection failed, using default 3000"
                 export ACTIVE_DEV_PORT="3000"
             fi
         else
             log_warning "Port detection utilities not available, using default 3000"
             export ACTIVE_DEV_PORT="3000"
         fi
+    else
+        log_info "Using existing ACTIVE_DEV_PORT: $ACTIVE_DEV_PORT"
     fi
 }
 
