@@ -68,6 +68,7 @@
     "@modelcontextprotocol/server-puppeteer": "^2025.5.12",
     "@monaco-editor/react": "^4.7.0",
     "@next/mdx": "^15.3.5",
+    "@react-three/drei": "^10.4.2",
     "@react-three/fiber": "^9.2.0",
     "@types/node": "^24.0.3",
     "@types/prismjs": "^1.26.5",

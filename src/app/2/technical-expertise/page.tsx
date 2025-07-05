@@ -11,6 +11,9 @@ import styles from './page.module.css'
 // Lazy load footer for better performance
 const Footer = lazy(() => import('@/app/2/components/Footer/Footer'))
 
+// Lazy load the 3D architecture diagram for performance
+const InteractiveArchitectureDiagram = lazy(() => import('@/app/2/components/TechnicalExpertise/InteractiveArchitectureDiagram'))
+
 interface TechnicalArea {
   id: string
   title: string
@@ -309,6 +312,69 @@ function TechnicalExpertisePageContent() {
             className={styles.technicalExpertiseBrowser}
             urlPath="technical-expertise"
           />
+        </div>
+      </Section>
+
+      {/* Interactive Architecture Diagram Section - Phase 3.1 */}
+      <Section background="about" paddingY="xl">
+        <div 
+          ref={(el) => { sectionRefs.current['architecture'] = el }}
+          data-section-id="architecture"
+          className={`${styles.architectureSection} ${visibleSections.has('architecture') ? styles.revealed : ''}`}
+        >
+          <div className={styles.architectureContainer}>
+            <header className={styles.architectureHeader}>
+              <h2 className={styles.architectureTitle}>
+                Enterprise Architecture Visualization
+              </h2>
+              <p className={styles.architectureDescription}>
+                Interactive 3D diagram showcasing real-world enterprise system architecture with modern technology stacks, 
+                microservices patterns, and cloud infrastructure design.
+              </p>
+            </header>
+            
+            <div className={styles.diagramWrapper}>
+              <Suspense fallback={
+                <div className={styles.diagramFallback}>
+                  <div className={styles.loadingContainer}>
+                    <div className={styles.loadingSpinner}></div>
+                    <p>Loading 3D architecture diagram...</p>
+                  </div>
+                </div>
+              }>
+                <InteractiveArchitectureDiagram />
+              </Suspense>
+            </div>
+            
+            <div className={styles.architectureFeatures}>
+              <div className={styles.featureList}>
+                <div className={styles.feature}>
+                  <h4 className={styles.featureTitle}>🎯 Interactive Exploration</h4>
+                  <p className={styles.featureDescription}>
+                    Click nodes to explore detailed technology specifications and business value
+                  </p>
+                </div>
+                <div className={styles.feature}>
+                  <h4 className={styles.featureTitle}>🏗️ Enterprise Patterns</h4>
+                  <p className={styles.featureDescription}>
+                    Real-world microservices architecture with proven scalability patterns
+                  </p>
+                </div>
+                <div className={styles.feature}>
+                  <h4 className={styles.featureTitle}>☁️ Cloud-Native Design</h4>
+                  <p className={styles.featureDescription}>
+                    Google Cloud Platform integration with auto-scaling and monitoring
+                  </p>
+                </div>
+                <div className={styles.feature}>
+                  <h4 className={styles.featureTitle}>🔐 Security & Performance</h4>
+                  <p className={styles.featureDescription}>
+                    Enterprise-grade authentication, data protection, and performance optimization
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </Section>
 
