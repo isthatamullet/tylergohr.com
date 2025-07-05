@@ -134,9 +134,16 @@ export function isWebGLPerformanceSuitable(): boolean {
 
 /**
  * Get a performance-appropriate configuration for 3D scenes
+ * Now with safe window access to prevent SSR crashes
  */
 export function getWebGLConfig() {
   const capabilities = detectWebGLSupport();
+  
+  // Safe window access - prevent SSR crashes
+  const getPixelRatio = (maxRatio: number) => {
+    if (typeof window === 'undefined') return 1;
+    return Math.min(window.devicePixelRatio || 1, maxRatio);
+  };
   
   switch (capabilities.performanceLevel) {
     case 'high':
@@ -144,7 +151,7 @@ export function getWebGLConfig() {
         antialias: true,
         shadows: true,
         maxLights: 4,
-        pixelRatio: Math.min(window.devicePixelRatio, 2)
+        pixelRatio: getPixelRatio(2)
       };
     
     case 'medium':
@@ -152,7 +159,7 @@ export function getWebGLConfig() {
         antialias: true,
         shadows: false,
         maxLights: 2,
-        pixelRatio: Math.min(window.devicePixelRatio, 1.5)
+        pixelRatio: getPixelRatio(1.5)
       };
     
     case 'low':
@@ -181,14 +188,23 @@ export function isMobileDevice(): boolean {
 
 /**
  * Comprehensive WebGL readiness check for Enterprise components
+ * Fixed to work in production environments (Cloud Run, etc.)
  */
 export function isWebGLReady(): boolean {
-  // In headless environments (testing), always use fallback
-  if (typeof window !== 'undefined' && 
-      (navigator.webdriver || 
-       window.location.href.includes('localhost') && 
-       !window.location.href.includes('3002'))) {
-    return false;
+  // Safe browser environment check
+  if (typeof window === 'undefined') {
+    return false; // SSR environment - always use fallback
+  }
+
+  // Only block in actual automated testing environments
+  // Removed production-blocking navigator.webdriver check that was breaking Cloud Run
+  if (typeof window !== 'undefined' && window.location.href.includes('localhost:')) {
+    // Only block specific testing ports to avoid blocking development
+    const testingPorts = ['9323', '4444', '5555']; // Playwright/testing ports
+    const currentPort = window.location.port;
+    if (testingPorts.includes(currentPort)) {
+      return false; // Automated testing environment
+    }
   }
 
   // Check basic WebGL support
@@ -196,7 +212,7 @@ export function isWebGLReady(): boolean {
     return false;
   }
 
-  // On mobile, only allow high-performance GPUs
+  // On mobile, only allow high-performance GPUs for better UX
   if (isMobileDevice()) {
     const capabilities = detectWebGLSupport();
     return capabilities.performanceLevel === 'high';

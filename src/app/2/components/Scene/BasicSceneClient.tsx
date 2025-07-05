@@ -54,6 +54,55 @@ interface BasicSceneClientProps {
 }
 
 export const BasicSceneClient: React.FC<BasicSceneClientProps> = ({ webglConfig }) => {
+  const [renderError, setRenderError] = useState<string | null>(null);
+
+  // Error boundary fallback for Canvas rendering errors
+  const handleCanvasError = (error: unknown) => {
+    console.error('Canvas rendering error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown WebGL error';
+    setRenderError(`Canvas Error: ${errorMessage}`);
+  };
+
+  // If we have a render error, show error state
+  if (renderError) {
+    return (
+      <div style={{
+        padding: '16px',
+        margin: '16px 0',
+        backgroundColor: '#1a1a1a',
+        border: '1px solid #ef4444',
+        borderRadius: '8px',
+        color: '#ffffff',
+        textAlign: 'center'
+      }}>
+        <h3 style={{ color: '#ef4444', margin: '0 0 8px 0' }}>
+          3D Rendering Error
+        </h3>
+        <p style={{ margin: '4px 0' }}>
+          WebGL initialization failed
+        </p>
+        <p style={{ margin: '4px 0', color: '#888', fontSize: '12px' }}>
+          {renderError}
+        </p>
+        <button 
+          onClick={() => setRenderError(null)}
+          style={{
+            marginTop: '8px',
+            padding: '4px 8px',
+            backgroundColor: '#ef4444',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            fontSize: '12px',
+            cursor: 'pointer'
+          }}
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div style={{
       padding: '16px',
@@ -79,15 +128,36 @@ export const BasicSceneClient: React.FC<BasicSceneClientProps> = ({ webglConfig 
           gl={{
             antialias: webglConfig.antialias,
             alpha: false,
-            preserveDrawingBuffer: true
+            preserveDrawingBuffer: true,
+            powerPreference: 'default', // More compatible than high-performance
+            failIfMajorPerformanceCaveat: false // Allow software rendering
           }}
           dpr={Math.min(webglConfig.pixelRatio, 1.5)}
           onCreated={({ gl }) => {
-            gl.setClearColor('#1a1a1a');
+            try {
+              gl.setClearColor('#1a1a1a');
+              console.log('WebGL context created successfully:', {
+                renderer: gl.domElement.width,
+                capabilities: gl.capabilities
+              });
+            } catch (error) {
+              console.warn('WebGL context setup warning:', error);
+            }
           }}
-          onError={(error) => {
-            console.error('Canvas rendering error:', error);
-          }}
+          onError={handleCanvasError}
+          fallback={
+            <div style={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: '#888',
+              fontSize: '12px'
+            }}>
+              Initializing WebGL...
+            </div>
+          }
         >
           {/* Lighting */}
           <ambientLight intensity={0.5} />

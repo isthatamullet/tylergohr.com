@@ -10,7 +10,7 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { isWebGLReady, getWebGLConfig } from '../../lib/webgl-detection';
 
@@ -78,21 +78,93 @@ function WebGLFallback() {
 }
 
 /**
- * Main Basic Scene component with WebGL detection and SSR-safe loading
+ * Main Basic Scene component with client-only WebGL detection
+ * Prevents hydration mismatches by deferring WebGL detection to useEffect
  */
 export const BasicScene: React.FC = () => {
-  // Check WebGL availability before rendering 3D content
-  if (!isWebGLReady()) {
-    return <WebGLFallback />;
+  const [webglState, setWebglState] = useState<{
+    isReady: boolean;
+    config: {
+      antialias: boolean;
+      shadows: boolean;
+      maxLights: number;
+      pixelRatio: number;
+    } | null;
+    isLoading: boolean;
+  }>({
+    isReady: false,
+    config: null,
+    isLoading: true
+  });
+
+  // Client-only WebGL detection to prevent hydration mismatches
+  useEffect(() => {
+    // Small delay to ensure full client-side hydration
+    const timer = setTimeout(() => {
+      try {
+        const isReady = isWebGLReady();
+        const config = isReady ? getWebGLConfig() : null;
+        
+        setWebglState({
+          isReady: isReady && config !== null,
+          config,
+          isLoading: false
+        });
+      } catch (error) {
+        console.warn('WebGL detection failed:', error);
+        setWebglState({
+          isReady: false,
+          config: null,
+          isLoading: false
+        });
+      }
+    }, 100); // Small delay for stability
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Show loading state during client-side detection
+  if (webglState.isLoading) {
+    return (
+      <div style={{
+        padding: '16px',
+        margin: '16px 0',
+        backgroundColor: '#1a1a1a',
+        border: '1px solid #10b981',
+        borderRadius: '8px',
+        color: '#ffffff'
+      }}>
+        <h3 style={{ color: '#10b981', margin: '0 0 8px 0' }}>
+          Phase 2.2: React Three Fiber Integration
+        </h3>
+        <div style={{ 
+          height: '200px', 
+          width: '100%',
+          border: '1px solid #333',
+          borderRadius: '4px',
+          backgroundColor: '#1a1a1a',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: '#888',
+          fontSize: '12px'
+        }}>
+          Detecting WebGL capabilities...
+        </div>
+        <p style={{ margin: '8px 0 4px 0', color: '#888' }}>
+          Initializing 3D environment...
+        </p>
+      </div>
+    );
   }
 
-  const webglConfig = getWebGLConfig();
-  if (!webglConfig) {
+  // Show fallback if WebGL not ready or failed
+  if (!webglState.isReady || !webglState.config) {
     return <WebGLFallback />;
   }
 
   // Render the client-side component with WebGL config
-  return <BasicSceneClient webglConfig={webglConfig} />;
+  return <BasicSceneClient webglConfig={webglState.config} />;
 };
 
 export default BasicScene;
