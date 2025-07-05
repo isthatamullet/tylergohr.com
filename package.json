@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "./scripts/smart-dev.sh",
     "dev:enhanced": "./scripts/subagent-integration.sh run npm run dev",
+    "dev:claude": "CLAUDE_AUTO_SUBAGENT=true ./scripts/subagent-integration.sh run npm run dev",
     "dev:3000": "./scripts/smart-dev-port.sh 3000",
     "dev:3001": "./scripts/smart-dev-port.sh 3001",
     "dev:4000": "./scripts/smart-dev-port.sh 4000",
@@ -32,6 +33,7 @@
     "test:e2e:dev": "SKIP_VISUAL=true playwright test e2e/portfolio-redesign.spec.ts --grep \"Navigation dropdown|Enterprise content|Skills dropdown|Process dropdown\" --reporter=line",
     "test:e2e:smoke": "FAST_MODE=true playwright test e2e/portfolio-redesign.spec.ts --grep \"homepage displays complete Enterprise Solutions Architect\" --reporter=line --project=chromium",
     "test:e2e:smoke:enhanced": "./scripts/subagent-integration.sh run npm run test:e2e:smoke",
+    "test:e2e:smoke:claude": "CLAUDE_AUTO_SUBAGENT=true ./scripts/subagent-integration.sh run npm run test:e2e:smoke",
     "test:e2e:screenshot": "./scripts/smart-playwright.sh test e2e/screenshot-generation.spec.ts",
     "test:e2e:screenshot:enhanced": "./scripts/subagent-integration.sh run npx playwright test e2e/quick-screenshots.spec.ts --project=chromium",
     "test:e2e:screenshot:mobile": "playwright test e2e/screenshot-generation.spec.ts --grep \"mobile\"",

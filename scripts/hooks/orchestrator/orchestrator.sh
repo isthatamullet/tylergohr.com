@@ -89,25 +89,38 @@ orchestrate_hook_execution() {
     log_info "  🤖 Sub-agent recommendation: $subagent_recommendation"
     log_info "  ⚠️  Timeout risk: $timeout_risk"
     
-    # NEW: Sub-agent delegation logic
-    if [[ "$subagent_recommendation" != "none" && "$timeout_risk" == "high" ]]; then
+    # NEW: Enhanced sub-agent delegation logic with Claude Code integration
+    if [[ "$subagent_recommendation" != "none" && ("$timeout_risk" == "high" || "$timeout_risk" == "medium") ]]; then
         log_info "🤖 HIGH COMPLEXITY DETECTED - Recommending sub-agent delegation"
         log_info "🤖 Recommendation: Use the '$subagent_recommendation' pattern"
         
+        # Generate Claude-optimized prompts based on agent type
+        local claude_prompt=""
         case "$subagent_recommendation" in
             "environment_setup_agent")
-                log_info "💡 Suggested Claude prompt: 'Use the Agent tool to handle environment setup: detect ports, validate servers, set environment variables, ensure ready for testing'"
+                claude_prompt="Use the Agent tool to handle environment setup: detect ports, validate servers, set environment variables, ensure ready for testing"
                 ;;
             "test_execution_agent")
-                log_info "💡 Suggested Claude prompt: 'Use the Agent tool to execute tests with full environment validation, timeout handling, and result analysis'"
+                claude_prompt="Use the Agent tool to execute tests with full environment validation, timeout handling, and result analysis"
                 ;;
             "timeout_prevention_agent")
-                log_info "💡 Suggested Claude prompt: 'Use the Agent tool to handle this timeout-prone operation with proper environment setup and execution strategy'"
+                claude_prompt="Use the Agent tool to handle this timeout-prone operation with proper environment setup and execution strategy"
                 ;;
             "complex_workflow_agent")
-                log_info "💡 Suggested Claude prompt: 'Use the Agent tool to handle this complex workflow with intelligent decision-making and multi-step coordination'"
+                claude_prompt="Use the Agent tool to handle this complex workflow with intelligent decision-making and multi-step coordination"
                 ;;
         esac
+        
+        # Enhanced Claude Code integration based on environment variables
+        if [[ "${CLAUDE_AUTO_SUBAGENT:-false}" == "true" ]]; then
+            log_warning "🚨 CLAUDE CODE: USE AGENT TOOL NOW"
+            log_warning "🚨 CLAUDE PROMPT: $claude_prompt"
+            log_warning "🚨 REASON: Complexity score $complexity_score/15, timeout risk: $timeout_risk"
+            log_warning "🚨 ALTERNATIVE: Run with CLAUDE_AUTO_SUBAGENT=false to disable auto-recommendations"
+        else
+            log_info "💡 Suggested Claude prompt: '$claude_prompt'"
+            log_info "💡 Enable automatic recommendations: Set CLAUDE_AUTO_SUBAGENT=true"
+        fi
         
         # Option to continue with direct execution or recommend delegation
         if [[ "${FORCE_SUBAGENT_DELEGATION:-false}" == "true" ]]; then
@@ -115,7 +128,11 @@ orchestrate_hook_execution() {
             log_hook_success "ORCHESTRATOR recommends sub-agent delegation (complexity: $complexity_score, risk: $timeout_risk)"
             return 0
         else
-            log_info "🤖 Continuing with direct execution (set FORCE_SUBAGENT_DELEGATION=true to enforce delegation)"
+            if [[ "${CLAUDE_AUTO_SUBAGENT:-false}" == "true" ]]; then
+                log_warning "🚨 Continuing with direct execution despite high complexity (set FORCE_SUBAGENT_DELEGATION=true to block)"
+            else
+                log_info "🤖 Continuing with direct execution (set FORCE_SUBAGENT_DELEGATION=true to enforce delegation)"
+            fi
         fi
     fi
     
@@ -471,6 +488,8 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
             echo "  ORCHESTRATOR_TIMEOUT=45      # Timeout limit in seconds"
             echo "  ORCHESTRATOR_FALLBACK=true   # Enable fallback to original hooks"
             echo "  ORCHESTRATOR_DEBUG=false     # Enable debug logging"
+            echo "  CLAUDE_AUTO_SUBAGENT=true    # Enhanced Claude Code integration with priority alerts"
+            echo "  FORCE_SUBAGENT_DELEGATION=true # Block execution to enforce sub-agent usage"
             echo ""
             echo "New Features in v2.0.0:"
             echo "  - SubagentStop hook with 120s timeout for comprehensive analysis"

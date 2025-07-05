@@ -201,6 +201,49 @@ FORCE_SUBAGENT=true npm run dev:enhanced              # Block direct execution
 - **Success Rate**: 100% vs previous timeout failures
 - **Workflow Enhancement**: Proactive prevention vs reactive problem-solving
 
+### **Claude Code Instance Integration**
+
+#### **🚨 Priority Alert System**
+When `CLAUDE_AUTO_SUBAGENT=true` is set, Claude Code instances will see high-priority alerts:
+```bash
+🚨 CLAUDE CODE: USE AGENT TOOL NOW
+🚨 CLAUDE PROMPT: Use the Agent tool to execute tests with full environment validation, timeout handling, and result analysis
+🚨 REASON: Complexity score 8/15, timeout risk: high
+```
+
+#### **🤖 Recognition Patterns for Claude Code**
+Claude Code instances should automatically use the Agent tool when seeing:
+- **🚨 CLAUDE CODE: USE AGENT TOOL NOW** - Immediate action required
+- **Complexity score ≥8** AND **timeout risk: high/medium** - High likelihood of timeout
+- **Timeout-prone command patterns**: `npm run test:e2e:smoke`, `playwright test`, `npm run dev`
+
+#### **⚡ Claude-Optimized Commands**
+```bash
+# Automatic sub-agent recommendations for Claude Code:
+npm run dev:claude                      # Environment setup agent (priority alerts)
+npm run test:e2e:smoke:claude          # Test execution agent (priority alerts)
+
+# Manual analysis for Claude Code:
+CLAUDE_AUTO_SUBAGENT=true npm run test:e2e:smoke:enhanced
+CLAUDE_AUTO_SUBAGENT=true ./scripts/subagent-integration.sh run npm run dev
+```
+
+#### **🎯 Decision Matrix for Claude Code Instances**
+```bash
+# When to use Agent tool (automatic decision tree):
+IF hook_output.contains("🚨 CLAUDE CODE: USE AGENT TOOL NOW"):
+    → USE Agent tool with provided prompt immediately
+    
+ELIF complexity_score >= 8 AND timeout_risk in ["high", "medium"]:
+    → STRONGLY RECOMMEND Agent tool usage
+    
+ELIF command matches timeout_prone_patterns:
+    → CONSIDER Agent tool for reliability
+    
+ELSE:
+    → Proceed with direct execution
+```
+
 ### **Manual Sub-Agent Commands**
 ```bash
 # Check if command needs sub-agent:
@@ -819,5 +862,33 @@ npm run test:e2e:component -- --grep "ComponentName"  # Focused testing
 # 5. Pre-commit comprehensive validation
 npm run test:e2e:portfolio                # Full validation when ready
 ```
+
+## 🤖 Quick Reference - Claude Code Instances
+
+### **🚨 When You See These Alerts - USE AGENT TOOL IMMEDIATELY**
+```bash
+🚨 CLAUDE CODE: USE AGENT TOOL NOW
+🚨 CLAUDE PROMPT: [Ready-to-use Agent tool prompt]
+🚨 REASON: [Why this operation needs sub-agent]
+```
+
+### **⚡ Fast Sub-Agent Commands for Daily Use**
+```bash
+npm run dev:claude                      # Start dev server with Agent tool recommendations
+npm run test:e2e:smoke:claude          # Run tests with Agent tool integration
+CLAUDE_AUTO_SUBAGENT=true [any-command] # Force sub-agent recommendations for any command
+```
+
+### **🎯 Recognition Patterns for Claude Code**
+- **Complexity score ≥8** = High likelihood Agent tool needed
+- **Timeout risk: high/medium** = Strong Agent tool recommendation  
+- **🚨 CLAUDE CODE:** prefix = Immediate Agent tool usage required
+- **Timeout-prone patterns**: `npm run test:e2e:smoke`, `playwright test`, `npm run dev`
+
+### **💡 Quick Decision Guide**
+1. **See 🚨 CLAUDE CODE alert** → Use Agent tool with provided prompt
+2. **Complexity ≥8 + timeout risk high** → Strongly recommend Agent tool
+3. **Known timeout patterns** → Consider Agent tool for reliability
+4. **Otherwise** → Proceed with direct execution
 
 **Enterprise Solutions Architect Portfolio - Built for Business Impact** 🏢

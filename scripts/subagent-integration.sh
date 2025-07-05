@@ -117,8 +117,8 @@ should_use_subagent() {
     local command="$1"
     local args="$2"
     
-    # Check environment variable for forcing sub-agent usage
-    if [[ "${USE_SUBAGENT:-false}" == "true" ]]; then
+    # Check environment variables for forcing sub-agent usage
+    if [[ "${USE_SUBAGENT:-false}" == "true" || "${CLAUDE_AUTO_SUBAGENT:-false}" == "true" ]]; then
         return 0
     fi
     
@@ -148,17 +148,31 @@ enhanced_command() {
         log_info "🤖 TIMEOUT-PRONE COMMAND DETECTED"
         log_info "🤖 Recommendation: Use '$recommendation' pattern"
         log_info ""
-        log_info "💡 SUGGESTED CLAUDE PROMPT:"
-        log_info "$(generate_subagent_prompt "$recommendation" "$command $args" "Tyler's portfolio development")"
-        log_info ""
-        log_warning "⚠️  This command has historically caused timeouts. Consider using the Agent tool as suggested above."
+        
+        # Enhanced Claude Code integration
+        if [[ "${CLAUDE_AUTO_SUBAGENT:-false}" == "true" ]]; then
+            log_warning "🚨 CLAUDE CODE: USE AGENT TOOL NOW"
+            log_warning "🚨 CLAUDE PROMPT: $(generate_subagent_prompt "$recommendation" "$command $args" "Tyler's portfolio development" | head -1)"
+            log_warning "🚨 REASON: Timeout-prone command pattern detected"
+        else
+            log_info "💡 SUGGESTED CLAUDE PROMPT:"
+            log_info "$(generate_subagent_prompt "$recommendation" "$command $args" "Tyler's portfolio development")"
+            log_info ""
+            log_warning "⚠️  This command has historically caused timeouts. Consider using the Agent tool as suggested above."
+            log_info "💡 Enable automatic Claude recommendations: Set CLAUDE_AUTO_SUBAGENT=true"
+        fi
+        
         log_info ""
         
         if [[ "${FORCE_SUBAGENT:-false}" == "true" ]]; then
             log_error "🛑 FORCE_SUBAGENT=true - Blocking direct execution to enforce sub-agent usage"
             return 1
         else
-            log_info "🔄 Proceeding with direct execution (set FORCE_SUBAGENT=true to block)"
+            if [[ "${CLAUDE_AUTO_SUBAGENT:-false}" == "true" ]]; then
+                log_warning "🚨 Proceeding with direct execution despite recommendation (set FORCE_SUBAGENT=true to block)"
+            else
+                log_info "🔄 Proceeding with direct execution (set FORCE_SUBAGENT=true to block)"
+            fi
         fi
     fi
     
@@ -195,6 +209,7 @@ Usage:
 
 Environment Variables:
   USE_SUBAGENT=true               # Always recommend sub-agent for timeout-prone commands
+  CLAUDE_AUTO_SUBAGENT=true       # Enhanced Claude Code integration with priority alerts
   FORCE_SUBAGENT=true            # Block direct execution of timeout-prone commands
 
 Examples:
