@@ -74,6 +74,10 @@ orchestrate_hook_execution() {
     local execution_strategy=$(get_analysis_result "execution_strategy")
     local estimated_time=$(get_analysis_result "estimated_time")
     local priority=$(get_analysis_result "priority")
+    # NEW: Sub-agent analysis results
+    local complexity_score=$(get_analysis_result "complexity_score")
+    local subagent_recommendation=$(get_analysis_result "subagent_recommendation")
+    local timeout_risk=$(get_analysis_result "timeout_risk")
     
     log_info "Context analysis complete:"
     log_info "  Context: $context"
@@ -81,6 +85,39 @@ orchestrate_hook_execution() {
     log_info "  Execution strategy: $execution_strategy"
     log_info "  Estimated time: ${estimated_time}s"
     log_info "  Priority: $priority"
+    log_info "  🤖 Complexity score: $complexity_score/15"
+    log_info "  🤖 Sub-agent recommendation: $subagent_recommendation"
+    log_info "  ⚠️  Timeout risk: $timeout_risk"
+    
+    # NEW: Sub-agent delegation logic
+    if [[ "$subagent_recommendation" != "none" && "$timeout_risk" == "high" ]]; then
+        log_info "🤖 HIGH COMPLEXITY DETECTED - Recommending sub-agent delegation"
+        log_info "🤖 Recommendation: Use the '$subagent_recommendation' pattern"
+        
+        case "$subagent_recommendation" in
+            "environment_setup_agent")
+                log_info "💡 Suggested Claude prompt: 'Use the Agent tool to handle environment setup: detect ports, validate servers, set environment variables, ensure ready for testing'"
+                ;;
+            "test_execution_agent")
+                log_info "💡 Suggested Claude prompt: 'Use the Agent tool to execute tests with full environment validation, timeout handling, and result analysis'"
+                ;;
+            "timeout_prevention_agent")
+                log_info "💡 Suggested Claude prompt: 'Use the Agent tool to handle this timeout-prone operation with proper environment setup and execution strategy'"
+                ;;
+            "complex_workflow_agent")
+                log_info "💡 Suggested Claude prompt: 'Use the Agent tool to handle this complex workflow with intelligent decision-making and multi-step coordination'"
+                ;;
+        esac
+        
+        # Option to continue with direct execution or recommend delegation
+        if [[ "${FORCE_SUBAGENT_DELEGATION:-false}" == "true" ]]; then
+            log_warning "🤖 FORCE_SUBAGENT_DELEGATION=true - Stopping execution to allow sub-agent delegation"
+            log_hook_success "ORCHESTRATOR recommends sub-agent delegation (complexity: $complexity_score, risk: $timeout_risk)"
+            return 0
+        else
+            log_info "🤖 Continuing with direct execution (set FORCE_SUBAGENT_DELEGATION=true to enforce delegation)"
+        fi
+    fi
     
     # Check if we should skip operations
     if [[ "$required_operations" == "" || "$required_operations" == "skip" ]]; then
