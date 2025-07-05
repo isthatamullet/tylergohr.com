@@ -310,3 +310,10 @@ Bash(npm run test:e2e:task-managed)
 
 Bash(time npm run test:e2e:smoke)
   ⎿  Error: Command timed out after 2m 0.0s
+
+
+
+
+
+Bash(npm run dev &)
+  ⎿  Error: Command timed out after 2m 0.0s  ⚠ Port 3000 is in use, using available port 3002 instead.
