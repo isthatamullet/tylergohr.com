@@ -212,12 +212,7 @@ export function isWebGLReady(): boolean {
     return false;
   }
 
-  // On mobile, only allow high-performance GPUs for better UX
-  if (isMobileDevice()) {
-    const capabilities = detectWebGLSupport();
-    return capabilities.performanceLevel === 'high';
-  }
-
-  // On desktop, allow medium and high performance
-  return isWebGLPerformanceSuitable();
+  // TEMPORARY: Allow all performance levels for testing Phase 2.3
+  const capabilities = detectWebGLSupport();
+  return capabilities.performanceLevel !== 'unavailable';
 }

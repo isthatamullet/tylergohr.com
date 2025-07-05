@@ -14,7 +14,7 @@
 'use client';
 
 import React, { useRef, useMemo, useState, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { SceneErrorBoundary } from '../Scene/SceneErrorBoundary';
 import { isWebGLReady, getWebGLConfig, isMobileDevice } from '../../lib/webgl-detection';
@@ -29,6 +29,14 @@ interface ParticleConfig {
   speed: number;
   connectionDistance: number;
   mouseInfluence: number;
+}
+
+/**
+ * Mouse interaction state
+ */
+interface MouseState {
+  position: THREE.Vector3;
+  isActive: boolean;
 }
 
 /**
@@ -55,16 +63,17 @@ function getParticleConfig(): ParticleConfig {
 }
 
 /**
- * Individual Particle Component with Enhanced Physics
+ * Individual Particle Component with Enhanced Physics and Mouse Interaction
  */
 interface ParticleProps {
   position: THREE.Vector3;
   index: number;
   config: ParticleConfig;
   nodeType: 'primary' | 'secondary' | 'tertiary';
+  mouseState: MouseState;
 }
 
-function Particle({ position, index, config, nodeType }: ParticleProps) {
+function Particle({ position, index, config, nodeType, mouseState }: ParticleProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const basePosition = useMemo(() => position.clone(), [position]);
   
@@ -82,34 +91,47 @@ function Particle({ position, index, config, nodeType }: ParticleProps) {
     };
   }, [index]);
   
-  // Node-specific properties
+  // Enhanced skill-based color properties
   const nodeProperties = useMemo(() => {
     switch (nodeType) {
       case 'primary':
         return {
-          color: '#22c55e',      // Brighter green for primary nodes
-          size: 1.2,             // Larger size
-          opacity: 0.9,          // Higher opacity
-          pulseIntensity: 0.15   // Stronger pulse
+          color: '#10b981',      // Emerald green for central expertise hub
+          size: 1.4,             // Larger size for importance
+          opacity: 0.95,         // Highest opacity
+          pulseIntensity: 0.18   // Strongest pulse for attention
         };
       case 'secondary':
+        // Different shades for different enterprise domains
+        const secondaryColors = ['#22c55e', '#16a34a', '#059669', '#047857']; // Green variations
+        const colorIndex = index % secondaryColors.length;
         return {
-          color: '#16a34a',      // Standard green for secondary nodes
-          size: 1.0,             // Standard size
-          opacity: 0.8,          // Standard opacity
-          pulseIntensity: 0.1    // Medium pulse
+          color: secondaryColors[colorIndex], // Varied enterprise node colors
+          size: 1.1,             // Medium-large size
+          opacity: 0.85,         // High opacity
+          pulseIntensity: 0.12   // Medium-strong pulse
         };
       case 'tertiary':
+        // Skill category colors (more varied for visual interest)
+        const skillColors = [
+          '#06b6d4',  // Cyan - Frontend/React
+          '#8b5cf6',  // Purple - Backend/API
+          '#f59e0b',  // Amber - DevOps/Cloud
+          '#ef4444',  // Red - Performance/Optimization
+          '#84cc16',  // Lime - Testing/QA
+          '#6366f1'   // Indigo - AI/ML
+        ];
+        const skillIndex = index % skillColors.length;
         return {
-          color: '#15803d',      // Darker green for tertiary nodes
-          size: 0.7,             // Smaller size
-          opacity: 0.6,          // Lower opacity
-          pulseIntensity: 0.08   // Subtle pulse
+          color: skillColors[skillIndex], // Technical skill-based colors
+          size: 0.8,             // Smaller but visible
+          opacity: 0.7,          // Medium opacity
+          pulseIntensity: 0.06   // Subtle pulse
         };
     }
-  }, [nodeType]);
+  }, [nodeType, index]);
   
-  // Enhanced floating animation with orbital motion
+  // Enhanced floating animation with orbital motion and mouse interaction
   useFrame((state) => {
     if (!meshRef.current) return;
     
@@ -129,14 +151,50 @@ function Particle({ position, index, config, nodeType }: ParticleProps) {
     const orbitalX = Math.cos(orbitalTime + index) * movementPattern.orbitalRadius;
     const orbitalY = Math.sin(orbitalTime + index) * movementPattern.orbitalRadius;
     
-    // Apply combined motion
-    mesh.position.x = basePosition.x + floatX + orbitalX;
-    mesh.position.y = basePosition.y + floatY + orbitalY;
+    // Mouse interaction - particle attraction
+    let mouseInfluenceX = 0;
+    let mouseInfluenceY = 0;
+    
+    if (mouseState.isActive) {
+      const currentPos = new THREE.Vector3(
+        basePosition.x + floatX + orbitalX,
+        basePosition.y + floatY + orbitalY,
+        basePosition.z + floatZ
+      );
+      
+      const distance = currentPos.distanceTo(mouseState.position);
+      const maxInfluenceDistance = config.mouseInfluence;
+      
+      if (distance < maxInfluenceDistance) {
+        const influenceStrength = (1 - distance / maxInfluenceDistance) * 0.3; // Subtle attraction
+        const direction = new THREE.Vector3()
+          .subVectors(mouseState.position, currentPos)
+          .normalize();
+        
+        mouseInfluenceX = direction.x * influenceStrength;
+        mouseInfluenceY = direction.y * influenceStrength;
+      }
+    }
+    
+    // Apply combined motion (base + orbital + mouse influence)
+    mesh.position.x = basePosition.x + floatX + orbitalX + mouseInfluenceX;
+    mesh.position.y = basePosition.y + floatY + orbitalY + mouseInfluenceY;
     mesh.position.z = basePosition.z + floatZ;
     
-    // Enhanced pulsing with node-specific intensity
+    // Enhanced pulsing with node-specific intensity and mouse proximity boost
     const pulseTime = time * movementPattern.pulseFreq + timeOffset;
-    const pulseScale = 1 + Math.sin(pulseTime) * nodeProperties.pulseIntensity;
+    let pulseIntensity = nodeProperties.pulseIntensity;
+    
+    // Boost pulse when mouse is nearby
+    if (mouseState.isActive) {
+      const currentPos = mesh.position;
+      const distance = currentPos.distanceTo(mouseState.position);
+      if (distance < config.mouseInfluence * 0.5) {
+        pulseIntensity += 0.1; // Subtle pulse boost on mouse proximity
+      }
+    }
+    
+    const pulseScale = 1 + Math.sin(pulseTime) * pulseIntensity;
     mesh.scale.setScalar(nodeProperties.size * pulseScale);
   });
 
@@ -153,14 +211,15 @@ function Particle({ position, index, config, nodeType }: ParticleProps) {
 }
 
 /**
- * Enhanced Connection Lines Component with Dynamic Animation
+ * Enhanced Connection Lines Component with Dynamic Animation and Hover Effects
  */
 interface ConnectionsProps {
   particles: { position: THREE.Vector3; nodeType: 'primary' | 'secondary' | 'tertiary' }[];
   config: ParticleConfig;
+  mouseState: MouseState;
 }
 
-function Connections({ particles, config }: ConnectionsProps) {
+function Connections({ particles, config, mouseState }: ConnectionsProps) {
   const linesRef = useRef<THREE.LineSegments>(null);
   const materialRef = useRef<THREE.LineBasicMaterial>(null);
   
@@ -221,18 +280,55 @@ function Connections({ particles, config }: ConnectionsProps) {
     return new THREE.BufferGeometry().setFromPoints(connectionData.points);
   }, [connectionData.points]);
   
-  // Animate connection opacity for flowing effect
+  // Animate connection opacity for flowing effect with hover enhancement
   useFrame((state) => {
     if (!materialRef.current) return;
     
     const time = state.clock.elapsedTime;
-    // Subtle pulsing opacity for "data flow" effect
+    
+    // Base pulsing opacity for "data flow" effect
     const baseOpacity = 0.25;
     const pulseIntensity = 0.15;
     const pulseSpeed = 0.8;
     
-    const opacity = baseOpacity + Math.sin(time * pulseSpeed) * pulseIntensity;
-    materialRef.current.opacity = Math.max(0.1, Math.min(0.5, opacity));
+    let finalOpacity = baseOpacity + Math.sin(time * pulseSpeed) * pulseIntensity;
+    
+    // Enhance opacity when mouse is near any connection
+    if (mouseState.isActive) {
+      const hoverRadius = config.mouseInfluence * 0.3; // Smaller radius for connection hover
+      let nearConnection = false;
+      
+      // Check if mouse is near any connection line
+      for (let i = 0; i < connectionData.connections.length; i++) {
+        const conn = connectionData.connections[i];
+        
+        // Calculate closest point on line to mouse position
+        const lineStart = conn.start;
+        const lineEnd = conn.end;
+        const lineVector = new THREE.Vector3().subVectors(lineEnd, lineStart);
+        const startToMouse = new THREE.Vector3().subVectors(mouseState.position, lineStart);
+        
+        const lineLength = lineVector.length();
+        const projectionLength = Math.max(0, Math.min(lineLength, startToMouse.dot(lineVector) / lineLength));
+        
+        const closestPoint = new THREE.Vector3()
+          .copy(lineStart)
+          .add(lineVector.normalize().multiplyScalar(projectionLength));
+        
+        const distanceToLine = mouseState.position.distanceTo(closestPoint);
+        
+        if (distanceToLine < hoverRadius) {
+          nearConnection = true;
+          break;
+        }
+      }
+      
+      if (nearConnection) {
+        finalOpacity = Math.min(0.8, finalOpacity + 0.4); // Boost opacity on hover
+      }
+    }
+    
+    materialRef.current.opacity = Math.max(0.1, Math.min(0.8, finalOpacity));
   });
   
   return (
@@ -248,7 +344,57 @@ function Connections({ particles, config }: ConnectionsProps) {
 }
 
 /**
- * Main 3D Scene Component
+ * Mouse Tracker Component - Tracks mouse position in 3D space
+ */
+function MouseTracker({ onMouseMove }: { onMouseMove: (mouseState: MouseState) => void }) {
+  const { camera } = useThree();
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      const rect = (event.target as HTMLElement)?.getBoundingClientRect();
+      if (!rect) return;
+
+      // Convert mouse coordinates to normalized device coordinates (-1 to +1)
+      const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+      // Convert to 3D world coordinates at z=0 plane
+      const mouse3D = new THREE.Vector3(x, y, 0);
+      mouse3D.unproject(camera);
+      
+      // Scale to match particle coordinate system
+      mouse3D.multiplyScalar(0.2);
+
+      onMouseMove({
+        position: mouse3D,
+        isActive: true
+      });
+    };
+
+    const handleMouseLeave = () => {
+      onMouseMove({
+        position: new THREE.Vector3(0, 0, 0),
+        isActive: false
+      });
+    };
+
+    const canvas = document.querySelector('canvas');
+    if (canvas) {
+      canvas.addEventListener('mousemove', handleMouseMove);
+      canvas.addEventListener('mouseleave', handleMouseLeave);
+      
+      return () => {
+        canvas.removeEventListener('mousemove', handleMouseMove);
+        canvas.removeEventListener('mouseleave', handleMouseLeave);
+      };
+    }
+  }, [camera, onMouseMove]);
+
+  return null; // This component only handles events, no visual output
+}
+
+/**
+ * Main 3D Scene Component with Mouse Interaction
  */
 interface NetworkScene3DProps {
   webglConfig: {
@@ -261,6 +407,12 @@ interface NetworkScene3DProps {
 
 function NetworkScene3D({ webglConfig }: NetworkScene3DProps) {
   const config = useMemo(() => getParticleConfig(), []);
+  
+  // Mouse interaction state
+  const [mouseState, setMouseState] = useState<MouseState>({
+    position: new THREE.Vector3(0, 0, 0),
+    isActive: false
+  });
   
   // Performance-based lighting configuration
   const lightingIntensity = useMemo(() => {
@@ -356,11 +508,14 @@ function NetworkScene3D({ webglConfig }: NetworkScene3DProps) {
 
   return (
     <>
+      {/* Mouse interaction tracking */}
+      <MouseTracker onMouseMove={setMouseState} />
+      
       {/* Performance-based ambient lighting */}
       <ambientLight intensity={lightingIntensity} />
       <pointLight position={[10, 10, 10]} intensity={lightingIntensity * 0.7} />
       
-      {/* Enhanced particle system with node types */}
+      {/* Enhanced particle system with mouse interaction */}
       {particles.map((particle, index) => (
         <Particle
           key={particle.id}
@@ -368,11 +523,12 @@ function NetworkScene3D({ webglConfig }: NetworkScene3DProps) {
           index={index}
           config={config}
           nodeType={particle.nodeType}
+          mouseState={mouseState}
         />
       ))}
       
-      {/* Enhanced connection lines with priority-based rendering */}
-      <Connections particles={particles} config={config} />
+      {/* Enhanced connection lines with hover effects */}
+      <Connections particles={particles} config={config} mouseState={mouseState} />
     </>
   );
 }
