@@ -317,3 +317,8 @@ Bash(time npm run test:e2e:smoke)
 
 Bash(npm run dev &)
   ⎿  Error: Command timed out after 2m 0.0s  ⚠ Port 3000 is in use, using available port 3002 instead.
+
+
+
+Bash(npm run dev &)
+  ⎿  Error: Command timed out after 2m 0.0s

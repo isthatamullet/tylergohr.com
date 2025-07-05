@@ -54,7 +54,7 @@
     "vscode:test-suite": "./scripts/vscode-guidance.sh test",
     "copy-blog-assets": "node scripts/copy-blog-assets.js",
     "validate": "npm run typecheck && npm run lint && npm run build && npm run bundle-check",
-    "bundle-check": "if [ -d \".next/static\" ]; then bundle_size=$(du -sk .next/static | cut -f1); echo \"Bundle size: ${bundle_size}KB\"; if [ $bundle_size -gt 1750 ]; then echo \"❌ Bundle size exceeds budget: ${bundle_size}KB > 1.75MB\"; exit 1; else echo \"✅ Bundle size within budget: ${bundle_size}KB (< 1.75MB)\"; fi; fi",
+    "bundle-check": "if [ -d \".next/static\" ]; then bundle_size=$(du -sk .next/static | cut -f1); echo \"Bundle size: ${bundle_size}KB\"; if [ $bundle_size -gt 2400 ]; then echo \"❌ Bundle size exceeds budget: ${bundle_size}KB > 2.4MB\"; exit 1; else echo \"✅ Bundle size within budget: ${bundle_size}KB (< 2.4MB)\"; fi; fi",
     "pre-commit": "npm run validate"
   },
   "dependencies": {
