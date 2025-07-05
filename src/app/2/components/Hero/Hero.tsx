@@ -38,7 +38,9 @@ export default function Hero() {
               className={styles.heroImage}
               width={580}
               height={400}
-              priority={true}
+              priority
+              loading="eager"
+              sizes="(max-width: 768px) 100vw, 580px"
             />
             
             {/* Cloud layer 1 - floating on top */}
@@ -49,6 +51,8 @@ export default function Hero() {
               width={580}
               height={400}
               aria-hidden="true"
+              loading="eager"
+              sizes="(max-width: 768px) 100vw, 580px"
             />
             
             {/* Cloud layer 2 - floating on top */}
@@ -59,6 +63,8 @@ export default function Hero() {
               width={580}
               height={400}
               aria-hidden="true"
+              loading="eager"
+              sizes="(max-width: 768px) 100vw, 580px"
             />
             
             {/* Cloud layer 3 - floating on top */}
@@ -69,6 +75,8 @@ export default function Hero() {
               width={580}
               height={400}
               aria-hidden="true"
+              loading="eager"
+              sizes="(max-width: 768px) 100vw, 580px"
             />
           </div>
         </div>
