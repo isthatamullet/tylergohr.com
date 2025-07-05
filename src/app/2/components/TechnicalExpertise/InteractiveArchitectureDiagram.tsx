@@ -16,7 +16,7 @@
 'use client';
 
 import React, { useRef, useMemo, useState, useEffect } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import * as THREE from 'three';
 import { SceneErrorBoundary } from '../Scene/SceneErrorBoundary';
@@ -425,11 +425,10 @@ function ArchitectureNodeMesh({
  */
 interface ConnectionsProps {
   nodes: ArchitectureNode[];
-  config: DiagramConfig;
   interactionState: InteractionState;
 }
 
-function ArchitectureConnections({ nodes, config, interactionState }: ConnectionsProps) {
+function ArchitectureConnections({ nodes, interactionState }: ConnectionsProps) {
   const linesRef = useRef<THREE.LineSegments>(null);
   const materialRef = useRef<THREE.LineBasicMaterial>(null);
   
@@ -488,16 +487,17 @@ function ArchitectureConnections({ nodes, config, interactionState }: Connection
  * Enhanced Camera Controls with OrbitControls
  */
 interface CameraControlsProps {
-  config: DiagramConfig;
   isAutoRotate?: boolean;
 }
 
-function EnhancedCameraControls({ config, isAutoRotate = true }: CameraControlsProps) {
+function EnhancedCameraControls({ isAutoRotate = true }: CameraControlsProps) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const controlsRef = useRef<any>(null);
   
   // Configure OrbitControls settings based on device capabilities
   const controlsConfig = useMemo(() => {
     const isMobile = isMobileDevice();
+    const cameraDistance = isMobile ? 15 : 20; // Mobile vs desktop distance
     
     return {
       enablePan: !isMobile, // Disable pan on mobile for better UX
@@ -505,8 +505,8 @@ function EnhancedCameraControls({ config, isAutoRotate = true }: CameraControlsP
       enableRotate: true,
       autoRotate: isAutoRotate,
       autoRotateSpeed: 0.5, // Slow automatic rotation
-      minDistance: config.cameraDistance * 0.5, // Allow zooming in
-      maxDistance: config.cameraDistance * 2, // Limit zoom out
+      minDistance: cameraDistance * 0.5, // Allow zooming in
+      maxDistance: cameraDistance * 2, // Limit zoom out
       maxPolarAngle: Math.PI * 0.8, // Prevent camera from going under the diagram
       minPolarAngle: Math.PI * 0.1, // Prevent camera from going directly above
       dampingFactor: 0.05, // Smooth camera movement
@@ -516,7 +516,7 @@ function EnhancedCameraControls({ config, isAutoRotate = true }: CameraControlsP
       panSpeed: 0.8,
       target: new THREE.Vector3(0, 0, 0) // Look at center of diagram
     };
-  }, [config.cameraDistance, isAutoRotate]);
+  }, [isAutoRotate]);
 
   return (
     <OrbitControls
@@ -710,7 +710,6 @@ function ArchitectureScene({ webglConfig, onNodeSelect, onNodeHover }: Architect
       
       {/* Enhanced Camera Controls with OrbitControls */}
       <EnhancedCameraControls 
-        config={config} 
         isAutoRotate={!isUserInteracting}
       />
       
@@ -730,7 +729,6 @@ function ArchitectureScene({ webglConfig, onNodeSelect, onNodeHover }: Architect
       {/* Connection Lines */}
       <ArchitectureConnections 
         nodes={nodes} 
-        config={config} 
         interactionState={interactionState} 
       />
       
