@@ -18,6 +18,9 @@ const Footer = lazy(() => import('@/app/2/components/Footer/Footer'))
 // Lazy load the scroll-enhanced 3D architecture diagram for performance - Phase 3.2 Day 2
 const ScrollEnhancedInteractiveArchitectureDiagram = lazy(() => import('@/app/2/components/TechnicalExpertise/ScrollEnhancedArchitectureDiagram'))
 
+// Lazy load live code demonstrations for performance - Phase 3.2 Day 5
+const ScrollIntegratedLiveCode = lazy(() => import('@/app/2/components/LiveCode/ScrollIntegratedLiveCode'))
+
 interface TechnicalArea {
   id: string
   title: string
@@ -402,6 +405,32 @@ function TechnicalExpertisePageContent() {
             </div>
           </div>
         </WebGLParallax>
+      </Section>
+
+      {/* Live Code Demonstrations Section - Phase 3.2 Day 5 */}
+      <Section background="hero" paddingY="xl">
+        <div 
+          ref={(el) => { sectionRefs.current['live-code'] = el }}
+          data-section-id="live-code"
+          data-testid="live-code-section"
+          className={`${styles.liveCodeSection} ${visibleSections.has('live-code') ? styles.revealed : ''}`}
+        >
+          <Suspense fallback={
+            <div className={styles.liveCodeFallback}>
+              <div className={styles.loadingContainer}>
+                <div className={styles.loadingSpinner}></div>
+                <p>Loading interactive live code demonstrations...</p>
+              </div>
+            </div>
+          }>
+            <ScrollIntegratedLiveCode 
+              enableAutoplay={true}
+              autoplayInterval={20000}
+              enableScrollTriggers={true}
+              className={styles.scrollIntegratedLiveCode}
+            />
+          </Suspense>
+        </div>
       </Section>
 
       {/* Call to Action Section */}

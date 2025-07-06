@@ -511,3 +511,65 @@
   padding: 0 !important;
   margin: 0 !important;
 }
+
+/* ==========================================================================
+   LIVE CODE DEMONSTRATIONS SECTION - Phase 3.2 Day 5
+   ========================================================================== */
+
+.liveCodeSection {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+  transition-delay: 0.8s;
+  
+  /* Performance optimization */
+  will-change: transform, opacity;
+}
+
+.liveCodeSection.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scrollIntegratedLiveCode {
+  /* Integration with existing theme */
+  background: transparent;
+  padding: 0;
+}
+
+.liveCodeFallback {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.liveCodeFallback .loadingContainer {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.liveCodeFallback .loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid #10b981;
+  border-radius: 50%;
+  animation: liveCodeSpinner 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes liveCodeSpinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.liveCodeFallback p {
+  margin: 0;
+  font-size: var(--text-base);
+  font-family: var(--font-family-primary);
+}

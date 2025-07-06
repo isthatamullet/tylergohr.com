@@ -203,6 +203,9 @@ FORCE_SUBAGENT=true npm run dev:enhanced              # Block direct execution
 
 ### **Claude Code Instance Integration**
 
+#### **⚠️ Cross-Session Limitation Alert**
+**IMPORTANT**: The hooks system alerts may only be visible in the original Claude session that configured them. If you're experiencing 2-minute timeouts despite this system, see **@CROSS-SESSION-TIMEOUT-PREVENTION-GUIDE.md** for enhanced commands and reliable Agent tool patterns.
+
 #### **🚨 Priority Alert System**
 When `CLAUDE_AUTO_SUBAGENT=true` is set, Claude Code instances will see high-priority alerts:
 ```bash
@@ -272,6 +275,7 @@ For detailed information on specific topics, Claude Code instances should refere
 - **@docs/DEPLOYMENT.md** - Google Cloud Run deployment, staging, production procedures
 - **@docs/CLAUDE-WORKFLOWS.md** - Claude Code optimization patterns, sub-agent integration
 - **@docs/DEVELOPMENT.md** - Daily development workflows, /2 context switching
+- **@CROSS-SESSION-TIMEOUT-PREVENTION-GUIDE.md** - Cross-session timeout issues and enhanced command solutions
 
 ### **Documentation Restructure Methodology**
 This documentation structure follows a systematic restructure plan that transformed CLAUDE.md from 2000+ lines into a focused 500-line "command center" with specialized reference files.
@@ -303,6 +307,9 @@ This documentation structure follows a systematic restructure plan that transfor
 
 # Daily development patterns
 → @docs/DEVELOPMENT.md
+
+# Experiencing 2-minute timeouts or cross-session issues
+→ @CROSS-SESSION-TIMEOUT-PREVENTION-GUIDE.md
 ```
 
 ## /2 Architecture Overview
@@ -495,6 +502,8 @@ npm run test:e2e:portfolio                              # Full /2 validation
 - **Complexity score ≥8** = High likelihood Agent tool needed  
 - **Timeout-prone patterns**: `npm run test:e2e:smoke`, `playwright test`, `npm run dev`
 - **🚨 CLAUDE CODE:** prefix = Immediate Agent tool usage required
+
+**⚠️ Experiencing 2-minute timeouts?** Use enhanced commands: `npm run dev:enhanced`, `npm run test:e2e:smoke:enhanced` or see **@CROSS-SESSION-TIMEOUT-PREVENTION-GUIDE.md**
 
 *For complete Claude Code optimization patterns, see @docs/CLAUDE-WORKFLOWS.md*
 
