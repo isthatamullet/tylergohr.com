@@ -488,3 +488,13 @@ Bash(npm run test:e2e:smoke)
 ✻ Thinking…
 
   The test failed because the development server isn't running. Let me start the dev server first:
+
+
+
+
+
+
+
+what is this command?
+│   ide:getDiagnostics() (MCP)                                                                                            │
+│   Get language diagnostics from VS Code                                                                                 │

@@ -6,10 +6,10 @@ import { useSearchParams } from 'next/navigation'
 import { Section } from '@/app/2/components/Section/Section'
 import { BrowserTabs, TechnicalExpertiseContent } from '@/app/2/components/BrowserTabs'
 import type { TabData } from '@/app/2/components/BrowserTabs'
-import { ScrollControllerProvider } from '@/app/2/components/ScrollEffects/ScrollController'
-import { ScrollSectionsProvider } from '@/app/2/components/ScrollEffects/ScrollSections'
 import { WebGLParallax } from '@/app/2/components/ScrollEffects/WebGLParallax'
 import { Optimized3DInteractionArea, useMobileScrollOptimizer } from '@/app/2/components/ScrollEffects/MobileScrollOptimizer'
+import { useScrollEffectsPerformanceOptimizer, PerformanceOptimizerDisplay } from '@/app/2/components/ScrollEffects/ScrollEffectsPerformanceOptimizer'
+import { ScrollEffectsIntegrationWrapper } from '@/app/2/components/ScrollEffects/Day4IntegrationTest'
 import styles from './page.module.css'
 
 // Lazy load footer for better performance
@@ -209,6 +209,9 @@ function TechnicalExpertisePageContent() {
   
   // Mobile optimization for 3D interaction - Phase 3.2 Day 3
   const mobileOptimizer = useMobileScrollOptimizer()
+  
+  // Performance optimization for scroll effects - Phase 3.2.4 Day 4 Task 2
+  const performanceOptimizer = useScrollEffectsPerformanceOptimizer()
 
   // Map URL tab parameters to actual technical area IDs
   const tabMapping = {
@@ -230,10 +233,16 @@ function TechnicalExpertisePageContent() {
 
   const [defaultTab] = useState<string>(getDefaultTab)
 
-  // Intersection Observer for scroll-triggered animations
+  // Intersection Observer for scroll-triggered animations with performance optimization
   useEffect(() => {
+    // Start performance monitoring when page loads
+    performanceOptimizer.startOptimization()
+    
     const observer = new IntersectionObserver(
       (entries) => {
+        // Track scroll events for performance optimization
+        performanceOptimizer.trackScrollEvent()
+        
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const sectionId = entry.target.getAttribute('data-section-id')
@@ -256,8 +265,11 @@ function TechnicalExpertisePageContent() {
       if (ref) observer.observe(ref)
     })
 
-    return () => observer.disconnect()
-  }, [])
+    return () => {
+      observer.disconnect()
+      performanceOptimizer.stopOptimization()
+    }
+  }, [performanceOptimizer])
 
   // Transform technical areas data into tab format
   const technicalExpertiseTabs: TabData[] = technicalAreas.map((area) => {
@@ -423,19 +435,26 @@ function TechnicalExpertisePageContent() {
       <Suspense fallback={<div>Loading footer...</div>}>
         <Footer />
       </Suspense>
+      
+      {/* Performance Optimization Display - Phase 3.2.4 Day 4 Task 2 */}
+      <PerformanceOptimizerDisplay 
+        position="bottom-right" 
+        className="technical-expertise-performance-monitor" 
+      />
     </>
   )
 }
 
-// Main page component with Suspense boundary and scroll integration - Phase 3.2 Day 3
+// Main page component with Suspense boundary and scroll integration - Phase 3.2.4 Day 4
 export default function TechnicalExpertiseDetailPage() {
   return (
-    <ScrollControllerProvider enableAdvancedFeatures={true}>
-      <ScrollSectionsProvider enableStorytellingMode={true}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <TechnicalExpertisePageContent />
-        </Suspense>
-      </ScrollSectionsProvider>
-    </ScrollControllerProvider>
+    <ScrollEffectsIntegrationWrapper 
+      enableTesting={process.env.NODE_ENV === 'development'}
+      className="technical-expertise-scroll-integration"
+    >
+      <Suspense fallback={<div>Loading...</div>}>
+        <TechnicalExpertisePageContent />
+      </Suspense>
+    </ScrollEffectsIntegrationWrapper>
   )
 }

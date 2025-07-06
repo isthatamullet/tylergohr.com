@@ -14,6 +14,6 @@
   - button "Navigate to Process section": Process
   - button "Navigate to Skills section": Skills
   - button "Navigate to Contact section": Contact
-  - button "Open navigation menu"
-- text: Loading...
+- text: Loading... 🧪 Day 4 Integration Test
+- button "Run Integration Tests"
 ```

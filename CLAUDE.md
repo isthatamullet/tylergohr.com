@@ -259,33 +259,53 @@ ELSE:
 # Output: [Analysis + recommendations + execution]
 ```
 
-## /2 Architecture & File Structure
+## 📚 Documentation Guide
 
-### **Directory Structure**
+### **Specialized Documentation Files**
+For detailed information on specific topics, Claude Code instances should reference these dedicated files:
+
+- **@docs/TESTING.md** - Complete testing workflows (Playwright, Puppeteer, fast development patterns)
+- **@docs/HOOKS.md** - Hook system orchestrator, installation, debugging, performance monitoring
+- **@docs/COMMANDS.md** - All available commands with usage scenarios and examples
+- **@docs/TROUBLESHOOTING.md** - Common issues, solutions, and emergency recovery procedures
+- **@docs/ARCHITECTURE.md** - Technical architecture, /2 component structure, brand tokens system
+- **@docs/DEPLOYMENT.md** - Google Cloud Run deployment, staging, production procedures
+- **@docs/CLAUDE-WORKFLOWS.md** - Claude Code optimization patterns, sub-agent integration
+- **@docs/DEVELOPMENT.md** - Daily development workflows, /2 context switching
+
+### **Documentation Restructure Methodology**
+This documentation structure follows a systematic restructure plan that transformed CLAUDE.md from 2000+ lines into a focused 500-line "command center" with specialized reference files.
+
+*For the complete restructure methodology and rationale, see @docs/scratchpad/documentation-restructure-plan-2025-01-06.md*
+
+### **When to Use Each File**
+```bash
+# Testing issues or running tests
+→ @docs/TESTING.md
+
+# Hook system problems or timeout prevention
+→ @docs/HOOKS.md
+
+# Need specific command syntax or options
+→ @docs/COMMANDS.md
+
+# Something is broken or not working
+→ @docs/TROUBLESHOOTING.md
+
+# Architecture questions or component structure
+→ @docs/ARCHITECTURE.md
+
+# Deployment or production issues
+→ @docs/DEPLOYMENT.md
+
+# Claude Code workflow optimization
+→ @docs/CLAUDE-WORKFLOWS.md
+
+# Daily development patterns
+→ @docs/DEVELOPMENT.md
 ```
-src/app/2/
-├── components/           # /2 redesign components
-│   ├── Hero/            # Enterprise Solutions intro
-│   ├── About/           # Network animation & background
-│   ├── Results/         # Measurable business impact metrics
-│   ├── CaseStudies/     # 4 interactive preview cards
-│   ├── HowIWork/        # 4 process highlight cards  
-│   ├── TechnicalExpertise/ # 4 glassmorphism skill cards
-│   ├── Contact/         # Dual-column form & info
-│   ├── Navigation/      # /2-specific navigation system
-│   ├── BrowserTabs/     # Cross-page browser tab UI
-│   └── ui/              # Shared UI components (Button, Card)
-├── hooks/               # /2-specific React hooks
-├── lib/                 # Framer Motion client wrapper
-├── styles/              # Brand tokens & /2-specific styling
-│   └── brand-tokens.css # Complete design system
-├── case-studies/        # Detail page for case studies
-├── how-i-work/          # Detail page for work process
-├── technical-expertise/ # Detail page for technical skills
-├── layout.tsx           # /2-specific layout with Enterprise metadata
-├── page.tsx             # Main /2 homepage
-└── template.tsx         # /2 page transitions
-```
+
+## /2 Architecture Overview
 
 ### **Route Structure**
 - **Main**: `/2` - Enterprise Solutions Architect homepage
@@ -293,602 +313,191 @@ src/app/2/
 - **How I Work**: `/2/how-i-work` - Process methodology deep dive
 - **Technical Expertise**: `/2/technical-expertise` - Comprehensive skills demonstration
 
-## Essential Development Commands - /2 Specific
+*For complete architecture details, see @docs/ARCHITECTURE.md*
 
-### **Standard Development Workflow**
+## Essential Development Commands
+
+### **Daily Development Workflow**
 ```bash
-# Development (same as main project)
-npm run dev                 # Next.js dev server (localhost:3000)
-npm run build              # Production build test
-npm run validate           # 🔥 MANDATORY before commits
+# Start development
+npm run dev                 # Smart development server with auto port detection
+npm run validate           # 🔥 MANDATORY before commits (typecheck + lint + build)
 
-# 🚀 FAST DEVELOPMENT TESTING (/2 Optimized - New)
-npm run test:e2e:dev                    # Functional testing, skip visual regression (2-3min)
-npm run test:e2e:smoke                  # Essential tests only for quick validation (<1min)
-npm run test:e2e:debug                  # Enhanced headed mode for interactive debugging
+# Fast testing during development
+npm run test:e2e:smoke     # Quick validation (<1min)
+npm run test:e2e:dev       # Functional testing (2-3min, skip visual)
 
-# 📸 CLAUDE VISUAL REVIEW (/2 Specific - New)
-npx playwright test e2e/quick-screenshots.spec.ts --project=chromium  # Fast, reliable screenshots (2-3min)
-npm run test:e2e:claude-review          # Complete /2 page set across viewports (complex, use if quick fails)
-npm run test:e2e:screenshot             # Quick /2 full page capture (complex, use if quick fails)
-npm run test:e2e:preview                # Pre-commit /2 visual preview
+# Visual review for Claude
+npx playwright test e2e/quick-screenshots.spec.ts --project=chromium  # RECOMMENDED
 
-# /2-Specific Testing Commands (Comprehensive)
-npm run test:e2e:portfolio              # /2 redesign E2E tests
-npm run test:e2e:navigation             # /2 navigation comprehensive tests
-npm run test:e2e:visual                 # Visual consistency tests for /2
-npm run test:e2e:mobile                 # /2 mobile responsiveness tests
-
-# Cross-browser testing for /2
-npm run test:e2e:chrome                 # Chrome-specific /2 tests
-npm run test:e2e:firefox                # Firefox compatibility /2
-npm run test:e2e:safari                 # Safari compatibility /2
+# Environment setup for manual commands
+eval "$(./scripts/detect-active-port.sh quiet export)"  # Set ACTIVE_DEV_PORT and ACTIVE_DEV_URL
 ```
 
-### **Quality Gates - Same Infrastructure**
-```bash
-# MANDATORY before every commit:
-npm run validate    # Runs: typecheck && lint && build (Jest removed)
+*For complete command reference, see @docs/COMMANDS.md*
 
-# Post-development testing:
-npm run test:e2e:portfolio         # /2-specific E2E validation
-npm run test:e2e:visual            # Visual regression for /2 components
+## Brand System & Architecture
 
-# Visual testing for /2 changes:
-npm run test:e2e:visual    # Playwright visual regression for /2
-```
-
-## Brand System - Enterprise Solutions Architect
-
-### **Color Palette (/2/styles/brand-tokens.css)**
-```css
-/* Section-Specific Colors */
---hero-bg: #0a0a0a           /* Hero - Pure black */
---about-bg: #1a1a1a          /* About - Dark grey */
---results-bg: #10b981        /* Results - Bright green (success) */
---case-studies-bg: #1d4ed8   /* Case Studies - Navy blue */
---how-i-work-bg: #ec4899     /* How I Work - Hot pink */
---contact-bg: #fbbf24        /* Contact - Bright yellow */
-
-/* Typography */
---font-family-primary: 'JetBrains Mono', monospace
---text-on-dark: #ffffff      /* Primary text on dark sections */
---text-on-light: #000000     /* Text on bright sections */
-```
-
-### **Typography System**
+### **Brand Tokens System**
+- **Design System**: `src/app/2/styles/brand-tokens.css` (🛡️ PROTECTED FILE)
 - **Primary Font**: JetBrains Mono (developer-focused monospace)
-- **Scale**: Responsive clamp() system (mobile-first)
-- **Weight Scale**: 400 (body) → 500 (subheads) → 600 (emphasis) → 700 (titles)
+- **Color Strategy**: Section-specific backgrounds (black/grey/green/blue/pink/yellow)
+- **Responsive**: Mobile-first clamp() system
 
-### **Responsive Design**
-- **Mobile**: 320px base design
-- **Tablet**: 768px (iPad breakpoint)
-- **Desktop**: 1200px (laptop/desktop)
-- **Wide**: 1400px (large monitors)
+### **Component Architecture Pattern**
+- **Preview → Detail**: Homepage previews link to dedicated detail pages
+- **BrowserTabs Navigation**: Cross-page tab simulation
+- **Interactive Elements**: Network animations, metric cards, glassmorphism effects
 
-## /2 Component Architecture
+*For complete brand and architecture details, see @docs/ARCHITECTURE.md*
 
-### **Preview/Detail Pattern**
-Each major section follows a consistent preview → detail pattern:
+## Development Protocols
 
-1. **Preview Components** (on `/2` homepage):
-   - `CaseStudiesPreview` - 4 interactive project cards
-   - `HowIWorkPreview` - 7 process highlight steps in descending staircase design
-   - `TechnicalExpertisePreview` - 4 glassmorphism skill cards
-
-2. **Detail Pages** (dedicated routes):
-   - `/2/case-studies` - Full project case studies
-   - `/2/how-i-work` - Complete process methodology
-   - `/2/technical-expertise` - Comprehensive technical showcase
-
-### **Cross-Page Navigation System**
-- **BrowserTabs Component**: Simulates browser tab navigation
-- **Active Link Detection**: Scroll-based navigation state management
-- **Dropdown Menu**: Hover-enhanced navigation for detail pages
-
-### **Key Interactive Elements**
-- **Network Animation**: About section dynamic node connections
-- **Metric Cards**: Animated business impact statistics
-- **Glassmorphism**: Frosted glass effects for technical expertise
-- **Lazy Loading**: Performance-optimized component loading
-
-## Development Protocols - /2 Specific
-
-### **🔴 MANDATORY Pre-Work Checklist**
-1. **Check GitHub Issues** - Filter for `/2` or "redesign" related tasks
-2. **Read TodoList** - Use TodoRead for current /2 development state
-3. **Test /2 Route** - Always test on localhost:3000/2 during development
-4. **Component Isolation** - Work within `/2` component architecture
-5. **Brand Token Usage** - Use design system from `brand-tokens.css`
-
-### **🚨 /2-Specific Quality Gates**
+### **Context Switching - Main vs /2 Redesign**
 ```bash
-# ⚡ FAST DEVELOPMENT WORKFLOW (New - Primary for Daily Work)
-npm run test:e2e:smoke             # Quick validation before coding (<1min)
-npm run test:e2e:dev               # Functional testing during development (2-3min)
-npm run test:e2e:claude-review:current  # Visual review with Claude
+# /2 Redesign Development
+cd /home/user/tylergohr.com/src/app/2/ && claude code    # Enterprise Solutions Architect context
 
-# 🎯 BEFORE COMMITTING /2 CHANGES:
-npm run validate                    # Standard quality gates (TypeScript + ESLint + Build)
-npm run test:e2e:portfolio         # /2-specific E2E validation (optimized)
-npm run test:e2e:visual            # Visual regression for /2 components
+# Main Portfolio Development  
+cd /home/user/tylergohr.com/ && claude code             # General portfolio context
 
-# 📱 CROSS-DEVICE TESTING FOR /2:
-npm run test:e2e:mobile            # Mobile responsiveness validation
-
-# 🛠️ ENVIRONMENT-AWARE TESTING (New Options):
-SKIP_VISUAL=true npm run test:e2e:portfolio  # Skip visual regression during development
-FAST_MODE=true npm run test:e2e:navigation   # Ultra-fast essential testing
+# Check current development tasks
+gh issue list --label "redesign"                        # /2 development tasks
 ```
 
-### **🔧 Manual Port Detection for Cloud Environments**
-
-**ISSUE SOLVED**: Manual test commands (like `npx playwright test`) now work correctly in cloud environments by automatically detecting the correct port and constructing cloud-aware URLs.
-
-#### **Quick Start for Manual Testing**
+### **Environment Setup for Cloud Development**
 ```bash
-# Set environment variables for current shell
+# Set environment variables for testing (cloud environments)
 eval "$(./scripts/detect-active-port.sh quiet export)"
-
-# Now run any test command - it will use the correct URLs
-npx playwright test e2e/quick-screenshots.spec.ts --project=chromium
-npm run test:e2e:smoke
+# Creates: ACTIVE_DEV_PORT and ACTIVE_DEV_URL for your environment
 ```
-
-#### **Manual Port Detection Commands**
-```bash
-# Interactive mode with full diagnostics
-./scripts/detect-active-port.sh
-
-# Export format for setting environment variables
-./scripts/detect-active-port.sh quiet export
-
-# JSON format for programmatic use
-./scripts/detect-active-port.sh quiet json
-
-# Initialize shell environment automatically
-source ./scripts/init-port-env.sh
-```
-
-#### **Cloud Environment Support**
-The system automatically detects and constructs appropriate URLs for:
-- **Google Cloud Workstations**: `https://3000-tylergohr.cluster-cbx7armcmnaqcxcx5fojjql2bo.cloudworkstations.dev`
-- **GitHub Codespaces**: `https://{codespace}-{port}.preview.app.github.dev`
-- **Gitpod**: `https://{port}-{workspace}.{cluster}`
-- **Local Development**: `http://localhost:{port}`
-
-#### **Integration with Existing Infrastructure**
-- **Reuses Claude Code hooks** when available for consistency
-- **Falls back to standalone detection** when hooks aren't active
-- **Maintains caching** for performance optimization
-- **Zero configuration** required - works automatically
-
-#### **Troubleshooting Manual Commands**
-```bash
-# Check current environment variables
-echo "Port: $ACTIVE_DEV_PORT, URL: $ACTIVE_DEV_URL"
-
-# Re-detect if server port changed
-./scripts/detect-active-port.sh
-eval "$(./scripts/detect-active-port.sh quiet export)"
-
-# Verify server is responding
-curl -s -k "$ACTIVE_DEV_URL" | head -5
-```
-
-### **PR Workflow - /2 Development**
-1. **Create Feature Branch**: `git checkout -b feature/2-short-name` (identify /2 work)
-2. **Develop in /2 Context**: Work within `src/app/2/` architecture
-3. **Test /2 Route**: Validate changes on localhost:3000/2
-4. **Run /2 Tests**: Execute /2-specific test suites
-5. **Create PR**: Include "/2 redesign" context in PR title/description
-6. **Preview URL Testing**: Test full /2 experience on Cloud Run preview
-7. **Cross-Device Validation**: Essential for Enterprise presentation
 
 ### **Branch Naming for /2 Work**
-- ✅ `feature/2-hero` (9 chars) - /2 hero section work
-- ✅ `fix/2-nav` (8 chars) - /2 navigation fixes
-- ✅ `feature/2-case` (12 chars) - /2 case studies
-- ❌ `feature/2-technical-expertise` (29 chars) - too long for Docker tags
+- ✅ `feature/2-hero` - /2 hero section work
+- ✅ `fix/2-nav` - /2 navigation fixes  
+- ❌ `feature/2-technical-expertise` - too long for Docker tags
+
+*For complete development workflows, see @docs/DEVELOPMENT.md*
 
 ## Content Strategy - Enterprise Solutions Architect
 
-### **Brand Voice & Positioning**
-- **Tone**: Confident, results-driven, business-focused
-- **Authority**: Emmy Award recognition, Fox Corporation & Warner Bros experience
+### **Brand Positioning**
 - **Value Proposition**: "Creating powerful digital solutions that solve real business problems"
-- **Technical Depth**: Enterprise architecture with measurable business impact
-- **Credibility**: 16+ years enterprise development, major media industry experience
+- **Authority**: Emmy Award, Fox Corporation & Warner Bros experience (16+ years)
+- **Target Audience**: Enterprise clients, technical decision makers, business stakeholders
+- **Messaging**: Confident, results-driven, business-focused with measurable impact
 
-### **Messaging Hierarchy**
-1. **Hero**: Enterprise Solutions Architect positioning
-2. **About**: Emmy Award background + technical network visualization  
-3. **Results**: Quantified business impact metrics
-4. **Case Studies**: Real project outcomes with business value
-5. **How I Work**: Professional methodology and process
-6. **Technical Expertise**: Comprehensive technology demonstration
-7. **Contact**: Professional engagement and consultation
+*For complete content strategy details, see @docs/DEVELOPMENT.md*
 
-### **SEO Strategy - /2 Specific**
-- **Primary Keywords**: "Enterprise Solutions Architect", "Digital Solutions"
-- **Secondary**: "Emmy Award developer", "Fox Corporation", "Warner Bros"
-- **Technical**: "React", "Next.js", "TypeScript", "Enterprise Architecture"
-- **Business**: "Custom software development", "Business applications"
-
-## Testing Strategy - Playwright-Only Approach (July 2025)
-
-### **🎯 Modern Testing Philosophy**
-**Decision**: Playwright-only testing strategy adopted July 2025
-- **Rationale**: Real browser testing, comprehensive coverage, lower maintenance
-- **Previous Jest Issues**: 25% success rate, mocking complexity, React 19 compatibility
-- **Current Success**: 100% Playwright test reliability with enterprise-grade coverage
+## Testing & Quality Gates
 
 ### **🚨 FIRST-TIME PLAYWRIGHT SETUP (MANDATORY)**
-
-**BEFORE running any Playwright tests for the first time, Claude MUST install all required dependencies:**
+**BEFORE running any tests, Claude MUST install Playwright:**
 
 ```bash
-# 1. Install Playwright browsers and system dependencies (REQUIRES SUDO)
+# 1. Install system dependencies (REQUIRES SUDO)
 sudo npx playwright install-deps
 
-# 2. Install Playwright browsers
+# 2. Install browsers
 npx playwright install
 
-# 3. Verify installation works
-npx playwright --version
-
-# 4. Test basic functionality (optional verification)
+# 3. Verify setup
 npm run test:e2e:smoke
 ```
 
-**⚠️ CRITICAL REQUIREMENTS:**
-- **Use `sudo`** for `npx playwright install-deps` - system dependencies require root privileges
-- **Run this setup** before attempting any `npm run test:e2e:*` commands
-- **Verify success** by running a quick smoke test
-- **If installation fails**, run individual browser installs: `npx playwright install chromium firefox webkit`
+**⚠️ CRITICAL**: Use `sudo` for `install-deps` - system dependencies require root privileges
 
-**📋 What gets installed:**
-- **System Dependencies**: Browser libraries, fonts, media codecs
-- **Browser Binaries**: Chromium, Firefox, WebKit for cross-browser testing
-- **Playwright Runtime**: Testing framework and automation libraries
-
-**🔍 Troubleshooting first-time setup:**
+### **Essential Testing & Screenshots**
 ```bash
-# If sudo playwright install-deps fails, try:
-sudo apt-get update
-sudo apt-get install -y libnss3 libatk-bridge2.0-0 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libxss1 libasound2
+# Quality Gates (MANDATORY)
+npm run validate                    # typecheck + lint + build
 
-# Then retry Playwright installation:
-sudo npx playwright install-deps
-npx playwright install
+# Fast Development Testing
+npm run test:e2e:smoke             # Quick validation (<1min)  
+npm run test:e2e:dev               # Functional testing (2-3min, skip visual)
+
+# Claude Visual Review (RECOMMENDED)
+npx playwright test e2e/quick-screenshots.spec.ts --project=chromium  # Fast screenshots (2-3min)
+# Output: screenshots/quick-review/ (desktop + mobile screenshots)
+
+# Comprehensive Testing (Pre-commit)
+npm run test:e2e:portfolio         # Full /2 E2E validation
+npm run test:e2e:visual           # Visual regression testing
 ```
 
-### **Essential Testing Commands**
+*For complete testing workflows and troubleshooting, see @docs/TESTING.md*
+
+## File Protection System
+
+### **🛡️ PROTECTED FILES (Require Explicit Confirmation)**
 ```bash
-# Quality Gates (MANDATORY before commits)
-npm run validate                    # typecheck + lint + build (Jest removed)
+# Critical system files (🚨 HIGH PROTECTION)
+- package.json, package-lock.json, next.config.js, tsconfig.json, playwright.config.ts
 
-# 🚀 FAST DEVELOPMENT TESTS (New - Primary for Active Development)
-npm run test:e2e:dev               # Functional testing, skip visual regression (2-3min)
-npm run test:e2e:smoke             # Essential tests only for quick validation (<1min)
-npm run test:e2e:component         # Single component testing for focused changes
-npm run test:e2e:debug             # Enhanced headed mode for interactive debugging
+# Important project files (⚠️ IMPORTANT PROTECTION) 
+- CLAUDE.md, README.md, Dockerfile
 
-# 📸 SCREENSHOT GENERATION FOR CLAUDE REVIEW (New)
-npx playwright test e2e/quick-screenshots.spec.ts --project=chromium      # RECOMMENDED: Fast, reliable screenshots (2-3min)
-npx playwright test e2e/detail-pages-screenshots.spec.ts --project=chromium  # Detail pages only (1-2min)
-npm run test:e2e:claude-review              # Complete page set across viewports (complex)
-npm run test:e2e:screenshot                 # Quick full page capture (complex, <30sec if working)
-npm run test:e2e:screenshot:mobile          # Mobile viewport screenshots only
-npm run test:e2e:preview                    # Pre-commit visual preview
+# Design system files (🎨 BRAND PROTECTION)
+- src/app/2/styles/brand-tokens.css (core /2 design system)
+- src/app/globals.css
 
-# Core Test Suites (Comprehensive - Use for Final Validation)
-npm run test:e2e:portfolio         # /2 redesign comprehensive E2E tests
-npm run test:e2e:navigation        # Navigation behavior + intersection observers
-npm run test:e2e:visual           # Visual regression across viewports
-npm run test:e2e:accessibility    # WCAG 2.1 AA/AAA compliance testing
-npm run test:e2e:mobile           # Cross-device responsive validation
-
-# Individual Component Testing
-npx playwright test e2e/contact-component.spec.ts     # Form validation + submission (19 tests)
-npx playwright test e2e/navigation-component.spec.ts  # Navigation behavior (21 tests)
-npx playwright test e2e/visual-regression-2.spec.ts   # Visual consistency (100+ screenshots)
-npx playwright test e2e/accessibility-enhanced.spec.ts # Enterprise accessibility (24 tests)
-npx playwright test e2e/screenshot-generation.spec.ts  # Claude review screenshot generation
-npx playwright test e2e/quick-screenshots.spec.ts --project=chromium     # NEW: Fast, reliable screenshots
-npx playwright test e2e/detail-pages-screenshots.spec.ts --project=chromium  # NEW: Detail pages only
+# Configuration files (⚙️ CONFIG PROTECTION)
+- .env*, eslint.config.js, postcss.config.js
 ```
 
-### **Screenshot Output Locations**
-```bash
-# Quick screenshots (recommended for Claude review)
-screenshots/quick-review/
-├── homepage-desktop.png & homepage-mobile.png
-├── case-studies-desktop.png & case-studies-mobile.png  
-├── how-i-work-desktop.png & how-i-work-mobile.png
-└── technical-expertise-desktop.png & technical-expertise-mobile.png
-
-# Detail pages screenshots (alternative)
-screenshots/detail-pages/
-├── case-studies-desktop.png & case-studies-mobile.png
-├── how-i-work-desktop.png & how-i-work-mobile.png
-└── technical-expertise-desktop.png & technical-expertise-mobile.png
-
-# Complex screenshot outputs (use if simple methods fail)
-screenshots/claude-review/
-└── [timestamp-based subdirectories with comprehensive screenshots]
-```
-
-### **Testing Workflow Integration**
-```bash
-# 🎯 DAILY DEVELOPMENT WORKFLOW (New Optimized Pattern)
-# 1. Start coding:
-npm run test:e2e:smoke             # Quick validation (<1min)
-
-# 2. Component work:
-npm run test:e2e:component -- --grep "ComponentName"  # Focused testing
-
-# 3. Feature testing:
-npm run test:e2e:dev               # Functional validation (2-3min)
-
-# 4. Visual review with Claude:
-npx playwright test e2e/quick-screenshots.spec.ts --project=chromium  # Generate screenshots for Claude analysis
-
-# 5. Pre-commit validation:
-npm run test:e2e:portfolio         # Comprehensive check (8-10min)
-
-# 🎨 CLAUDE VISUAL REVIEW WORKFLOW (New)
-npm run test:e2e:claude-review              # Complete analysis set
-npm run test:e2e:screenshot -- --section="hero"         # Hero section only
-npm run test:e2e:screenshot -- --component="BrowserTabs" # Component isolation
-npm run test:e2e:preview                    # Pre-commit visual preview
-
-# 🛠️ ENVIRONMENT-AWARE TESTING (New)
-SKIP_VISUAL=true npm run test:e2e:portfolio         # Skip visual regression during development
-FAST_MODE=true npm run test:e2e:navigation          # Ultra-fast essential testing
-npm run test:e2e:debug                              # Interactive debugging
-
-# TRADITIONAL WORKFLOW (Use for Final Validation)
-# Before /2 development:
-npm run test:e2e:portfolio         # Validate current state
-
-# After /2 changes:
-npm run validate                   # Quality gates
-npm run test:e2e:visual           # Visual regression check
-npm run test:e2e:accessibility    # A11y compliance
-
-# Visual baseline updates (when intentional):
-npx playwright test e2e/visual-regression-2.spec.ts --update-snapshots
-
-# Debugging failed tests:
-npx playwright test e2e/contact-component.spec.ts --headed  # See browser
-npx playwright test --grep "specific test name"             # Run specific test
-npx playwright test --reporter=html                         # Generate HTML report
-```
-
-### **Test Coverage Highlights**
-- **Fast Development Tests**: Sub-2-minute functional validation for daily workflow
-- **Claude Review Integration**: Automated screenshot generation for visual analysis
-- **Component Testing**: ContactSection (19 tests), Navigation (21 tests), Screenshot generation
-- **Visual Regression**: 100+ screenshots across viewports and components
-- **Accessibility**: WCAG 2.1 AA/AAA + Section 508 compliance (24 tests)
-- **Performance**: Core Web Vitals, animation performance, scroll optimization (80% speed improvement)
-- **Cross-Device**: Mobile, tablet, desktop responsive validation
-- **Environment-Aware**: Skip visual regression during development, fast mode testing
-
-### **🔧 Screenshot Testing Troubleshooting**
-
-**If screenshots fail, follow this recovery pattern:**
-
-1. **Check Playwright Setup** (if first time):
-   ```bash
-   sudo npx playwright install-deps    # Install system dependencies
-   npx playwright install              # Install browser binaries
-   ```
-
-2. **Check Dev Server Health**:
-   ```bash
-   curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:3000/2
-   # If not 200, restart: pkill -f "next-server|npm run dev" && npm run dev &
-   ```
-
-3. **Use Simple Screenshot Mode**:
-   ```bash
-   # Create output directory
-   mkdir -p screenshots/quick-review
-   
-   # Run quick, reliable screenshots
-   npx playwright test e2e/quick-screenshots.spec.ts --project=chromium
-   ```
-
-4. **If still failing, try single page**:
-   ```bash
-   npx playwright test e2e/quick-screenshots.spec.ts --project=chromium --grep "homepage only"
-   ```
-
-**📖 Full Testing Guides**: 
-- `docs/testing/playwright-workflow.md` - Comprehensive testing documentation
-- `docs/testing/testing-enhancements-summary.md` - New capabilities implementation guide
-- `.claude/commands/visual-iterate.md` - Screenshot generation and visual development workflow
-
-## Performance Standards - Enterprise Presentation
-
-### **Core Web Vitals Targets**
-- **LCP**: <2.5s (Enterprise credibility)
-- **FID**: <100ms (Professional responsiveness)  
-- **CLS**: <0.1 (Stable business presentation)
-- **Lighthouse**: 90+ across all metrics
-
-### **/2-Specific Performance Considerations**
-- **Lazy Loading**: Below-fold /2 components optimized
-- **Animation Performance**: Network animation 60fps requirement
-- **Image Optimization**: Case study assets and professional imagery
-- **Font Loading**: JetBrains Mono performance optimization
-
-## Quick Reference - /2 Development
-
-### **Starting /2 Development Session**
-```bash
-# Navigate to /2 context (loads this CLAUDE.md)
-cd /home/user/tylergohr.com/src/app/2/
-
-# Launch Claude Code (gets /2-specific context)
-claude code
-
-# Check current /2 development status
-gh issue list --label "redesign" --state open
-gh issue list --label "/2" --state open
-
-# Start development server and test /2
-npm run dev    # Then visit localhost:3000/2
-```
-
-### **Common /2 Development Tasks**
-```bash
-# Component development in /2
-# Work in: src/app/2/components/[ComponentName]/
-# Follow: [ComponentName].tsx + [ComponentName].module.css pattern
-
-# Brand token usage
-# Reference: src/app/2/styles/brand-tokens.css
-# Use: CSS custom properties for consistency
-
-# Testing /2 changes (New Optimized Workflow)
-npm run test:e2e:smoke        # Quick validation during coding (<1min)
-npm run test:e2e:dev          # Functional validation (2-3min)
-npx playwright test e2e/quick-screenshots.spec.ts --project=chromium  # Visual review with Claude (2-3min)
-npm run test:e2e:portfolio    # Full /2 E2E validation (when ready for commit)
-npm run test:e2e:visual       # Visual regression testing (final validation)
-```
-
-### **Cross-Page Navigation Development**
-```bash
-# BrowserTabs component location:
-# src/app/2/components/BrowserTabs/
-
-# Navigation component:
-# src/app/2/components/Navigation/
-
-# Active link detection testing:
-npm run test:e2e:navigation
-```
-
-## Integration with Main Project
-
-### **Shared Infrastructure**
-- **Same Repository**: All /2 work in same repo as main portfolio
-- **Same CI/CD**: GitHub Actions, Google Cloud Run deployment
-- **Same Quality Gates**: npm run validate, same testing standards
-- **Same PR Workflow**: Preview URLs work for /2 routes
-
-### **Isolated Architecture**
-- **Separate Layout**: `/2/layout.tsx` with Enterprise metadata
-- **Dedicated Components**: All /2 components isolated in `/2/components/`
-- **Independent Styling**: Brand tokens system separate from main portfolio
-- **Route Isolation**: `/2/*` routes independent of main site navigation
-
-### **Development Context Switching**
-```bash
-# For /2 redesign work:
-cd /home/user/tylergohr.com/src/app/2/
-claude code    # Gets /2 Enterprise context
-
-# For main portfolio work:  
-cd /home/user/tylergohr.com/
-claude code    # Gets general portfolio context
-```
-
-## File Protection Rules - /2 Specific
-
-### **NEVER modify without explicit confirmation:**
-- `src/app/2/styles/brand-tokens.css` (core design system)
-- `src/app/2/layout.tsx` (Enterprise metadata)
-- Any existing /2 component without understanding full architecture
-
-### **Safe to modify with standard workflow:**
+### **✅ Safe to Modify**
 - Individual component files within `/2/components/`
 - Component-specific CSS modules
-- /2 page content (page.tsx files in /2 subdirectories)
+- `/2` page content (page.tsx files in /2 subdirectories)
+- Documentation files (*.md) in docs/
 
-## Success Metrics - Enterprise Portfolio
+*When hooks detect protected file modification, they will request confirmation before proceeding.*
 
-### **Business Presentation Standards**
-- **Professional Polish**: Consistent Enterprise Solutions Architect branding
-- **Technical Credibility**: Interactive demonstrations of technical mastery
-- **Business Value**: Clear ROI and impact messaging throughout
-- **Cross-Device Excellence**: Flawless presentation on all professional devices
-- **Performance Validation**: Sub-2.5s load times proving optimization expertise
+## Performance Standards
 
-### **/2-Specific KPIs**
-- **Navigation Accuracy**: Perfect scroll detection and active states
-- **Animation Performance**: 60fps network animation and metric displays
-- **Cross-Page Consistency**: Seamless browser tab simulation
-- **Enterprise Messaging**: Clear value proposition and business positioning
-- **Contact Conversion**: Professional engagement through contact forms
+### **Core Web Vitals Targets**
+- **LCP**: <2.5s | **FID**: <100ms | **CLS**: <0.1 | **Lighthouse**: 90+
+- **Bundle Size**: <6MB | **Animation**: 60fps | **Lazy Loading**: Below-fold optimization
 
----
+*For complete performance guidelines, see @docs/ARCHITECTURE.md*
 
-## 🔥 Quick Start - /2 Development
+## Quick Start - /2 Development
 
-**When working on the /2 redesign:**
-
-1. **Start Here**: `cd /home/user/tylergohr.com/src/app/2/`
-2. **Launch Claude**: `claude code` (loads this context)
-3. **Check Status**: `gh issue list --label "redesign"`
-4. **Start Dev**: `npm run dev` → test at `localhost:3000/2`
-5. **🚀 NEW: Fast Testing**: `npm run test:e2e:smoke` for quick validation
-6. **📸 NEW: Quick Screenshots**: `npx playwright test e2e/quick-screenshots.spec.ts --project=chromium` for visual analysis
-7. **Quality Gates**: `npm run validate` before commits
-8. **Final Test**: `npm run test:e2e:portfolio` for comprehensive validation
-
-## 🎯 **NEW: Daily Development Testing Pattern**
-
-**Optimized workflow for faster development feedback:**
-
+### **Daily Workflow**
 ```bash
-# 1. Quick validation before starting work
-npm run test:e2e:smoke                    # <1 minute
+# 1. Start development
+cd /home/user/tylergohr.com/src/app/2/ && claude code    # /2 context
+npm run dev                                              # Smart dev server
+gh issue list --label "redesign"                        # Check /2 tasks
 
-# 2. During active development  
-npm run test:e2e:dev                      # 2-3 minutes functional testing
+# 2. Fast development testing  
+npm run test:e2e:smoke                                   # Quick validation (<1min)
+npm run test:e2e:dev                                     # Functional testing (2-3min)
 
-# 3. Visual review with Claude
-npx playwright test e2e/quick-screenshots.spec.ts --project=chromium    # Generate screenshots for Claude analysis
+# 3. Visual review
+npx playwright test e2e/quick-screenshots.spec.ts --project=chromium  # Generate for Claude
 
-# 4. Component-specific testing
-npm run test:e2e:component -- --grep "ComponentName"  # Focused testing
-
-# 5. Pre-commit comprehensive validation
-npm run test:e2e:portfolio                # Full validation when ready
+# 4. Pre-commit validation
+npm run validate                                         # Quality gates
+npm run test:e2e:portfolio                              # Full /2 validation
 ```
 
-## 🤖 Quick Reference - Claude Code Instances
+### **🚨 Claude Code Sub-Agent Integration**
+**When you see timeout-prone operations, use the Agent tool:**
 
-### **🚨 When You See These Alerts - USE AGENT TOOL IMMEDIATELY**
 ```bash
 🚨 CLAUDE CODE: USE AGENT TOOL NOW
 🚨 CLAUDE PROMPT: [Ready-to-use Agent tool prompt]
 🚨 REASON: [Why this operation needs sub-agent]
 ```
 
-### **⚡ Fast Sub-Agent Commands for Daily Use**
-```bash
-npm run dev:claude                      # Start dev server with Agent tool recommendations
-npm run test:e2e:smoke:claude          # Run tests with Agent tool integration
-CLAUDE_AUTO_SUBAGENT=true [any-command] # Force sub-agent recommendations for any command
-```
-
-### **🎯 Recognition Patterns for Claude Code**
-- **Complexity score ≥8** = High likelihood Agent tool needed
-- **Timeout risk: high/medium** = Strong Agent tool recommendation  
-- **🚨 CLAUDE CODE:** prefix = Immediate Agent tool usage required
+**Recognition patterns:**
+- **Complexity score ≥8** = High likelihood Agent tool needed  
 - **Timeout-prone patterns**: `npm run test:e2e:smoke`, `playwright test`, `npm run dev`
+- **🚨 CLAUDE CODE:** prefix = Immediate Agent tool usage required
 
-### **💡 Quick Decision Guide**
-1. **See 🚨 CLAUDE CODE alert** → Use Agent tool with provided prompt
-2. **Complexity ≥8 + timeout risk high** → Strongly recommend Agent tool
-3. **Known timeout patterns** → Consider Agent tool for reliability
-4. **Otherwise** → Proceed with direct execution
+*For complete Claude Code optimization patterns, see @docs/CLAUDE-WORKFLOWS.md*
+
+---
 
 **Enterprise Solutions Architect Portfolio - Built for Business Impact** 🏢

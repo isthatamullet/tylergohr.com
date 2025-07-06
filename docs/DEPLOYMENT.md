@@ -1,674 +1,469 @@
-# Tyler Gohr Portfolio - Deployment Guide
+# Deployment Guide - Tyler Gohr Portfolio
 
 ## Overview
 
-This guide documents the complete deployment process for the Tyler Gohr portfolio website from development to production on Google Cloud Run with custom domain setup.
+This guide covers the complete deployment process for the Tyler Gohr Portfolio, including both the main portfolio and `/2` redesign (Enterprise Solutions Architect), from development to production on Google Cloud Run with custom domain setup.
 
-## ⚡ Pipeline Optimization
+## Architecture & Infrastructure
 
-The deployment pipeline now includes intelligent optimization for faster development velocity:
-
-- **Fast-Track Pipeline (2-3 minutes)**: Content, documentation, and styling changes
-- **Full Pipeline (8-12 minutes)**: Code, dependencies, and infrastructure changes
-- **Smart Detection**: Automatically chooses appropriate pipeline based on file changes
-
-## Architecture
-
-- **Framework**: Next.js 14+ with App Router and TypeScript
-- **Hosting**: Google Cloud Run (Container-based deployment)
-- **Domain**: tylergohr.com (Custom domain with SSL)
-- **CI/CD**: GitHub Actions with automated quality gates
-- **DNS**: Squarespace DNS management
-
-## Prerequisites
-
-### Required Tools
-- Node.js 18+
-- Docker
-- Google Cloud CLI (`gcloud`)
-- GitHub CLI (`gh`)
-
-### Required Accounts
-- Google Cloud Project with Cloud Run enabled
-- GitHub repository with Actions enabled
-- Domain provider (Squarespace) access
-
-### Environment Setup
+### **Deployment Stack**
 ```bash
-# Install dependencies
-npm install
-
-# Verify build works locally
-npm run build
-npm run start
+# Core infrastructure
+- Framework: Next.js 15.3.4 with App Router
+- Container Platform: Google Cloud Run (managed serverless)
+- Container Registry: Google Container Registry (GCR)
+- Domain: tylergohr.com with custom SSL
+- DNS Management: Squarespace DNS
+- CI/CD: GitHub Actions with automated quality gates
 ```
 
-## Local Development
-
-### Development Server
+### **Multi-Route Architecture**
 ```bash
-npm run dev
-# Access at http://localhost:3000
+# Production routes
+https://tylergohr.com          # Main portfolio (full-stack developer focus)
+https://tylergohr.com/2        # Enterprise Solutions Architect redesign
+https://tylergohr.com/blog     # Blog system with MDX content
+https://tylergohr.com/api/*    # API endpoints (contact, health)
+
+# All routes deployed together in single container
+# Route handling via Next.js App Router
 ```
 
-### Quality Gates (Run before deployment)
+## Containerization
+
+### **Docker Configuration**
 ```bash
-npm run typecheck  # TypeScript validation
-npm run lint       # ESLint validation
-npm run build      # Production build test
-npm test           # Jest test suite
+# Multi-stage Dockerfile optimizations
+FROM node:18-alpine                  # Base image
+├── Stage 1 (deps): Dependencies only
+├── Stage 2 (builder): Build application  
+└── Stage 3 (runner): Production runtime
+
+# Key optimizations:
+- Standalone Next.js output (smaller container)
+- Non-root user for security (nextjs:nodejs)
+- Health check integration (/api/health)
+- Production environment variables
 ```
 
-## Docker Containerization
-
-### Dockerfile Configuration
-The project uses a multi-stage Docker build optimized for production:
-
-```dockerfile
-# Multi-stage build: deps → builder → runner
-# Final image: ~192MB Alpine Linux with Node.js 18
-# Security: Non-root user (nextjs:nodejs)
-# Next.js: Standalone output for minimal container size
+### **Container Features**
+```bash
+# Production optimizations
+- Port 3000 with HOSTNAME="0.0.0.0"
+- Health check every 30s with /api/health endpoint
+- Non-root user execution for security
+- Static asset optimization and caching
+- Telemetry disabled for performance
 ```
 
-### Build & Test Container Locally
+### **Local Container Testing**
 ```bash
-# Build container
+# Build and test container locally
 docker build -t tylergohr-portfolio .
-
-# Test container locally
 docker run -p 3000:3000 tylergohr-portfolio
 
-# Verify health endpoint
-curl http://localhost:3000/api/health
-```
-
-## Google Cloud Run Deployment
-
-### Service Configuration
-- **Service Name**: `tylergohr-portfolio`
-- **Region**: `us-central1`
-- **Memory**: 2GB
-- **CPU**: 1 vCPU
-- **Concurrency**: 100 requests per instance
-- **Scaling**: 0-10 instances (auto-scaling)
-
-### Manual Deployment Commands
-```bash
-# Build and deploy to Cloud Run
-gcloud run deploy tylergohr-portfolio \
-  --source . \
-  --region us-central1 \
-  --memory 2Gi \
-  --cpu 1 \
-  --min-instances 0 \
-  --max-instances 10 \
-  --concurrency 100 \
-  --port 3000
-
-# Verify deployment
-gcloud run services list --region us-central1
-```
-
-### Health Check Endpoint
-The service includes a comprehensive health check at `/api/health`:
-
-```bash
 # Test health endpoint
-curl https://tylergohr-portfolio-386594369911.us-central1.run.app/api/health
+curl http://localhost:3000/api/health
+
+# Test both routes
+curl http://localhost:3000          # Main portfolio
+curl http://localhost:3000/2        # Enterprise redesign
 ```
 
-**Health Check Response:**
-```json
+## Google Cloud Run Configuration
+
+### **Service Configuration**
+```bash
+# Production service settings
+- Memory: 1Gi (handles Next.js + React workload)
+- CPU: 0.5 (sufficient for portfolio traffic)
+- Min instances: 0 (cost optimization)
+- Max instances: 10 (traffic scaling)
+- Concurrency: 50 requests per instance
+- Timeout: 300 seconds
+- Port: 3000 (Next.js default)
+- Platform: managed (fully serverless)
+```
+
+### **Environment Variables**
+```bash
+# Production environment
+NODE_ENV=production              # Next.js production mode
+NEXT_TELEMETRY_DISABLED=1        # Performance optimization
+HOSTNAME=0.0.0.0                 # Cloud Run compatibility
+PORT=3000                        # Service port
+```
+
+### **Traffic Configuration**
+```bash
+# Production traffic routing
+- 100% traffic to latest revision
+- Custom domain: tylergohr.com
+- HTTPS enforcement (automatic)
+- All routes handled by single service:
+  - / (main portfolio)
+  - /2 (enterprise redesign)  
+  - /blog/* (blog system)
+  - /api/* (API endpoints)
+```
+
+## Local Development & Testing
+
+### **Smart Port Detection System**
+```bash
+# Automatic development server detection
+# The project uses intelligent port detection that works across all environments:
+# - Google Cloud Workstations, GitHub Codespaces, Gitpod
+# - Local development (localhost)
+# - Automatically detects active dev server port
+# - Constructs correct URLs for cloud environments
+
+# For manual command execution (Playwright, testing, etc.)
+eval "$(./scripts/detect-active-port.sh quiet export)"
+# Sets: ACTIVE_DEV_PORT and ACTIVE_DEV_URL environment variables
+# Example: ACTIVE_DEV_PORT=3000, ACTIVE_DEV_URL=http://localhost:3000
+```
+
+### **Development Environment**
+```bash
+# Recommended: Smart development server (auto-detects port)
+npm run dev                      # Primary development command
+npm run dev:enhanced             # With sub-agent integration
+npm run dev:claude               # Claude Code optimized
+
+# Port-specific servers (use when you need a specific port)
+npm run dev:3000                 # Force port 3000 (local testing)
+npm run dev:3001                 # Force port 3001 (conflict resolution)
+npm run dev:4000                 # Force port 4000 (alternative development)
+
+# Manual port detection for testing
+./scripts/detect-active-port.sh             # Interactive mode
+./scripts/detect-active-port.sh quiet       # Quiet mode
+./scripts/detect-active-port.sh quiet export # Export format for shell
+```
+
+### **Pre-Deployment Validation**
+```bash
+# Quality gates (MANDATORY before deployment)
+npm run validate                 # typecheck + lint + build + bundle check
+
+# Individual quality checks
+npm run typecheck               # TypeScript validation
+npm run lint                    # ESLint code quality
+npm run build                   # Production build test
+npm run bundle-check            # Bundle size validation (<6MB)
+```
+
+### **Local Production Testing**
+```bash
+# Test production build locally
+npm run build
+npm run start                   # Production server on localhost:3000
+
+# Test both routes
+http://localhost:3000           # Main portfolio
+http://localhost:3000/2         # Enterprise redesign
+http://localhost:3000/api/health # Health check
+```
+
+## CI/CD Pipeline
+
+### **GitHub Actions Workflow**
+```bash
+# Current workflow: .github/workflows/test-validation.yml
+- Trigger: Manual dispatch (workflow_dispatch)
+- Runtime: ubuntu-latest with Node.js 18
+- Timeout: 10 minutes
+
+# Quality gates in CI/CD:
+1. TypeScript validation (npm run typecheck)
+2. ESLint compliance (npm run lint)  
+3. Production build test (npm run build)
+4. Bundle size check (6MB budget)
+5. Health endpoint validation
+6. Docker configuration validation
+```
+
+### **Deployment Process**
+```bash
+# Current deployment approach
+1. Manual quality validation via GitHub Actions
+2. Manual deployment via Google Cloud Console or gcloud CLI
+3. Health check validation post-deployment
+4. Custom domain traffic routing verification
+
+# Future automated deployment (when ready):
+# - Automatic deployment on main branch push
+# - Preview deployments for pull requests
+# - Automatic rollback on health check failures
+```
+
+## Staging Environment
+
+### **Staging Deployment**
+```bash
+# Manual staging deployment
+./scripts/deploy-staging.sh [branch-name]
+
+# Staging service configuration
+- Service: tylergohr-portfolio-staging
+- Region: us-central1
+- Memory: 1Gi, CPU: 0.5
+- Max instances: 3 (lower than production)
+- Auto-generated URL for testing
+```
+
+### **Staging Workflow**
+```bash
+# Deploy branch to staging
+./scripts/deploy-staging.sh feature/new-feature
+
+# Staging process:
+1. Quality gates validation
+2. Docker image build with staging tag
+3. Push to Google Container Registry
+4. Deploy to staging Cloud Run service
+5. Health check validation
+6. Staging URL provided for testing
+
+# Staging testing URLs
+https://[service-url].run.app      # Auto-generated staging URL
+https://[service-url].run.app/2    # Enterprise redesign on staging
+```
+
+## Production Deployment
+
+### **Manual Production Deployment**
+```bash
+# Prerequisites
+- Google Cloud CLI installed and authenticated
+- Docker installed and running
+- Production Google Cloud project access
+- Custom domain configured
+
+# Production deployment steps
+1. Validate quality gates locally
+   npm run validate
+
+2. Build and tag production image
+   docker build -t gcr.io/tylergohr-portfolio/portfolio:latest .
+
+3. Push to Container Registry
+   docker push gcr.io/tylergohr-portfolio/portfolio:latest
+
+4. Deploy to Cloud Run
+   gcloud run deploy tylergohr-portfolio \
+     --image=gcr.io/tylergohr-portfolio/portfolio:latest \
+     --region=us-central1 \
+     --platform=managed \
+     --allow-unauthenticated
+
+5. Verify deployment
+   curl https://tylergohr.com/api/health
+   curl https://tylergohr.com/2/api/health
+```
+
+### **Production Verification**
+```bash
+# Post-deployment health checks
+curl https://tylergohr.com/api/health           # Main health check
+curl https://tylergohr.com                      # Main portfolio
+curl https://tylergohr.com/2                    # Enterprise redesign
+curl https://tylergohr.com/blog                 # Blog system
+
+# Performance validation
+# - Core Web Vitals: LCP <2.5s, FID <100ms, CLS <0.1
+# - Bundle size: <6MB total
+# - Response times: <500ms for initial load
+```
+
+## Domain & DNS Configuration
+
+### **Custom Domain Setup**
+```bash
+# Domain configuration
+- Primary domain: tylergohr.com
+- DNS provider: Squarespace DNS
+- SSL/TLS: Automatic via Google Cloud Run
+- All subdomains redirect to main domain
+
+# DNS records (managed via Squarespace)
+A record: @ → Cloud Run IP
+CNAME: www → tylergohr.com
+```
+
+### **SSL/TLS Configuration**
+```bash
+# Automatic SSL via Cloud Run
+- Certificate: Google-managed SSL certificate
+- Renewal: Automatic
+- Protocols: TLS 1.2+ enforced
+- HTTPS redirect: Automatic
+```
+
+## Monitoring & Health Checks
+
+### **Health Check Endpoint**
+```bash
+# Health check implementation (src/app/api/health/route.ts)
+GET /api/health
+
+Response format:
 {
   "status": "healthy",
-  "timestamp": "2025-06-22T01:00:00.000Z",
-  "server": {
-    "uptime": 3600,
-    "memory": {
-      "rss": "75 MB",
-      "heapUsed": "24 MB"
-    }
-  }
+  "timestamp": "2025-01-06T...",
+  "version": "1.0.0",
+  "environment": "production"
 }
 ```
 
-## Custom Domain Setup
-
-### Step 1: Domain Mapping in Cloud Run
+### **Container Health Monitoring**
 ```bash
-# Create domain mapping
-gcloud run domain-mappings create \
-  --service tylergohr-portfolio \
-  --domain tylergohr.com \
-  --region us-central1
-
-# Verify domain mapping
-gcloud beta run domain-mappings describe \
-  --domain tylergohr.com \
-  --region us-central1
+# Docker health check (Dockerfile)
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/api/health
 ```
 
-### Step 2: DNS Configuration
-Configure the following DNS records in your domain provider (Squarespace):
-
-**A Records (IPv4):**
-```
-@ A 216.239.32.21
-@ A 216.239.34.21
-@ A 216.239.36.21
-@ A 216.239.38.21
-```
-
-**AAAA Records (IPv6):**
-```
-@ AAAA 2001:4860:4802:32::15
-@ AAAA 2001:4860:4802:34::15
-@ AAAA 2001:4860:4802:36::15
-@ AAAA 2001:4860:4802:38::15
-```
-
-**Important Notes:**
-- Use the exact IPv6 format shown above
-- DNS providers may display IPv6 in expanded format (`:0:0:0:` instead of `::`) - this is normal
-- TTL of 4 hours is recommended for production
-
-### Step 3: SSL Certificate
-SSL certificates are automatically provisioned by Google Cloud Run:
-- Certificate type: Google-managed
-- Automatic renewal
-- Supports both IPv4 and IPv6
-
-## CI/CD Pipeline (GitHub Actions)
-
-### Pipeline Overview
-The project uses two main workflows:
-
-1. **PR Validation** (`ci.yml`): Quality gates for pull requests
-2. **Production Deployment** (`deploy.yml`): Automated deployment to Cloud Run
-
-### Quality Gates
-All deployments must pass:
-- ✅ TypeScript compilation
-- ✅ ESLint validation
-- ✅ Jest test suite
-- ✅ Production build
-- ✅ Docker container build
-- ✅ Security vulnerability scan
-
-### Deployment Process
-1. **Code Push**: Developer pushes to `main` branch
-2. **Quality Gates**: All tests and validation must pass
-3. **Container Build**: Docker image built and pushed to GCR
-4. **Cloud Run Deploy**: Automated deployment with health checks
-5. **Traffic Migration**: Gradual rollout (0% → 10% → 50% → 100%)
-6. **Health Verification**: Automated health checks at each stage
-7. **Rollback**: Automatic rollback if health checks fail
-
-### Manual Deployment
+### **Cloud Run Monitoring**
 ```bash
-# Trigger manual deployment
-gh workflow run deploy.yml
-
-# Monitor deployment status
-gh run list --workflow=deploy.yml
-```
-
-## Monitoring & Verification
-
-### Service Health
-```bash
-# Check service status
-gcloud run services describe tylergohr-portfolio --region us-central1
-
-# Check domain mapping status
-gcloud beta run domain-mappings describe --domain tylergohr.com --region us-central1
-
-# View service logs
-gcloud logs read "resource.type=cloud_run_revision" --limit 50
-```
-
-### DNS Verification
-```bash
-# Test DNS resolution
-nslookup tylergohr.com
-nslookup tylergohr.com 8.8.8.8
-
-# Test specific record types
-nslookup -type=A tylergohr.com
-nslookup -type=AAAA tylergohr.com
-
-# Test HTTP response
-curl -I https://tylergohr.com
-```
-
-### Expected Health Indicators
-- **Domain Mapping**: `Ready`, `CertificateProvisioned`, `DomainRoutable` all `True`
-- **Service Health**: `Ready`, `ConfigurationsReady`, `RoutesReady` all `True`
-- **DNS Resolution**: Returns correct Cloud Run IP addresses
-- **HTTPS**: SSL certificate valid and working
-- **Response Headers**: `Server: Google Frontend`, Next.js cache headers
-
-## Troubleshooting
-
-### Common Issues
-
-#### 1. Domain Not Loading (404 from GitHub)
-**Symptoms**: tylergohr.com shows GitHub Pages 404
-**Cause**: GitHub Pages still configured for domain
-**Solution**:
-```bash
-# Check for GitHub Pages configuration in old repositories
-# Remove custom domain from GitHub Pages settings
-# Wait 10-30 minutes for DNS propagation
-```
-
-#### 2. DNS Not Resolving to Cloud Run
-**Symptoms**: DNS returns wrong IP addresses
-**Cause**: DNS records not updated or propagation delay
-**Solution**:
-```bash
-# Verify DNS records are correct
-dig +short tylergohr.com
-# Wait for TTL to expire (4 hours max)
-# Clear local DNS cache
-```
-
-#### 3. SSL Certificate Issues
-**Symptoms**: SSL warnings or certificate errors
-**Cause**: Certificate not yet provisioned
-**Solution**:
-```bash
-# Check certificate status
-gcloud beta run domain-mappings describe --domain tylergohr.com --region us-central1
-# Wait for provisioning (usually 10-15 minutes)
-```
-
-#### 4. Service Not Responding
-**Symptoms**: 500 errors or timeouts
-**Cause**: Application startup issues
-**Solution**:
-```bash
-# Check service logs
-gcloud logs read "resource.type=cloud_run_revision" --limit 50
-# Verify container health locally
-docker run -p 3000:3000 tylergohr-portfolio
-```
-
-### Diagnostic Commands
-
-```bash
-# Complete health check
-gcloud run services describe tylergohr-portfolio --region us-central1 \
-  --format="value(status.conditions[].type,status.conditions[].status)"
-
-# DNS resolution test
-for dns in 8.8.8.8 1.1.1.1 208.67.222.222; do
-  echo "Testing DNS: $dns"
-  nslookup tylergohr.com $dns
-done
-
-# HTTP connectivity test
-curl -v https://tylergohr.com 2>&1 | grep -E "HTTP|SSL|Certificate"
+# Automatic monitoring via Google Cloud
+- Health check failures trigger alerts
+- Automatic restart on health check failures
+- Request metrics and performance monitoring
+- Error rate and latency tracking
 ```
 
 ## Performance Optimization
 
-### Monitoring Metrics
-- **Core Web Vitals**: LCP <2.5s, INP <200ms, CLS <0.1
-- **Lighthouse Scores**: 90+ for Performance, Accessibility, Best Practices, SEO
-- **Response Time**: <500ms average
-- **Uptime**: 99.9% availability target
+### **Bundle Optimization**
+```bash
+# Production build optimizations (next.config.js)
+- Standalone output for minimal container size
+- Image optimization (AVIF, WebP formats)
+- CSS optimization and minification
+- Code splitting and lazy loading
+- Telemetry disabled for performance
+```
 
-### Performance Features
-- **Container Optimization**: 192MB Alpine Linux base image
-- **Cold Start Optimization**: Standalone Next.js build
-- **CDN**: Google's global edge network
-- **Caching**: Aggressive static asset caching
-- **Compression**: Automatic gzip/brotli compression
+### **Caching Strategy**
+```bash
+# Cache headers configuration
+Static assets: Cache-Control: public, max-age=31536000, immutable
+Dynamic content: Standard Next.js caching
+Images: Optimized with next/image component
+```
 
-## Security
+### **Core Web Vitals Targets**
+```bash
+# Performance targets for both routes
+- LCP (Largest Contentful Paint): <2.5s
+- FID (First Input Delay): <100ms  
+- CLS (Cumulative Layout Shift): <0.1
+- Bundle Size: <6MB total
+- Initial Load: <3s for complete page
+```
 
-### Container Security
-- **Non-root User**: Container runs as `nextjs:nodejs`
-- **Minimal Base Image**: Alpine Linux with only required packages
-- **Vulnerability Scanning**: Automated scanning in CI/CD
-- **Secret Management**: Environment variables via Cloud Run
+## Security Configuration
 
-### Network Security
-- **HTTPS Enforced**: Automatic HTTP → HTTPS redirects
-- **Security Headers**: CSP, HSTS, X-Frame-Options
-- **CORS Configuration**: Appropriate cross-origin policies
-- **Rate Limiting**: Cloud Run automatic DDoS protection
+### **Container Security**
+```bash
+# Security measures
+- Non-root user execution (nextjs:nodejs)
+- Security headers via next.config.js
+- Input validation on API endpoints
+- Rate limiting on contact form (5 requests/minute)
+- Environment variable protection
+```
+
+### **Security Headers**
+```bash
+# Configured security headers (next.config.js)
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+Content Security Policy: Configured for image handling
+```
+
+## Troubleshooting
+
+### **Common Deployment Issues**
+```bash
+# Build failures
+- Check TypeScript errors: npm run typecheck
+- Check ESLint issues: npm run lint
+- Check bundle size: npm run bundle-check
+- Verify all dependencies: npm ci
+
+# Container issues
+- Test locally: docker build -t test . && docker run -p 3000:3000 test
+- Check health endpoint: curl http://localhost:3000/api/health
+- Verify standalone build: ls -la .next/standalone
+```
+
+### **Cloud Run Issues**
+```bash
+# Service deployment problems
+gcloud run services list --region=us-central1      # Check service status
+gcloud run revisions list --service=tylergohr-portfolio # Check revisions
+gcloud run services logs read tylergohr-portfolio --region=us-central1 # View logs
+
+# Health check failures
+curl https://tylergohr.com/api/health              # Test health endpoint
+gcloud run services describe tylergohr-portfolio --region=us-central1 # Service details
+```
+
+### **Domain & DNS Issues**
+```bash
+# DNS propagation and routing
+dig tylergohr.com                                  # Check DNS resolution
+curl -I https://tylergohr.com                      # Check HTTPS redirect
+curl -I https://tylergohr.com/2                    # Check /2 route
+
+# SSL certificate issues
+openssl s_client -connect tylergohr.com:443        # Check SSL certificate
+curl -v https://tylergohr.com                      # Verbose SSL check
+```
+
+### **Performance Issues**
+```bash
+# Bundle size problems
+npm run bundle-check                               # Check current bundle size
+npx next build --analyze                           # Analyze bundle composition
+
+# Core Web Vitals issues
+# Use Chrome DevTools Lighthouse
+# Test on: https://pagespeed.web.dev/
+# Monitor: https://search.google.com/search-console
+```
 
 ## Rollback Procedures
 
-### Automatic Rollback
-The CI/CD pipeline includes automatic rollback:
-- Health check failures trigger immediate rollback
-- Previous revision receives 100% traffic
-- Manual verification of rollback success
-
-### Manual Rollback
+### **Quick Rollback**
 ```bash
-# List available revisions
-gcloud run revisions list --service tylergohr-portfolio --region us-central1
-
-# Rollback to specific revision
+# Rollback to previous revision
 gcloud run services update-traffic tylergohr-portfolio \
-  --to-revisions REVISION-NAME=100 \
-  --region us-central1
-```
+  --to-revisions=[PREVIOUS_REVISION]=100 \
+  --region=us-central1
 
----
-
-**Last Updated**: 2025-06-22  
-**Document Version**: 1.0  
-**Deployment Status**: ✅ Production Ready
-
-## 📋 Pipeline Architecture
-
-### PR Validation & Preview Workflow (`ci.yml`)
-- **Code Quality**: TypeScript checking, ESLint, Prettier formatting
-- **Security**: Dependency audit, license compliance checking
-- **Build Validation**: Bundle size analysis, Docker image building
-- **Testing**: Unit tests, component tests, accessibility validation
-- **Preview Deployment**: Automatic Cloud Run preview environment for every PR
-- **Health Monitoring**: Automated service verification and status reporting
-- **Performance**: Lighthouse CI integration with budget enforcement
-- **Docker Security**: Container vulnerability scanning, structure testing
-- **Automatic Cleanup**: Resource cleanup when PRs are closed or merged
-
-> 📖 **Detailed Preview Documentation**: See [PREVIEW-DEPLOYMENTS.md](PREVIEW-DEPLOYMENTS.md) for complete preview deployment system documentation.
-
-### Deployment Workflow (`deploy.yml`)
-- **Pre-deployment Validation**: Quality gates, version generation
-- **Container Build**: Multi-stage Docker build with Google Container Registry
-- **Cloud Run Deployment**: Automated deployment with health checks
-- **Traffic Migration**: Gradual traffic shifting (10% → 50% → 100%)
-- **Health Monitoring**: Comprehensive health checks and performance validation
-- **Rollback Capability**: Automatic rollback on deployment failures
-
-## 🌐 Preview Environments
-
-### Automatic PR Preview Deployments
-
-Every pull request automatically gets its own isolated preview environment hosted on Google Cloud Run. This enterprise-grade system enables safe testing of changes before production deployment.
-
-#### How It Works
-1. **Create/Update PR** → Automatic preview deployment triggers
-2. **Quality Gates Pass** → TypeScript, ESLint, tests must pass
-3. **Container Deployment** → Unique Cloud Run service created
-4. **PR Comment Posted** → Preview URL and testing guide provided
-5. **Automatic Cleanup** → Resources deleted when PR is closed/merged
-
-#### Preview URL Pattern
-```
-https://portfolio-pr-{number}-{branch-name}-{hash}.us-central1.run.app
-```
-
-#### Key Features
-- **Isolated Environments**: Each PR gets its own Cloud Run service
-- **Production-Like**: Same container and runtime as production
-- **Cost-Optimized**: Auto-scaling and automatic cleanup
-- **Developer-Friendly**: Automatic PR comments with testing guides
-
-#### Managing Preview Environments
-```bash
-# Monitor active preview deployments
-./scripts/monitor-preview.sh
-
-# Check resource usage and costs
-./scripts/cost-monitor.sh
-
-# Manual staging deployment (if needed)
-./scripts/deploy-staging.sh [branch-name]
-```
-
-> 📖 **Complete Documentation**: See [PREVIEW-DEPLOYMENTS.md](PREVIEW-DEPLOYMENTS.md) for detailed technical documentation, troubleshooting, and cost management.
-
-## 🔐 Required GitHub Secrets
-
-### Essential Secrets
-
-#### `GCP_PROJECT_ID`
-- **Description**: Google Cloud Project ID for deployment
-- **Example**: `tylergohr-portfolio`
-- **Usage**: Identifies the GCP project for Cloud Run deployment
-
-#### `GCP_SA_KEY`
-- **Description**: Google Cloud Service Account key (JSON, base64 encoded)
-- **Setup**: Generated by `scripts/setup-gcp-service-account.sh`
-- **Format**: Base64 encoded JSON service account key
-- **Permissions**: Cloud Run Admin, Storage Admin, Cloud Build Builder
-
-### Optional Enhancement Secrets
-
-#### `LHCI_GITHUB_APP_TOKEN`
-- **Description**: Lighthouse CI GitHub App token for performance reporting
-- **Usage**: Enhanced Lighthouse reporting with PR comments
-- **Setup**: Install Lighthouse CI GitHub App and generate token
-
-## 🛠️ Setup Instructions
-
-### Step 1: Google Cloud Setup
-
-1. **Create Google Cloud Project**
-   ```bash
-   gcloud projects create tylergohr-portfolio
-   gcloud config set project tylergohr-portfolio
-   ```
-
-2. **Run Service Account Setup**
-   ```bash
-   chmod +x scripts/setup-gcp-service-account.sh
-   ./scripts/setup-gcp-service-account.sh tylergohr-portfolio
-   ```
-
-3. **Enable Billing** (Required for Cloud Run)
-   - Go to [Google Cloud Console](https://console.cloud.google.com/)
-   - Enable billing for the project
-
-### Step 2: GitHub Secrets Configuration
-
-1. **Navigate to Repository Secrets**
-   - Go to: `https://github.com/isthatamullet/tylergohr.com/settings/secrets/actions`
-
-2. **Add Required Secrets**
-   ```
-   Name: GCP_PROJECT_ID
-   Value: tylergohr-portfolio
-   
-   Name: GCP_SA_KEY
-   Value: [Base64 encoded service account JSON key]
-   ```
-
-3. **Verify Service Account Key Format**
-   ```bash
-   # The key should be base64 encoded:
-   cat github-actions-sa-key.json | base64 -w 0
-   ```
-
-### Step 3: Environment Configuration
-
-1. **Production Environment**
-   - Environment: `production`
-   - Branch: `main`
-   - URL: Will be provided after first deployment
-
-2. **Staging Environment** (Optional)
-   - Environment: `staging`
-   - Branch: `develop`
-   - URL: Separate Cloud Run service for testing
-
-## 🔄 Deployment Process
-
-### Automatic Deployment (Main Branch)
-1. Push to `main` branch triggers deployment workflow
-2. Pre-deployment validation runs (typecheck, lint, build)
-3. Docker container is built and pushed to GCR
-4. Application is deployed to Cloud Run with 0% traffic
-5. Health checks validate the new deployment
-6. Traffic is gradually migrated (10% → 50% → 100%)
-7. Old revisions are cleaned up (keeps 5 most recent)
-
-### Manual Deployment
-```bash
-# Trigger manual deployment via GitHub UI
-# Go to: Actions → Deploy - Production Pipeline → Run workflow
-# Select environment: staging | production
-# Optional: Force deployment (skips some health checks)
-```
-
-### Pull Request Validation
-1. Create PR targeting `main` branch
-2. CI pipeline runs automatically with comprehensive checks
-3. PR status checks must pass before merging
-4. Lighthouse performance budgets are enforced
-
-## 📊 Performance Budgets
-
-### Lighthouse Thresholds
-- **Performance**: ≥ 90
-- **Accessibility**: ≥ 90
-- **Best Practices**: ≥ 90
-- **SEO**: ≥ 90
-
-### Core Web Vitals
-- **First Contentful Paint**: ≤ 2.5s
-- **Largest Contentful Paint**: ≤ 2.5s
-- **Time to Interactive**: ≤ 3.5s
-- **Cumulative Layout Shift**: ≤ 0.1
-
-### Bundle Size Budget
-- **Maximum Bundle Size**: 150KB
-- **Build Time Budget**: 5 minutes
-- **Container Image Size**: Target < 200MB
-
-## 🔍 Monitoring and Health Checks
-
-### Health Check Endpoint
-- **URL**: `/api/health`
-- **Method**: `GET` or `HEAD`
-- **Response**: JSON with system status, memory usage, uptime
-- **Thresholds**: Memory warning at 400MB, error at 900MB
-
-### Cloud Run Health Checks
-- **Startup Probe**: 40s grace period, 30s interval
-- **Liveness Probe**: 30s interval, 3s timeout, 3 retries
-- **Traffic Requirements**: Health check must pass before traffic allocation
-
-### Performance Monitoring
-- **Response Time**: < 3s target for deployment validation
-- **Memory Usage**: Monitored and reported in health checks
-- **Error Rates**: Tracked through Cloud Run metrics
-
-## 🚨 Troubleshooting
-
-### Common Issues
-
-#### Service Account Permissions
-```bash
-# Verify service account has required roles
-gcloud projects get-iam-policy tylergohr-portfolio \
-  --flatten="bindings[].members" \
-  --filter="bindings.members:github-actions-deploy@tylergohr-portfolio.iam.gserviceaccount.com"
-```
-
-#### Docker Build Failures
-```bash
-# Test Docker build locally
-docker build -t portfolio-test .
-docker run -p 3000:3000 portfolio-test
-
-# Check health endpoint
-curl http://localhost:3000/api/health
-```
-
-#### Cloud Run Deployment Issues
-```bash
-# Check Cloud Run service logs
-gcloud run services logs read tylergohr-portfolio --region=us-central1
-
-# Verify service configuration
-gcloud run services describe tylergohr-portfolio --region=us-central1
-```
-
-#### GitHub Actions Failures
-1. Check workflow logs in GitHub Actions tab
-2. Verify all required secrets are set
-3. Ensure service account has proper permissions
-4. Check Google Cloud quotas and billing
-
-### Emergency Rollback
-
-#### Automatic Rollback
-- Pipeline automatically rolls back on health check failures
-- Previous stable revision receives 100% traffic
-- Rollback verification ensures service stability
-
-#### Manual Rollback
-```bash
 # List available revisions
 gcloud run revisions list --service=tylergohr-portfolio --region=us-central1
-
-# Rollback to specific revision
-gcloud run services update-traffic tylergohr-portfolio \
-  --region=us-central1 \
-  --to-revisions=REVISION_NAME=100
 ```
 
-## 🎯 Performance Optimization
+### **Emergency Procedures**
+```bash
+# Complete service restart
+gcloud run services delete tylergohr-portfolio --region=us-central1
+# Then redeploy from known good image
 
-### Container Optimization
-- **Multi-stage Docker build**: Minimizes final image size
-- **Alpine Linux base**: Security and size benefits
-- **Standalone Next.js output**: Optimized for containerization
-- **Non-root user**: Enhanced security posture
-
-### Cloud Run Configuration
-- **Memory**: 2GB for optimal performance
-- **CPU**: 1 vCPU with automatic scaling
-- **Concurrency**: 100 requests per instance
-- **Scaling**: 0-10 instances based on demand
-- **Timeout**: 300s for complex operations
-
-### Caching Strategy
-- **Docker Layer Caching**: GitHub Actions cache for faster builds
-- **NPM Dependencies**: Cached between workflow runs
-- **Static Assets**: Aggressive caching with proper headers
-- **CDN Integration**: Future enhancement for global distribution
-
-## 📈 Metrics and Analytics
-
-### Deployment Metrics
-- **Build Time**: Tracked and reported in workflows
-- **Deployment Duration**: End-to-end pipeline timing
-- **Success Rate**: Deployment success/failure tracking
-- **Rollback Frequency**: Monitoring deployment stability
-
-### Application Metrics
-- **Response Times**: Monitored during health checks
-- **Memory Usage**: Tracked in health endpoint
-- **Error Rates**: Cloud Run built-in monitoring
-- **Traffic Patterns**: Cloud Run analytics
-
-## 🔮 Future Enhancements
-
-### Planned Improvements
-- **Multi-region Deployment**: Global availability
-- **Blue-Green Deployment**: Zero-downtime deployments
-- **Canary Releases**: Advanced traffic splitting
-- **Enhanced Monitoring**: Prometheus/Grafana integration
-- **Security Scanning**: Advanced vulnerability detection
-- **Performance Regression Detection**: Automated performance monitoring
-
-### Integration Opportunities
-- **Slack Notifications**: Deployment status updates
-- **PagerDuty Integration**: Incident management
-- **Datadog Monitoring**: Advanced APM
-- **Sentry Error Tracking**: Production error monitoring
+# Health check override (temporary)
+gcloud run services update tylergohr-portfolio \
+  --remove-env-vars=HEALTH_CHECK_ENABLED \
+  --region=us-central1
+```
 
 ---
 
-This deployment pipeline represents enterprise-grade DevOps practices, demonstrating expertise in automation, security, and reliability. The gradual traffic migration and comprehensive health checks ensure zero-downtime deployments while maintaining high availability and performance standards.
+**Deployment Focus**: Containerized Google Cloud Run with /2 redesign support  
+**Performance**: <2.5s LCP, <6MB bundle, automatic scaling  
+**Security**: Non-root containers, security headers, HTTPS enforcement  
+**Monitoring**: Health checks, automatic restarts, performance tracking
