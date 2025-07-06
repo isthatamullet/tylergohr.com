@@ -6,13 +6,14 @@ import { useSearchParams } from 'next/navigation'
 import { Section } from '@/app/2/components/Section/Section'
 import { BrowserTabs, TechnicalExpertiseContent } from '@/app/2/components/BrowserTabs'
 import type { TabData } from '@/app/2/components/BrowserTabs'
+import { ScrollControllerProvider } from '@/app/2/components/ScrollEffects/ScrollController'
 import styles from './page.module.css'
 
 // Lazy load footer for better performance
 const Footer = lazy(() => import('@/app/2/components/Footer/Footer'))
 
-// Lazy load the 3D architecture diagram for performance
-const InteractiveArchitectureDiagram = lazy(() => import('@/app/2/components/TechnicalExpertise/InteractiveArchitectureDiagram'))
+// Lazy load the scroll-enhanced 3D architecture diagram for performance - Phase 3.2 Day 2
+const ScrollEnhancedInteractiveArchitectureDiagram = lazy(() => import('@/app/2/components/TechnicalExpertise/ScrollEnhancedArchitectureDiagram'))
 
 interface TechnicalArea {
   id: string
@@ -338,11 +339,11 @@ function TechnicalExpertisePageContent() {
                 <div className={styles.diagramFallback}>
                   <div className={styles.loadingContainer}>
                     <div className={styles.loadingSpinner}></div>
-                    <p>Loading 3D architecture diagram...</p>
+                    <p>Loading scroll-enhanced 3D architecture diagram...</p>
                   </div>
                 </div>
               }>
-                <InteractiveArchitectureDiagram />
+                <ScrollEnhancedInteractiveArchitectureDiagram />
               </Suspense>
             </div>
             
@@ -413,11 +414,13 @@ function TechnicalExpertisePageContent() {
   )
 }
 
-// Main page component with Suspense boundary
+// Main page component with Suspense boundary and scroll integration
 export default function TechnicalExpertiseDetailPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <TechnicalExpertisePageContent />
-    </Suspense>
+    <ScrollControllerProvider enableAdvancedFeatures={true}>
+      <Suspense fallback={<div>Loading...</div>}>
+        <TechnicalExpertisePageContent />
+      </Suspense>
+    </ScrollControllerProvider>
   )
 }
