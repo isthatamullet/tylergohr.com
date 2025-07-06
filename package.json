@@ -60,7 +60,20 @@
     "copy-blog-assets": "node scripts/copy-blog-assets.js",
     "validate": "npm run typecheck && npm run lint && npm run build && npm run bundle-check",
     "bundle-check": "if [ -d \".next/static\" ]; then bundle_size=$(du -sk .next/static | cut -f1); echo \"Bundle size: ${bundle_size}KB\"; if [ $bundle_size -gt 6000 ]; then echo \"❌ Bundle size exceeds budget: ${bundle_size}KB > 6MB\"; exit 1; else echo \"✅ Bundle size within budget: ${bundle_size}KB (< 6MB)\"; fi; fi",
-    "pre-commit": "npm run validate"
+    "pre-commit": "npm run validate",
+    "test:e2e:scroll-integration": "playwright test --grep \"scroll.*integration|scroll.*effects.*together\" --project=chromium",
+    "test:e2e:performance-combined": "playwright test --grep \"performance.*combined|scroll.*performance\" --project=chromium",
+    "test:e2e:cross-browser-scroll": "playwright test --grep \"scroll\" --project=chromium --project=firefox --project=webkit",
+    "test:e2e:mobile-scroll-full": "playwright test --grep \"scroll|parallax|mobile.*optimization\" --project=\"Mobile Chrome\" --project=\"Mobile Safari\"",
+    "test:e2e:accessibility-scroll": "playwright test --grep \"accessibility.*scroll|scroll.*accessibility\" --project=chromium",
+    "test:performance:desktop-high": "playwright test --grep \"performance.*desktop.*high|120fps|webgl.*parallax\" --project=chromium",
+    "test:performance:desktop-std": "playwright test --grep \"performance.*desktop.*standard|60fps\" --project=chromium",
+    "test:performance:tablet": "playwright test --grep \"performance.*tablet|30fps.*tablet\" --project=\"Mobile Chrome\"",
+    "test:performance:mobile": "playwright test --grep \"performance.*mobile|mobile.*optimization\" --project=\"Mobile Safari\"",
+    "test:performance:memory-usage": "playwright test --grep \"memory.*usage|memory.*leak|resource.*usage\" --project=chromium",
+    "test:e2e:visual-scroll": "playwright test --grep \"visual.*scroll|scroll.*visual\" --update-snapshots=missing",
+    "test:e2e:screenshot-integration": "playwright test e2e/scroll-effects-integration.spec.ts --project=chromium",
+    "test:e2e:client-presentation": "playwright test --grep \"client.*presentation|enterprise.*presentation\" --project=chromium"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",

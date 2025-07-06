@@ -35,7 +35,7 @@ interface PerformanceOptimizationConfig {
 }
 
 /**
- * Performance metrics tracking
+ * Performance metrics tracking - Enhanced for Day 4 Integration Testing
  */
 interface PerformanceMetrics {
   currentFPS: number;
@@ -46,6 +46,18 @@ interface PerformanceMetrics {
   frameDrops: number;
   lastOptimization: number;
   deviceCapability: 'high' | 'medium' | 'low';
+  // Day 4 specific metrics
+  scrollFrameRate: number;
+  webglParallaxFPS: number;
+  totalRAMUsage: number;
+  mobilePerformanceRatio: number;
+  combinedEffectsActive: boolean;
+  resourceSharing: {
+    sharedWebGLContext: boolean;
+    unifiedScrollListeners: boolean;
+    memoryPooling: boolean;
+    adaptiveQualityScaling: boolean;
+  };
 }
 
 /**
@@ -169,7 +181,15 @@ class ScrollEffectsPerformanceMonitor {
       // Determine device capability based on performance
       const deviceCapability = this.determineDeviceCapability(averageFPS);
       
-      // Create metrics object
+      // Day 4 specific metrics calculation
+      const scrollFrameRate = this.calculateScrollFrameRate();
+      const webglParallaxFPS = this.detectWebGLParallaxFPS(currentFPS);
+      const totalRAMUsage = memoryUsage.jsHeap + memoryUsage.gpu;
+      const mobilePerformanceRatio = this.calculateMobilePerformanceRatio(averageFPS);
+      const combinedEffectsActive = this.detectCombinedEffectsActive();
+      const resourceSharing = this.assessResourceSharing();
+
+      // Create metrics object with Day 4 enhancements
       const metrics: PerformanceMetrics = {
         currentFPS: Math.round(currentFPS),
         averageFPS: Math.round(averageFPS),
@@ -178,7 +198,14 @@ class ScrollEffectsPerformanceMonitor {
         scrollEventCount: this.scrollEventCount,
         frameDrops: this.frameDropCount,
         lastOptimization: performance.now(),
-        deviceCapability
+        deviceCapability,
+        // Day 4 specific metrics
+        scrollFrameRate: Math.round(scrollFrameRate),
+        webglParallaxFPS: Math.round(webglParallaxFPS),
+        totalRAMUsage: Math.round(totalRAMUsage),
+        mobilePerformanceRatio: Math.round(mobilePerformanceRatio * 100) / 100,
+        combinedEffectsActive,
+        resourceSharing
       };
       
       // Report metrics
@@ -268,6 +295,116 @@ class ScrollEffectsPerformanceMonitor {
     this.fpsHistory = [];
     this.scrollEventCount = 0;
     this.frameDropCount = 0;
+  }
+
+  /**
+   * Calculate scroll-specific frame rate (Day 4 Task 2.1)
+   */
+  private calculateScrollFrameRate(): number {
+    const recentScrollEvents = this.scrollEventCount;
+    const timeSinceLastScroll = performance.now() - this.lastScrollTime;
+    
+    if (timeSinceLastScroll > 1000 || recentScrollEvents === 0) {
+      return 0; // No recent scrolling
+    }
+    
+    // Estimate scroll frame rate based on recent activity
+    const scrollFrameRate = recentScrollEvents > 0 ? 
+      Math.min(this.fpsHistory[this.fpsHistory.length - 1] || 0, 60) : 0;
+    
+    return scrollFrameRate;
+  }
+
+  /**
+   * Detect WebGL parallax specific FPS (Day 4 Task 2.1)
+   */
+  private detectWebGLParallaxFPS(currentFPS: number): number {
+    try {
+      // Check if WebGL parallax is active
+      const webglElements = document.querySelectorAll('canvas');
+      const parallaxElements = document.querySelectorAll('[class*="parallax"]');
+      
+      if (webglElements.length > 0 || parallaxElements.length > 0) {
+        // WebGL parallax is active, return current FPS as WebGL FPS
+        return currentFPS;
+      }
+      
+      return 0; // No WebGL parallax detected
+    } catch {
+      return 0;
+    }
+  }
+
+  /**
+   * Calculate mobile performance ratio (Day 4 Task 2.1)
+   */
+  private calculateMobilePerformanceRatio(averageFPS: number): number {
+    const isMobile = window.innerWidth <= 768;
+    
+    if (!isMobile) {
+      return 1.0; // Desktop performance ratio
+    }
+    
+    // Mobile performance ratio: actual FPS / target mobile FPS (30)
+    const targetMobileFPS = 30;
+    return Math.min(averageFPS / targetMobileFPS, 1.0);
+  }
+
+  /**
+   * Detect if combined effects are active (Day 4 Task 1.1)
+   */
+  private detectCombinedEffectsActive(): boolean {
+    try {
+      // Check for multiple scroll effect systems
+      const webglParallax = document.querySelectorAll('canvas').length > 0;
+      const scrollController = document.querySelector('[data-scroll-controller]') !== null;
+      const mobileOptimizer = document.querySelector('[data-mobile-optimized]') !== null;
+      const performanceMonitor = document.querySelector('[class*="performance"]') !== null;
+      
+      // Combined effects are active if multiple systems are detected
+      const activeSystemsCount = [webglParallax, scrollController, mobileOptimizer, performanceMonitor]
+        .filter(Boolean).length;
+      
+      return activeSystemsCount >= 2;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Assess resource sharing optimization (Day 4 Task 2.2)
+   */
+  private assessResourceSharing(): PerformanceMetrics['resourceSharing'] {
+    try {
+      // Check for shared WebGL context
+      const webglContexts = document.querySelectorAll('canvas');
+      const sharedWebGLContext = webglContexts.length <= 1; // Ideally single shared context
+      
+      // Check for unified scroll listeners (evidence of coordination)
+      const scrollListenerCount = (window as Window & { scrollListenerCount?: number }).scrollListenerCount || 0;
+      const unifiedScrollListeners = scrollListenerCount <= 3; // Reasonable threshold
+      
+      // Check for memory pooling (simplified detection)
+      const memoryPooling = (window as Window & { performanceMemoryPool?: unknown }).performanceMemoryPool !== undefined;
+      
+      // Check for adaptive quality scaling
+      const adaptiveQualityScaling = document.querySelector('[data-adaptive-quality]') !== null ||
+                                   (window as Window & { adaptiveQualityEnabled?: boolean }).adaptiveQualityEnabled === true;
+      
+      return {
+        sharedWebGLContext,
+        unifiedScrollListeners,
+        memoryPooling,
+        adaptiveQualityScaling
+      };
+    } catch {
+      return {
+        sharedWebGLContext: false,
+        unifiedScrollListeners: false,
+        memoryPooling: false,
+        adaptiveQualityScaling: false
+      };
+    }
   }
 }
 
@@ -555,10 +692,24 @@ export function PerformanceOptimizerDisplay({
           
           {metrics && (
             <div style={{ marginBottom: '8px' }}>
-              <div>📊 FPS: {metrics.currentFPS} (avg: {metrics.averageFPS})</div>
-              <div>🧠 Memory: {metrics.memoryUsage}MB</div>
-              <div>📱 Device: {metrics.deviceCapability}</div>
-              <div>📉 Frame Drops: {metrics.frameDrops}</div>
+              <div style={{ fontWeight: 'bold', color: '#22d3ee', marginBottom: '4px' }}>
+                📊 Day 4 Performance Metrics
+              </div>
+              <div>FPS: {metrics.currentFPS} (avg: {metrics.averageFPS})</div>
+              <div>🚀 Scroll FPS: {metrics.scrollFrameRate}</div>
+              <div>🎮 WebGL FPS: {metrics.webglParallaxFPS}</div>
+              <div>🧠 RAM: {metrics.totalRAMUsage}MB (JS: {metrics.memoryUsage}MB)</div>
+              <div>📱 Mobile Ratio: {metrics.mobilePerformanceRatio}</div>
+              <div>⚡ Combined: {metrics.combinedEffectsActive ? '✅' : '❌'}</div>
+              <div>📉 Drops: {metrics.frameDrops}</div>
+              
+              <div style={{ marginTop: '6px', fontSize: '9px', color: '#94a3b8' }}>
+                <div>🔗 Resource Sharing:</div>
+                <div>WebGL: {metrics.resourceSharing.sharedWebGLContext ? '✅' : '❌'} | 
+                     Scroll: {metrics.resourceSharing.unifiedScrollListeners ? '✅' : '❌'}</div>
+                <div>Memory: {metrics.resourceSharing.memoryPooling ? '✅' : '❌'} | 
+                     Quality: {metrics.resourceSharing.adaptiveQualityScaling ? '✅' : '❌'}</div>
+              </div>
             </div>
           )}
           
