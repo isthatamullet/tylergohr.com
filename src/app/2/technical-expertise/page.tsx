@@ -7,6 +7,9 @@ import { Section } from '@/app/2/components/Section/Section'
 import { BrowserTabs, TechnicalExpertiseContent } from '@/app/2/components/BrowserTabs'
 import type { TabData } from '@/app/2/components/BrowserTabs'
 import { ScrollControllerProvider } from '@/app/2/components/ScrollEffects/ScrollController'
+import { ScrollSectionsProvider } from '@/app/2/components/ScrollEffects/ScrollSections'
+import { WebGLParallax } from '@/app/2/components/ScrollEffects/WebGLParallax'
+import { Optimized3DInteractionArea, useMobileScrollOptimizer } from '@/app/2/components/ScrollEffects/MobileScrollOptimizer'
 import styles from './page.module.css'
 
 // Lazy load footer for better performance
@@ -203,6 +206,9 @@ function TechnicalExpertisePageContent() {
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set())
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
   const searchParams = useSearchParams()
+  
+  // Mobile optimization for 3D interaction - Phase 3.2 Day 3
+  const mobileOptimizer = useMobileScrollOptimizer()
 
   // Map URL tab parameters to actual technical area IDs
   const tabMapping = {
@@ -316,35 +322,42 @@ function TechnicalExpertisePageContent() {
         </div>
       </Section>
 
-      {/* Interactive Architecture Diagram Section - Phase 3.1 */}
+      {/* Interactive Architecture Diagram Section - Phase 3.2 Day 3 Enhanced */}
       <Section background="about" paddingY="xl">
-        <div 
-          ref={(el) => { sectionRefs.current['architecture'] = el }}
-          data-section-id="architecture"
-          className={`${styles.architectureSection} ${visibleSections.has('architecture') ? styles.revealed : ''}`}
-        >
-          <div className={styles.architectureContainer}>
-            <header className={styles.architectureHeader}>
-              <h2 className={styles.architectureTitle}>
-                Enterprise Architecture Visualization
-              </h2>
-              <p className={styles.architectureDescription}>
-                Interactive 3D diagram showcasing real-world enterprise system architecture with modern technology stacks, 
-                microservices patterns, and cloud infrastructure design.
-              </p>
-            </header>
-            
-            <div className={styles.diagramWrapper}>
-              <Suspense fallback={
-                <div className={styles.diagramFallback}>
-                  <div className={styles.loadingContainer}>
-                    <div className={styles.loadingSpinner}></div>
-                    <p>Loading scroll-enhanced 3D architecture diagram...</p>
+        <WebGLParallax intensity={0.8} enableInteraction={true}>
+          <div 
+            ref={(el) => { sectionRefs.current['architecture'] = el }}
+            data-section-id="architecture"
+            className={`${styles.architectureSection} ${visibleSections.has('architecture') ? styles.revealed : ''}`}
+          >
+            <div className={styles.architectureContainer}>
+              <header className={styles.architectureHeader}>
+                <h2 className={styles.architectureTitle}>
+                  Enterprise Architecture Visualization
+                </h2>
+                <p className={styles.architectureDescription}>
+                  Interactive 3D diagram showcasing real-world enterprise system architecture with modern technology stacks, 
+                  microservices patterns, and cloud infrastructure design. Enhanced with GPU-accelerated parallax backgrounds 
+                  and mobile-optimized controls.
+                </p>
+              </header>
+              
+              {/* Mobile-optimized 3D interaction area */}
+              <Optimized3DInteractionArea 
+                onTouchInteraction={mobileOptimizer.setTouchInteraction}
+                className={styles.diagramWrapper}
+              >
+                <Suspense fallback={
+                  <div className={styles.diagramFallback}>
+                    <div className={styles.loadingContainer}>
+                      <div className={styles.loadingSpinner}></div>
+                      <p>Loading scroll-enhanced 3D architecture diagram...</p>
+                    </div>
                   </div>
-                </div>
-              }>
-                <ScrollEnhancedInteractiveArchitectureDiagram />
-              </Suspense>
+                }>
+                  <ScrollEnhancedInteractiveArchitectureDiagram />
+                </Suspense>
+              </Optimized3DInteractionArea>
             </div>
             
             <div className={styles.architectureFeatures}>
@@ -376,7 +389,7 @@ function TechnicalExpertisePageContent() {
               </div>
             </div>
           </div>
-        </div>
+        </WebGLParallax>
       </Section>
 
       {/* Call to Action Section */}
@@ -414,13 +427,15 @@ function TechnicalExpertisePageContent() {
   )
 }
 
-// Main page component with Suspense boundary and scroll integration
+// Main page component with Suspense boundary and scroll integration - Phase 3.2 Day 3
 export default function TechnicalExpertiseDetailPage() {
   return (
     <ScrollControllerProvider enableAdvancedFeatures={true}>
-      <Suspense fallback={<div>Loading...</div>}>
-        <TechnicalExpertisePageContent />
-      </Suspense>
+      <ScrollSectionsProvider enableStorytellingMode={true}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <TechnicalExpertisePageContent />
+        </Suspense>
+      </ScrollSectionsProvider>
     </ScrollControllerProvider>
   )
 }
