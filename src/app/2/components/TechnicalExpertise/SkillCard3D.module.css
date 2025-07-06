@@ -1,0 +1,325 @@
+/**
+ * SkillCard3D Styles - Phase 3.3 Week 3 Day 1
+ * 
+ * Purpose: Performance-optimized styling for 3D skill demonstration cards
+ * with progressive enhancement, mobile optimization, and enterprise polish.
+ */
+
+/* Main skill card container with 3D enhancement layer */
+.skillCard3D {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Base card positioning */
+.baseCard {
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+/* 3D Canvas overlay */
+.canvas3D {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Hover state effects */
+.skillCard3D.hovered {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(0, 255, 136, 0.2),
+    0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.skillCard3D.hovered .canvas3D {
+  opacity: 1;
+}
+
+.skillCard3D.hovered .baseCard {
+  backdrop-filter: blur(4px) brightness(1.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+/* Business value overlay */
+.businessValueOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 10, 20, 0.95) 0%,
+    rgba(0, 30, 60, 0.9) 100%
+  );
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: overlaySlideIn 0.4s ease forwards;
+  pointer-events: none;
+}
+
+@keyframes overlaySlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.businessValueTitle {
+  color: var(--text-on-dark);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  font-family: var(--font-family-primary);
+}
+
+.businessValueText {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0 0 1rem 0;
+}
+
+.achievements {
+  margin-top: auto;
+}
+
+.achievements h5 {
+  color: var(--text-on-dark);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+}
+
+.achievements ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.achievements li {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8rem;
+  line-height: 1.3;
+  margin: 0 0 0.25rem 0;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.achievements li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--success-green);
+}
+
+/* 3D fallback and loading states */
+.fallback3D {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.loading3D {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.loading3D::after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid var(--success-green);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 0.5rem;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Performance indicator (development mode) */
+.performanceIndicator {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 4;
+  display: flex;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.deviceTier {
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--text-on-dark);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.performanceScore {
+  background: var(--success-green);
+  color: var(--text-on-light);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .skillCard3D {
+    transform: none; /* Disable transform on mobile for better performance */
+  }
+  
+  .skillCard3D.hovered {
+    transform: scale(1.01); /* Minimal scale on mobile */
+    box-shadow: 
+      0 8px 16px rgba(0, 255, 136, 0.15),
+      0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .canvas3D {
+    /* Reduce 3D complexity on mobile */
+    filter: contrast(1.2) brightness(1.1);
+  }
+  
+  .businessValueOverlay {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .businessValueText {
+    font-size: 0.8rem;
+  }
+  
+  .achievements li {
+    font-size: 0.75rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .businessValueOverlay {
+    background: rgba(0, 0, 0, 0.95);
+    border: 2px solid var(--text-on-dark);
+  }
+  
+  .skillCard3D.hovered {
+    box-shadow: 
+      0 0 0 2px var(--text-on-dark),
+      0 20px 40px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .skillCard3D {
+    transition: none;
+  }
+  
+  .skillCard3D.hovered {
+    transform: none;
+    box-shadow: 0 4px 8px rgba(0, 255, 136, 0.3);
+  }
+  
+  .canvas3D {
+    opacity: 0.5; /* Show 3D but static */
+  }
+  
+  .businessValueOverlay {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .loading3D::after {
+    animation: none;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .skillCard3D {
+    /* Optimize for touch */
+    touch-action: manipulation;
+  }
+  
+  .skillCard3D:active {
+    transform: scale(0.98);
+  }
+  
+  .businessValueOverlay {
+    /* Always slightly visible on touch devices */
+    opacity: 0.1;
+    transition: opacity 0.3s ease;
+  }
+  
+  .skillCard3D:active .businessValueOverlay {
+    opacity: 1;
+  }
+}
+
+/* Print styles */
+@media print {
+  .skillCard3D {
+    break-inside: avoid;
+  }
+  
+  .canvas3D {
+    display: none;
+  }
+  
+  .businessValueOverlay {
+    position: static;
+    background: none;
+    backdrop-filter: none;
+    opacity: 1;
+    transform: none;
+    animation: none;
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+  }
+}

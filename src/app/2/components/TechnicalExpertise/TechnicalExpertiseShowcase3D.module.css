@@ -1,0 +1,603 @@
+/**
+ * TechnicalExpertiseShowcase3D Styles - Phase 3.3 Week 3 Day 2
+ * 
+ * Purpose: Comprehensive styling for the unified 3D technical expertise showcase
+ * with mode navigation, case study integration, and enterprise presentation quality.
+ */
+
+/* Main container */
+.showcaseContainer {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Mode navigation */
+.modeNavigation {
+  margin-bottom: 3rem;
+  padding: 1rem;
+  background: rgba(0, 10, 20, 0.6);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modeButtons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.modeButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-on-dark);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  position: relative;
+}
+
+.modeButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.modeButton.active {
+  background: var(--success-green);
+  color: var(--text-on-light);
+  border-color: var(--success-green);
+  box-shadow: 0 4px 12px rgba(0, 255, 136, 0.3);
+}
+
+.modeButton:focus {
+  outline: 2px solid var(--success-green);
+  outline-offset: 2px;
+}
+
+/* Showcase content */
+.showcaseContent {
+  min-height: 600px;
+  margin-bottom: 2rem;
+}
+
+/* Overview mode */
+.overviewMode {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.overviewHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.overviewHeader h2 {
+  color: var(--text-on-dark);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  font-family: var(--font-family-primary);
+  background: linear-gradient(135deg, var(--success-green) 0%, #61dafb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.overviewHeader p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.overviewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.overviewCard {
+  height: 400px;
+}
+
+.overviewSkillCard {
+  height: 100%;
+}
+
+/* Case study integrations */
+.caseStudyIntegrations h3 {
+  color: var(--text-on-dark);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0 2rem 0;
+  text-align: center;
+  font-family: var(--font-family-primary);
+}
+
+.integrationGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.caseStudyCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.caseStudyCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 255, 136, 0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.caseStudyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.caseStudyHeader h3 {
+  color: var(--text-on-dark);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.2;
+  flex: 1;
+}
+
+.caseStudyActions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.actionButton {
+  background: var(--success-green);
+  color: var(--text-on-light);
+  text-decoration: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.actionButton:hover {
+  background: #00cc6a;
+  transform: translateY(-1px);
+}
+
+.actionButton:disabled {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.caseStudyContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.impactSection,
+.technicalSection {
+  background: rgba(0, 10, 20, 0.4);
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.impactSection h4,
+.technicalSection h4 {
+  color: var(--success-green);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.impactList,
+.technicalList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.impactList li,
+.technicalList li {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.impactList li::before {
+  content: '✓';
+  color: var(--success-green);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.technicalList li::before {
+  content: '▶';
+  color: #61dafb;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* Skills mode */
+.skillsMode h2 {
+  color: var(--text-on-dark);
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 2rem 0;
+  text-align: center;
+  font-family: var(--font-family-primary);
+}
+
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.skillCard {
+  height: 500px;
+}
+
+/* Timeline mode */
+.timelineMode {
+  padding: 1rem;
+}
+
+.timeline {
+  width: 100%;
+}
+
+/* Technology mode */
+.technologyMode {
+  padding: 1rem;
+}
+
+.technologyViz {
+  width: 100%;
+}
+
+/* Projects mode */
+.projectsMode {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.projectPreview {
+  width: 100%;
+}
+
+.projectIntegration {
+  background: rgba(0, 10, 20, 0.6);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.projectIntegration h3 {
+  color: var(--text-on-dark);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+}
+
+.integrationActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Architecture mode */
+.architectureMode {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.architectureViz {
+  width: 100%;
+}
+
+.architectureIntegration {
+  background: rgba(0, 10, 20, 0.6);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.architectureIntegration h3 {
+  color: var(--text-on-dark);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.architectureIntegration p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin: 0 0 1.5rem 0;
+}
+
+/* Context information */
+.contextInfo {
+  background: rgba(0, 255, 136, 0.1);
+  border-left: 4px solid var(--success-green);
+  border-radius: 0 8px 8px 0;
+  padding: 1rem 1.5rem;
+  margin-top: 2rem;
+}
+
+.contextInfo p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0;
+  font-style: italic;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .showcaseContainer {
+    padding: 1rem;
+  }
+  
+  .modeNavigation {
+    margin-bottom: 2rem;
+  }
+  
+  .modeButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .modeButton {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+  
+  .overviewGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .integrationGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .caseStudyHeader {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .caseStudyActions {
+    justify-content: center;
+  }
+  
+  .caseStudyContent {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .skillsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .integrationActions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .actionButton {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+/* Tablet optimizations */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .overviewGrid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  .integrationGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .skillsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1400px) {
+  .showcaseContainer {
+    max-width: 1600px;
+  }
+  
+  .overviewGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .integrationGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .modeButton:hover,
+  .actionButton:hover {
+    transform: none;
+  }
+  
+  .caseStudyCard:hover {
+    transform: none;
+  }
+  
+  .modeButton,
+  .actionButton,
+  .caseStudyCard {
+    transition: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .modeNavigation {
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid var(--text-on-dark);
+  }
+  
+  .modeButton {
+    border: 1px solid var(--text-on-dark);
+  }
+  
+  .modeButton.active {
+    border: 2px solid var(--success-green);
+  }
+  
+  .caseStudyCard {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--text-on-dark);
+  }
+  
+  .caseStudyCard:hover {
+    border: 2px solid var(--success-green);
+  }
+  
+  .contextInfo {
+    background: rgba(0, 0, 0, 0.8);
+    border-left: 4px solid var(--success-green);
+  }
+}
+
+/* Print styles */
+@media print {
+  .modeNavigation {
+    display: none;
+  }
+  
+  .showcaseContent {
+    color: black;
+    background: white;
+  }
+  
+  .caseStudyCard {
+    background: white;
+    border: 1px solid #ccc;
+    color: black;
+    break-inside: avoid;
+  }
+  
+  .actionButton {
+    display: none;
+  }
+  
+  .contextInfo {
+    background: #f5f5f5;
+    color: black;
+    border-left: 4px solid #333;
+  }
+}
+
+/* Focus management for accessibility */
+.modeButton:focus-visible,
+.actionButton:focus-visible {
+  outline: 2px solid var(--success-green);
+  outline-offset: 2px;
+}
+
+.caseStudyCard:focus-within {
+  outline: 2px solid var(--success-green);
+  outline-offset: 2px;
+}
+
+/* Animation optimizations */
+.overviewMode,
+.skillsMode,
+.projectsMode,
+.architectureMode {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading states */
+.modeButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.modeButton:disabled:hover {
+  transform: none;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced visual hierarchy */
+.overviewHeader h2 {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.caseStudyCard {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.caseStudyCard:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Backdrop filter support */
+@supports (backdrop-filter: blur(1px)) {
+  .modeNavigation {
+    backdrop-filter: blur(8px);
+  }
+  
+  .projectIntegration,
+  .architectureIntegration {
+    backdrop-filter: blur(8px);
+  }
+}

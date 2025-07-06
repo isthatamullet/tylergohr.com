@@ -1,0 +1,639 @@
+/**
+ * ProjectArchitecture3D Styles - Phase 3.3 Week 3 Day 2
+ * 
+ * Purpose: Styling for detailed 3D architecture exploration with performance
+ * insights, data flow visualization, and enterprise presentation quality.
+ */
+
+/* Main container */
+.architectureContainer {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Architecture controls */
+.architectureControls {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.projectSelector {
+  flex: 1;
+  min-width: 300px;
+}
+
+.projectSelector h3 {
+  color: var(--text-on-dark);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  font-family: var(--font-family-primary);
+}
+
+.selectorButtons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.selectorButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-on-dark);
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.selectorButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.selectorButton.active {
+  background: var(--success-green);
+  color: var(--text-on-light);
+  border-color: var(--success-green);
+}
+
+/* View controls */
+.viewControls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.controlButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-on-dark);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.controlButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.controlButton.active {
+  background: rgba(0, 255, 136, 0.2);
+  border-color: var(--success-green);
+  color: var(--success-green);
+}
+
+/* 3D Visualization container */
+.visualization3D {
+  height: 700px;
+  width: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 10, 20, 0.9) 0%,
+    rgba(0, 30, 60, 0.7) 50%,
+    rgba(0, 10, 20, 0.9) 100%
+  );
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+/* Loading and fallback states */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-on-dark);
+  font-size: 1.1rem;
+  background: rgba(0, 10, 20, 0.9);
+}
+
+.loading::after {
+  content: '';
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid var(--success-green);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 1rem;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+.fallback2D {
+  height: 100%;
+  padding: 2rem;
+  overflow-y: auto;
+  text-align: center;
+}
+
+.fallback2D h4 {
+  color: var(--text-on-dark);
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.fallback2D p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  line-height: 1.4;
+  margin: 0 0 1.5rem 0;
+}
+
+.architectureInfo {
+  color: var(--success-green);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Insight tooltip (for HTML overlay) */
+.insightTooltip {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 20, 40, 0.95) 0%,
+    rgba(0, 40, 80, 0.9) 100%
+  );
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: var(--text-on-dark);
+  font-size: 0.8rem;
+  min-width: 150px;
+  pointer-events: none;
+}
+
+.insightMetric {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.insightMetric:last-child {
+  margin-bottom: 0;
+}
+
+.insightMetric span {
+  color: var(--success-green);
+  font-weight: 600;
+}
+
+/* Insight detail panel */
+.insightDetail {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 350px;
+  max-height: calc(100% - 2rem);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 20, 40, 0.95) 0%,
+    rgba(0, 40, 80, 0.9) 100%
+  );
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  z-index: 10;
+  overflow-y: auto;
+  animation: slideInLeft 0.3s ease;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--text-on-dark);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: background 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.insightHeader {
+  margin-bottom: 1rem;
+  padding-right: 2rem;
+}
+
+.insightTitle {
+  color: var(--text-on-dark);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.insightType {
+  display: inline-block;
+  color: var(--text-on-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.insightType.performance {
+  background: #ff6b35;
+}
+
+.insightType.scalability {
+  background: #3b82f6;
+}
+
+.insightType.security {
+  background: #ef4444;
+}
+
+.insightType.integration {
+  background: #8b5cf6;
+}
+
+.insightDescription {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0 0 1.5rem 0;
+}
+
+.insightMetrics {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+}
+
+.insightMetrics h4 {
+  color: var(--text-on-dark);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.metricRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+}
+
+.metricRow:last-child {
+  margin-bottom: 0;
+}
+
+.metricValue {
+  color: var(--success-green);
+  font-weight: 600;
+  font-family: var(--font-family-primary);
+}
+
+/* Architecture summary */
+.architectureSummary {
+  background: rgba(0, 10, 20, 0.6);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.architectureSummary h4 {
+  color: var(--text-on-dark);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.architectureSummary p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0 0 1.5rem 0;
+}
+
+.performanceTargets {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+}
+
+.performanceTargets h5 {
+  color: var(--text-on-dark);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.targetsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.targetItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.targetItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+.targetItem span:first-child {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+}
+
+.targetItem span:last-child {
+  color: var(--success-green);
+  font-weight: 600;
+  font-family: var(--font-family-primary);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .architectureContainer {
+    padding: 1rem;
+  }
+  
+  .architectureControls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .projectSelector {
+    min-width: unset;
+  }
+  
+  .selectorButtons {
+    flex-direction: column;
+  }
+  
+  .selectorButton {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .viewControls {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .visualization3D {
+    height: 500px;
+  }
+  
+  .insightDetail {
+    position: static;
+    width: 100%;
+    margin-top: 1rem;
+    max-height: none;
+  }
+  
+  .closeButton {
+    display: none;
+  }
+  
+  .insightHeader {
+    padding-right: 0;
+  }
+  
+  .targetsList {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet optimizations */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .architectureControls {
+    flex-direction: column;
+  }
+  
+  .insightDetail {
+    width: 320px;
+  }
+  
+  .visualization3D {
+    height: 600px;
+  }
+  
+  .targetsList {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1400px) {
+  .architectureContainer {
+    max-width: 1600px;
+  }
+  
+  .visualization3D {
+    height: 800px;
+  }
+  
+  .insightDetail {
+    width: 400px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .insightDetail {
+    animation: none;
+  }
+  
+  .selectorButton:hover,
+  .controlButton:hover {
+    transform: none;
+  }
+  
+  .targetItem:hover {
+    transform: none;
+  }
+  
+  .loading::after {
+    animation: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .visualization3D {
+    border: 2px solid var(--text-on-dark);
+  }
+  
+  .insightDetail {
+    background: rgba(0, 0, 0, 0.95);
+    border: 2px solid var(--text-on-dark);
+  }
+  
+  .architectureSummary {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid var(--text-on-dark);
+  }
+  
+  .targetItem {
+    border: 1px solid var(--text-on-dark);
+  }
+  
+  .targetItem:hover {
+    border: 2px solid var(--success-green);
+  }
+  
+  .selectorButton,
+  .controlButton {
+    border: 1px solid var(--text-on-dark);
+  }
+}
+
+/* Print styles */
+@media print {
+  .visualization3D {
+    height: auto;
+    background: white;
+    border: 1px solid #ccc;
+  }
+  
+  .insightDetail {
+    position: static;
+    background: white;
+    border: 1px solid #ccc;
+    color: black;
+    margin-top: 1rem;
+  }
+  
+  .architectureSummary {
+    background: white;
+    border: 1px solid #ccc;
+    color: black;
+  }
+  
+  .architectureControls {
+    display: none;
+  }
+  
+  .closeButton {
+    display: none;
+  }
+  
+  .insightTooltip {
+    display: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.selectorButton:focus,
+.controlButton:focus,
+.closeButton:focus {
+  outline: 2px solid var(--success-green);
+  outline-offset: 2px;
+}
+
+.targetItem:focus-within {
+  outline: 2px solid var(--success-green);
+  outline-offset: 2px;
+}
+
+/* Loading state improvements */
+.selectorButton:disabled,
+.controlButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.selectorButton:disabled:hover,
+.controlButton:disabled:hover {
+  transform: none;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Animation performance */
+.visualization3D * {
+  will-change: transform, opacity;
+}
+
+@supports (backdrop-filter: blur(1px)) {
+  .insightDetail,
+  .insightTooltip {
+    backdrop-filter: blur(12px);
+  }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  .insightTooltip {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  .insightDetail {
+    box-shadow: 0 16px 64px rgba(0, 0, 0, 0.5);
+  }
+  
+  .architectureSummary {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+}
