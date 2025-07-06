@@ -320,7 +320,9 @@
   
   /* Architecture Section Mobile */
   .architectureContainer {
-    padding: 0 16px;
+    padding: 0 20px;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .architectureHeader {
@@ -334,6 +336,10 @@
   
   .architectureDescription {
     font-size: 1rem;
+    padding: 0 8px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
   
   .diagramWrapper {
@@ -407,6 +413,21 @@
     margin: 0 auto !important;
     max-width: 800px !important;
     text-align: center !important;
+  }
+  
+  /* Fix architecture description on extra small mobile */
+  .architectureContainer {
+    padding: 0 16px !important;
+  }
+  
+  .architectureDescription {
+    font-size: 0.95rem !important;
+    padding: 0 4px !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
   
   .heroHeader {
