@@ -8,6 +8,52 @@
 **Status**: 🚧 Active Development - /2 redesign in progress  
 **Current Priority**: Check GitHub issues for latest /2 development focus
 
+## 🚨 Claude Code Timeout Prevention (MANDATORY)
+
+**These commands timeout after 2 minutes in cloud environments - use Agent tool instead:**
+
+### **Timeout-Prone Commands:**
+- `npm run dev` → Use **environment_setup_agent** pattern
+- `npm run test:e2e:smoke` → Use **test_execution_agent** pattern  
+- Any `playwright test` commands → Use **test_execution_agent** pattern
+- Server startup and environment setup → Use **environment_setup_agent** pattern
+
+### **Agent Tool Patterns:**
+
+**Environment Setup Agent** (for `npm run dev`, server issues):
+```
+Use the Agent tool to handle complete environment setup:
+1. Detect active development server ports
+2. Verify server health and accessibility  
+3. Set correct environment variables (ACTIVE_DEV_PORT, ACTIVE_DEV_URL)
+4. Clean up any conflicting or unresponsive servers
+5. Start fresh server if needed
+6. Validate environment is ready for development/testing
+```
+
+**Test Execution Agent** (for `npm run test:e2e:smoke`, testing):
+```
+Use the Agent tool to execute tests with full environment validation:
+1. Verify development server is running and accessible
+2. Set correct environment variables for testing
+3. Execute the test command with proper timeout handling
+4. Provide detailed analysis of any failures
+5. Handle Framer Motion animation timing issues if present
+6. Generate screenshots for visual validation if applicable
+```
+
+### **Alternative: Enhanced Commands**
+```bash
+npm run dev:enhanced                  # Timeout-resistant dev server
+npm run test:e2e:smoke:enhanced      # Timeout-resistant testing
+npm run test:e2e:screenshot:enhanced # Timeout-resistant screenshots
+```
+
+### **Complete Patterns Available In:**
+**@CROSS-SESSION-TIMEOUT-PREVENTION-GUIDE.md** - Complete sub-agent integration guide
+
+---
+
 ## Project Goals - /2 Redesign Specific
 - **Primary Purpose**: Enterprise Solutions Architect portfolio demonstrating business value delivery
 - **Brand Focus**: Emmy Award-winning developer with 16+ years Fox Corporation & Warner Bros experience
@@ -326,8 +372,9 @@ This documentation structure follows a systematic restructure plan that transfor
 
 ### **Daily Development Workflow**
 ```bash
-# Start development
-npm run dev                 # Smart development server with auto port detection
+# Start development  
+npm run dev:enhanced        # Timeout-resistant development server (RECOMMENDED)
+npm run dev                 # Basic dev server (may timeout in cloud environments)
 npm run validate           # 🔥 MANDATORY before commits (typecheck + lint + build)
 
 # Fast testing during development
@@ -474,7 +521,7 @@ npm run test:e2e:visual           # Visual regression testing
 ```bash
 # 1. Start development
 cd /home/user/tylergohr.com/src/app/2/ && claude code    # /2 context
-npm run dev                                              # Smart dev server
+npm run dev:enhanced                                     # Timeout-resistant dev server
 gh issue list --label "redesign"                        # Check /2 tasks
 
 # 2. Fast development testing  

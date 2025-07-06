@@ -1,8 +1,9 @@
 /**
- * TechnicalExpertiseShowcase3D Component - Phase 3.3 Week 3 Day 2
+ * TechnicalExpertiseShowcase3D Component - Phase 3.3 Week 3 Day 3
  * 
  * Purpose: Comprehensive integration of all 3D skill demonstrations with
  * existing case studies, creating a unified enterprise technical showcase.
+ * Enhanced with global 3D performance monitoring integration.
  * 
  * Features:
  * - Unified navigation between 3D previews and case studies
@@ -10,11 +11,13 @@
  * - Seamless integration with existing /2/case-studies routes
  * - Interactive exploration modes with context switching
  * - Enterprise presentation with measurable business impact
+ * - Global 3D performance monitoring and optimization
+ * - Automatic quality scaling and resource management
  */
 
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import SkillCard3D from './SkillCard3D';
 import SkillProgressionTimeline3D from './SkillProgressionTimeline3D';
@@ -22,6 +25,7 @@ import TechnologyVisualization3D from './TechnologyVisualization3D';
 import ProjectPreview3D from './ProjectPreview3D';
 import ProjectArchitecture3D from './ProjectArchitecture3D';
 import type { SkillCard3D as SkillCard3DType } from './SkillDemonstrationTypes';
+import { getPerformanceMonitor, type Scene3D } from '../../lib/performance/Global3DPerformanceMonitor';
 import styles from './TechnicalExpertiseShowcase3D.module.css';
 
 /**
@@ -392,7 +396,71 @@ export default function TechnicalExpertiseShowcase3D({
 }: TechnicalExpertiseShowcase3DProps) {
   const [currentMode, setCurrentMode] = useState<ShowcaseMode>(initialMode);
   const [selectedProject, setSelectedProject] = useState<string>('invoice-chaser');
+  
+  // Performance monitoring integration
+  const componentRef = useRef<HTMLDivElement>(null);
+  const sceneIdRef = useRef<string>(`showcase-${Date.now()}`);
+  const performanceMonitor = getPerformanceMonitor();
 
+  // Performance monitoring setup
+  useEffect(() => {
+    const sceneId = sceneIdRef.current;
+    
+    // Start performance monitoring
+    performanceMonitor.startMonitoring();
+    
+    // Register this component as a 3D scene
+    const scene: Scene3D = {
+      id: sceneId,
+      type: 'skill-card', // Will change based on current mode
+      priority: 'high',
+      complexity: 8, // High complexity showcase
+      isActive: true,
+      isVisible: true,
+      lastRenderTime: 0,
+      memoryUsage: 0,
+      element: componentRef.current || undefined
+    };
+    
+    performanceMonitor.registerScene(scene);
+    
+    // Cleanup on unmount
+    return () => {
+      performanceMonitor.unregisterScene(sceneId);
+    };
+  }, [performanceMonitor]);
+  
+  // Update scene status when mode changes
+  useEffect(() => {
+    const sceneType = currentMode === 'skills' ? 'skill-card' :
+                     currentMode === 'timeline' ? 'timeline' :
+                     currentMode === 'technology' ? 'technology-viz' :
+                     currentMode === 'projects' ? 'project-preview' :
+                     currentMode === 'architecture' ? 'architecture' :
+                     'skill-card';
+    
+    // Update scene complexity based on mode
+    const complexity = currentMode === 'architecture' ? 10 :
+                      currentMode === 'projects' ? 9 :
+                      currentMode === 'technology' ? 8 :
+                      currentMode === 'timeline' ? 7 :
+                      currentMode === 'skills' ? 8 : 6;
+    
+    const scene: Scene3D = {
+      id: sceneIdRef.current,
+      type: sceneType,
+      priority: 'high',
+      complexity,
+      isActive: true,
+      isVisible: true,
+      lastRenderTime: performance.now(),
+      memoryUsage: complexity * 15, // Estimate based on complexity
+      element: componentRef.current || undefined
+    };
+    
+    performanceMonitor.registerScene(scene);
+  }, [currentMode, performanceMonitor]);
+  
   // Get current project integration
   const currentIntegration = useMemo(() => {
     return caseStudyIntegrations.find(integration => integration.projectId === selectedProject);
@@ -412,7 +480,11 @@ export default function TechnicalExpertiseShowcase3D({
   };
 
   return (
-    <div className={`${styles.showcaseContainer} ${className || ''}`}>
+    <div 
+      ref={componentRef}
+      className={`${styles.showcaseContainer} ${className || ''}`}
+      data-scene-id={sceneIdRef.current}
+    >
       {/* Mode navigation */}
       {enableModeNavigation && (
         <ModeNavigation
