@@ -381,6 +381,40 @@
 }
 
 /* ==========================================================================
+   BUSINESS METRICS SECTION
+   ========================================================================== */
+
+.metricsSection {
+  opacity: 1;
+  transform: translateY(40px);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+  
+  /* Performance optimization */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.metricsSection.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.businessMetrics {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.loadingPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+/* ==========================================================================
    CTA SECTION
    ========================================================================== */
 
@@ -623,6 +657,7 @@
   .heroHeader,
   .quickNav,
   .caseStudySection,
+  .metricsSection,
   .ctaSection {
     transition: opacity 0.3s ease;
     transform: none;
@@ -644,6 +679,7 @@
 .heroHeader,
 .quickNav,
 .caseStudySection,
+.metricsSection,
 .ctaSection,
 .quickNavCard,
 .contentSection {
