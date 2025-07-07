@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence, cubicBezier } from 'framer-motion';
-import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import styles from './RealTimeMetricsDashboard.module.css';
 
 interface MetricData {
@@ -33,7 +33,7 @@ export default function RealTimeMetricsDashboard({
   isInPresentationMode = false 
 }: RealTimeMetricsDashboardProps) {
   const [activeTab, setActiveTab] = useState<'overview' | 'revenue' | 'performance' | 'quality'>('overview');
-  const [animationPhase, setAnimationPhase] = useState(0);
+  const [, setAnimationPhase] = useState(0);
 
   // Simulate real-time data updates
   useEffect(() => {
@@ -168,7 +168,7 @@ export default function RealTimeMetricsDashboard({
           <button
             key={tab.key}
             className={`${styles.tab} ${activeTab === tab.key ? styles.activeTab : ''}`}
-            onClick={() => setActiveTab(tab.key as any)}
+            onClick={() => setActiveTab(tab.key as typeof activeTab)}
           >
             {tab.label}
           </button>

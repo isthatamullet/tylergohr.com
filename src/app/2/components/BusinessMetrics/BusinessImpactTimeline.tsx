@@ -32,7 +32,7 @@ export default function BusinessImpactTimeline({
 }: BusinessImpactTimelineProps) {
   const [selectedMilestone, setSelectedMilestone] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<'timeline' | 'impact' | 'progression'>('timeline');
-  const [animationPhase, setAnimationPhase] = useState(0);
+  const [, setAnimationPhase] = useState(0);
 
   // Career progression data - 16+ years of enterprise excellence
   const careerMilestones: CareerMilestone[] = useMemo(() => [
@@ -231,7 +231,7 @@ export default function BusinessImpactTimeline({
           <button
             key={mode.key}
             className={`${styles.viewButton} ${viewMode === mode.key ? styles.active : ''}`}
-            onClick={() => setViewMode(mode.key as any)}
+            onClick={() => setViewMode(mode.key as typeof viewMode)}
           >
             <span className={styles.viewIcon}>{mode.icon}</span>
             <span className={styles.viewLabel}>{mode.label}</span>
@@ -322,7 +322,7 @@ export default function BusinessImpactTimeline({
               <div className={styles.impactMetrics}>
                 <h3 className={styles.impactTitle}>Cumulative Business Impact</h3>
                 <div className={styles.impactGrid}>
-                  {careerMilestones.map((milestone, index) => (
+                  {careerMilestones.map((milestone) => (
                     <motion.div
                       key={milestone.id}
                       className={styles.impactCard}
