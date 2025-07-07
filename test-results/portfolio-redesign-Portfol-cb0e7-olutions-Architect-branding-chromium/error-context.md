@@ -14,6 +14,7 @@
   - button "Navigate to Process section": Process
   - button "Navigate to Skills section": Skills
   - button "Navigate to Contact section": Contact
+  - button "Open navigation menu"
 - main:
   - banner "Enterprise Solutions Architect":
     - img "Enterprise Solutions Architecture - Interactive visualization of connected systems and data flows"
@@ -107,6 +108,20 @@
     - heading "Testing" [level=3]
     - heading "Deployment" [level=3]
     - heading "Optimization" [level=3]
+    - heading "Discovery" [level=3]
+    - paragraph: Stakeholder interviews, problem definition, scope clarification
+    - heading "Research" [level=3]
+    - paragraph: Technical research, architecture planning, GitHub issue roadmap
+    - heading "Design" [level=3]
+    - paragraph: UI/UX design, technical prototypes, validation cycles
+    - heading "Implementation" [level=3]
+    - paragraph: Next.js development, iterative building, code reviews
+    - heading "Testing" [level=3]
+    - paragraph: Jest testing, TypeScript validation, performance optimization
+    - heading "Deployment" [level=3]
+    - paragraph: Google Cloud deployment, CI/CD pipeline, monitoring setup
+    - heading "Optimization" [level=3]
+    - paragraph: Performance monitoring, continuous improvement, maintenance
     - link "View complete development process methodology":
       - /url: /2/how-i-work
       - text: View Full Process →
@@ -114,13 +129,13 @@
   - region "Technical Expertise":
     - heading "Technical Expertise" [level=2]
     - paragraph: Cutting-edge technologies and enterprise leadership experience driving innovation across Fortune 500 organizations.
-    - text: ⚛️ Modern Frontend 8+ years React 19 Next.js 14 TypeScript Advanced CSS Framer Motion CSS Grid Subgrid
+    - text: ⚛️ Modern Frontend 8+ years React 19Next.js 14TypeScriptAdvanced CSSFramer MotionCSS Grid Subgrid
     - strong: "Current:"
-    - text: This portfolio built with Next.js 14 + TypeScript ☁️ Backend & Cloud 10+ years Node.js Express APIs Google Cloud Platform PostgreSQL Prisma ORM Docker
+    - text: This portfolio built with Next.js 14 + TypeScript ☁️ Backend & Cloud 10+ years Node.jsExpress APIsGoogle Cloud PlatformPostgreSQLPrisma ORMDocker
     - strong: "Current:"
-    - text: Google Cloud Run deployment with CI/CD automation 👥 Enterprise Leadership 16+ years Team Leadership (10+ people) AI Implementation Pioneer Product Management Strategic Planning
+    - text: Google Cloud Run deployment with CI/CD automation 👥 Enterprise Leadership 16+ years Team Leadership (10+ people)AI Implementation PioneerProduct ManagementStrategic Planning
     - strong: "Current:"
-    - text: Leading Warner Bros & Fox Corporation technical initiatives 🔧 Integration & Automation 12+ years Stripe Payment Processing Real-time Socket.IO AI-Powered Automation API Integration
+    - text: Leading Warner Bros & Fox Corporation technical initiatives 🔧 Integration & Automation 12+ years Stripe Payment ProcessingReal-time Socket.IOAI-Powered AutomationAPI Integration
     - strong: "Current:"
     - text: Invoice Chaser automation reducing payment times 25-40%
     - link "View complete technical expertise and project examples":

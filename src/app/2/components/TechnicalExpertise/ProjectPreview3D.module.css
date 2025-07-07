@@ -1,0 +1,565 @@
+/**
+ * ProjectPreview3D Styles - Phase 3.3 Week 3 Day 2
+ * 
+ * Purpose: Styling for 3D project previews with architecture exploration,
+ * business metrics, mobile optimization, and enterprise presentation quality.
+ */
+
+/* Main container */
+.projectContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Project selector */
+.projectSelector {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.projectSelector h3 {
+  color: var(--text-on-dark);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+  font-family: var(--font-family-primary);
+}
+
+.selectorButtons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.selectorButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-on-dark);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.selectorButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.selectorButton.active {
+  background: rgba(255, 255, 255, 0.2);
+  border-width: 2px;
+  transform: translateY(-2px);
+}
+
+/* 3D Visualization container */
+.visualization3D {
+  height: 600px;
+  width: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 10, 20, 0.8) 0%,
+    rgba(0, 30, 60, 0.6) 50%,
+    rgba(0, 10, 20, 0.8) 100%
+  );
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+/* Loading and fallback states */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-on-dark);
+  font-size: 1.1rem;
+  background: rgba(0, 10, 20, 0.9);
+}
+
+.loading::after {
+  content: '';
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid var(--success-green);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-left: 1rem;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* 2D Fallback */
+.fallback2D {
+  height: 100%;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.fallback2D h4 {
+  color: var(--text-on-dark);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+.fallback2D p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+}
+
+.nodeList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.node2D {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.node2D:hover,
+.node2D.selected {
+  background: rgba(0, 255, 136, 0.1);
+  border-color: var(--success-green);
+  transform: translateY(-4px);
+}
+
+.node2D h5 {
+  color: var(--text-on-dark);
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+}
+
+.node2D p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Node detail panel */
+.nodeDetail {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 320px;
+  max-height: calc(100% - 2rem);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 20, 40, 0.95) 0%,
+    rgba(0, 40, 80, 0.9) 100%
+  );
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  z-index: 10;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: var(--text-on-dark);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: background 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.nodeHeader {
+  margin-bottom: 1rem;
+  padding-right: 2rem;
+}
+
+.nodeTitle {
+  color: var(--text-on-dark);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.nodeType {
+  display: inline-block;
+  color: var(--text-on-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.nodeInfo h4 {
+  color: var(--text-on-dark);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem 0;
+}
+
+.nodeInfo p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0 0 0.5rem 0;
+}
+
+/* Project information */
+.projectInfo {
+  background: rgba(0, 10, 20, 0.6);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.projectHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.projectHeader h4 {
+  color: var(--text-on-dark);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.projectStatus {
+  display: inline-block;
+  color: var(--text-on-light);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.projectDescription {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0 0 1.5rem 0;
+}
+
+.projectLinks {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.projectLink {
+  background: var(--success-green);
+  color: var(--text-on-light);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.projectLink:hover {
+  background: #00cc6a;
+  transform: translateY(-1px);
+}
+
+/* Business metrics */
+.businessMetrics {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+}
+
+.businessMetrics h5 {
+  color: var(--text-on-dark);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.metricsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.metricCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.metricCard:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.metricValue {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-family-primary);
+}
+
+.metricLabel {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .projectContainer {
+    padding: 1rem;
+  }
+  
+  .selectorButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .selectorButton {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .visualization3D {
+    height: 500px;
+  }
+  
+  .nodeDetail {
+    position: static;
+    width: 100%;
+    margin-top: 1rem;
+    max-height: none;
+  }
+  
+  .closeButton {
+    display: none;
+  }
+  
+  .nodeHeader {
+    padding-right: 0;
+  }
+  
+  .projectHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .projectLinks {
+    flex-direction: column;
+  }
+  
+  .projectLink {
+    text-align: center;
+  }
+  
+  .metricsList {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+  
+  .nodeList {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet optimizations */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .nodeDetail {
+    width: 300px;
+  }
+  
+  .visualization3D {
+    height: 550px;
+  }
+  
+  .metricsList {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .nodeDetail {
+    animation: none;
+  }
+  
+  .node2D:hover,
+  .node2D.selected {
+    transform: none;
+  }
+  
+  .metricCard:hover {
+    transform: none;
+  }
+  
+  .selectorButton:hover {
+    transform: none;
+  }
+  
+  .selectorButton.active {
+    transform: none;
+  }
+  
+  .projectLink:hover {
+    transform: none;
+  }
+  
+  .loading::after {
+    animation: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .visualization3D {
+    border: 2px solid var(--text-on-dark);
+  }
+  
+  .nodeDetail {
+    background: rgba(0, 0, 0, 0.95);
+    border: 2px solid var(--text-on-dark);
+  }
+  
+  .node2D {
+    border: 1px solid var(--text-on-dark);
+  }
+  
+  .node2D:hover,
+  .node2D.selected {
+    border: 2px solid var(--success-green);
+  }
+  
+  .selectorButton {
+    border: 1px solid var(--text-on-dark);
+  }
+  
+  .metricCard {
+    border: 1px solid var(--text-on-dark);
+  }
+}
+
+/* Print styles */
+@media print {
+  .visualization3D {
+    height: auto;
+    background: white;
+    border: 1px solid #ccc;
+  }
+  
+  .nodeDetail {
+    position: static;
+    background: white;
+    border: 1px solid #ccc;
+    color: black;
+    margin-top: 1rem;
+  }
+  
+  .projectInfo {
+    background: white;
+    border: 1px solid #ccc;
+    color: black;
+  }
+  
+  .selectorButtons {
+    display: none;
+  }
+  
+  .closeButton {
+    display: none;
+  }
+  
+  .projectLinks {
+    display: none;
+  }
+}
+
+/* Focus styles for accessibility */
+.selectorButton:focus,
+.projectLink:focus,
+.closeButton:focus {
+  outline: 2px solid var(--success-green);
+  outline-offset: 2px;
+}
+
+.node2D:focus {
+  outline: 2px solid var(--success-green);
+  outline-offset: 2px;
+}
+
+/* Loading states */
+.selectorButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.selectorButton:disabled:hover {
+  transform: none;
+}

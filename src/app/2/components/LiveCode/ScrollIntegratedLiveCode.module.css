@@ -1,0 +1,416 @@
+.scrollIntegratedLiveCode {
+  min-height: 100vh;
+  padding: var(--section-spacing) var(--container-padding);
+  background: linear-gradient(
+    135deg,
+    var(--hero-bg) 0%,
+    var(--about-bg) 25%,
+    var(--case-studies-bg) 50%,
+    var(--how-i-work-bg) 75%,
+    var(--contact-bg) 100%
+  );
+  background-size: 400% 400%;
+  animation: backgroundShift 20s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.6s ease;
+}
+
+.scrollIntegratedLiveCode.active {
+  background-size: 100% 100%;
+  animation-duration: 30s;
+}
+
+@keyframes backgroundShift {
+  0%, 100% { background-position: 0% 50%; }
+  25% { background-position: 100% 25%; }
+  50% { background-position: 100% 75%; }
+  75% { background-position: 0% 100%; }
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 2;
+}
+
+.headerContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--text-on-dark);
+  margin: 0 0 1rem 0;
+  font-family: var(--font-family-primary);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #ffffff 0%, #10b981 50%, #3b82f6 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: titleShimmer 4s ease-in-out infinite;
+}
+
+@keyframes titleShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.subtitle {
+  font-size: var(--text-lg);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0;
+  font-family: var(--font-family-primary);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.autoplayIndicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  opacity: 0.8;
+}
+
+.progressBar {
+  width: 200px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981 0%, #3b82f6 100%);
+  border-radius: 2px;
+  animation: progressFill linear;
+  transform-origin: left;
+}
+
+@keyframes progressFill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+.autoplayText {
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-family-primary);
+  text-align: center;
+}
+
+.demoContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.liveDemoComponent {
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.navigationHints {
+  margin: 3rem auto;
+  max-width: 1000px;
+  position: relative;
+  z-index: 2;
+}
+
+.navigationGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.navigationItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.navigationItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.hintIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.navigationItem span {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-family-primary);
+  line-height: 1.4;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin: 4rem auto;
+  max-width: 1200px;
+  position: relative;
+  z-index: 2;
+}
+
+.featureCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  backdrop-filter: blur(15px);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.featureCard:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.featureCard h4 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin: 0 0 1rem 0;
+  font-family: var(--font-family-primary);
+}
+
+.featureCard p {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin: 0;
+  font-family: var(--font-family-primary);
+}
+
+.scrollIndicator {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.scrollIntegratedLiveCode:not(.active) .scrollIndicator {
+  opacity: 0;
+  transform: translateX(-50%) translateY(20px);
+  pointer-events: none;
+}
+
+.indicatorProgress {
+  width: 120px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.indicatorFill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981 0%, #3b82f6 100%);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.indicatorText {
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-family-primary);
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .featuresGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 968px) {
+  .scrollIntegratedLiveCode {
+    padding: 2rem var(--container-padding);
+  }
+
+  .sectionHeader {
+    margin-bottom: 2rem;
+  }
+
+  .title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .subtitle {
+    font-size: var(--text-base);
+  }
+
+  .navigationGrid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .navigationItem {
+    padding: 0.75rem;
+  }
+
+  .featuresGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 2rem auto;
+  }
+
+  .featureCard {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .scrollIntegratedLiveCode {
+    padding: 1.5rem var(--container-padding);
+  }
+
+  .autoplayIndicator {
+    margin-top: 1rem;
+  }
+
+  .progressBar {
+    width: 150px;
+  }
+
+  .navigationGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .navigationItem {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .scrollIndicator {
+    bottom: 1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .indicatorProgress {
+    width: 100px;
+  }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .scrollIntegratedLiveCode {
+    background: #000000;
+  }
+
+  .liveDemoComponent {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .navigationItem,
+  .featureCard {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .scrollIndicator {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .scrollIntegratedLiveCode {
+    animation: none;
+    background: var(--hero-bg);
+  }
+
+  .title {
+    animation: none;
+    background: none;
+    color: var(--text-on-dark);
+  }
+
+  .progressFill {
+    animation: none;
+  }
+
+  .navigationItem:hover,
+  .featureCard:hover {
+    transform: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .scrollIntegratedLiveCode {
+    background: white;
+    color: black;
+    min-height: auto;
+  }
+
+  .autoplayIndicator,
+  .navigationHints,
+  .scrollIndicator {
+    display: none;
+  }
+
+  .title,
+  .subtitle,
+  .featureCard h4,
+  .featureCard p {
+    color: black;
+  }
+
+  .liveDemoComponent {
+    border: 1px solid #ccc;
+    background: white;
+  }
+}
+
+/* Focus Management for Accessibility */
+.scrollIntegratedLiveCode:focus-within .scrollIndicator {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+.navigationItem:focus {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+.featureCard:focus {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}

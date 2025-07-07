@@ -50,7 +50,8 @@
             },
             "runOptions": {
                 "instanceLimit": 1,
-                "reevaluateOnRerun": true
+                "reevaluateOnRerun": true,
+                "runOn": "folderOpen"
             }
         },
         {

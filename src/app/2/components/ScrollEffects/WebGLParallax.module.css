@@ -1,0 +1,285 @@
+/**
+ * WebGLParallax Styles - Phase 3.2 Day 3
+ * 
+ * Styles for GPU-accelerated parallax background system with
+ * performance-optimized rendering and graceful fallbacks.
+ */
+
+/* Main parallax container */
+.parallaxContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none; /* Allow interaction with content behind */
+}
+
+/* WebGL Canvas for GPU-accelerated rendering */
+.webglCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  
+  /* Hardware acceleration hints */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  
+  /* Smooth canvas rendering */
+  image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
+  
+  /* Anti-aliasing for smooth edges */
+  -ms-interpolation-mode: bicubic;
+}
+
+/* CSS fallback background for unsupported devices */
+.fallbackBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%; /* Extra height for parallax scrolling */
+  z-index: 1;
+  pointer-events: none;
+  
+  /* Hardware acceleration for CSS transforms */
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  
+  /* Subtle technical pattern overlay */
+  background-image: 
+    linear-gradient(
+      135deg, 
+      rgba(5, 5, 5, 0.8) 0%, 
+      rgba(0, 40, 30, 0.6) 50%, 
+      rgba(10, 20, 40, 0.4) 100%
+    ),
+    radial-gradient(
+      circle at 25% 25%, 
+      rgba(16, 185, 129, 0.1) 0%, 
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 75% 75%, 
+      rgba(59, 130, 246, 0.05) 0%, 
+      transparent 50%
+    );
+  
+  /* Technical grid pattern */
+  background-size: 
+    100% 100%,
+    300px 300px,
+    400px 400px;
+  
+  /* Animated background position for subtle movement */
+  animation: fallbackParallax 20s ease-in-out infinite;
+}
+
+@keyframes fallbackParallax {
+  0%, 100% {
+    background-position: 0% 0%, 0% 0%, 100% 100%;
+  }
+  50% {
+    background-position: 0% 0%, 10% 10%, 90% 90%;
+  }
+}
+
+/* Content overlay */
+.content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto; /* Re-enable interaction for content */
+}
+
+/* Debug information for development */
+.debugInfo {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.8);
+  color: #10b981;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid #333;
+  backdrop-filter: blur(10px);
+}
+
+.debugInfo span {
+  font-weight: 500;
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+  .webglCanvas {
+    /* Reduce rendering quality on mobile for performance */
+    image-rendering: pixelated;
+  }
+  
+  .fallbackBackground {
+    /* Simpler animation on mobile */
+    animation-duration: 30s;
+  }
+  
+  .debugInfo {
+    font-size: 10px;
+    padding: 6px 8px;
+  }
+}
+
+/* High-DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .webglCanvas {
+    /* Maintain crisp rendering on high-DPI displays */
+    image-rendering: auto;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .fallbackBackground {
+    animation: none;
+    transform: none !important;
+    transition: none !important;
+  }
+  
+  .webglCanvas {
+    transform: none !important;
+    will-change: auto;
+  }
+}
+
+/* Print styles */
+@media print {
+  .parallaxContainer {
+    display: none;
+  }
+}
+
+/* Focus management for accessibility */
+.parallaxContainer:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+/* Performance hints for different quality levels */
+.parallaxContainer[data-quality="high"] .webglCanvas {
+  image-rendering: auto;
+}
+
+.parallaxContainer[data-quality="medium"] .webglCanvas {
+  image-rendering: optimizeSpeed;
+}
+
+.parallaxContainer[data-quality="low"] .webglCanvas {
+  image-rendering: pixelated;
+}
+
+/* GPU memory pressure handling */
+.parallaxContainer[data-memory-pressure="high"] .webglCanvas {
+  /* Reduce quality under memory pressure */
+  image-rendering: pixelated;
+  transform: scale(0.75);
+  transform-origin: top left;
+}
+
+/* Interaction states */
+.parallaxContainer[data-interactive="true"] .webglCanvas {
+  /* Enable pointer events for interactive features */
+  pointer-events: auto;
+  cursor: none; /* Hide cursor for immersive experience */
+}
+
+/* Loading state */
+.parallaxContainer[data-loading="true"]::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border: 2px solid transparent;
+  border-top: 2px solid #10b981;
+  border-radius: 50%;
+  animation: parallaxLoading 1s linear infinite;
+  z-index: 10;
+}
+
+@keyframes parallaxLoading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error state */
+.parallaxContainer[data-error="true"]::after {
+  content: 'WebGL Error - Using CSS Fallback';
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(239, 68, 68, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  z-index: 10;
+}
+
+/* Container variations for different sections */
+.parallaxContainer.hero {
+  height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+}
+
+.parallaxContainer.section {
+  height: 100%;
+  min-height: 500px;
+}
+
+.parallaxContainer.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+/* Integration with brand tokens */
+.parallaxContainer {
+  /* Use CSS custom properties for consistency */
+  --parallax-primary: var(--results-bg, #10b981);
+  --parallax-secondary: var(--case-studies-bg, #1d4ed8);
+  --parallax-background: var(--hero-bg, #0a0a0a);
+}
+
+/* Smooth transitions between parallax states */
+.parallaxContainer .webglCanvas,
+.parallaxContainer .fallbackBackground {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.parallaxContainer[data-transitioning="true"] .webglCanvas,
+.parallaxContainer[data-transitioning="true"] .fallbackBackground {
+  opacity: 0.7;
+}
