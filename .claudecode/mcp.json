@@ -1,5 +1,12 @@
 {
   "servers": {
+    "tyler-gohr-portfolio": {
+      "command": "node",
+      "args": ["/home/user/tylergohr.com/mcp-server/dist/index.js"],
+      "env": {
+        "PROJECT_ROOT": "/home/user/tylergohr.com"
+      }
+    },
     "puppeteer": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
@@ -7,6 +14,10 @@
         "PUPPETEER_LAUNCH_OPTIONS": "{ \"headless\": false, \"defaultViewport\": { \"width\": 1280, \"height\": 720 }, \"args\": [\"--no-sandbox\", \"--disable-setuid-sandbox\"] }",
         "ALLOW_DANGEROUS": "true"
       }
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
     }
   }
 }
