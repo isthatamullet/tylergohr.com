@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Button } from '../ui/Button/Button'
 import styles from './EnhancedContactForm.module.css'
 
@@ -76,30 +76,30 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
     { value: 'other', label: 'Other / Let&apos;s Discuss', description: 'Custom solutions and consulting' }
   ] as const
 
-  // Company size options with qualification scoring (memoized for performance)
-  const companySizeOptions = useMemo(() => [
+  // Company size options with qualification scoring
+  const companySizeOptions = [
     { value: 'startup', label: 'Startup (1-10 employees)', score: 2 },
     { value: 'small', label: 'Small Business (11-50 employees)', score: 3 },
     { value: 'medium', label: 'Medium Company (51-200 employees)', score: 4 },
     { value: 'enterprise', label: 'Enterprise (200+ employees)', score: 5 }
-  ] as const, [])
+  ] as const
 
-  // Timeline options with urgency scoring (memoized for performance)
-  const timelineOptions = useMemo(() => [
+  // Timeline options with urgency scoring
+  const timelineOptions = [
     { value: 'urgent', label: 'ASAP / Urgent (within 1 month)', score: 5 },
     { value: '1-3months', label: '1-3 months', score: 4 },
     { value: '3-6months', label: '3-6 months', score: 3 },
     { value: 'exploring', label: 'Just exploring options', score: 1 }
-  ] as const, [])
+  ] as const
 
-  // Budget options with investment scoring (memoized for performance)
-  const budgetOptions = useMemo(() => [
+  // Budget options with investment scoring
+  const budgetOptions = [
     { value: 'under-10k', label: 'Under $10,000', score: 1 },
     { value: '10k-50k', label: '$10,000 - $50,000', score: 3 },
     { value: '50k-100k', label: '$50,000 - $100,000', score: 4 },
     { value: '100k+', label: '$100,000+', score: 5 },
     { value: 'discuss', label: 'Let&apos;s discuss budget', score: 3 }
-  ] as const, [])
+  ] as const
 
   // Calculate lead score based on qualification responses
   const calculateLeadScore = useCallback((data: EnhancedContactFormData): number => {

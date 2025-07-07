@@ -346,9 +346,9 @@ export const EngagementTracking: React.FC<EngagementTrackingProps> = ({
   React.useEffect(() => {
     // Store context in global for debugging
     if (debugMode && typeof window !== 'undefined') {
-      (window as unknown as Record<string, unknown>).engagementContext = context;
-      (window as unknown as Record<string, unknown>).engagementMetrics = metrics;
-      (window as unknown as Record<string, unknown>).engagementEvents = eventsRef.current;
+      (window as Record<string, unknown>).engagementContext = context;
+      (window as Record<string, unknown>).engagementMetrics = metrics;
+      (window as Record<string, unknown>).engagementEvents = eventsRef.current;
     }
   }, [context, metrics, debugMode])
 
