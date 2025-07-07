@@ -1,0 +1,49 @@
+{
+  "activePort": 3000,
+  "developmentContext": "mixed",
+  "environmentType": "local",
+  "qualityGateStatus": {
+    "typescript": "unknown",
+    "eslint": "unknown",
+    "build": "unknown",
+    "bundleSize": "unknown",
+    "lastValidated": "2025-07-07T10:38:14.748Z"
+  },
+  "recentChanges": [],
+  "performanceBaseline": {
+    "bundleSize": 0,
+    "lcp": 0,
+    "fid": 0,
+    "cls": 0,
+    "lighthouse": 0,
+    "lastMeasured": "2025-07-07T10:38:14.748Z"
+  },
+  "activeIssues": [],
+  "mcpServerStatus": {
+    "available": false,
+    "healthy": false,
+    "version": "1.3.0",
+    "lastPing": "2025-07-07T10:38:14.748Z",
+    "activeOperations": [],
+    "errorCount": 0,
+    "successRate": 100
+  },
+  "hooksSystemStatus": {
+    "available": false,
+    "healthy": false,
+    "version": "1.0.0",
+    "lastPing": "2025-07-07T10:38:14.748Z",
+    "activeOperations": [],
+    "errorCount": 0,
+    "successRate": 100
+  },
+  "lastSyncTimestamp": "2025-07-07T10:39:42.622Z",
+  "operationHistory": [],
+  "systemPreferences": {
+    "defaultSystem": "auto",
+    "operationOverrides": {},
+    "environmentPreferences": {},
+    "fallbackEnabled": true,
+    "analyticsEnabled": true
+  }
+}

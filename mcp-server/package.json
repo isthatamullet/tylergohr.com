@@ -1,0 +1,38 @@
+{
+  "name": "tyler-gohr-portfolio-mcp-server",
+  "version": "1.0.0",
+  "description": "Custom MCP server for Tyler Gohr Portfolio development workflows",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "portfolio-mcp-server": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc && node -e \"require('fs').chmodSync('dist/index.js', '755')\"",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "test": "npm run build && node dist/index.js test",
+    "inspector": "npx @modelcontextprotocol/inspector dist/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "development-tools",
+    "tyler-gohr-portfolio",
+    "timeout-prevention",
+    "claude-code"
+  ],
+  "author": "Tyler Gohr",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^0.6.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
