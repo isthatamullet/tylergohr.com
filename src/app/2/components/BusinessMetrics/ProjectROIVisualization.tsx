@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ScatterChart, Scatter } from 'recharts';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Box, Text, OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
@@ -86,7 +86,7 @@ export default function ProjectROIVisualization({
 }: ProjectROIVisualizationProps) {
   const [viewMode, setViewMode] = useState<'2d' | '3d' | 'radar'>('2d');
   const [selectedIndustry, setSelectedIndustry] = useState<string>('all');
-  const [, setAnimationPhase] = useState(0);
+  const [animationPhase, setAnimationPhase] = useState(0);
 
   // Mock enterprise project ROI data
   const projectsData: ProjectROI[] = useMemo(() => [
@@ -258,7 +258,7 @@ export default function ProjectROIVisualization({
               <button
                 key={mode.key}
                 className={`${styles.modeButton} ${viewMode === mode.key ? styles.active : ''}`}
-                onClick={() => setViewMode(mode.key as typeof viewMode)}
+                onClick={() => setViewMode(mode.key as any)}
                 title={mode.label}
               >
                 <span className={styles.modeIcon}>{mode.icon}</span>
@@ -334,7 +334,7 @@ export default function ProjectROIVisualization({
                         borderRadius: '8px',
                         color: '#fff'
                       }}
-                      formatter={(value: number) => [
+                      formatter={(value: any, name: string) => [
                         `${value}%`,
                         'ROI'
                       ]}
