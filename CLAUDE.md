@@ -8,6 +8,8 @@
 **Status**: 🚧 Active Development - /2 redesign in progress  
 **Current Priority**: Check GitHub issues for latest /2 development focus
 
+WHEN USER SAYS "PUSH ALL FILES TO GITHUB" / "PUSH ALL FILES TO THE PR" / OR ANYTHING RELATED TO PUSHING *ALL* FILES - YOU *MUST* PUSH *ALL* FILES AS INSTRUCTED!!!!!!
+
 ## 🚨 Claude Code Timeout Prevention (MANDATORY)
 
 **These commands timeout after 2 minutes in cloud environments - use Agent tool instead:**

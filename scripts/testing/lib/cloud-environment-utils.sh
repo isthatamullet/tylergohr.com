@@ -17,38 +17,18 @@ detect_environment() {
     fi
 }
 
-# Construct the appropriate URL for the current environment
+# Construct localhost URL for all environments (localhost-first strategy)
 construct_test_url() {
     local port="$1"
     local path="${2:-/}"
-    local environment=$(detect_environment)
     
-    case "$environment" in
-        "google-cloud-workstations")
-            # Google Cloud Workstations format
-            local hostname=$(hostname)
-            echo "https://${port}-${hostname}.cluster-cbx7armcmnaqcxcx5fojjql2bo.cloudworkstations.dev${path}"
-            ;;
-        "github-codespaces")
-            # GitHub Codespaces format
-            echo "https://${CODESPACE_NAME}-${port}.preview.app.github.dev${path}"
-            ;;
-        "gitpod")
-            # Gitpod format
-            echo "https://${port}-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}${path}"
-            ;;
-        "local")
-            # Local development
-            echo "http://localhost:${port}${path}"
-            ;;
-        *)
-            # Fallback to localhost
-            echo "http://localhost:${port}${path}"
-            ;;
-    esac
+    # Always return localhost URL for reliable testing and development
+    # This eliminates authentication issues and provides consistent behavior
+    # across all cloud environments while maintaining compatibility with VS Code tasks
+    echo "http://localhost:${port}${path}"
 }
 
-# Test server connectivity with appropriate method for environment
+# Test server connectivity (optimized for localhost)
 test_server_connectivity() {
     local port="$1"
     local timeout="${2:-5}"
@@ -56,96 +36,42 @@ test_server_connectivity() {
     local test_url=$(construct_test_url "$port")
     
     echo "   🔍 Testing connectivity to: $test_url"
-    echo "   🌐 Environment: $environment"
+    echo "   🌐 Environment: $environment (using localhost)"
     
-    # Use different curl options based on environment
-    case "$environment" in
-        "google-cloud-workstations"|"github-codespaces"|"gitpod")
-            # Cloud environments - use HTTPS with relaxed SSL verification for testing
-            local status_code=$(curl -s -k -o /dev/null -w "%{http_code}" --max-time "$timeout" "$test_url" 2>/dev/null || echo "000")
-            ;;
-        "local")
-            # Local development - use HTTP
-            local status_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time "$timeout" "$test_url" 2>/dev/null || echo "000")
-            ;;
-        *)
-            # Fallback - try both HTTP and HTTPS
-            local status_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time "$timeout" "$test_url" 2>/dev/null || echo "000")
-            if [[ "$status_code" == "000" ]]; then
-                # Try HTTPS if HTTP failed
-                local https_url=$(echo "$test_url" | sed 's/^http:/https:/')
-                status_code=$(curl -s -k -o /dev/null -w "%{http_code}" --max-time "$timeout" "$https_url" 2>/dev/null || echo "000")
-            fi
-            ;;
-    esac
+    # Always use HTTP for localhost (fast and reliable)
+    local status_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time "$timeout" "$test_url" 2>/dev/null || echo "000")
     
     echo "     Status code: $status_code"
     
-    # Check if status code indicates a working server (including redirects)
+    # Check if status code indicates a working server
     if [[ "$status_code" =~ ^[2-3][0-9][0-9]$ ]]; then
-        # 2xx = success, 3xx = redirect (common in cloud environments)
+        # 2xx = success, 3xx = redirect
         return 0
     else
         return 1
     fi
 }
 
-# Get server response content for validation
+# Get server response content for validation (optimized for localhost)
 get_server_response() {
     local port="$1"
     local path="${2:-/}"
     local timeout="${3:-5}"
-    local environment=$(detect_environment)
     local test_url=$(construct_test_url "$port" "$path")
     
-    case "$environment" in
-        "google-cloud-workstations"|"github-codespaces"|"gitpod")
-            # Cloud environments - use HTTPS with relaxed SSL verification and follow redirects
-            curl -s -k -L --max-time "$timeout" "$test_url" 2>/dev/null || echo ""
-            ;;
-        "local")
-            # Local development - use HTTP
-            curl -s --max-time "$timeout" "$test_url" 2>/dev/null || echo ""
-            ;;
-        *)
-            # Fallback - try HTTP first, then HTTPS
-            local response=$(curl -s --max-time "$timeout" "$test_url" 2>/dev/null || echo "")
-            if [[ -z "$response" ]]; then
-                local https_url=$(echo "$test_url" | sed 's/^http:/https:/')
-                response=$(curl -s -k -L --max-time "$timeout" "$https_url" 2>/dev/null || echo "")
-            fi
-            echo "$response"
-            ;;
-    esac
+    # Always use HTTP for localhost (fast and reliable)
+    curl -s --max-time "$timeout" "$test_url" 2>/dev/null || echo ""
 }
 
-# Get server headers for validation
+# Get server headers for validation (optimized for localhost)
 get_server_headers() {
     local port="$1"
     local path="${2:-/}"
     local timeout="${3:-5}"
-    local environment=$(detect_environment)
     local test_url=$(construct_test_url "$port" "$path")
     
-    case "$environment" in
-        "google-cloud-workstations"|"github-codespaces"|"gitpod")
-            # Cloud environments - use HTTPS with relaxed SSL verification and follow redirects for headers
-            curl -s -k -I -L --max-time "$timeout" "$test_url" 2>/dev/null || echo ""
-            ;;
-        "local")
-            # Local development - use HTTP
-            curl -s -I --max-time "$timeout" "$test_url" 2>/dev/null || echo ""
-            ;;
-        *)
-            # Fallback - try HTTP first, then HTTPS
-            local headers=$(curl -s -I --max-time "$timeout" "$test_url" 2>/dev/null || echo "")
-            if [[ -z "$headers" ]]; then
-                local https_url=$(echo "$test_url" | sed 's/^http:/https:/')
-                headers=$(curl -s -k -I -L --max-time "$timeout" "$https_url" 2>/dev/null || echo "")
-            fi
-            echo "$headers"
-            ;;
-    esac
+    # Always use HTTP for localhost (fast and reliable)
+    curl -s -I --max-time "$timeout" "$test_url" 2>/dev/null || echo ""
 }
 
 # Enhanced Next.js server validation for cloud environments
