@@ -8,6 +8,7 @@ import {
   CallToolRequestSchema
 } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
+import { zodToJsonSchema } from "zod-to-json-schema";
 import { spawn } from "child_process";
 import { promises as fs } from "fs";
 import { join } from "path";
@@ -106,137 +107,137 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       {
         name: "startDevServerMCP",
         description: "Start development server with intelligent port detection and cloud environment support (replaces timeout-prone npm run dev)",
-        inputSchema: DevServerSchema,
+        inputSchema: zodToJsonSchema(DevServerSchema),
       },
       {
         name: "executeTestMCP", 
         description: "Execute tests with intelligent strategy selection and timeout-resistant execution (replaces npm run test:e2e:smoke timeouts)",
-        inputSchema: TestExecutionSchema,
+        inputSchema: zodToJsonSchema(TestExecutionSchema),
       },
       {
         name: "detectActivePortMCP",
         description: "Detect active development server ports with cloud environment support (replaces complex bash port detection)",
-        inputSchema: PortDetectionSchema,
+        inputSchema: zodToJsonSchema(PortDetectionSchema),
       },
       {
         name: "validateQualityGatesMCP",
         description: "Run TypeScript validation, ESLint, and build checks (direct tool access without bash timeouts)",
-        inputSchema: QualityGatesSchema,
+        inputSchema: zodToJsonSchema(QualityGatesSchema),
       },
       {
         name: "handleFileOperationMCP",
         description: "Safe file operations with protection validation and automatic backups",
-        inputSchema: FileOperationSchema,
+        inputSchema: zodToJsonSchema(FileOperationSchema),
       },
       {
         name: "queryDocumentationMCP",
         description: "Enhanced documentation intelligence with semantic search and contextual guidance (Phase 3 Tier 1 capability)",
-        inputSchema: DocumentationQuerySchema,
+        inputSchema: zodToJsonSchema(DocumentationQuerySchema),
       },
       {
         name: "getContextualGuidanceMCP",
         description: "Get intelligent contextual guidance for development tasks with checklists and warnings (Phase 3 enhanced capability)",
-        inputSchema: ContextualGuidanceSchema,
+        inputSchema: zodToJsonSchema(ContextualGuidanceSchema),
       },
       {
         name: "resolveWorkflowStepsMCP",
         description: "Resolve complex development workflows into step-by-step guides with validation and troubleshooting (Phase 3 enhanced capability)",
-        inputSchema: WorkflowResolutionSchema,
+        inputSchema: zodToJsonSchema(WorkflowResolutionSchema),
       },
       {
         name: "analyzeComponentArchitectureMCP",
         description: "Analyze existing /2 component architecture patterns, brand token usage, and architectural insights (Phase 4 Tier 1 capability)",
-        inputSchema: ComponentArchitectureAnalysisSchema,
+        inputSchema: zodToJsonSchema(ComponentArchitectureAnalysisSchema),
       },
       {
         name: "generateComponentMCP",
         description: "Generate new /2 components with automatic brand token compliance and enterprise architecture patterns (Phase 4 enhanced capability)",
-        inputSchema: ComponentGenerationSchema,
+        inputSchema: zodToJsonSchema(ComponentGenerationSchema),
       },
       {
         name: "validateComponentComplianceMCP",
         description: "Validate component compliance with brand tokens, accessibility standards, and performance best practices (Phase 4 validation)",
-        inputSchema: ComponentComplianceValidationSchema,
+        inputSchema: zodToJsonSchema(ComponentComplianceValidationSchema),
       },
       {
         name: "getComponentArchitectureInsightsMCP",
         description: "Get comprehensive architecture insights including performance optimizations and accessibility recommendations (Phase 4 intelligence)",
-        inputSchema: ComponentArchitectureInsightsSchema,
+        inputSchema: zodToJsonSchema(ComponentArchitectureInsightsSchema),
       },
       {
         name: "analyzeTestingNeedsMCP",
         description: "Analyze testing needs based on file changes and development context with intelligent strategy recommendations (Phase 4 Tier 1 capability)",
-        inputSchema: TestingNeedsAnalysisSchema,
+        inputSchema: zodToJsonSchema(TestingNeedsAnalysisSchema),
       },
       {
         name: "selectTestingStrategyMCP",
         description: "Select optimal testing strategy with intelligent analysis of file changes, risk assessment, and context awareness (Phase 4 enhanced capability)",
-        inputSchema: TestingStrategySelectionSchema,
+        inputSchema: zodToJsonSchema(TestingStrategySelectionSchema),
       },
       {
         name: "getTestingRecommendationsMCP",
         description: "Get testing recommendations for specific development scenarios with workflow guidance and optimization tips (Phase 4 intelligence)",
-        inputSchema: TestingRecommendationsSchema,
+        inputSchema: zodToJsonSchema(TestingRecommendationsSchema),
       },
       {
         name: "validateTestingConfigurationMCP",
         description: "Validate and optimize testing strategy configuration with health scoring and improvement recommendations (Phase 4 validation)",
-        inputSchema: TestingConfigurationValidationSchema,
+        inputSchema: zodToJsonSchema(TestingConfigurationValidationSchema),
       },
       {
         name: "monitorPerformanceMCP",
         description: "Monitor real-time performance metrics with Core Web Vitals analysis, bundle monitoring, and enterprise standards compliance (Phase 4 Tier 1 capability)",
-        inputSchema: PerformanceMonitoringSchema,
+        inputSchema: zodToJsonSchema(PerformanceMonitoringSchema),
       },
       {
         name: "analyzePerformanceAspectMCP",
         description: "Analyze specific performance aspects (Core Web Vitals, Lighthouse, bundle size, animation, CSS) with detailed insights and recommendations (Phase 4 enhanced capability)",
-        inputSchema: PerformanceAspectAnalysisSchema,
+        inputSchema: zodToJsonSchema(PerformanceAspectAnalysisSchema),
       },
       {
         name: "getPerformanceOptimizationsMCP",
         description: "Get performance optimization recommendations with prioritization and implementation guidance for enterprise standards (Phase 4 intelligence)",
-        inputSchema: PerformanceOptimizationSchema,
+        inputSchema: zodToJsonSchema(PerformanceOptimizationSchema),
       },
       {
         name: "checkSystemHealthMCP",
         description: "Check health of both MCP and hooks systems with intelligent coordination analysis and fallback recommendations (Phase 4 Cross-System Coordinator)",
-        inputSchema: CrossSystemHealthCheckSchema,
+        inputSchema: zodToJsonSchema(CrossSystemHealthCheckSchema),
       },
       {
         name: "planCrossSystemOperationMCP",
         description: "Plan cross-system operations with intelligent system selection, fallback strategies, and monitoring configuration (Phase 4 Cross-System Coordinator)",
-        inputSchema: CrossSystemOperationPlanningSchema,
+        inputSchema: zodToJsonSchema(CrossSystemOperationPlanningSchema),
       },
       {
         name: "executeFallbackStrategyMCP",
         description: "Execute intelligent fallback strategies when primary systems fail, with state preservation and automatic recovery (Phase 4 Cross-System Coordinator)",
-        inputSchema: CrossSystemFallbackExecutionSchema,
+        inputSchema: zodToJsonSchema(CrossSystemFallbackExecutionSchema),
       },
       {
         name: "getCoordinationInsightsMCP",
         description: "Get comprehensive insights into cross-system coordination with performance analysis and optimization recommendations (Phase 4 Cross-System Coordinator)",
-        inputSchema: CrossSystemInsightsSchema,
+        inputSchema: zodToJsonSchema(CrossSystemInsightsSchema),
       },
       {
         name: "detectEmergencyTriggersMCP",
         description: "Detect emergency triggers requiring rollback with automatic system health monitoring and trigger analysis (Phase 4 Emergency Rollback Intelligence)",
-        inputSchema: EmergencyTriggerDetectionSchema,
+        inputSchema: zodToJsonSchema(EmergencyTriggerDetectionSchema),
       },
       {
         name: "generateRollbackStrategyMCP",
         description: "Generate intelligent rollback strategies with state preservation and alternative approaches for emergency recovery (Phase 4 Emergency Rollback Intelligence)",
-        inputSchema: RollbackStrategyGenerationSchema,
+        inputSchema: zodToJsonSchema(RollbackStrategyGenerationSchema),
       },
       {
         name: "executeEmergencyRollbackMCP",
         description: "Execute emergency rollback with intelligent strategy selection, state preservation, and automatic validation (Phase 4 Emergency Rollback Intelligence)",
-        inputSchema: EmergencyRollbackExecutionSchema,
+        inputSchema: zodToJsonSchema(EmergencyRollbackExecutionSchema),
       },
       {
         name: "analyzeEmergencyRecoveryMCP",
         description: "Analyze comprehensive emergency recovery with risk assessment, prevention tips, and system health insights (Phase 4 Emergency Rollback Intelligence)",
-        inputSchema: EmergencyRecoveryAnalysisSchema,
+        inputSchema: zodToJsonSchema(EmergencyRecoveryAnalysisSchema),
       },
     ],
   };
