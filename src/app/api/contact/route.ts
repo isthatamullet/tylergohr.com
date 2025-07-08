@@ -62,14 +62,40 @@ const budgetLabels = {
   'discuss': 'Let\'s discuss budget'
 };
 
+// Environment detection utilities
+function detectEnvironment() {
+  const isCloudRun = !!(process.env.K_SERVICE || process.env.GOOGLE_CLOUD_PROJECT);
+  const isPreview = process.env.K_SERVICE && process.env.K_SERVICE.includes('preview');
+  const isLocal = !isCloudRun && process.env.NODE_ENV === 'development';
+  const isProduction = process.env.NODE_ENV === 'production' && !isPreview;
+  
+  return {
+    isCloudRun,
+    isPreview,
+    isLocal,
+    isProduction,
+    environment: isLocal ? 'local' : isPreview ? 'preview' : isProduction ? 'production' : 'unknown'
+  };
+}
+
 // Validate environment variables at runtime only
 function validateConfig() {
+  const env = detectEnvironment();
+  console.log('[Contact API] Environment detection:', env);
+  
   // Only validate when actually sending emails, not during build
   const required = ['EMAIL_USER', 'EMAIL_PASSWORD', 'EMAIL_TO'];
   const missing = required.filter(key => !process.env[key]);
   
   if (missing.length > 0) {
-    throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
+    const errorMessage = `Missing required environment variables: ${missing.join(', ')}`;
+    
+    // In preview environments, provide more helpful error context
+    if (env.isPreview) {
+      throw new Error(`${errorMessage} - Preview deployments may not have email configuration. Environment: ${env.environment}`);
+    }
+    
+    throw new Error(errorMessage);
   }
 }
 
@@ -368,6 +394,14 @@ async function sendEmailNotification(data: ContactFormData): Promise<void> {
 // POST handler for contact form submissions
 export async function POST(request: NextRequest): Promise<NextResponse<ContactResponse>> {
   const startTime = Date.now();
+  const env = detectEnvironment();
+  
+  console.log('[Contact API] Request received in environment:', env);
+  console.log('[Contact API] Headers:', {
+    'user-agent': request.headers.get('user-agent'),
+    'host': request.headers.get('host'),
+    'x-forwarded-for': request.headers.get('x-forwarded-for')
+  });
   
   try {
     // Check if contact form is enabled
@@ -380,6 +414,11 @@ export async function POST(request: NextRequest): Promise<NextResponse<ContactRe
         },
         { status: 503 }
       );
+    }
+
+    // Preview environment warning
+    if (env.isPreview) {
+      console.log('[Contact API] Warning: Running in preview environment - email configuration may not be available');
     }
 
     // Get client IP for rate limiting
