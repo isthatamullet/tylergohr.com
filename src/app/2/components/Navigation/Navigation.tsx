@@ -469,7 +469,7 @@ export default function Navigation({ className = "" }: NavigationProps) {
           aria-label="Tyler Gohr - Return to Enterprise Solutions homepage"
         >
           <Image 
-            src="/images/tg-logo-80.svg"
+            src="/images/tg-logo-80.png"
             alt="Tyler Gohr - Enterprise Solutions Architect"
             className={styles.logoImage}
             width={80}
