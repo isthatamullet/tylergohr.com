@@ -656,8 +656,8 @@ export const ${request.componentName}: React.FC<${request.componentName}Props> =
     styles[\`\${request.componentName.toLowerCase()}--\${section}\`],
     ${request.features.includes('variant') ? "styles[`${request.componentName.toLowerCase()}--${variant}`]," : ''}
     ${request.features.includes('size') ? "styles[`${request.componentName.toLowerCase()}--${size}`]," : ''}
-    ${request.features.includes('disabled') ? "disabled && styles[`${request.componentName.toLowerCase()}--disabled`]," : ''}
-    ${request.features.includes('loading') ? "loading && styles[`${request.componentName.toLowerCase()}--loading`]," : ''}
+    ${request.features.includes('disabled') ? `disabled && styles[\`\${request.componentName.toLowerCase()}--disabled\`],` : ''}
+    ${request.features.includes('loading') ? `loading && styles[\`\${request.componentName.toLowerCase()}--loading\`],` : ''}
     className
   ].filter(Boolean).join(' ')
 
