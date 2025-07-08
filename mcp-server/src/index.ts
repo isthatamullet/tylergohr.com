@@ -21,7 +21,26 @@ import {
   FileOperationSchema,
   DocumentationQuerySchema,
   ContextualGuidanceSchema,
-  WorkflowResolutionSchema
+  WorkflowResolutionSchema,
+  ComponentArchitectureAnalysisSchema,
+  ComponentGenerationSchema,
+  ComponentComplianceValidationSchema,
+  ComponentArchitectureInsightsSchema,
+  TestingNeedsAnalysisSchema,
+  TestingStrategySelectionSchema,
+  TestingRecommendationsSchema,
+  TestingConfigurationValidationSchema,
+  PerformanceMonitoringSchema,
+  PerformanceAspectAnalysisSchema,
+  PerformanceOptimizationSchema,
+  CrossSystemHealthCheckSchema,
+  CrossSystemOperationPlanningSchema,
+  CrossSystemFallbackExecutionSchema,
+  CrossSystemInsightsSchema,
+  EmergencyTriggerDetectionSchema,
+  RollbackStrategyGenerationSchema,
+  EmergencyRollbackExecutionSchema,
+  EmergencyRecoveryAnalysisSchema
 } from "./types/schemas.js";
 
 import {
@@ -32,7 +51,26 @@ import {
   handleFileOperationMCP,
   queryDocumentationMCP,
   getContextualGuidanceMCP,
-  resolveWorkflowStepsMCP
+  resolveWorkflowStepsMCP,
+  analyzeComponentArchitectureMCP,
+  generateComponentMCP,
+  validateComponentComplianceMCP,
+  getComponentArchitectureInsightsMCP,
+  analyzeTestingNeedsMCP,
+  selectTestingStrategyMCP,
+  getTestingRecommendationsMCP,
+  validateTestingConfigurationMCP,
+  monitorPerformanceMCP,
+  analyzePerformanceAspectMCP,
+  getPerformanceOptimizationsMCP,
+  checkSystemHealthMCP,
+  planCrossSystemOperationMCP,
+  executeFallbackStrategyMCP,
+  getCoordinationInsightsMCP,
+  detectEmergencyTriggersMCP,
+  generateRollbackStrategyMCP,
+  executeEmergencyRollbackMCP,
+  analyzeEmergencyRecoveryMCP
 } from "./tools/index.js";
 
 import { ProjectContext } from "./types/project.js";
@@ -44,7 +82,7 @@ import { getProjectContext, initializeProjectContext } from "./lib/context.js";
 const server = new Server(
   {
     name: "tyler-gohr-portfolio-development-server",
-    version: "1.0.0",
+    version: "1.4.0",
   },
   {
     capabilities: {
@@ -105,6 +143,101 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
         description: "Resolve complex development workflows into step-by-step guides with validation and troubleshooting (Phase 3 enhanced capability)",
         inputSchema: WorkflowResolutionSchema,
       },
+      {
+        name: "analyzeComponentArchitectureMCP",
+        description: "Analyze existing /2 component architecture patterns, brand token usage, and architectural insights (Phase 4 Tier 1 capability)",
+        inputSchema: ComponentArchitectureAnalysisSchema,
+      },
+      {
+        name: "generateComponentMCP",
+        description: "Generate new /2 components with automatic brand token compliance and enterprise architecture patterns (Phase 4 enhanced capability)",
+        inputSchema: ComponentGenerationSchema,
+      },
+      {
+        name: "validateComponentComplianceMCP",
+        description: "Validate component compliance with brand tokens, accessibility standards, and performance best practices (Phase 4 validation)",
+        inputSchema: ComponentComplianceValidationSchema,
+      },
+      {
+        name: "getComponentArchitectureInsightsMCP",
+        description: "Get comprehensive architecture insights including performance optimizations and accessibility recommendations (Phase 4 intelligence)",
+        inputSchema: ComponentArchitectureInsightsSchema,
+      },
+      {
+        name: "analyzeTestingNeedsMCP",
+        description: "Analyze testing needs based on file changes and development context with intelligent strategy recommendations (Phase 4 Tier 1 capability)",
+        inputSchema: TestingNeedsAnalysisSchema,
+      },
+      {
+        name: "selectTestingStrategyMCP",
+        description: "Select optimal testing strategy with intelligent analysis of file changes, risk assessment, and context awareness (Phase 4 enhanced capability)",
+        inputSchema: TestingStrategySelectionSchema,
+      },
+      {
+        name: "getTestingRecommendationsMCP",
+        description: "Get testing recommendations for specific development scenarios with workflow guidance and optimization tips (Phase 4 intelligence)",
+        inputSchema: TestingRecommendationsSchema,
+      },
+      {
+        name: "validateTestingConfigurationMCP",
+        description: "Validate and optimize testing strategy configuration with health scoring and improvement recommendations (Phase 4 validation)",
+        inputSchema: TestingConfigurationValidationSchema,
+      },
+      {
+        name: "monitorPerformanceMCP",
+        description: "Monitor real-time performance metrics with Core Web Vitals analysis, bundle monitoring, and enterprise standards compliance (Phase 4 Tier 1 capability)",
+        inputSchema: PerformanceMonitoringSchema,
+      },
+      {
+        name: "analyzePerformanceAspectMCP",
+        description: "Analyze specific performance aspects (Core Web Vitals, Lighthouse, bundle size, animation, CSS) with detailed insights and recommendations (Phase 4 enhanced capability)",
+        inputSchema: PerformanceAspectAnalysisSchema,
+      },
+      {
+        name: "getPerformanceOptimizationsMCP",
+        description: "Get performance optimization recommendations with prioritization and implementation guidance for enterprise standards (Phase 4 intelligence)",
+        inputSchema: PerformanceOptimizationSchema,
+      },
+      {
+        name: "checkSystemHealthMCP",
+        description: "Check health of both MCP and hooks systems with intelligent coordination analysis and fallback recommendations (Phase 4 Cross-System Coordinator)",
+        inputSchema: CrossSystemHealthCheckSchema,
+      },
+      {
+        name: "planCrossSystemOperationMCP",
+        description: "Plan cross-system operations with intelligent system selection, fallback strategies, and monitoring configuration (Phase 4 Cross-System Coordinator)",
+        inputSchema: CrossSystemOperationPlanningSchema,
+      },
+      {
+        name: "executeFallbackStrategyMCP",
+        description: "Execute intelligent fallback strategies when primary systems fail, with state preservation and automatic recovery (Phase 4 Cross-System Coordinator)",
+        inputSchema: CrossSystemFallbackExecutionSchema,
+      },
+      {
+        name: "getCoordinationInsightsMCP",
+        description: "Get comprehensive insights into cross-system coordination with performance analysis and optimization recommendations (Phase 4 Cross-System Coordinator)",
+        inputSchema: CrossSystemInsightsSchema,
+      },
+      {
+        name: "detectEmergencyTriggersMCP",
+        description: "Detect emergency triggers requiring rollback with automatic system health monitoring and trigger analysis (Phase 4 Emergency Rollback Intelligence)",
+        inputSchema: EmergencyTriggerDetectionSchema,
+      },
+      {
+        name: "generateRollbackStrategyMCP",
+        description: "Generate intelligent rollback strategies with state preservation and alternative approaches for emergency recovery (Phase 4 Emergency Rollback Intelligence)",
+        inputSchema: RollbackStrategyGenerationSchema,
+      },
+      {
+        name: "executeEmergencyRollbackMCP",
+        description: "Execute emergency rollback with intelligent strategy selection, state preservation, and automatic validation (Phase 4 Emergency Rollback Intelligence)",
+        inputSchema: EmergencyRollbackExecutionSchema,
+      },
+      {
+        name: "analyzeEmergencyRecoveryMCP",
+        description: "Analyze comprehensive emergency recovery with risk assessment, prevention tips, and system health insights (Phase 4 Emergency Rollback Intelligence)",
+        inputSchema: EmergencyRecoveryAnalysisSchema,
+      },
     ],
   };
 });
@@ -141,6 +274,63 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         
       case "resolveWorkflowStepsMCP":
         return await resolveWorkflowStepsMCP(WorkflowResolutionSchema.parse(args), projectContext);
+        
+      case "analyzeComponentArchitectureMCP":
+        return await analyzeComponentArchitectureMCP(ComponentArchitectureAnalysisSchema.parse(args), projectContext);
+        
+      case "generateComponentMCP":
+        return await generateComponentMCP(ComponentGenerationSchema.parse(args), projectContext);
+        
+      case "validateComponentComplianceMCP":
+        return await validateComponentComplianceMCP(ComponentComplianceValidationSchema.parse(args), projectContext);
+        
+      case "getComponentArchitectureInsightsMCP":
+        return await getComponentArchitectureInsightsMCP(ComponentArchitectureInsightsSchema.parse(args), projectContext);
+        
+      case "analyzeTestingNeedsMCP":
+        return await analyzeTestingNeedsMCP(TestingNeedsAnalysisSchema.parse(args), projectContext);
+        
+      case "selectTestingStrategyMCP":
+        return await selectTestingStrategyMCP(TestingStrategySelectionSchema.parse(args), projectContext);
+        
+      case "getTestingRecommendationsMCP":
+        return await getTestingRecommendationsMCP(TestingRecommendationsSchema.parse(args), projectContext);
+        
+      case "validateTestingConfigurationMCP":
+        return await validateTestingConfigurationMCP(TestingConfigurationValidationSchema.parse(args), projectContext);
+        
+      case "monitorPerformanceMCP":
+        return await monitorPerformanceMCP(PerformanceMonitoringSchema.parse(args), projectContext);
+        
+      case "analyzePerformanceAspectMCP":
+        return await analyzePerformanceAspectMCP(PerformanceAspectAnalysisSchema.parse(args), projectContext);
+        
+      case "getPerformanceOptimizationsMCP":
+        return await getPerformanceOptimizationsMCP(PerformanceOptimizationSchema.parse(args), projectContext);
+        
+      case "checkSystemHealthMCP":
+        return await checkSystemHealthMCP(CrossSystemHealthCheckSchema.parse(args), projectContext);
+        
+      case "planCrossSystemOperationMCP":
+        return await planCrossSystemOperationMCP(CrossSystemOperationPlanningSchema.parse(args), projectContext);
+        
+      case "executeFallbackStrategyMCP":
+        return await executeFallbackStrategyMCP(CrossSystemFallbackExecutionSchema.parse(args), projectContext);
+        
+      case "getCoordinationInsightsMCP":
+        return await getCoordinationInsightsMCP(CrossSystemInsightsSchema.parse(args), projectContext);
+        
+      case "detectEmergencyTriggersMCP":
+        return await detectEmergencyTriggersMCP(EmergencyTriggerDetectionSchema.parse(args), projectContext);
+        
+      case "generateRollbackStrategyMCP":
+        return await generateRollbackStrategyMCP(RollbackStrategyGenerationSchema.parse(args), projectContext);
+        
+      case "executeEmergencyRollbackMCP":
+        return await executeEmergencyRollbackMCP(EmergencyRollbackExecutionSchema.parse(args), projectContext);
+        
+      case "analyzeEmergencyRecoveryMCP":
+        return await analyzeEmergencyRecoveryMCP(EmergencyRecoveryAnalysisSchema.parse(args), projectContext);
         
       default:
         throw new Error(`Unknown tool: ${name}`);
@@ -211,10 +401,11 @@ export async function runCommand(
 
 // Main function to start the server
 async function main() {
-  console.error("Tyler Gohr Portfolio MCP Server v1.3.0 - Phase 3");
-  console.error("================================================");
-  console.error("Enhanced Intelligence: Documentation Intelligence Server (Tier 1)");
-  console.error("Timeout prevention + intelligent development automation + contextual guidance");
+  console.error("Tyler Gohr Portfolio MCP Server v1.4.0 - Phase 4 Complete");
+  console.error("==========================================================");
+  console.error("ALL TIER 1 INTELLIGENCE SERVERS OPERATIONAL");
+  console.error("Documentation + Component + Testing + Performance + Cross-System + Emergency Rollback Intelligence");
+  console.error("Timeout prevention + intelligent automation + emergency recovery + cross-system coordination");
   console.error("");
   
   // Handle command line arguments
@@ -254,10 +445,15 @@ async function main() {
   // Start MCP server
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("🚀 Tyler Gohr Portfolio MCP Server v1.3.0 running on stdio");
+  console.error("🚀 Tyler Gohr Portfolio MCP Server v1.4.0 running on stdio");
   console.error("🔧 Core Tools: startDevServerMCP, executeTestMCP, detectActivePortMCP, validateQualityGatesMCP");
-  console.error("🧠 Enhanced Intelligence: queryDocumentationMCP, getContextualGuidanceMCP, resolveWorkflowStepsMCP");
-  console.error("⚡ Ready to provide \"Claude Code superpowers\" with intelligent development automation");
+  console.error("🧠 Documentation Intelligence: queryDocumentationMCP, getContextualGuidanceMCP, resolveWorkflowStepsMCP");
+  console.error("🏗️  Component Intelligence: analyzeComponentArchitectureMCP, generateComponentMCP, validateComponentComplianceMCP");
+  console.error("🧪 Testing Intelligence: analyzeTestingNeedsMCP, selectTestingStrategyMCP, getTestingRecommendationsMCP");
+  console.error("📊 Performance Intelligence: monitorPerformanceMCP, analyzePerformanceAspectMCP, getPerformanceOptimizationsMCP");
+  console.error("🔄 Cross-System Coordinator: checkSystemHealthMCP, planCrossSystemOperationMCP, executeFallbackStrategyMCP, getCoordinationInsightsMCP");
+  console.error("🚨 Emergency Rollback Intelligence: detectEmergencyTriggersMCP, generateRollbackStrategyMCP, executeEmergencyRollbackMCP, analyzeEmergencyRecoveryMCP");
+  console.error("⚡ Ready to provide \"Claude Code superpowers\" with comprehensive intelligent development automation");
 }
 
 // Handle graceful shutdown

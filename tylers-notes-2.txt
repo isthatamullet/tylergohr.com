@@ -2,7 +2,7 @@ why does the server have to run for 2 minutes before claude code can take screen
 
 
 
-
+k
 
 Bash(kill 6879 && sleep 3 && npm run dev)
   ⎿  Error: Command timed out after 2m 0.0s
