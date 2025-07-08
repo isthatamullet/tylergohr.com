@@ -291,10 +291,25 @@ Source: Tyler Gohr Portfolio (tylergohr.com)${isEnhancedForm ? ' - Enhanced Lead
 
 // Send email notification
 async function sendEmailNotification(data: ContactFormData): Promise<void> {
-  // Validate config at runtime, not build time
-  validateConfig();
+  console.log('[Contact API] Starting email notification process');
+  console.log('[Contact API] Environment check:', {
+    EMAIL_USER: process.env.EMAIL_USER ? 'Set' : 'Missing',
+    EMAIL_PASSWORD: process.env.EMAIL_PASSWORD ? 'Set' : 'Missing',
+    EMAIL_TO: process.env.EMAIL_TO ? 'Set' : 'Missing',
+    NODE_ENV: process.env.NODE_ENV
+  });
+  
+  try {
+    // Validate config at runtime, not build time
+    validateConfig();
+    console.log('[Contact API] Environment validation passed');
+  } catch (configError) {
+    console.error('[Contact API] Environment validation failed:', configError);
+    throw new Error(`Environment configuration error: ${configError instanceof Error ? configError.message : 'Unknown config error'}`);
+  }
   
   // Create transporter
+  console.log('[Contact API] Creating Gmail transporter');
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -327,7 +342,27 @@ async function sendEmailNotification(data: ContactFormData): Promise<void> {
   };
 
   // Send email
-  await transporter.sendMail(mailOptions);
+  console.log('[Contact API] Attempting to send email with options:', {
+    from: mailOptions.from,
+    to: mailOptions.to,
+    subject: mailOptions.subject,
+    replyTo: mailOptions.replyTo
+  });
+  
+  try {
+    const result = await transporter.sendMail(mailOptions);
+    console.log('[Contact API] Email sent successfully:', {
+      messageId: result.messageId,
+      response: result.response
+    });
+  } catch (emailError) {
+    console.error('[Contact API] Email sending failed:', {
+      error: emailError instanceof Error ? emailError.message : 'Unknown email error',
+      stack: emailError instanceof Error ? emailError.stack : 'No stack trace',
+      code: emailError && typeof emailError === 'object' && 'code' in emailError ? emailError.code : 'No error code'
+    });
+    throw new Error(`Email sending failed: ${emailError instanceof Error ? emailError.message : 'Unknown email error'}`);
+  }
 }
 
 // POST handler for contact form submissions
@@ -391,6 +426,15 @@ export async function POST(request: NextRequest): Promise<NextResponse<ContactRe
     }
 
     // Send email notification
+    console.log('[Contact API] Sending email notification for form data:', {
+      name: validation.sanitized!.name,
+      email: validation.sanitized!.email,
+      projectType: validation.sanitized!.projectType,
+      isEnhanced: !!(validation.sanitized!.companySize || validation.sanitized!.timeline || validation.sanitized!.budget),
+      leadScore: validation.sanitized!.leadScore,
+      qualificationLevel: validation.sanitized!.qualificationLevel
+    });
+    
     await sendEmailNotification(validation.sanitized!);
 
     // Success response
@@ -409,13 +453,31 @@ export async function POST(request: NextRequest): Promise<NextResponse<ContactRe
     return response;
 
   } catch (error) {
-    console.error('Contact form API error:', error instanceof Error ? error.message : 'Unknown error');
+    console.error('[Contact API] Main error handler caught:', {
+      error: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : 'No stack trace',
+      type: typeof error,
+      errorObject: error
+    });
+    
+    // Determine if this is a configuration error vs email sending error
+    const isConfigError = error instanceof Error && error.message.includes('Environment configuration error');
+    const errorMessage = isConfigError 
+      ? 'Contact form configuration issue. Please try again later.'
+      : 'Sorry, there was an issue sending your message. Please try again or email me directly.';
     
     return NextResponse.json(
       {
         success: false,
-        message: 'Sorry, there was an issue sending your message. Please try again or email me directly.',
+        message: errorMessage,
         timestamp: new Date().toISOString(),
+        // In development, include more error details
+        ...(process.env.NODE_ENV === 'development' && {
+          debugInfo: {
+            error: error instanceof Error ? error.message : 'Unknown error',
+            type: typeof error
+          }
+        })
       },
       { status: 500 }
     );
