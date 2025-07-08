@@ -12,9 +12,9 @@ export interface EnhancedContactFormData {
   projectType: 'web-app' | 'ecommerce' | 'leadership' | 'integration' | 'other'
   
   // Step 2: Business qualification
-  companySize: 'startup' | 'small' | 'medium' | 'enterprise' | ''
-  timeline: 'urgent' | '1-3months' | '3-6months' | 'exploring' | ''
-  budget: 'under-10k' | '10k-50k' | '50k-100k' | '100k+' | 'discuss' | ''
+  companySize?: 'startup' | 'small' | 'medium' | 'enterprise'
+  timeline?: 'urgent' | '1-3months' | '3-6months' | 'exploring'
+  budget?: 'under-10k' | '10k-50k' | '50k-100k' | '100k+' | 'discuss'
   decisionMaker: boolean
   
   // Step 3: Project details
@@ -56,9 +56,9 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
     name: '',
     email: '',
     projectType: 'web-app',
-    companySize: '',
-    timeline: '',
-    budget: '',
+    companySize: undefined,
+    timeline: undefined,
+    budget: undefined,
     decisionMaker: false,
     message: ''
   })
@@ -106,15 +106,15 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
     let score = 0
     
     // Company size scoring
-    const companySizeScore = companySizeOptions.find(opt => opt.value === data.companySize)?.score || 0
+    const companySizeScore = data.companySize ? companySizeOptions.find(opt => opt.value === data.companySize)?.score || 0 : 0
     score += companySizeScore
     
     // Timeline urgency scoring
-    const timelineScore = timelineOptions.find(opt => opt.value === data.timeline)?.score || 0
+    const timelineScore = data.timeline ? timelineOptions.find(opt => opt.value === data.timeline)?.score || 0 : 0
     score += timelineScore
     
     // Budget investment scoring
-    const budgetScore = budgetOptions.find(opt => opt.value === data.budget)?.score || 0
+    const budgetScore = data.budget ? budgetOptions.find(opt => opt.value === data.budget)?.score || 0 : 0
     score += budgetScore
     
     // Decision maker bonus
@@ -196,7 +196,7 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
   // Handle input changes
   const handleInputChange = (
     field: keyof EnhancedContactFormData,
-    value: string | boolean
+    value: string | boolean | undefined
   ) => {
     setFormData(prev => ({
       ...prev,
@@ -246,11 +246,11 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
         messageLength: enhancedFormData.message.length,
         projectType: enhancedFormData.projectType,
         companySize: enhancedFormData.companySize,
-        companySizeEmpty: enhancedFormData.companySize === '',
+        companySizeIsUndefined: enhancedFormData.companySize === undefined,
         timeline: enhancedFormData.timeline,
-        timelineEmpty: enhancedFormData.timeline === '',
+        timelineIsUndefined: enhancedFormData.timeline === undefined,
         budget: enhancedFormData.budget,
-        budgetEmpty: enhancedFormData.budget === '',
+        budgetIsUndefined: enhancedFormData.budget === undefined,
         decisionMaker: enhancedFormData.decisionMaker,
         leadScore: enhancedFormData.leadScore,
         qualificationLevel: enhancedFormData.qualificationLevel
@@ -291,9 +291,9 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
           name: '',
           email: '',
           projectType: 'web-app',
-          companySize: '',
-          timeline: '',
-          budget: '',
+          companySize: undefined,
+          timeline: undefined,
+          budget: undefined,
           decisionMaker: false,
           message: ''
         })
@@ -457,8 +457,8 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
               </label>
               <select
                 id="enhanced-company-size"
-                value={formData.companySize}
-                onChange={(e) => handleInputChange('companySize', e.target.value as EnhancedContactFormData['companySize'])}
+                value={formData.companySize || ''}
+                onChange={(e) => handleInputChange('companySize', e.target.value || undefined)}
                 className={`${styles.select} ${errors.companySize ? styles.inputError : ''}`}
                 disabled={submitStatus === 'submitting'}
               >
@@ -483,8 +483,8 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
               </label>
               <select
                 id="enhanced-timeline"
-                value={formData.timeline}
-                onChange={(e) => handleInputChange('timeline', e.target.value as EnhancedContactFormData['timeline'])}
+                value={formData.timeline || ''}
+                onChange={(e) => handleInputChange('timeline', e.target.value || undefined)}
                 className={`${styles.select} ${errors.timeline ? styles.inputError : ''}`}
                 disabled={submitStatus === 'submitting'}
               >
@@ -509,8 +509,8 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
               </label>
               <select
                 id="enhanced-budget"
-                value={formData.budget}
-                onChange={(e) => handleInputChange('budget', e.target.value as EnhancedContactFormData['budget'])}
+                value={formData.budget || ''}
+                onChange={(e) => handleInputChange('budget', e.target.value || undefined)}
                 className={`${styles.select} ${errors.budget ? styles.inputError : ''}`}
                 disabled={submitStatus === 'submitting'}
               >
