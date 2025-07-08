@@ -234,12 +234,35 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
         qualificationLevel
       }
 
+      // ENHANCED DEBUGGING: Log form data before submission
+      console.log('[Enhanced Contact Form] Submitting form data:', JSON.stringify(enhancedFormData, null, 2))
+      console.log('[Enhanced Contact Form] Form data analysis:', {
+        step: currentStep,
+        hasName: !!enhancedFormData.name,
+        nameValue: enhancedFormData.name,
+        hasEmail: !!enhancedFormData.email,
+        emailValue: enhancedFormData.email,
+        hasMessage: !!enhancedFormData.message,
+        messageLength: enhancedFormData.message.length,
+        projectType: enhancedFormData.projectType,
+        companySize: enhancedFormData.companySize,
+        companySizeEmpty: enhancedFormData.companySize === '',
+        timeline: enhancedFormData.timeline,
+        timelineEmpty: enhancedFormData.timeline === '',
+        budget: enhancedFormData.budget,
+        budgetEmpty: enhancedFormData.budget === '',
+        decisionMaker: enhancedFormData.decisionMaker,
+        leadScore: enhancedFormData.leadScore,
+        qualificationLevel: enhancedFormData.qualificationLevel
+      })
+
       // Call lead qualification callback if provided
       if (onLeadQualified) {
         onLeadQualified(enhancedFormData)
       }
 
       // Submit to contact API with enhanced data
+      console.log('[Enhanced Contact Form] Making API request to /api/contact')
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -250,7 +273,17 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
 
       const result = await response.json()
 
+      // ENHANCED DEBUGGING: Log API response details
+      console.log('[Enhanced Contact Form] API Response received:', {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok,
+        headers: Object.fromEntries(response.headers.entries()),
+        result: result
+      })
+
       if (response.ok && result.success) {
+        console.log('[Enhanced Contact Form] SUCCESS: Form submitted successfully')
         setSubmitStatus('success')
         
         // Reset form after successful submission
@@ -269,13 +302,26 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
         // Reset success status after 5 seconds
         setTimeout(() => setSubmitStatus('idle'), 5000)
       } else {
-        console.error('Enhanced contact form API error:', result.message)
+        console.error('[Enhanced Contact Form] ERROR: API returned error response')
+        console.error('[Enhanced Contact Form] Error details:', {
+          status: response.status,
+          statusText: response.statusText,
+          ok: response.ok,
+          resultMessage: result.message,
+          fullResult: result
+        })
         setSubmitStatus('error')
         setTimeout(() => setSubmitStatus('idle'), 5000)
       }
       
     } catch (error) {
-      console.error('Enhanced contact form submission error:', error)
+      console.error('[Enhanced Contact Form] NETWORK/FETCH ERROR: Request failed before reaching API')
+      console.error('[Enhanced Contact Form] Error details:', {
+        error: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : 'No stack trace',
+        type: typeof error,
+        errorObject: error
+      })
       setSubmitStatus('error')
       setTimeout(() => setSubmitStatus('idle'), 5000)
     }
