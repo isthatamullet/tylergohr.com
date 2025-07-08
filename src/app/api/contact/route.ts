@@ -4,12 +4,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
-// Contact form data interface (matching ContactForm.tsx)
+// Contact form data interface (supports both basic and enhanced forms)
 interface ContactFormData {
   name: string;
   email: string;
   projectType: 'web-app' | 'ecommerce' | 'leadership' | 'integration' | 'other';
   message: string;
+  
+  // Enhanced form fields (optional)
+  companySize?: 'startup' | 'small' | 'medium' | 'enterprise';
+  timeline?: 'urgent' | '1-3months' | '3-6months' | 'exploring';
+  budget?: 'under-10k' | '10k-50k' | '50k-100k' | '100k+' | 'discuss';
+  decisionMaker?: boolean;
+  leadScore?: number;
+  qualificationLevel?: 'low' | 'medium' | 'high' | 'premium';
 }
 
 // API response interface
@@ -29,6 +37,29 @@ const projectTypeLabels = {
   'leadership': 'Technical Leadership Role',
   'integration': 'System Integration & APIs',
   'other': 'Other / Let\'s Discuss'
+};
+
+// Enhanced form labels for email display
+const companySizeLabels = {
+  'startup': 'Startup (1-10 employees)',
+  'small': 'Small Business (11-50 employees)',
+  'medium': 'Medium Company (51-200 employees)',
+  'enterprise': 'Enterprise (200+ employees)'
+};
+
+const timelineLabels = {
+  'urgent': 'ASAP / Urgent (within 1 month)',
+  '1-3months': '1-3 months',
+  '3-6months': '3-6 months',
+  'exploring': 'Just exploring options'
+};
+
+const budgetLabels = {
+  'under-10k': 'Under $10,000',
+  '10k-50k': '$10,000 - $50,000',
+  '50k-100k': '$50,000 - $100,000',
+  '100k+': '$100,000+',
+  'discuss': 'Let\'s discuss budget'
 };
 
 // Validate environment variables at runtime only
@@ -116,12 +147,15 @@ function validateFormData(data: unknown): { isValid: boolean; errors: string[]; 
 
 // Create email HTML template
 function createEmailHTML(data: ContactFormData): string {
+  // Check if this is an enhanced form submission
+  const isEnhancedForm = data.companySize || data.timeline || data.budget !== undefined;
+  
   return `
     <!DOCTYPE html>
     <html>
     <head>
       <meta charset="utf-8">
-      <title>New Contact Form Submission</title>
+      <title>New Contact Form Submission${isEnhancedForm ? ' - Qualified Lead' : ''}</title>
       <style>
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }
         .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
@@ -134,16 +168,40 @@ function createEmailHTML(data: ContactFormData): string {
         .message-box { background: #f9fafb; border-left: 4px solid #16a34a; padding: 20px; border-radius: 0 4px 4px 0; }
         .footer { background: #f9fafb; padding: 20px; text-align: center; color: #6b7280; font-size: 14px; }
         .badge { background: #16a34a; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; text-transform: uppercase; }
+        .qualification-section { background: #eff6ff; border: 1px solid #3b82f6; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .qualification-title { color: #1d4ed8; font-weight: 600; margin-bottom: 15px; font-size: 18px; }
+        .qualification-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .score-badge { background: #3b82f6; color: white; padding: 6px 12px; border-radius: 20px; font-weight: 600; font-size: 14px; }
+        .premium { background: #dc2626; }
+        .high { background: #ea580c; }
+        .medium { background: #ca8a04; }
+        .low { background: #65a30d; }
       </style>
     </head>
     <body>
       <div class="container">
         <div class="header">
-          <h1>New Contact Form Submission</h1>
+          <h1>New Contact Form Submission${isEnhancedForm ? ' - Qualified Lead' : ''}</h1>
           <p style="margin: 10px 0 0 0; opacity: 0.9;">Tyler Gohr Portfolio - tylergohr.com</p>
         </div>
         
         <div class="content">
+          ${isEnhancedForm && data.qualificationLevel ? `
+            <div class="qualification-section">
+              <div class="qualification-title">
+                Lead Qualification Summary
+                <span class="score-badge ${data.qualificationLevel}">${data.qualificationLevel?.toUpperCase()} PRIORITY</span>
+              </div>
+              <div class="qualification-grid">
+                ${data.companySize ? `<div><strong>Company Size:</strong> ${companySizeLabels[data.companySize]}</div>` : ''}
+                ${data.timeline ? `<div><strong>Timeline:</strong> ${timelineLabels[data.timeline]}</div>` : ''}
+                ${data.budget ? `<div><strong>Budget:</strong> ${budgetLabels[data.budget]}</div>` : ''}
+                ${data.decisionMaker ? `<div><strong>Decision Maker:</strong> ✓ Yes</div>` : '<div><strong>Decision Maker:</strong> No</div>'}
+              </div>
+              ${data.leadScore ? `<div style="margin-top: 15px;"><strong>Lead Score:</strong> ${data.leadScore}/18</div>` : ''}
+            </div>
+          ` : ''}
+          
           <div class="field">
             <span class="field-label">Name</span>
             <div class="field-value">${data.name}</div>
@@ -164,7 +222,7 @@ function createEmailHTML(data: ContactFormData): string {
           </div>
           
           <div class="field">
-            <span class="field-label">Message</span>
+            <span class="field-label">Project Details</span>
             <div class="message-box">
               <div class="field-value">${data.message.replace(/\n/g, '<br>')}</div>
             </div>
@@ -182,7 +240,7 @@ function createEmailHTML(data: ContactFormData): string {
             minute: '2-digit',
             timeZoneName: 'short'
           })}</p>
-          <p>Tyler Gohr Portfolio Contact Form</p>
+          <p>Tyler Gohr Portfolio Contact Form${isEnhancedForm ? ' - Enhanced Lead Qualification' : ''}</p>
         </div>
       </div>
     </body>
@@ -192,20 +250,43 @@ function createEmailHTML(data: ContactFormData): string {
 
 // Create email text version
 function createEmailText(data: ContactFormData): string {
-  return `
-New Contact Form Submission - Tyler Gohr Portfolio
+  const isEnhancedForm = data.companySize || data.timeline || data.budget !== undefined;
+  
+  let emailText = `New Contact Form Submission - Tyler Gohr Portfolio${isEnhancedForm ? ' - Qualified Lead' : ''}
 
 Name: ${data.name}
 Email: ${data.email}
-Project Type: ${projectTypeLabels[data.projectType]}
+Project Type: ${projectTypeLabels[data.projectType]}`;
 
-Message:
+  if (isEnhancedForm) {
+    emailText += `
+
+=== LEAD QUALIFICATION ===`;
+    if (data.qualificationLevel) {
+      emailText += `
+Priority Level: ${data.qualificationLevel.toUpperCase()}`;
+    }
+    if (data.leadScore) {
+      emailText += `
+Lead Score: ${data.leadScore}/18`;
+    }
+    emailText += `
+Company Size: ${data.companySize ? companySizeLabels[data.companySize] : 'Not specified'}
+Timeline: ${data.timeline ? timelineLabels[data.timeline] : 'Not specified'}
+Budget: ${data.budget ? budgetLabels[data.budget] : 'Not specified'}
+Decision Maker: ${data.decisionMaker ? 'Yes' : 'No'}`;
+  }
+
+  emailText += `
+
+Project Details:
 ${data.message}
 
 ---
 Received: ${new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })}
-Source: Tyler Gohr Portfolio (tylergohr.com)
-  `.trim();
+Source: Tyler Gohr Portfolio (tylergohr.com)${isEnhancedForm ? ' - Enhanced Lead Qualification' : ''}`;
+
+  return emailText.trim();
 }
 
 // Send email notification
@@ -222,11 +303,24 @@ async function sendEmailNotification(data: ContactFormData): Promise<void> {
     },
   });
 
+  // Create dynamic subject line based on lead qualification
+  const isEnhancedForm = data.companySize || data.timeline || data.budget !== undefined;
+  let subject = `New Contact: ${data.name} - ${projectTypeLabels[data.projectType]}`;
+  
+  if (isEnhancedForm && data.qualificationLevel) {
+    const priorityPrefix = data.qualificationLevel === 'premium' ? '🔥 PREMIUM' :
+                          data.qualificationLevel === 'high' ? '⭐ HIGH PRIORITY' :
+                          data.qualificationLevel === 'medium' ? '📈 QUALIFIED' : '';
+    if (priorityPrefix) {
+      subject = `${priorityPrefix} Lead: ${data.name} - ${projectTypeLabels[data.projectType]}`;
+    }
+  }
+
   // Email options
   const mailOptions = {
     from: `"${process.env.CONTACT_FROM_NAME || 'Tyler Gohr Portfolio'}" <${process.env.EMAIL_USER}>`,
     to: process.env.EMAIL_TO,
-    subject: `New Contact: ${data.name} - ${projectTypeLabels[data.projectType]}`,
+    subject,
     text: createEmailText(data),
     html: createEmailHTML(data),
     replyTo: data.email, // Allow direct reply to the contact
