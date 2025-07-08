@@ -160,13 +160,33 @@ function validateFormData(data: unknown): { isValid: boolean; errors: string[]; 
     return { isValid: false, errors };
   }
   
-  // Sanitize data
+  // Sanitize data (include enhanced form fields)
   const sanitized: ContactFormData = {
     name: (formData.name as string).trim().substring(0, 100), // Limit length
     email: (formData.email as string).trim().toLowerCase().substring(0, 100),
     projectType: formData.projectType as ContactFormData['projectType'],
     message: (formData.message as string).trim().substring(0, 2000) // Limit message length
   };
+  
+  // Add enhanced form fields if present
+  if (formData.companySize) {
+    sanitized.companySize = formData.companySize as ContactFormData['companySize'];
+  }
+  if (formData.timeline) {
+    sanitized.timeline = formData.timeline as ContactFormData['timeline'];
+  }
+  if (formData.budget) {
+    sanitized.budget = formData.budget as ContactFormData['budget'];
+  }
+  if (typeof formData.decisionMaker === 'boolean') {
+    sanitized.decisionMaker = formData.decisionMaker;
+  }
+  if (typeof formData.leadScore === 'number') {
+    sanitized.leadScore = formData.leadScore;
+  }
+  if (formData.qualificationLevel) {
+    sanitized.qualificationLevel = formData.qualificationLevel as ContactFormData['qualificationLevel'];
+  }
   
   return { isValid: true, errors: [], sanitized };
 }
