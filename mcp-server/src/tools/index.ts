@@ -46,3 +46,11 @@ export {
   executeFallbackStrategyMCP,
   getCoordinationInsightsMCP
 } from "./cross-system-coordinator-enhanced.js";
+
+// Enhanced Emergency Rollback Intelligence (Phase 4 Tier 1 Capability)
+export {
+  detectEmergencyTriggersMCP,
+  generateRollbackStrategyMCP,
+  executeEmergencyRollbackMCP,
+  analyzeEmergencyRecoveryMCP
+} from "./emergency-rollback-enhanced.js";

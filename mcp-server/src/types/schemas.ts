@@ -256,6 +256,41 @@ export const CrossSystemInsightsSchema = z.object({
 
 export type CrossSystemInsightsRequest = z.infer<typeof CrossSystemInsightsSchema>;
 
+// Emergency Rollback Intelligence Schemas (Phase 4 Tier 1 Capability)
+export const EmergencyTriggerDetectionSchema = z.object({
+  includeMinor: z.boolean().default(false).describe("Whether to include low-severity triggers"),
+  checkSystems: z.array(z.enum(["mcp", "hooks", "build", "server"])).default(["mcp", "hooks", "build", "server"]).describe("Systems to check for triggers"),
+  format: z.enum(["summary", "detailed", "actionable"]).default("detailed").describe("Format of trigger detection output")
+});
+
+export type EmergencyTriggerDetectionRequest = z.infer<typeof EmergencyTriggerDetectionSchema>;
+
+export const RollbackStrategyGenerationSchema = z.object({
+  triggerType: z.enum(["system-failure", "hook-timeout", "build-failure", "test-failure", "server-crash", "manual"]).describe("Type of emergency trigger"),
+  severity: z.enum(["critical", "high", "medium", "low"]).describe("Severity of the trigger"),
+  preferredStrategy: z.enum(["immediate", "graceful", "staged", "minimal"]).optional().describe("Preferred rollback strategy approach"),
+  preserveState: z.boolean().default(true).describe("Whether to attempt state preservation during rollback"),
+  includeAlternatives: z.boolean().default(false).describe("Whether to include alternative rollback strategies")
+});
+
+export type RollbackStrategyGenerationRequest = z.infer<typeof RollbackStrategyGenerationSchema>;
+
+export const EmergencyRollbackExecutionSchema = z.object({
+  triggerType: z.enum(["system-failure", "hook-timeout", "build-failure", "test-failure", "server-crash", "manual"]).optional().describe("Type of emergency trigger for strategy generation"),
+  dryRun: z.boolean().default(true).describe("Whether to perform a dry run without actual execution"),
+  confirmExecution: z.boolean().default(false).describe("Explicit confirmation required for actual rollback execution")
+});
+
+export type EmergencyRollbackExecutionRequest = z.infer<typeof EmergencyRollbackExecutionSchema>;
+
+export const EmergencyRecoveryAnalysisSchema = z.object({
+  includePreventionTips: z.boolean().default(true).describe("Whether to include prevention tips and best practices"),
+  includeSystemHealth: z.boolean().default(true).describe("Whether to include current system health analysis"),
+  analysisDepth: z.enum(["basic", "detailed", "comprehensive"]).default("detailed").describe("Depth of recovery analysis")
+});
+
+export type EmergencyRecoveryAnalysisRequest = z.infer<typeof EmergencyRecoveryAnalysisSchema>;
+
 // MCP Tool Response - matches official CallToolResult interface
 export interface MCPToolResponse {
   content: Array<{
