@@ -10,7 +10,6 @@ import styles from './page.module.css'
 
 // Lazy load footer and business metrics for better performance
 const Footer = lazy(() => import('@/app/2/components/Footer/Footer'))
-const RealTimeMetricsDashboard = lazy(() => import('@/app/2/components/BusinessMetrics/RealTimeMetricsDashboard'))
 
 interface CaseStudy {
   id: string
@@ -246,18 +245,6 @@ function CaseStudiesPageContent() {
         </div>
       </Section>
 
-      {/* Business Metrics Dashboard Section */}
-      <Section background="hero" paddingY="xl">
-        <div 
-          ref={(el) => { sectionRefs.current['metrics'] = el }}
-          data-section-id="metrics"
-          className={`${styles.metricsSection} ${visibleSections.has('metrics') ? styles.revealed : ''}`}
-        >
-          <Suspense fallback={<div className={styles.loadingPlaceholder}>Loading business metrics...</div>}>
-            <RealTimeMetricsDashboard className={styles.businessMetrics} />
-          </Suspense>
-        </div>
-      </Section>
 
       {/* Call to Action Section */}
       <Section background="contact" paddingY="xl">
