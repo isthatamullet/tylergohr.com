@@ -1,8 +1,7 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from 'react'
-import { EnhancedContactForm, EnhancedContactFormData } from '../ConversionOptimization/EnhancedContactForm'
-import { qualifyLeadData } from '../ConversionOptimization/LeadQualificationFlow'
+import { ContactForm } from './ContactForm'
 import ContactInfo from './ContactInfo'
 import styles from './ContactSection.module.css'
 
@@ -41,19 +40,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ className }) => 
     return () => observer.disconnect()
   }, [])
 
-  // Handle lead qualification results
-  const handleLeadQualified = (formData: EnhancedContactFormData) => {
-    const qualification = qualifyLeadData(formData)
-    
-    if (process.env.NODE_ENV === 'development') {
-      console.log('Lead Qualified:', {
-        level: qualification.qualificationLevel,
-        score: qualification.leadScore,
-        followUp: qualification.recommendedFollowUp,
-        nextSteps: qualification.nextSteps
-      })
-    }
-  }
 
   return (
     <section
@@ -79,7 +65,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ className }) => 
         <div className={`${styles.contactContent} ${isVisible ? styles.revealed : ''}`}>
           {/* Contact Form - Left column on desktop */}
           <div className={styles.formContainer}>
-            <EnhancedContactForm onLeadQualified={handleLeadQualified} />
+            <ContactForm />
           </div>
 
           {/* Contact Information - Right column on desktop */}
