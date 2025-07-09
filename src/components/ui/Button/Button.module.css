@@ -1,0 +1,400 @@
+/* Tyler Gohr Portfolio - Button Component Styles */
+/* Enterprise Solutions Architect Design System */
+
+/* ==========================================================================
+   BASE BUTTON STYLES
+   ========================================================================== */
+
+.button {
+  /* Base structure */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  
+  /* Typography */
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-semibold);
+  text-decoration: none;
+  line-height: 1.2;
+  
+  /* Layout */
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Performance optimization */
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  
+  /* Accessibility */
+  outline-offset: 2px;
+  
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--interactive-blue);
+  outline-offset: 2px;
+  animation: focusPulse 2s ease-in-out infinite;
+}
+
+@keyframes focusPulse {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  }
+}
+
+.button:disabled,
+.button--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ==========================================================================
+   BUTTON SIZES
+   ========================================================================== */
+
+.button--sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  min-height: 2rem;
+}
+
+.button--md {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  min-height: 2.5rem;
+}
+
+.button--lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  min-height: 3rem;
+}
+
+.button--xl {
+  padding: 1.25rem 2.5rem;
+  font-size: 1.25rem;
+  min-height: 3.5rem;
+}
+
+/* ==========================================================================
+   HERO SECTION BUTTONS (Black #0a0a0a background)
+   ========================================================================== */
+
+.button--hero.button--primary {
+  background: linear-gradient(135deg, var(--accent-green), #059669);
+  color: var(--text-on-dark);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+}
+
+.button--hero.button--primary:hover {
+  background: linear-gradient(135deg, #059669, var(--accent-green));
+  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.4);
+}
+
+.button--hero.button--secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-on-dark);
+  border-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.button--hero.button--secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.button--hero.button--outline {
+  background: transparent;
+  color: var(--text-on-dark);
+  border-color: var(--accent-green);
+}
+
+.button--hero.button--outline:hover {
+  background: var(--accent-green);
+  color: var(--text-on-dark);
+}
+
+.button--hero.button--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: none;
+}
+
+.button--hero.button--ghost:hover {
+  color: var(--text-on-dark);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ==========================================================================
+   ABOUT SECTION BUTTONS (Dark Grey #1a1a1a background)
+   ========================================================================== */
+
+.button--about.button--primary {
+  background: linear-gradient(135deg, var(--interactive-blue), #1d4ed8);
+  color: var(--text-on-dark);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.button--about.button--primary:hover {
+  background: linear-gradient(135deg, #1d4ed8, var(--interactive-blue));
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+}
+
+.button--about.button--secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-on-dark);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.button--about.button--secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ==========================================================================
+   RESULTS SECTION BUTTONS (Bright Green #10b981 background)
+   ========================================================================== */
+
+.button--results.button--primary {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  color: var(--text-on-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.button--results.button--primary:hover {
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.button--results.button--secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-on-light);
+  border-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.button--results.button--outline {
+  background: transparent;
+  color: var(--text-on-light);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.button--results.button--outline:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-on-light);
+}
+
+/* ==========================================================================
+   CASE STUDIES SECTION BUTTONS (Navy Blue #1d4ed8 background)
+   ========================================================================== */
+
+.button--case-studies.button--primary {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: var(--text-on-light);
+  box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+}
+
+.button--case-studies.button--primary:hover {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  box-shadow: 0 8px 24px rgba(251, 191, 36, 0.4);
+}
+
+.button--case-studies.button--secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-on-dark);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.button--case-studies.button--outline {
+  background: transparent;
+  color: var(--text-on-dark);
+  border-color: #fbbf24;
+}
+
+/* ==========================================================================
+   HOW I WORK SECTION BUTTONS (Hot Pink #ec4899 background)
+   ========================================================================== */
+
+.button--how-i-work.button--primary {
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  color: var(--text-on-light);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.button--how-i-work.button--primary:hover {
+  background: linear-gradient(135deg, #f8fafc, #ffffff);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.button--how-i-work.button--secondary {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-on-light);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================================================
+   TECHNICAL EXPERTISE SECTION BUTTONS
+   ========================================================================== */
+
+.button--technical-expertise.button--primary {
+  background: linear-gradient(135deg, var(--accent-green), #059669);
+  color: var(--text-on-dark);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+}
+
+.button--technical-expertise.button--secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-on-dark);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   CONTACT SECTION BUTTONS (Bright Yellow #fbbf24 background)
+   ========================================================================== */
+
+.button--contact.button--primary {
+  background: linear-gradient(135deg, #000000, #1a1a1a);
+  color: var(--text-on-dark);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.button--contact.button--primary:hover {
+  background: linear-gradient(135deg, #1a1a1a, #000000);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.button--contact.button--secondary {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-on-light);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.button--contact.button--outline {
+  background: transparent;
+  color: var(--text-on-light);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.button--contact.button--outline:hover {
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--text-on-dark);
+}
+
+/* ==========================================================================
+   LOADING STATE
+   ========================================================================== */
+
+.button--loading {
+  cursor: wait;
+  pointer-events: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.button--loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+}
+
+.spinnerIcon {
+  width: 100%;
+  height: 100%;
+  animation: spin 1s linear infinite;
+}
+
+.buttonText {
+  transition: opacity 0.15s ease;
+}
+
+.buttonTextLoading {
+  opacity: 0.7;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .button--xl {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    min-height: 3rem;
+  }
+  
+  .button--lg {
+    padding: 0.875rem 1.75rem;
+    font-size: 1rem;
+    min-height: 2.75rem;
+  }
+}
+
+/* ==========================================================================
+   HIGH CONTRAST MODE SUPPORT
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  .button {
+    border-width: 3px;
+  }
+  
+  .button--outline {
+    border-width: 3px;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION SUPPORT
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+  
+  .spinnerIcon {
+    animation: none;
+  }
+}

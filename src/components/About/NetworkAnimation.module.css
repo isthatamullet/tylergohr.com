@@ -1,0 +1,232 @@
+/* Network Animation - CSS-based enterprise architecture visualization */
+
+.networkContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.networkSVG {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Network Node Animations */
+.networkNode {
+  fill: #16a34a;
+  opacity: 0.8;
+  animation: nodePulse 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.networkNode.primary {
+  fill: #22c55e;
+  animation: nodePulsePrimary 2.5s ease-in-out infinite;
+}
+
+.networkNode.secondary {
+  fill: #16a34a;
+  animation-delay: 0.5s;
+}
+
+.networkNode.tertiary {
+  fill: #15803d;
+  animation: nodePulse 4s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+/* Specific enterprise node timing */
+.networkNode.fox {
+  animation-delay: 0.2s;
+}
+
+.networkNode.warner {
+  animation-delay: 0.8s;
+}
+
+.networkNode.streaming {
+  animation-delay: 1.2s;
+}
+
+.networkNode.ai {
+  animation-delay: 1.6s;
+}
+
+/* Node Pulse Animations */
+@keyframes nodePulse {
+  0%, 100% { 
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes nodePulsePrimary {
+  0%, 100% { 
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+
+/* Network Connection Animations */
+.networkConnection {
+  stroke: #16a34a;
+  stroke-width: 2;
+  fill: none;
+  opacity: 0.6;
+  animation: dataFlow 4s linear infinite;
+}
+
+.networkConnection.primary {
+  stroke: #22c55e;
+  stroke-width: 3;
+  opacity: 0.8;
+  animation: dataFlowPrimary 3s linear infinite;
+}
+
+@keyframes dataFlow {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -100;
+    opacity: 0.6;
+  }
+}
+
+@keyframes dataFlowPrimary {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -80;
+    opacity: 0.8;
+  }
+}
+
+/* Flowing Data Streams */
+.dataStream {
+  fill: none;
+  stroke-width: 2;
+  opacity: 0;
+  animation: streamFlow 6s ease-in-out infinite;
+}
+
+.dataStream.stream1 {
+  animation-delay: 0s;
+}
+
+.dataStream.stream2 {
+  animation-delay: 1.5s;
+}
+
+.dataStream.stream3 {
+  animation-delay: 3s;
+}
+
+.dataStream.stream4 {
+  animation-delay: 4.5s;
+}
+
+@keyframes streamFlow {
+  0%, 100% { 
+    opacity: 0;
+    stroke-dashoffset: 100;
+  }
+  20%, 80% { 
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Node Labels (Hidden but structured) */
+.nodeLabels {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nodeLabel {
+  fill: #cbd5e1;
+  font-size: 10px;
+  text-anchor: middle;
+  font-family: inherit;
+}
+
+/* Performance Optimizations */
+.networkSVG * {
+  will-change: transform, opacity;
+}
+
+/* Responsive Behavior */
+@media (max-width: 767px) {
+  .networkContainer {
+    transform: scale(0.9);
+  }
+  
+  .networkNode {
+    animation-duration: 4s; /* Slower on mobile for better visibility */
+  }
+  
+  .dataStream {
+    animation-duration: 8s; /* Slower data streams on mobile */
+  }
+}
+
+/* Accessibility - Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .networkNode,
+  .networkConnection,
+  .dataStream {
+    animation: none;
+  }
+  
+  .networkNode {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  
+  .networkConnection {
+    opacity: 0.6;
+    stroke-dashoffset: 0;
+  }
+  
+  .dataStream {
+    opacity: 0; /* Hide data streams entirely for reduced motion */
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .networkNode {
+    fill: #00ff00; /* Bright green for high contrast */
+  }
+  
+  .networkConnection {
+    stroke: #00ff00;
+    opacity: 1;
+  }
+}

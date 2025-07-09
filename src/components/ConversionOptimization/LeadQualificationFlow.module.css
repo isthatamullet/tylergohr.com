@@ -1,0 +1,83 @@
+/* Lead Qualification Flow - Utility component styling */
+
+.qualificationFlow {
+  /* This is primarily a utility component that provides functions */
+  /* Styling for any future UI components related to qualification */
+}
+
+.qualificationSummary {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  font-family: var(--font-family-primary);
+  font-size: var(--small-size);
+  color: var(--text-on-dark);
+}
+
+.qualificationScore {
+  font-weight: var(--font-bold);
+  color: var(--results-bg);
+}
+
+.qualificationLevel {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.qualificationLevel--low {
+  background: rgba(148, 163, 184, 0.2);
+  color: var(--text-secondary);
+}
+
+.qualificationLevel--medium {
+  background: rgba(251, 191, 36, 0.2);
+  color: var(--contact-bg);
+}
+
+.qualificationLevel--high {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--results-bg);
+}
+
+.qualificationLevel--premium {
+  background: rgba(147, 51, 234, 0.2);
+  color: #a855f7;
+  box-shadow: 0 0 8px rgba(147, 51, 234, 0.3);
+}
+
+.priorityIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: var(--small-size);
+  font-weight: var(--font-medium);
+}
+
+.priorityIcon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.priority--standard .priorityIcon {
+  background: var(--text-secondary);
+}
+
+.priority--elevated .priorityIcon {
+  background: var(--contact-bg);
+}
+
+.priority--high .priorityIcon {
+  background: var(--results-bg);
+}
+
+.priority--urgent .priorityIcon {
+  background: var(--accent-red);
+  box-shadow: 0 0 4px var(--accent-red);
+}

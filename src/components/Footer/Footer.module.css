@@ -1,0 +1,245 @@
+/* Tyler Gohr Portfolio - Footer Component Styles */
+/* Enterprise Solutions Architect Design System */
+
+/* ==========================================================================
+   FOOTER COMPONENT LAYOUT - Complete Responsive System
+   ========================================================================== */
+
+.footer {
+  /* Base layout - Mobile first approach */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+/* ==========================================================================
+   ROW LAYOUT - 3-Row Structure
+   ========================================================================== */
+
+.githubRow,
+.navigationRow,
+.homeRow {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.githubRow {
+  margin-bottom: 24px;
+}
+
+.homeRow {
+  margin-top: 24px;
+}
+
+/* ==========================================================================
+   NAVIGATION ROW - Responsive Wrapping System
+   ========================================================================== */
+
+.navigationRow {
+  /* Base styles - Mobile first (320px-767px) */
+  flex-wrap: wrap;
+  gap: 16px 12px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   LINK STYLING - Consistent with Top Navigation
+   ========================================================================== */
+
+.githubLink,
+.navLink,
+.homeLink {
+  /* Base button reset */
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  margin: 0;
+  cursor: pointer;
+  
+  /* Typography - JetBrains Mono consistency */
+  font-family: var(--font-family-primary);
+  font-size: var(--body-size);
+  font-weight: var(--font-medium);
+  color: var(--text-on-dark);
+  text-decoration: none;
+  
+  /* Interaction states */
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  
+  /* Accessibility */
+  border-radius: 4px;
+}
+
+.githubLink:hover,
+.navLink:hover,
+.homeLink:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.githubLink:focus,
+.navLink:focus,
+.homeLink:focus {
+  outline: 2px solid var(--text-on-dark);
+  outline-offset: 2px;
+}
+
+.githubLink:active,
+.navLink:active,
+.homeLink:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS - Complete 4-Breakpoint System
+   ========================================================================== */
+
+/* Tablet styles (768px - 1199px) */
+@media (min-width: 768px) {
+  .githubRow {
+    margin-bottom: 28px;
+  }
+  
+  .homeRow {
+    margin-top: 28px;
+  }
+  
+  .navigationRow {
+    gap: 20px 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .githubLink,
+  .navLink,
+  .homeLink {
+    padding: 10px 16px;
+    font-size: clamp(1rem, 2vw, 1.125rem);
+  }
+}
+
+/* Desktop styles (1200px+) */
+@media (min-width: 1200px) {
+  .githubRow {
+    margin-bottom: 32px;
+  }
+  
+  .homeRow {
+    margin-top: 32px;
+  }
+  
+  .navigationRow {
+    flex-wrap: nowrap;
+    gap: 24px;
+    max-width: none;
+  }
+  
+  .githubLink,
+  .navLink,
+  .homeLink {
+    padding: 12px 20px;
+    font-size: 1.125rem;
+  }
+}
+
+/* Wide screen optimization (1400px+) */
+@media (min-width: 1400px) {
+  .navigationRow {
+    gap: 28px;
+  }
+  
+  .githubLink,
+  .navLink,
+  .homeLink {
+    padding: 12px 24px;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & INTERACTION STATES
+   ========================================================================== */
+
+/* Keyboard navigation support */
+.githubLink:focus-visible,
+.navLink:focus-visible,
+.homeLink:focus-visible {
+  outline: 2px solid var(--text-on-dark);
+  outline-offset: 2px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Touch device optimization */
+@media (hover: none) and (pointer: coarse) {
+  .githubLink,
+  .navLink,
+  .homeLink {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 16px;
+  }
+  
+  .githubLink:hover,
+  .navLink:hover,
+  .homeLink:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   HIGH CONTRAST MODE SUPPORT
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  .githubLink,
+  .navLink,
+  .homeLink {
+    border: 1px solid var(--text-on-dark);
+  }
+  
+  .githubLink:hover,
+  .navLink:hover,
+  .homeLink:hover {
+    background-color: var(--text-on-dark);
+    color: var(--footer-bg);
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION SUPPORT
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .githubLink,
+  .navLink,
+  .homeLink {
+    transition: none;
+  }
+  
+  .githubLink:hover,
+  .navLink:hover,
+  .homeLink:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   ========================================================================== */
+
+@media print {
+  .footer {
+    page-break-inside: avoid;
+  }
+  
+  .githubLink,
+  .navLink,
+  .homeLink {
+    color: #000 !important;
+    border: 1px solid #000 !important;
+  }
+}

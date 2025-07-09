@@ -1,0 +1,470 @@
+/* Tyler Gohr Portfolio - Hero Section Styles */
+/* Enterprise Solutions Architect Design System */
+
+/* ==========================================================================
+   HERO SECTION - FULL VIEWPORT WITH 50/50 GRID
+   ========================================================================== */
+
+.heroSection {
+  /* Full viewport hero */
+  min-height: 100vh;
+  width: 100%;
+  
+  /* Flexbox centering */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Dark background with subtle gradient */
+  background: linear-gradient(135deg, var(--background-black) 0%, #111111 100%);
+  
+  /* Typography and spacing */
+  color: var(--text-on-dark);
+  position: relative;
+  overflow: hidden;
+  
+  /* Performance optimization */
+  will-change: transform;
+  
+  /* Padding for content safety */
+  padding: 2rem 1rem;
+}
+
+.heroContainer {
+  /* Content container */
+  max-width: 1200px;
+  width: 100%;
+  
+  /* Desktop: 50/50 grid layout */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  
+  /* Responsive height management */
+  min-height: calc(100vh - 4rem);
+}
+
+/* ==========================================================================
+   HERO GRAPHIC (LEFT SIDE)
+   ========================================================================== */
+
+.heroGraphic {
+  /* Grid placement */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Height management */
+  width: 100%;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.graphicContainer {
+  /* Container for hero graphic */
+  width: 580px;
+  height: 400px;
+  
+  /* Center content */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Subtle animation preparation */
+  transition: all 0.3s ease;
+  will-change: transform;
+  
+  /* Slight parallax preparation */
+  position: relative;
+  z-index: 1;
+}
+
+.heroImage {
+  /* Responsive image styling */
+  width: 100%;
+  height: 100%;
+  max-width: 580px;
+  max-height: 400px;
+  
+  /* High quality scaling */
+  object-fit: contain;
+  object-position: center;
+  
+  /* Performance optimization */
+  will-change: transform;
+  
+  /* Subtle hover effect */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Accessibility */
+  user-select: none;
+  pointer-events: none;
+}
+
+.graphicContainer:hover .heroImage {
+  transform: translateY(-4px) scale(1.02);
+  filter: drop-shadow(0 8px 32px rgba(22, 163, 74, 0.15));
+}
+
+/* ==========================================================================
+   STACKED HERO IMAGES - MAIN + FLOATING CLOUD LAYERS
+   ========================================================================== */
+
+/* Base styles for all hero images (main + clouds) */
+.heroImage,
+.cloud1,
+.cloud2,
+.cloud3 {
+  /* Stack all images in the same position */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* High quality scaling */
+  object-fit: contain;
+  object-position: center;
+  
+  /* Performance optimization */
+  will-change: transform;
+  
+  /* Accessibility */
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Main hero image - base layer */
+.heroImage {
+  z-index: 1;
+  /* Subtle hover effect */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Cloud layers - floating on top with different z-indexes */
+.cloud1 {
+  z-index: 2;
+  animation: cloudFloat1 6s ease-in-out infinite;
+}
+
+.cloud2 {
+  z-index: 3;
+  animation: cloudFloat2 8s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.cloud3 {
+  z-index: 4;
+  animation: cloudFloat3 7s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+/* Floating animation keyframes - subtle floating effect */
+@keyframes cloudFloat1 {
+  0%, 100% {
+    transform: translateY(0px) scale(1) translateZ(0);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.02) translateZ(0);
+  }
+}
+
+@keyframes cloudFloat2 {
+  0%, 100% {
+    transform: translateY(0px) scale(1) translateZ(0);
+  }
+  50% {
+    transform: translateY(-8px) scale(0.98) translateZ(0);
+  }
+}
+
+@keyframes cloudFloat3 {
+  0%, 100% {
+    transform: translateY(0px) scale(1) translateZ(0);
+  }
+  50% {
+    transform: translateY(-4px) scale(1.03) translateZ(0);
+  }
+}
+
+/* Hover enhancement - clouds respond to graphic container hover */
+.graphicContainer:hover .cloud1 {
+  animation-duration: 4s;
+}
+
+.graphicContainer:hover .cloud2 {
+  animation-duration: 5s;
+}
+
+.graphicContainer:hover .cloud3 {
+  animation-duration: 4.5s;
+}
+
+/* ==========================================================================
+   HERO CONTENT (RIGHT SIDE)
+   ========================================================================== */
+
+.heroContent {
+  /* Grid placement and content flow */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.contentWrapper {
+  /* Content spacing and organization */
+  max-width: 600px;
+}
+
+/* Typography Hierarchy */
+.heroTitle {
+  /* Primary title styling */
+  font-size: 3rem; /* 48px */
+  font-weight: var(--font-black);
+  line-height: 1.1;
+  
+  /* Color and effects */
+  color: var(--text-on-dark);
+  background: linear-gradient(135deg, var(--text-on-dark), #f1f5f9);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  /* Spacing */
+  margin: 0 0 1.5rem 0; /* 24px bottom margin */
+  
+  /* Performance */
+  will-change: transform;
+}
+
+.heroSubtitle {
+  /* Subtitle styling */
+  font-size: 1.5rem; /* 24px */
+  font-weight: var(--font-medium);
+  line-height: 1.3;
+  
+  /* Color and spacing */
+  color: var(--text-secondary);
+  margin: 0 0 2rem 0; /* 32px bottom margin */
+  
+  /* Max width for readability */
+  max-width: 500px;
+}
+
+.heroDescription {
+  /* Description paragraph styling */
+  font-size: 1.125rem; /* 18px */
+  font-weight: var(--font-regular);
+  line-height: 1.6;
+  
+  /* Color and spacing */
+  color: var(--text-secondary);
+  margin: 0 0 3rem 0; /* 48px bottom margin */
+  
+  /* Max width for readability */
+  max-width: 540px;
+}
+
+.heroActions {
+  /* Button container */
+  display: flex;
+  gap: 1rem; /* 16px gap between buttons */
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ==========================================================================
+   TABLET LAYOUT (768px - 1199px)
+   ========================================================================== */
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  .heroContainer {
+    gap: 32px;
+    max-width: 900px;
+  }
+  
+  .graphicContainer {
+    width: 460px;
+    height: 320px;
+  }
+  
+  /* Tablet cloud adjustments */
+  .cloud1,
+  .cloud2,
+  .cloud3 {
+    width: clamp(50px, 7vw, 100px);
+    height: clamp(35px, 4.5vw, 70px);
+  }
+  
+  .heroTitle {
+    font-size: 2.5rem; /* 40px */
+  }
+  
+  .heroSubtitle {
+    font-size: 1.375rem; /* 22px */
+  }
+  
+  .heroDescription {
+    font-size: 1rem; /* 16px */
+  }
+}
+
+/* ==========================================================================
+   MOBILE LAYOUT (320px - 767px)
+   ========================================================================== */
+
+@media (max-width: 767px) {
+  .heroSection {
+    /* Add top padding to clear fixed navigation */
+    padding: var(--hero-mobile-padding-top) 1rem 1rem 1rem;
+    /* Adjust viewport calculation to account for navigation */
+    min-height: calc(100vh - var(--navigation-height));
+  }
+  
+  .heroContainer {
+    /* Mobile: Stacked layout */
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  /* Graphic adjustments for mobile */
+  .heroGraphic {
+    order: 1; /* Graphic first */
+    max-width: 100%;
+    margin-top: 6rem; /* Push hero image down to clear fixed navigation */
+  }
+  
+  .graphicContainer {
+    /* Mobile dimensions */
+    width: 100%;
+    max-width: 350px;
+    height: 250px;
+  }
+  
+  .heroContent {
+    order: 2; /* Content second */
+  }
+  
+  .contentWrapper {
+    max-width: 100%;
+  }
+  
+  /* Mobile typography */
+  .heroTitle {
+    font-size: 2.25rem; /* 36px */
+    margin-bottom: 1.5rem; /* 24px */
+  }
+  
+  .heroSubtitle {
+    font-size: 1.25rem; /* 20px */
+    margin-bottom: 2rem; /* 32px */
+  }
+  
+  .heroDescription {
+    font-size: 1rem; /* 16px */
+    margin-bottom: 2.5rem; /* 40px */
+    padding: 0 1rem; /* Side padding for readability */
+  }
+  
+  .heroActions {
+    flex-direction: column;
+    gap: 0.75rem; /* 12px gap */
+    width: 100%;
+  }
+  
+  .heroActions > * {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+/* ==========================================================================
+   SMALL MOBILE (320px - 479px)
+   ========================================================================== */
+
+@media (max-width: 479px) {
+  .heroSection {
+    padding: 0.75rem;
+  }
+  
+  .heroTitle {
+    font-size: 2rem; /* 32px */
+  }
+  
+  .heroSubtitle {
+    font-size: 1.125rem; /* 18px */
+  }
+  
+  .heroDescription {
+    font-size: 0.9375rem; /* 15px */
+    padding: 0 0.5rem;
+  }
+  
+  .graphicContainer {
+    height: 200px;
+  }
+  
+  /* Mobile cloud optimizations - maintain same dimensions as main hero image */
+  .cloud1,
+  .cloud2,
+  .cloud3 {
+    animation-duration: 8s; /* Slower animations for better mobile visibility */
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .heroImage {
+    transition: none;
+  }
+  
+  .graphicContainer:hover .heroImage {
+    transform: none;
+    filter: none;
+  }
+  
+  /* Disable cloud animations for reduced motion */
+  .cloud1,
+  .cloud2,
+  .cloud3 {
+    animation: none;
+    transform: translateY(0px) scale(1) translateZ(0);
+  }
+  
+  .graphicContainer:hover .cloud1,
+  .graphicContainer:hover .cloud2,
+  .graphicContainer:hover .cloud3 {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   HIGH CONTRAST MODE SUPPORT
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  .heroTitle {
+    background: none;
+    -webkit-text-fill-color: var(--text-on-dark);
+    color: var(--text-on-dark);
+  }
+  
+  .heroImage {
+    filter: contrast(1.2) brightness(1.1);
+  }
+  
+  /* Enhanced visibility for clouds in high contrast */
+  .cloud1,
+  .cloud2,
+  .cloud3 {
+    opacity: 1;
+    filter: contrast(1.3) brightness(1.2);
+  }
+}
