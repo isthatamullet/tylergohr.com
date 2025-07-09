@@ -6,8 +6,6 @@ import { useSearchParams } from 'next/navigation'
 import { Section } from '@/app/2/components/Section/Section'
 import { BrowserTabs, TechnicalExpertiseContent } from '@/app/2/components/BrowserTabs'
 import type { TabData } from '@/app/2/components/BrowserTabs'
-import { WebGLParallax } from '@/app/2/components/ScrollEffects/WebGLParallax'
-import { Optimized3DInteractionArea, useMobileScrollOptimizer } from '@/app/2/components/ScrollEffects/MobileScrollOptimizer'
 import { useScrollEffectsPerformanceOptimizer, PerformanceOptimizerDisplay } from '@/app/2/components/ScrollEffects/ScrollEffectsPerformanceOptimizer'
 import { ScrollEffectsIntegrationWrapper } from '@/app/2/components/ScrollEffects/Day4IntegrationTest'
 import styles from './page.module.css'
@@ -15,11 +13,6 @@ import styles from './page.module.css'
 // Lazy load footer for better performance
 const Footer = lazy(() => import('@/app/2/components/Footer/Footer'))
 
-// Lazy load the scroll-enhanced 3D architecture diagram for performance - Phase 3.2 Day 2
-const ScrollEnhancedInteractiveArchitectureDiagram = lazy(() => import('@/app/2/components/TechnicalExpertise/ScrollEnhancedArchitectureDiagram'))
-
-// Lazy load live code demonstrations for performance - Phase 3.2 Day 5
-const ScrollIntegratedLiveCode = lazy(() => import('@/app/2/components/LiveCode/ScrollIntegratedLiveCode'))
 
 interface TechnicalArea {
   id: string
@@ -210,8 +203,6 @@ function TechnicalExpertisePageContent() {
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({})
   const searchParams = useSearchParams()
   
-  // Mobile optimization for 3D interaction - Phase 3.2 Day 3
-  const mobileOptimizer = useMobileScrollOptimizer()
   
   // Performance optimization for scroll effects - Phase 3.2.4 Day 4 Task 2
   const performanceOptimizer = useScrollEffectsPerformanceOptimizer()
@@ -337,101 +328,7 @@ function TechnicalExpertisePageContent() {
         </div>
       </Section>
 
-      {/* Interactive Architecture Diagram Section - Phase 3.2 Day 3 Enhanced */}
-      <Section background="about" paddingY="xl">
-        <WebGLParallax intensity={0.8} enableInteraction={true}>
-          <div 
-            ref={(el) => { sectionRefs.current['architecture'] = el }}
-            data-section-id="architecture"
-            className={`${styles.architectureSection} ${visibleSections.has('architecture') ? styles.revealed : ''}`}
-          >
-            <div className={styles.architectureContainer}>
-              <header className={styles.architectureHeader}>
-                <h2 className={styles.architectureTitle}>
-                  Enterprise Architecture Visualization
-                </h2>
-                <p className={styles.architectureDescription}>
-                  Interactive 3D diagram showcasing real-world enterprise system architecture with modern technology stacks, 
-                  microservices patterns, and cloud infrastructure design. Enhanced with GPU-accelerated parallax backgrounds 
-                  and mobile-optimized controls.
-                </p>
-              </header>
-              
-              {/* Mobile-optimized 3D interaction area */}
-              <Optimized3DInteractionArea 
-                onTouchInteraction={mobileOptimizer.setTouchInteraction}
-                className={styles.diagramWrapper}
-              >
-                <Suspense fallback={
-                  <div className={styles.diagramFallback}>
-                    <div className={styles.loadingContainer}>
-                      <div className={styles.loadingSpinner}></div>
-                      <p>Loading scroll-enhanced 3D architecture diagram...</p>
-                    </div>
-                  </div>
-                }>
-                  <ScrollEnhancedInteractiveArchitectureDiagram />
-                </Suspense>
-              </Optimized3DInteractionArea>
-            </div>
-            
-            <div className={styles.architectureFeatures}>
-              <div className={styles.featureList}>
-                <div className={styles.feature}>
-                  <h4 className={styles.featureTitle}>🎯 Interactive Exploration</h4>
-                  <p className={styles.featureDescription}>
-                    Click nodes to explore detailed technology specifications and business value
-                  </p>
-                </div>
-                <div className={styles.feature}>
-                  <h4 className={styles.featureTitle}>🏗️ Enterprise Patterns</h4>
-                  <p className={styles.featureDescription}>
-                    Real-world microservices architecture with proven scalability patterns
-                  </p>
-                </div>
-                <div className={styles.feature}>
-                  <h4 className={styles.featureTitle}>☁️ Cloud-Native Design</h4>
-                  <p className={styles.featureDescription}>
-                    Google Cloud Platform integration with auto-scaling and monitoring
-                  </p>
-                </div>
-                <div className={styles.feature}>
-                  <h4 className={styles.featureTitle}>🔐 Security & Performance</h4>
-                  <p className={styles.featureDescription}>
-                    Enterprise-grade authentication, data protection, and performance optimization
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </WebGLParallax>
-      </Section>
 
-      {/* Live Code Demonstrations Section - Phase 3.2 Day 5 */}
-      <Section background="hero" paddingY="xl">
-        <div 
-          ref={(el) => { sectionRefs.current['live-code'] = el }}
-          data-section-id="live-code"
-          data-testid="live-code-section"
-          className={`${styles.liveCodeSection} ${visibleSections.has('live-code') ? styles.revealed : ''}`}
-        >
-          <Suspense fallback={
-            <div className={styles.liveCodeFallback}>
-              <div className={styles.loadingContainer}>
-                <div className={styles.loadingSpinner}></div>
-                <p>Loading interactive live code demonstrations...</p>
-              </div>
-            </div>
-          }>
-            <ScrollIntegratedLiveCode 
-              enableAutoplay={true}
-              autoplayInterval={20000}
-              enableScrollTriggers={true}
-              className={styles.scrollIntegratedLiveCode}
-            />
-          </Suspense>
-        </div>
-      </Section>
 
       {/* Call to Action Section */}
       <Section background="contact" paddingY="xl">
