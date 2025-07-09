@@ -71,18 +71,6 @@ export const ContactInfo: React.FC<ContactInfoProps> = ({ className }) => {
             <span className={styles.linkText}>GitHub Profile</span>
             <span className={styles.linkArrow} aria-hidden="true">↗</span>
           </a>
-          
-          <a 
-            href="/tyler-gohr-resume.pdf" 
-            className={styles.linkItem}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Download resume PDF (opens in new tab)"
-          >
-            <span className={styles.linkIcon} aria-hidden="true">📄</span>
-            <span className={styles.linkText}>Download Resume</span>
-            <span className={styles.linkArrow} aria-hidden="true">↗</span>
-          </a>
         </div>
       </div>
 
