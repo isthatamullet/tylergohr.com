@@ -461,28 +461,8 @@ export async function POST(request: NextRequest): Promise<NextResponse<ContactRe
     try {
       body = await request.json();
       
-      // ENHANCED DEBUGGING: Log exact request body data
-      console.log('[Contact API] Raw request body received:', JSON.stringify(body, null, 2));
-      console.log('[Contact API] Request body analysis:', {
-        hasName: !!body.name,
-        hasEmail: !!body.email,
-        hasMessage: !!body.message,
-        hasCompanySize: !!body.companySize,
-        companySizeValue: body.companySize,
-        companySizeType: typeof body.companySize,
-        hasTimeline: !!body.timeline,
-        timelineValue: body.timeline,
-        timelineType: typeof body.timeline,
-        hasBudget: !!body.budget,
-        budgetValue: body.budget,
-        budgetType: typeof body.budget,
-        hasDecisionMaker: body.decisionMaker !== undefined,
-        decisionMakerValue: body.decisionMaker,
-        hasLeadScore: body.leadScore !== undefined,
-        leadScoreValue: body.leadScore,
-        hasQualificationLevel: !!body.qualificationLevel,
-        qualificationLevelValue: body.qualificationLevel
-      });
+      // Log request for monitoring
+      console.log('[Contact API] Contact form submission received');
       
     } catch {
       return NextResponse.json(
@@ -498,32 +478,6 @@ export async function POST(request: NextRequest): Promise<NextResponse<ContactRe
     // Validate form data
     const validation = validateFormData(body);
     
-    // ENHANCED DEBUGGING: Log validation results and data transformation
-    console.log('[Contact API] Validation results:', {
-      isValid: validation.isValid,
-      errors: validation.errors,
-      sanitizedDataKeys: validation.sanitized ? Object.keys(validation.sanitized) : [],
-      originalDataKeys: Object.keys(body)
-    });
-    
-    if (validation.sanitized) {
-      console.log('[Contact API] Sanitized data after validation:', JSON.stringify(validation.sanitized, null, 2));
-      console.log('[Contact API] Enhanced fields preserved:', {
-        hasCompanySize: validation.sanitized.hasOwnProperty('companySize'),
-        companySizeValue: validation.sanitized.companySize,
-        hasTimeline: validation.sanitized.hasOwnProperty('timeline'),
-        timelineValue: validation.sanitized.timeline,
-        hasBudget: validation.sanitized.hasOwnProperty('budget'),
-        budgetValue: validation.sanitized.budget,
-        hasDecisionMaker: validation.sanitized.hasOwnProperty('decisionMaker'),
-        decisionMakerValue: validation.sanitized.decisionMaker,
-        hasLeadScore: validation.sanitized.hasOwnProperty('leadScore'),
-        leadScoreValue: validation.sanitized.leadScore,
-        hasQualificationLevel: validation.sanitized.hasOwnProperty('qualificationLevel'),
-        qualificationLevelValue: validation.sanitized.qualificationLevel
-      });
-    }
-    
     if (!validation.isValid) {
       console.error('[Contact API] Validation failed with errors:', validation.errors);
       return NextResponse.json(
@@ -537,14 +491,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ContactRe
     }
 
     // Send email notification
-    console.log('[Contact API] Sending email notification for form data:', {
-      name: validation.sanitized!.name,
-      email: validation.sanitized!.email,
-      projectType: validation.sanitized!.projectType,
-      isEnhanced: !!(validation.sanitized!.companySize || validation.sanitized!.timeline || validation.sanitized!.budget),
-      leadScore: validation.sanitized!.leadScore,
-      qualificationLevel: validation.sanitized!.qualificationLevel
-    });
+    console.log('[Contact API] Sending email notification');
     
     await sendEmailNotification(validation.sanitized!);
 
