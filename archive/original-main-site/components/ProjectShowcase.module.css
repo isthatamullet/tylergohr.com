@@ -1,0 +1,285 @@
+/* Project Showcase - Grid System & Filtering */
+
+.projectShowcase {
+  padding-block: var(--space-20);
+  background: linear-gradient(
+    135deg,
+    rgba(10, 10, 10, 0.98) 0%,
+    rgba(26, 26, 26, 0.95) 50%,
+    rgba(10, 10, 10, 0.98) 100%
+  );
+  position: relative;
+  container-type: inline-size;
+}
+
+/* Section Header */
+.showcaseHeader {
+  margin-bottom: var(--space-16);
+  text-align: center;
+}
+
+.showcaseTitle {
+  font-size: clamp(var(--font-size-3xl), 6vw, var(--font-size-5xl));
+  font-weight: 800;
+  margin-bottom: var(--space-4);
+  background: linear-gradient(
+    135deg,
+    var(--portfolio-text-primary) 0%,
+    var(--portfolio-accent-green) 50%,
+    var(--portfolio-interactive) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.showcaseSubtitle {
+  font-size: clamp(var(--font-size-lg), 3vw, var(--font-size-xl));
+  color: var(--portfolio-text-secondary);
+  max-width: 48rem;
+  margin-inline: auto;
+  line-height: 1.6;
+}
+
+/* Filters Section */
+.filtersSection {
+  margin-bottom: var(--space-12);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: flex-end;
+  padding: var(--space-6);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 8rem;
+  flex: 1;
+}
+
+.filterLabel {
+  font-size: var(--font-size-sm);
+  color: var(--portfolio-text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.filterSelect {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  color: var(--portfolio-text-primary);
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-fast);
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: var(--portfolio-interactive);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.filterSelect option {
+  background: var(--portfolio-dark);
+  color: var(--portfolio-text-primary);
+}
+
+.clearFilters {
+  background: linear-gradient(135deg, var(--portfolio-accent-red), #ef4444);
+  color: white;
+  border: none;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  align-self: end;
+}
+
+.clearFilters:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.clearFilters:focus-visible {
+  outline: 2px solid var(--portfolio-accent-red);
+  outline-offset: 2px;
+}
+
+/* Projects Grid */
+.projectsSection {
+  container-type: inline-size;
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  /* Smart container-aware spacing using CSS container units */
+  gap: clamp(var(--space-4), 2cqw, var(--space-8));
+}
+
+/* Micro breakpoints for ultra-fine responsiveness */
+@container (min-width: 20rem) {
+  .projectsGrid {
+    gap: clamp(var(--space-4), 1.5cqw, var(--space-6));
+  }
+}
+
+@container (min-width: 32rem) {
+  .projectsGrid {
+    /* Transition to 2-column with intelligent spacing */
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(var(--space-6), 2.5cqw, var(--space-8));
+  }
+}
+
+@container (min-width: 48rem) {
+  .projectsGrid {
+    /* Enhanced medium container spacing */
+    gap: clamp(var(--space-6), 3cqw, var(--space-10));
+  }
+
+  /* Dynamic typography scaling based on container width */
+  .showcaseTitle {
+    font-size: clamp(var(--font-size-3xl), 5cqw, var(--font-size-5xl));
+  }
+
+  .showcaseSubtitle {
+    font-size: clamp(var(--font-size-lg), 2.5cqw, var(--font-size-xl));
+  }
+}
+
+@container (min-width: 64rem) {
+  .projectsGrid {
+    /* Optimal 3-column layout with dynamic spacing */
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(var(--space-8), 3.5cqw, var(--space-12));
+  }
+}
+
+@container (min-width: 80rem) {
+  .projectsGrid {
+    /* Large container optimization with max-width constraint */
+    gap: clamp(var(--space-8), 4cqw, var(--space-16));
+    max-width: 80rem;
+    margin-inline: auto;
+  }
+
+  /* Enhanced typography for large containers */
+  .showcaseTitle {
+    font-size: clamp(var(--font-size-4xl), 6cqw, var(--font-size-6xl));
+  }
+}
+
+@container (min-width: 96rem) {
+  .projectsGrid {
+    /* Ultra-wide container: 4-column layout */
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-12);
+    max-width: 96rem;
+  }
+}
+
+/* Project Card in Grid */
+.projectCard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* No Results State */
+.noResults {
+  text-align: center;
+  padding: var(--space-16);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.noResultsTitle {
+  font-size: var(--font-size-2xl);
+  color: var(--portfolio-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.noResultsText {
+  font-size: var(--font-size-lg);
+  color: var(--portfolio-text-secondary);
+  margin-bottom: var(--space-6);
+  max-width: 32rem;
+  margin-inline: auto;
+  line-height: 1.6;
+}
+
+/* Responsive Filters */
+@container (max-width: 48rem) {
+  .filters {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .filterGroup {
+    min-width: unset;
+  }
+
+  .clearFilters {
+    align-self: stretch;
+  }
+}
+
+@container (min-width: 48rem) {
+  .showcaseHeader {
+    margin-bottom: var(--space-20);
+  }
+
+  .filtersSection {
+    margin-bottom: var(--space-16);
+  }
+}
+
+@container (min-width: 64rem) {
+  .projectShowcase {
+    padding-block: var(--space-24);
+  }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .clearFilters:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .showcaseTitle {
+    background: var(--portfolio-text-primary);
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
+  }
+
+  .filters {
+    border-width: 2px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .filterSelect {
+    border-width: 2px;
+  }
+}

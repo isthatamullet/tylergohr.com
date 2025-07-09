@@ -1,0 +1,226 @@
+/* MDX Provider - Enhanced Blog Content Styling */
+
+.mdxContent {
+  color: var(--portfolio-text-primary);
+  line-height: 1.7;
+  font-size: var(--font-size-base);
+  max-width: none;
+}
+
+/* Interactive Components */
+.interactiveComponent {
+  margin: var(--space-8) 0;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.photoEmbed {
+  margin: var(--space-6) 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* Callout Component */
+.callout {
+  margin: var(--space-6) 0;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid;
+  position: relative;
+}
+
+.calloutInfo {
+  background: rgba(37, 99, 235, 0.1);
+  border-left-color: #2563eb;
+  color: var(--portfolio-text-primary);
+}
+
+.calloutSuccess {
+  background: rgba(22, 163, 74, 0.1);
+  border-left-color: #16a34a;
+  color: var(--portfolio-text-primary);
+}
+
+.calloutWarning {
+  background: rgba(245, 158, 11, 0.1);
+  border-left-color: #f59e0b;
+  color: var(--portfolio-text-primary);
+}
+
+.calloutError {
+  background: rgba(239, 68, 68, 0.1);
+  border-left-color: #ef4444;
+  color: var(--portfolio-text-primary);
+}
+
+.calloutTitle {
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: var(--font-size-sm);
+}
+
+.calloutContent {
+  line-height: 1.6;
+}
+
+/* Video Embed */
+.videoEmbed {
+  margin: var(--space-8) 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #000;
+}
+
+.video {
+  border-radius: var(--radius-lg);
+  aspect-ratio: 16/9;
+}
+
+.videoCaption {
+  padding: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--portfolio-text-secondary);
+  text-align: center;
+  font-style: italic;
+}
+
+/* Technical Diagram */
+.techDiagram {
+  margin: var(--space-8) 0;
+  padding: var(--space-6);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  text-align: center;
+}
+
+.diagramContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.diagramTitle {
+  margin-top: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--portfolio-text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Metrics Display */
+.metricsDisplay {
+  margin: var(--space-8) 0;
+  padding: var(--space-6);
+  background: rgba(22, 163, 74, 0.05);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+  border-radius: var(--radius-xl);
+}
+
+.metricsTitle {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--portfolio-accent-green);
+  margin-bottom: var(--space-6);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-4);
+}
+
+.metricCard {
+  text-align: center;
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.metricValue {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--portfolio-accent-green);
+  margin-bottom: var(--space-1);
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+}
+
+.metricLabel {
+  font-size: var(--font-size-sm);
+  color: var(--portfolio-text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metricImprovement {
+  font-size: var(--font-size-xs);
+  color: var(--portfolio-accent-green);
+  margin-top: var(--space-1);
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@container (max-width: 48rem) {
+  .metricsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .interactiveComponent {
+    margin: var(--space-6) 0;
+  }
+  
+  .videoEmbed {
+    margin: var(--space-6) 0;
+  }
+  
+  .techDiagram {
+    margin: var(--space-6) 0;
+    padding: var(--space-4);
+  }
+}
+
+@container (max-width: 24rem) {
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .metricValue {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .interactiveComponent,
+  .photoEmbed,
+  .videoEmbed {
+    transition: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .callout {
+    border-width: 2px;
+  }
+  
+  .techDiagram,
+  .metricsDisplay {
+    border-width: 2px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .metricCard {
+    border-width: 2px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
