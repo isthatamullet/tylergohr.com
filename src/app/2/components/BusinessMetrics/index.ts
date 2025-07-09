@@ -1,5 +1,4 @@
 // Business Metrics Components - Phase 4 Week 1 Days 1-2
-export { default as RealTimeMetricsDashboard } from './RealTimeMetricsDashboard';
 export { default as ProjectROIVisualization } from './ProjectROIVisualization';
 export { default as BusinessImpactTimeline } from './BusinessImpactTimeline';
 
