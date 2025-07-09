@@ -1,117 +1,107 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, lazy, useState, useCallback } from "react";
 import styles from "./page.module.css";
-import ParallaxSection from "@/components/ParallaxSection";
-import ProjectShowcase from "@/components/ProjectShowcase";
-import ProjectDeepDive from "@/components/ProjectDeepDive";
-import SkillsSection from "@/components/SkillsSection";
-import ContactSection from "@/components/ContactSection";
-import { projects } from "@/lib/projects";
-import { Project } from "@/lib/types";
+import Hero from "@/components/Hero/Hero";
+import About from "@/components/About/About";
+import { EngagementTracking } from "@/components/ConversionOptimization/EngagementTracking";
+import { CallToActionOptimizer, CTAContext, CTAVariant } from "@/components/ConversionOptimization/CallToActionOptimizer";
+// BasicScene removed - Phase 2.3 NetworkAnimation3D now integrated in About section
 
-export default function HomePage() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+// Lazy load below-the-fold components for better performance
+const Results = lazy(() => import("@/components/Results/Results"));
+const CaseStudiesPreview = lazy(() => import("@/components/CaseStudies/CaseStudiesPreview"));
+const HowIWorkPreview = lazy(() => import("@/components/HowIWork/HowIWorkPreview"));
+const TechnicalExpertisePreview = lazy(() => import("@/components/TechnicalExpertise/TechnicalExpertisePreview"));
+const ContactSection = lazy(() => import("@/components/Contact/ContactSection"));
+const Footer = lazy(() => import("@/components/Footer/Footer"));
 
-  const handleProjectSelect = (project: Project) => {
-    setSelectedProject(project);
-  };
+export default function EnterprisePage() {
+  const [ctaContext, setCTAContext] = useState<CTAContext>({
+    currentSection: 'hero',
+    scrollProgress: 0,
+    timeOnPage: 0,
+    sectionsViewed: [],
+    interactionEvents: [],
+    deviceType: 'desktop',
+    isReturningVisitor: false,
+    engagementLevel: 'low'
+  });
 
-  const handleCloseDeepDive = () => {
-    setSelectedProject(null);
-  };
+  // Handle engagement updates from EngagementTracking
+  const handleEngagementUpdate = useCallback((newContext: CTAContext) => {
+    setCTAContext(newContext);
+  }, []);
 
-  if (selectedProject) {
-    return (
-      <ProjectDeepDive
-        project={selectedProject}
-        onClose={handleCloseDeepDive}
-      />
-    );
-  }
+  // Handle CTA clicks for tracking and analytics
+  const handleCTAClick = useCallback((variant: CTAVariant, context: CTAContext) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('CTA Clicked:', {
+        variantId: variant.id,
+        urgency: variant.urgency,
+        target: variant.target,
+        engagementLevel: context.engagementLevel,
+        timeOnPage: context.timeOnPage,
+        scrollProgress: context.scrollProgress
+      });
+    }
+    
+    // Here you would typically send analytics data to your tracking service
+    // gtag('event', 'cta_click', { variant_id: variant.id, engagement_level: context.engagementLevel });
+  }, []);
 
   return (
-    <main id="main-content" className={styles.main} role="main">
-      {/* Hero Section with Parallax Background */}
-      <section
-        id="about"
-        className={styles.heroSection}
-        aria-labelledby="hero-title"
-        role="banner"
-      >
-        <div
-          className={styles.parallaxBackground}
-          aria-hidden="true"
-          role="presentation"
-        >
-          <div className={styles.parallaxLayer1}></div>
-          <div className={styles.parallaxLayer2}></div>
-          <div className={styles.parallaxLayer3}></div>
-        </div>
-        <div className={styles.heroContainer}>
-          <div className={styles.heroContent}>
-            <h1 id="hero-title" className={styles.heroTitle}>
-              Tyler Gohr
-            </h1>
-            <p
-              className={styles.heroSubtitle}
-              aria-describedby="hero-description"
-            >
-              Full-Stack Developer & Creative Problem Solver
-            </p>
-            <p id="hero-description" className={styles.heroDescription}>
-              Crafting innovative digital experiences through cutting-edge web
-              technologies and creative problem-solving
-            </p>
-          </div>
-        </div>
-      </section>
+    <>
+      <main id="main-content" className={styles.main} role="main">
+        {/* Hero Section - Enterprise Solutions Architect */}
+        <Hero />
 
-      {/* About Section with Glassmorphism */}
-      <ParallaxSection className={styles.aboutSection}>
-        <div className="container">
-          <div
-            className={`${styles.glassCard} scale-in-on-scroll`}
-            role="region"
-            aria-labelledby="about-title"
-          >
-            <h2
-              id="about-title"
-              className={`${styles.sectionTitle} slide-in-left`}
-            >
-              About
-            </h2>
-            <p className={`${styles.sectionDescription} slide-in-right`}>
-              I specialize in building full-stack applications that solve real
-              business problems. From React frontends to Node.js backends, from
-              database design to cloud deployment, I create comprehensive
-              solutions that deliver results.
-            </p>
-          </div>
-        </div>
-      </ParallaxSection>
+        {/* About Section - Enhanced Network Animation with 3D Particles */}
+        <About />
 
-      {/* Skills Section */}
-      <SkillsSection />
+        {/* Results & Impact Section - Measurable Outcomes */}
+        <Suspense fallback={<div className={styles.loadingPlaceholder}>Loading metrics...</div>}>
+          <Results />
+        </Suspense>
 
-      {/* Project Showcase Section */}
-      <section
-        id="projects"
-        role="region"
-        aria-labelledby="projects-title"
-        aria-describedby="projects-description"
-      >
-        <ProjectShowcase
-          projects={projects}
-          title="Featured Projects"
-          subtitle="Innovative solutions demonstrating technical mastery through interactive showcases"
-          onProjectSelect={handleProjectSelect}
-          limit={3}
-        />
-      </section>
+        {/* Case Studies Preview Section - 4 Interactive Cards */}
+        <Suspense fallback={<div className={styles.loadingPlaceholder}>Loading case studies...</div>}>
+          <CaseStudiesPreview />
+        </Suspense>
 
-      {/* Contact Section */}
-      <ContactSection />
-    </main>
+        {/* How I Work Preview Section - 4 Process Highlight Cards */}
+        <Suspense fallback={<div className={styles.loadingPlaceholder}>Loading process overview...</div>}>
+          <HowIWorkPreview />
+        </Suspense>
+
+        {/* Technical Expertise Preview Section - 4 Glassmorphism Cards */}
+        <Suspense fallback={<div className={styles.loadingPlaceholder}>Loading technical expertise...</div>}>
+          <TechnicalExpertisePreview />
+        </Suspense>
+
+        {/* Contact Section - Dual-Column Form & Professional Information */}
+        <Suspense fallback={<div className={styles.loadingPlaceholder}>Loading contact form...</div>}>
+          <ContactSection />
+        </Suspense>
+      </main>
+
+      {/* Footer Section - Navigation Links & Professional Information */}
+      <Suspense fallback={<div className={styles.loadingPlaceholder}>Loading footer...</div>}>
+        <Footer />
+      </Suspense>
+
+      {/* Conversion Optimization Components */}
+      <EngagementTracking 
+        onEngagementUpdate={handleEngagementUpdate}
+        trackingEnabled={true}
+        debugMode={process.env.NODE_ENV === 'development'}
+      />
+      
+      <CallToActionOptimizer
+        position="floating"
+        context={ctaContext}
+        onCTAClick={handleCTAClick}
+      />
+    </>
   );
 }

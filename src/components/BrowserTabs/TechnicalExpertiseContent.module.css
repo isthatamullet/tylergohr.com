@@ -1,0 +1,302 @@
+/* Technical Expertise Content Component Styles */
+
+.technicalExpertiseContent {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   TECHNICAL AREA HEADER
+   ========================================================================== */
+
+.areaHeader {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.areaTitle {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #1e293b !important;  /* Dark slate for headings - override any inherited light colors */
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.areaDescription {
+  font-size: 1.25rem;
+  color: #64748b !important;  /* Medium gray for secondary text - override any inherited light colors */
+  font-weight: 500;
+  margin: 0;
+}
+
+/* ==========================================================================
+   BADGES
+   ========================================================================== */
+
+.badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badgeLarge {
+  padding: 12px 24px;
+  font-size: 1rem;
+  margin-bottom: 24px;
+}
+
+.badgeValue {
+  font-size: 1.2em;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.badgeLabel {
+  font-size: 0.75em;
+  opacity: 0.9;
+  line-height: 1;
+}
+
+/* Badge Variants */
+.badge--frontend {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #1e3a8a;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.badge--backend {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #14532d;
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+.badge--cloud {
+  background: linear-gradient(135deg, #a855f7, #9333ea);
+  color: #581c87;
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+.badge--leadership {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #78350f;
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+.badge--ai {
+  background: linear-gradient(135deg, #f43f5e, #e11d48);
+  color: #881337;
+  border-color: rgba(244, 63, 94, 0.3);
+}
+
+/* ==========================================================================
+   CONTENT GRID
+   ========================================================================== */
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 32px;
+  margin-bottom: 48px;
+}
+
+.contentSection {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 32px;
+  transition: all 0.3s ease;
+  
+  /* Performance optimization */
+  will-change: transform, background;
+  backface-visibility: hidden;
+}
+
+.contentSection:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.contentTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e293b !important;  /* Dark slate for section headings - override any inherited light colors */
+  margin: 0 0 16px 0;
+  line-height: 1.3;
+}
+
+.contentText {
+  font-size: 1rem;
+  color: #64748b !important;  /* Medium gray for body text - override any inherited light colors */
+  line-height: 1.6;
+  margin: 0;
+}
+
+.contentList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contentListItem {
+  font-size: 1rem;
+  color: #64748b !important;  /* Medium gray for list items - override any inherited light colors */
+  line-height: 1.6;
+  margin-bottom: 12px;
+  padding-left: 24px;
+  position: relative;
+}
+
+.contentListItem:last-child {
+  margin-bottom: 0;
+}
+
+.contentListItem::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #16a34a !important;  /* Green for checkmarks - override any inherited colors */
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   BUSINESS VALUE SECTION
+   ========================================================================== */
+
+.businessValue {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1));
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+}
+
+.businessValueTitle {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #1e293b !important;  /* Dark slate for business value title - override any inherited light colors */
+  margin: 0 0 20px 0;
+  line-height: 1.3;
+}
+
+.businessValueText {
+  font-size: 1.125rem;
+  color: #64748b !important;  /* Medium gray for business value text - override any inherited light colors */
+  line-height: 1.6;
+  margin: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Tablet Layout (768px - 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .contentSection {
+    padding: 24px;
+  }
+  
+  .businessValue {
+    padding: 32px;
+  }
+}
+
+/* Mobile Layout (767px and below) */
+@media (max-width: 767px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .contentSection {
+    padding: 20px;
+  }
+  
+  .businessValue {
+    padding: 24px;
+  }
+  
+  .areaTitle {
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
+  }
+  
+  .areaDescription {
+    font-size: 1.125rem;
+  }
+}
+
+/* Extra Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .areaHeader {
+    margin-bottom: 32px;
+  }
+  
+  .contentSection {
+    padding: 16px;
+  }
+  
+  .businessValue {
+    padding: 20px;
+  }
+  
+  .businessValueTitle {
+    font-size: 1.5rem;
+  }
+  
+  .businessValueText {
+    font-size: 1rem;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & PERFORMANCE
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .contentSection:hover {
+    transform: none;
+  }
+}
+
+/* GPU acceleration for smooth animations */
+.contentSection {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .badge {
+    border-width: 2px;
+    border-style: solid;
+  }
+  
+  .contentSection {
+    border-width: 2px;
+    background: rgba(0, 0, 0, 0.1);
+  }
+  
+  .businessValue {
+    border-width: 2px;
+    background: rgba(0, 0, 0, 0.1);
+  }
+}

@@ -1,0 +1,438 @@
+/* Enhanced Contact Form - Multi-step conversion optimized form */
+
+.enhancedContactForm {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Form Header */
+.formHeader {
+  margin-bottom: 2rem;
+}
+
+.formTitle {
+  font-family: var(--font-family-primary);
+  font-size: var(--h3-size);
+  font-weight: var(--font-bold);
+  color: var(--text-on-dark);
+  margin: 0 0 1rem 0;
+  line-height: var(--h3-line-height);
+}
+
+/* Step Progress Indicator */
+.stepProgress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stepIndicator {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.stepDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.stepDot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.stepPending {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.stepPending::after {
+  background: transparent;
+}
+
+.stepActive {
+  background: var(--contact-bg);
+  border: 1px solid var(--contact-bg);
+  box-shadow: 0 0 8px rgba(251, 191, 36, 0.4);
+}
+
+.stepActive::after {
+  background: var(--text-on-light);
+}
+
+.stepCompleted {
+  background: var(--results-bg);
+  border: 1px solid var(--results-bg);
+}
+
+.stepCompleted::after {
+  background: var(--text-on-dark);
+}
+
+.stepText {
+  font-family: var(--font-family-primary);
+  font-size: var(--small-size);
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: var(--font-medium);
+}
+
+/* Success/Error Messages */
+.successMessage,
+.errorMessage {
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border: 1px solid;
+  backdrop-filter: blur(10px);
+}
+
+.successMessage {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: var(--text-on-dark);
+}
+
+.successMessage h4 {
+  color: var(--results-bg);
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-bold);
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
+
+.errorMessage {
+  background: rgba(220, 38, 38, 0.1);
+  border-color: rgba(220, 38, 38, 0.3);
+  color: var(--text-on-dark);
+}
+
+.errorMessage h4 {
+  color: var(--accent-red);
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-bold);
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+}
+
+.successMessage p,
+.errorMessage p {
+  font-family: var(--font-family-primary);
+  font-size: var(--small-size);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Form Content */
+.formContent {
+  position: relative;
+}
+
+.formStep {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Form Fields */
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  font-family: var(--font-family-primary);
+  font-size: var(--small-size);
+  font-weight: var(--font-semibold);
+  color: var(--text-on-dark);
+  display: block;
+}
+
+.input,
+.select,
+.textarea {
+  font-family: var(--font-family-primary);
+  font-size: var(--body-size);
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: var(--text-on-dark);
+  transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--contact-bg);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+}
+
+.input:disabled,
+.select:disabled,
+.textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.inputError {
+  border-color: var(--accent-red);
+  background: rgba(220, 38, 38, 0.05);
+}
+
+.inputError:focus {
+  border-color: var(--accent-red);
+  box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.2);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+.select {
+  cursor: pointer;
+  appearance: none;
+  background-image: 
+    linear-gradient(45deg, transparent 50%, var(--text-on-dark) 50%),
+    linear-gradient(135deg, var(--text-on-dark) 50%, transparent 50%);
+  background-position: 
+    calc(100% - 16px) calc(1em + 2px),
+    calc(100% - 12px) calc(1em + 2px);
+  background-size: 4px 4px, 4px 4px;
+  background-repeat: no-repeat;
+  padding-right: 2.5rem;
+}
+
+.select option {
+  background: var(--hero-bg);
+  color: var(--text-on-dark);
+  padding: 0.5rem;
+}
+
+/* Checkbox Styling */
+.checkboxLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-family: var(--font-family-primary);
+  font-size: var(--body-size);
+  color: var(--text-on-dark);
+  line-height: 1.5;
+  padding: 0.5rem 0;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--contact-bg);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checkboxText {
+  flex: 1;
+  font-weight: var(--font-medium);
+}
+
+/* Error Text */
+.errorText {
+  font-family: var(--font-family-primary);
+  font-size: var(--small-size);
+  color: var(--accent-red);
+  margin: 0;
+  font-weight: var(--font-medium);
+}
+
+/* Help Text */
+.helpText {
+  font-family: var(--font-family-primary);
+  font-size: var(--small-size);
+  color: var(--text-secondary);
+  margin: 0;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Qualification Preview */
+.qualificationPreview {
+  background: rgba(16, 185, 129, 0.05);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.previewTitle {
+  font-family: var(--font-family-primary);
+  font-size: 1rem;
+  font-weight: var(--font-bold);
+  color: var(--results-bg);
+  margin: 0 0 0.75rem 0;
+}
+
+.previewContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.previewContent p {
+  font-family: var(--font-family-primary);
+  font-size: var(--small-size);
+  color: var(--text-on-dark);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.previewContent strong {
+  font-weight: var(--font-semibold);
+  color: var(--text-on-dark);
+  min-width: 80px;
+  display: inline-block;
+}
+
+/* Form Actions */
+.formActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.backButton {
+  flex: 0 0 auto;
+}
+
+.nextButton,
+.submitButton {
+  flex: 1;
+  max-width: 200px;
+  margin-left: auto;
+}
+
+/* Step Help */
+.stepHelp {
+  font-family: var(--font-family-primary);
+  font-size: var(--small-size);
+  color: var(--text-secondary);
+  text-align: center;
+  margin: 1rem 0 0 0;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .enhancedContactForm {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .formTitle {
+    font-size: 1.25rem;
+  }
+
+  .formStep {
+    min-height: 250px;
+    gap: 1.25rem;
+  }
+
+  .fieldGroup {
+    gap: 0.375rem;
+  }
+
+  .input,
+  .select,
+  .textarea {
+    padding: 0.625rem 0.75rem;
+    font-size: 1rem; /* Prevent zoom on iOS */
+  }
+
+  .formActions {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .backButton,
+  .nextButton,
+  .submitButton {
+    flex: none;
+    max-width: none;
+    width: 100%;
+  }
+
+  .qualificationPreview {
+    padding: 0.75rem;
+  }
+
+  .previewContent {
+    gap: 0.375rem;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .stepDot,
+  .stepDot::after,
+  .input,
+  .select,
+  .textarea {
+    transition: none;
+  }
+}
+
+/* High Contrast Support */
+@media (prefers-contrast: high) {
+  .input,
+  .select,
+  .textarea {
+    border-width: 2px;
+  }
+
+  .stepActive {
+    box-shadow: 0 0 0 2px var(--contact-bg);
+  }
+
+  .stepCompleted {
+    box-shadow: 0 0 0 2px var(--results-bg);
+  }
+}

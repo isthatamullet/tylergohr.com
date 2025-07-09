@@ -1,0 +1,833 @@
+/* Business Impact Timeline - Career Progression Showcase */
+
+.timeline {
+  background: linear-gradient(135deg, 
+    rgba(10, 10, 10, 0.95) 0%, 
+    rgba(20, 20, 20, 0.9) 50%, 
+    rgba(10, 10, 10, 0.95) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  margin: clamp(1rem, 3vw, 2rem) 0;
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #ffd700 20%, 
+    var(--results-bg) 40%, 
+    var(--case-studies-bg) 60%, 
+    #ffd700 80%, 
+    transparent 100%
+  );
+  opacity: 0.8;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+  gap: 2rem;
+}
+
+.titleGroup {
+  flex: 1;
+}
+
+.title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--text-on-dark);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+  background: linear-gradient(135deg, 
+    #ffd700 0%, 
+    var(--text-on-dark) 50%, 
+    var(--results-bg) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: clamp(0.875rem, 2vw, 1.125rem);
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.impactSummary {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.summaryCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, 
+    rgba(255, 215, 0, 0.1) 0%, 
+    rgba(16, 185, 129, 0.1) 100%
+  );
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+  min-width: 120px;
+}
+
+.summaryValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffd700;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.summaryLabel {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  text-align: center;
+}
+
+/* View Controls */
+.viewControls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 0.25rem;
+  justify-content: center;
+}
+
+.viewButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.viewButton:hover {
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.viewButton.active {
+  background: linear-gradient(135deg, 
+    var(--results-bg) 0%, 
+    var(--case-studies-bg) 100%
+  );
+  color: var(--text-on-dark);
+  font-weight: 600;
+}
+
+.viewIcon {
+  font-size: 1rem;
+}
+
+.viewLabel {
+  font-weight: 500;
+}
+
+/* Content Container */
+.content {
+  min-height: 600px;
+}
+
+/* Timeline View */
+.timelineView {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.timelineLine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    var(--results-bg) 20%, 
+    #ffd700 50%, 
+    var(--case-studies-bg) 80%, 
+    transparent 100%
+  );
+  border-radius: 2px;
+  transform: translateX(-50%);
+  transform-origin: top;
+}
+
+.milestonesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.milestone {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.milestone:nth-child(odd) {
+  flex-direction: row-reverse;
+}
+
+.milestone:nth-child(odd) .milestoneContent {
+  text-align: right;
+}
+
+.milestone.highlight {
+  transform: scale(1.02);
+}
+
+.milestone.selected {
+  transform: scale(1.05);
+}
+
+.milestoneYear {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  border: 3px solid var(--results-bg);
+  border-radius: 50%;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-on-dark);
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.milestone.highlight .milestoneYear {
+  border-color: #ffd700;
+  background: linear-gradient(135deg, 
+    rgba(255, 215, 0, 0.2) 0%, 
+    rgba(255, 215, 0, 0.1) 100%
+  );
+}
+
+.yearText {
+  position: relative;
+  z-index: 1;
+}
+
+.highlightRing {
+  position: absolute;
+  inset: -8px;
+  border: 2px solid #ffd700;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+
+.milestoneContent {
+  flex: 1;
+  max-width: 400px;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.milestone.highlight .milestoneContent {
+  border-color: rgba(255, 215, 0, 0.3);
+  background: linear-gradient(135deg, 
+    rgba(255, 215, 0, 0.05) 0%, 
+    rgba(16, 185, 129, 0.02) 100%
+  );
+}
+
+.milestoneTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-on-dark);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.milestoneCompany {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+}
+
+.milestoneImpact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.impactItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.impactLabel {
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+.impactValue {
+  color: var(--results-bg);
+  font-weight: 700;
+}
+
+.recognition {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.award {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(255, 215, 0, 0.1);
+  color: #ffd700;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+/* Impact View */
+.impactView {
+  padding: 2rem 0;
+}
+
+.impactTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin: 0 0 2rem 0;
+  text-align: center;
+}
+
+.impactGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.impactCard {
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    rgba(255, 255, 255, 0.02) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid var(--company-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.impactCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.impactCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.impactCardHeader h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin: 0;
+}
+
+.impactYear {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+.impactStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.stat {
+  text-align: center;
+}
+
+.statValue {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--company-color);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+.innovations {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.innovationText {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+/* Progression View */
+.progressionView {
+  padding: 2rem 0;
+}
+
+.progressionTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin: 0 0 2rem 0;
+  text-align: center;
+}
+
+.progressionChart {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.progressionLevel {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.03) 0%, 
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  position: relative;
+}
+
+.progressionLevel::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, 
+    var(--results-bg) 0%, 
+    var(--case-studies-bg) 50%, 
+    var(--how-i-work-bg) 100%
+  );
+  border-radius: 0 2px 2px 0;
+  opacity: calc(var(--level) / 5);
+}
+
+.levelIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, 
+    var(--results-bg) 0%, 
+    var(--case-studies-bg) 100%
+  );
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.levelNumber {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-on-dark);
+}
+
+.levelContent {
+  flex: 1;
+}
+
+.levelTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin: 0 0 0.5rem 0;
+}
+
+.levelDescription {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+}
+
+.levelAchievements {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.achievement {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.achievementBullet {
+  color: var(--results-bg);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.achievementText {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+}
+
+/* Detail Modal */
+.detailModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.detailContent {
+  background: linear-gradient(135deg, 
+    rgba(20, 20, 20, 0.95) 0%, 
+    rgba(30, 30, 30, 0.9) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.detailHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.detailHeader h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-on-dark);
+  margin: 0 0 0.5rem 0;
+}
+
+.detailHeader p {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.closeButton:hover {
+  color: var(--text-on-dark);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.detailBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.achievementsList h4,
+.technologiesList h4,
+.recognitionList h4 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin: 0 0 1rem 0;
+}
+
+.achievementsList ul,
+.recognitionList ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.achievementsList li,
+.recognitionList li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.4;
+}
+
+.techTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.techTag {
+  padding: 0.5rem 1rem;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: var(--results-bg);
+  font-weight: 500;
+}
+
+/* Footer */
+.footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.credentialsBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.credential {
+  font-weight: 600;
+  color: #ffd700;
+}
+
+.separator {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Responsive Design */
+@container (max-width: 768px) {
+  .timeline {
+    padding: 1.5rem;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .impactSummary {
+    justify-content: center;
+  }
+
+  .summaryCard {
+    min-width: 100px;
+    padding: 0.75rem 1rem;
+  }
+
+  .viewButton .viewLabel {
+    display: none;
+  }
+
+  .timelineLine {
+    left: 2rem;
+  }
+
+  .milestone,
+  .milestone:nth-child(odd) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .milestone:nth-child(odd) .milestoneContent {
+    text-align: left;
+  }
+
+  .milestoneYear {
+    width: 60px;
+    height: 60px;
+    font-size: 0.75rem;
+  }
+
+  .milestoneContent {
+    max-width: none;
+  }
+
+  .impactGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .progressionLevel {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .detailModal {
+    padding: 1rem;
+  }
+
+  .detailContent {
+    padding: 1.5rem;
+  }
+
+  .credentialsBar {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+}
+
+@container (max-width: 480px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .summaryValue {
+    font-size: 1.25rem;
+  }
+
+  .milestoneTitle {
+    font-size: 1.125rem;
+  }
+
+  .impactStats {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+/* High-contrast mode support */
+@media (prefers-contrast: high) {
+  .timeline {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .milestone,
+  .impactCard,
+  .progressionLevel {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .viewButton {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .timeline *,
+  .milestone,
+  .impactCard,
+  .progressionLevel {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .highlightRing {
+    animation: none !important;
+  }
+
+  .milestone:hover,
+  .impactCard:hover {
+    transform: none !important;
+  }
+}
+
+/* Focus states for accessibility */
+.milestone:focus,
+.viewButton:focus,
+.closeButton:focus {
+  outline: 2px solid var(--results-bg);
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .timeline {
+    background: white;
+    color: black;
+    border: 1px solid black;
+  }
+
+  .detailModal {
+    display: none;
+  }
+
+  .viewControls {
+    display: none;
+  }
+}

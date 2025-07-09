@@ -1,0 +1,575 @@
+/* Technical Expertise Detail Page Styles */
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+
+.heroContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Hero Header */
+.heroHeader {
+  opacity: 1;
+  transform: var(--detail-reveal-transform);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+}
+
+.heroHeader.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 24px 0;
+  line-height: 1.1;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.heroDescription {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Browser Section */
+.browserSection {
+  opacity: 1;
+  transform: translateY(40px);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+  transition-delay: 0.2s;
+  
+  /* Performance optimization */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.browserSection.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.technicalExpertiseBrowser {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   CTA SECTION
+   ========================================================================== */
+
+.ctaSection {
+  opacity: 1;
+  transform: translateY(40px);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+  
+  /* Performance optimization */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.ctaSection.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ctaContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ctaTitle {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 24px 0;
+  line-height: 1.2;
+}
+
+.ctaDescription {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0 0 40px 0;
+}
+
+.ctaActions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.ctaPrimary {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent-green), #059669);
+  color: #ffffff;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.125rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(22, 163, 74, 0.3);
+  
+  /* Performance optimization */
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+}
+
+.ctaPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(22, 163, 74, 0.4);
+}
+
+.ctaSecondary {
+  display: inline-block;
+  color: var(--text-secondary);
+  padding: 12px 24px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+}
+
+.ctaSecondary:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ==========================================================================
+   ARCHITECTURE SECTION - Phase 3.1
+   ========================================================================== */
+
+.architectureSection {
+  opacity: 1;
+  transform: translateY(40px);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+  
+  /* Performance optimization */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.architectureSection.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.architectureContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Architecture Header */
+.architectureHeader {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.architectureTitle {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 24px 0;
+  line-height: 1.2;
+}
+
+.architectureDescription {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Diagram Wrapper */
+.diagramWrapper {
+  margin-bottom: 48px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Diagram Fallback Loading */
+.diagramFallback {
+  height: 500px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 1px solid #333;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadingContainer {
+  text-align: center;
+  color: #888;
+}
+
+.loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #333;
+  border-top: 3px solid #10b981;
+  border-radius: 50%;
+  animation: architectureSpinner 1s linear infinite;
+  margin: 0 auto 16px auto;
+}
+
+@keyframes architectureSpinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loadingContainer p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Architecture Features */
+.architectureFeatures {
+  background: rgba(26, 26, 26, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.featureList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.feature {
+  text-align: center;
+}
+
+.featureTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #10b981;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.featureDescription {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Tablet Layout (768px - 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .heroContainer {
+    padding: 0 24px;
+  }
+  
+  .architectureContainer {
+    padding: 0 20px;
+  }
+  
+  .featureList {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+}
+
+/* Mobile Layout (767px and below) */
+@media (max-width: 767px) {
+  .heroContainer {
+    padding: 0 20px;
+  }
+  
+  .heroTitle {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+    margin-bottom: 16px;
+  }
+  
+  .heroDescription {
+    font-size: 1.125rem;
+  }
+  
+  .ctaActions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .ctaPrimary,
+  .ctaSecondary {
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Architecture Section Mobile */
+  .architectureContainer {
+    padding: 0 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .architectureHeader {
+    margin-bottom: 32px;
+  }
+  
+  .architectureTitle {
+    font-size: clamp(1.75rem, 6vw, 2.25rem);
+    margin-bottom: 16px;
+  }
+  
+  .architectureDescription {
+    font-size: 1rem;
+    padding: 0 8px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  .diagramWrapper {
+    margin-bottom: 32px;
+  }
+  
+  .diagramFallback {
+    height: 400px;
+  }
+  
+  .architectureFeatures {
+    padding: 24px 16px;
+  }
+  
+  .featureList {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .featureTitle {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+  
+  .featureDescription {
+    font-size: 13px;
+  }
+}
+
+/* Extra Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .compactHero {
+    height: 280px !important;
+    min-height: 280px !important;
+    max-height: 280px !important;
+    contain: layout style !important;
+    isolation: isolate !important;
+    position: relative !important;
+  }
+  
+  .compactHero .heroContainer {
+    position: absolute !important;
+    top: 90px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 10 !important;
+    contain: layout !important;
+    isolation: isolate !important;
+    padding: 0 16px;
+    width: 100% !important;
+    max-width: calc(100vw - 32px) !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* ULTRA-SPECIFIC HERO TEXT UNIFORMITY RULES */
+  .compactHero .heroContainer .heroTitle {
+    font-size: clamp(2rem, 8vw, 2.5rem) !important;
+    font-weight: 700 !important;
+    line-height: 1.1 !important;
+    margin: 0 0 16px 0 !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
+    text-align: center !important;
+  }
+  
+  .compactHero .heroContainer .heroDescription {
+    font-size: 1.125rem !important;
+    line-height: 1.6 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin: 0 auto !important;
+    max-width: 800px !important;
+    text-align: center !important;
+  }
+  
+  /* Fix architecture description on extra small mobile */
+  .architectureContainer {
+    padding: 0 16px !important;
+  }
+  
+  .architectureDescription {
+    font-size: 0.95rem !important;
+    padding: 0 4px !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  .heroHeader {
+    margin-bottom: 48px;
+  }
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & PERFORMANCE
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .heroHeader,
+  .browserSection,
+  .architectureSection,
+  .ctaSection {
+    transition: opacity 0.3s ease;
+    transform: none;
+  }
+  
+  .ctaPrimary:hover {
+    transform: none;
+  }
+  
+  .loadingSpinner {
+    animation: none;
+  }
+}
+
+/* GPU acceleration for smooth animations */
+.heroHeader,
+.browserSection,
+.architectureSection,
+.ctaSection {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .ctaPrimary {
+    border: 2px solid #ffffff;
+  }
+}
+
+/* ==========================================================================
+   COMPACT HERO OVERRIDE - Match Case Studies Page Dimensions
+   ========================================================================== */
+
+.compactHero {
+  /* Fixed height - no variables, no inheritance */
+  height: 360px !important;
+  min-height: 360px !important;
+  max-height: 360px !important;
+  
+  /* Container setup */
+  position: relative !important;
+  
+  /* Remove all padding/margin */
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.compactHero .heroContainer {
+  /* Absolute positioning for complete control */
+  position: absolute !important;
+  top: 135px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  
+  /* Text alignment */
+  text-align: center !important;
+  
+  /* Width control */
+  width: 800px !important;
+  max-width: 90vw !important;
+  
+  /* Remove all other positioning */
+  display: block !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* ==========================================================================
+   LIVE CODE DEMONSTRATIONS SECTION - Phase 3.2 Day 5
+   ========================================================================== */
+
+.liveCodeSection {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+  transition-delay: 0.8s;
+  
+  /* Performance optimization */
+  will-change: transform, opacity;
+}
+
+.liveCodeSection.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scrollIntegratedLiveCode {
+  /* Integration with existing theme */
+  background: transparent;
+  padding: 0;
+}
+
+.liveCodeFallback {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.liveCodeFallback .loadingContainer {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.liveCodeFallback .loadingSpinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid #10b981;
+  border-radius: 50%;
+  animation: liveCodeSpinner 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes liveCodeSpinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.liveCodeFallback p {
+  margin: 0;
+  font-size: var(--text-base);
+  font-family: var(--font-family-primary);
+}

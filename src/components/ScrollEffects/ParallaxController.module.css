@@ -1,0 +1,170 @@
+/**
+ * ParallaxController Styles - Phase 3.2 Day 1
+ * 
+ * Purpose: CSS Module styles for WebGL-accelerated parallax backgrounds
+ * with performance-optimized CSS transforms and layer management.
+ */
+
+/* Main parallax container */
+.parallaxContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* WebGL-based parallax container */
+.webglParallaxContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  mix-blend-mode: normal;
+}
+
+/* CSS fallback parallax container */
+.cssParallaxContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+/* Individual CSS parallax layer */
+.cssParallaxLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120vh; /* Extra height for parallax movement */
+  background: radial-gradient(
+    circle at 50% 50%,
+    var(--layer-color, #10b981) 0%,
+    transparent 70%
+  );
+  opacity: 0.1;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  
+  /* Performance optimizations */
+  contain: layout style paint;
+  isolation: isolate;
+}
+
+/* Layer depth-based styling */
+.cssParallaxLayer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    var(--layer-color, #10b981) 0deg,
+    transparent 2deg,
+    transparent 8deg,
+    var(--layer-color, #10b981) 10deg
+  );
+  opacity: calc(var(--layer-depth, 0.5) * 0.3);
+  mix-blend-mode: multiply;
+  animation: subtleRotate 60s linear infinite;
+}
+
+/* Subtle background animation for CSS layers */
+@keyframes subtleRotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .parallaxContainer {
+    /* Reduced complexity on mobile */
+    opacity: 0.6;
+  }
+  
+  .cssParallaxLayer {
+    height: 110vh; /* Less parallax movement on mobile */
+  }
+  
+  .cssParallaxLayer::before {
+    animation-duration: 90s; /* Slower animation on mobile */
+    opacity: calc(var(--layer-depth, 0.5) * 0.2);
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .parallaxContainer {
+    transform: none !important;
+    animation: none !important;
+  }
+  
+  .cssParallaxLayer {
+    transform: none !important;
+    animation: none !important;
+  }
+  
+  .cssParallaxLayer::before {
+    animation: none !important;
+  }
+}
+
+/* High-performance mode adjustments */
+@media (min-width: 1200px) and (-webkit-min-device-pixel-ratio: 2) {
+  .webglParallaxContainer {
+    opacity: 1;
+    mix-blend-mode: screen;
+  }
+  
+  .cssParallaxLayer::before {
+    animation-duration: 45s; /* Faster animation on high-DPI displays */
+    opacity: calc(var(--layer-depth, 0.5) * 0.4);
+  }
+}
+
+/* Dark mode compatibility */
+@media (prefers-color-scheme: dark) {
+  .cssParallaxLayer {
+    mix-blend-mode: screen;
+  }
+}
+
+/* Container query support for advanced layouts */
+@container (min-width: 800px) {
+  .parallaxContainer {
+    /* Enhanced effects for larger containers */
+    opacity: 0.9;
+  }
+}
+
+/* GPU acceleration hints */
+.webglParallaxContainer,
+.cssParallaxLayer {
+  /* Force GPU acceleration */
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  
+  /* Optimize rendering */
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
