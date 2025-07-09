@@ -1,0 +1,426 @@
+/* How I Work Preview Section - Staircase Design */
+.howIWorkSection {
+  background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 700px; /* Accommodate staircase height */
+}
+
+/* Background overlay for animated process visualization */
+.backgroundOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/images/how-i-work-7-step-bg.svg') center/cover no-repeat;
+  z-index: 1;
+  opacity: 0.4;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Section Header */
+.howIWorkHeader {
+  text-align: center;
+  margin-bottom: 80px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* Performance optimizations */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.howIWorkHeader.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sectionTitle {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 24px 0;
+  line-height: 1.1;
+}
+
+.sectionDescription {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Desktop Staircase Container */
+.staircaseContainer {
+  position: relative;
+  height: 600px;
+  width: 100%;
+  max-width: 800px; /* Optimized for diagonal staircase */
+  margin: 0 auto 64px auto;
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.staircaseContainer.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* No SVG needed for simple staircase layout */
+
+/* Process Steps */
+.processStep {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.8) translateY(-20px);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 2;
+  width: 280px;
+  
+  /* Performance optimizations */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.processStep.stepRevealed {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* Step positioning based on percentage coordinates */
+.processStep {
+  left: var(--step-x); /* Direct percentage positioning */
+  top: var(--step-y); /* Direct percentage positioning */
+}
+
+/* Step alignment - all steps flow left to right */
+.processStep.right {
+  flex-direction: row;
+  text-align: left;
+}
+
+/* Step Icon */
+.stepIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  margin: 0 24px;
+}
+
+/* Consistent icon spacing for staircase layout */
+.processStep.right .stepIcon {
+  margin: 0 24px 0 0; /* Right margin for horizontal layout */
+}
+
+.stepIcon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.iconEmoji {
+  font-size: 32px;
+  line-height: 1;
+}
+
+/* Step Content */
+.stepContent {
+  flex: 1;
+  min-width: 0; /* Allow text wrapping */
+}
+
+.stepTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.stepDescription {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Mobile Process List (Hidden on Desktop) */
+.mobileProcessList {
+  display: none;
+}
+
+/* Mobile Process List Styles */
+.mobileProcessStep {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--step-index) * 0.1s);
+}
+
+.mobileProcessStep.mobileStepRevealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobileStepIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-right: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.mobileStepContent {
+  flex: 1;
+}
+
+.mobileStepTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.mobileStepDescription {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.mobileConnector {
+  position: absolute;
+  left: 24px;
+  top: 50px;
+  width: 2px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Section CTA */
+.sectionCTA {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 1s; /* Delayed after S-curve animation */
+}
+
+.sectionCTA.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ctaButton {
+  display: inline-block;
+  background: rgba(15, 23, 42, 0.8);
+  color: #ffffff;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.ctaButton:hover {
+  background: rgba(15, 23, 42, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.ctaSupporting {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Tablet Layout (768px - 1199px) */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .howIWorkSection {
+    padding: 100px 0;
+  }
+  
+  .container {
+    padding: 0 24px;
+  }
+  
+  .staircaseContainer {
+    max-width: 700px; /* Proportional scaling for tablet */
+    height: 500px;
+  }
+  
+  .processStep {
+    width: 240px;
+  }
+  
+  .stepIcon {
+    width: 50px;
+    height: 50px;
+    margin: 0 20px;
+  }
+  
+  .iconEmoji {
+    font-size: 28px;
+  }
+  
+  .stepTitle {
+    font-size: 1rem;
+  }
+  
+  .stepDescription {
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile Layout (767px and below) */
+@media (max-width: 767px) {
+  .howIWorkSection {
+    padding: 80px 0;
+    min-height: auto;
+  }
+  
+  .container {
+    padding: 0 20px;
+  }
+  
+  /* Hide desktop staircase on mobile */
+  .staircaseContainer {
+    display: none;
+  }
+  
+  /* Show mobile list on mobile */
+  .mobileProcessList {
+    display: block;
+    margin-bottom: 64px;
+  }
+  
+  .howIWorkHeader {
+    margin-bottom: 48px;
+  }
+  
+  .sectionTitle {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+    margin-bottom: 16px;
+  }
+  
+  .sectionDescription {
+    font-size: 1.1rem;
+  }
+  
+  .ctaButton {
+    padding: 14px 28px;
+    font-size: 1rem;
+  }
+}
+
+/* Extra Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .howIWorkSection {
+    padding: 60px 0;
+  }
+  
+  .container {
+    padding: 0 16px;
+  }
+  
+  .mobileProcessList {
+    margin-bottom: 48px;
+  }
+  
+  .mobileProcessStep {
+    margin-bottom: 24px;
+  }
+  
+  .mobileStepIcon {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+  }
+  
+  .iconEmoji {
+    font-size: 20px;
+  }
+  
+  .mobileConnector {
+    left: 19px;
+    height: 24px;
+  }
+  
+  .howIWorkHeader {
+    margin-bottom: 40px;
+  }
+  
+  .ctaButton {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+}
+
+/* Accessibility and Performance */
+@media (prefers-reduced-motion: reduce) {
+  .howIWorkHeader,
+  .sCurveContainer,
+  .processStep,
+  .mobileProcessStep,
+  .sectionCTA {
+    transition: opacity 0.3s ease;
+    transform: none;
+  }
+  
+  
+  .stepIcon:hover {
+    transform: none;
+  }
+  
+  .ctaButton:hover {
+    transform: none;
+  }
+}
+
+/* GPU acceleration for smooth animations */
+.howIWorkHeader,
+.staircaseContainer,
+.processStep,
+.mobileProcessStep,
+.sectionCTA {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}

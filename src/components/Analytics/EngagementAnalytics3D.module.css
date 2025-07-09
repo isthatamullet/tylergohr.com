@@ -1,0 +1,626 @@
+/* Engagement Analytics 3D - Advanced 3D Visualization Component */
+@import url('/src/app/2/styles/brand-tokens.css');
+
+.analytics {
+  padding: var(--section-spacing) var(--container-padding);
+  background: linear-gradient(135deg, var(--about-bg) 0%, rgba(29, 78, 216, 0.1) 50%, rgba(26, 26, 26, 0.9) 100%);
+  color: var(--text-on-dark);
+  font-family: var(--font-family-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.analytics::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(29, 78, 216, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 60%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.titleGroup {
+  flex: 1;
+}
+
+.title {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  background: linear-gradient(135deg, var(--text-on-dark) 0%, #60a5fa 50%, var(--text-on-dark) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: var(--text-lg);
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  max-width: 600px;
+}
+
+.controls {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.timeRangeSelector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.timeRangeSelector label {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+.select {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-on-dark);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-family-primary);
+  font-size: var(--text-sm);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.select:hover,
+.select:focus {
+  border-color: var(--case-studies-bg);
+  background: rgba(255, 255, 255, 0.15);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.2);
+}
+
+.viewModeToggle {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 4px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modeButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-family-primary);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.modeButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.modeButton:hover::before {
+  left: 100%;
+}
+
+.modeButton:hover {
+  color: var(--text-on-dark);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.modeButton.active {
+  background: var(--case-studies-bg);
+  color: var(--text-on-dark);
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.4);
+  transform: translateY(-1px);
+}
+
+.modeIcon {
+  font-size: 1rem;
+}
+
+.modeLabel {
+  font-weight: 500;
+}
+
+.metricsOverview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.metricCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.metricCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--case-studies-bg), var(--results-bg), var(--how-i-work-bg));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.metricCard:hover {
+  transform: translateY(-4px);
+  border-color: var(--case-studies-bg);
+  box-shadow: 0 12px 40px rgba(29, 78, 216, 0.3);
+}
+
+.metricCard:hover::before {
+  transform: scaleX(1);
+}
+
+.metricCard h3 {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 0.5rem 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metricValue {
+  display: block;
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--text-on-dark);
+  margin-bottom: 0.25rem;
+  background: linear-gradient(135deg, var(--text-on-dark) 0%, var(--case-studies-bg) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.metricLabel {
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.visualizationContainer {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 2rem;
+}
+
+.canvas3D {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.canvas3D::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(29, 78, 216, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.visualizationTitle {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.canvasContainer {
+  width: 100%;
+  height: 500px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.8) 100%);
+  position: relative;
+  z-index: 2;
+}
+
+.canvas3DInstructions {
+  text-align: center;
+  margin-top: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.canvas3DInstructions p {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: inline-block;
+  backdrop-filter: blur(5px);
+}
+
+.chart2D {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.chartWrapper {
+  width: 100%;
+  height: 300px;
+  margin-top: 1rem;
+}
+
+.nodeDetails {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+  min-width: 400px;
+  max-width: 90vw;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.nodeDetailsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nodeDetailsHeader h3 {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin: 0;
+}
+
+.closeButton {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-on-dark);
+  transform: scale(1.1);
+}
+
+.nodeDetailsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.nodeMetrics {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.nodeMetric {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nodeMetricValue {
+  display: block;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--case-studies-bg);
+  margin-bottom: 0.25rem;
+}
+
+.nodeMetricLabel {
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.nodeInsights {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  border-left: 4px solid var(--case-studies-bg);
+}
+
+.nodeInsights h4 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin: 0 0 0.75rem 0;
+}
+
+.nodeInsights p {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.footer {
+  position: relative;
+  z-index: 2;
+}
+
+.engagementInsights {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.insightsTitle {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+}
+
+.insightsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.insight {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.insight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--case-studies-bg), var(--results-bg));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.insight:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+  border-color: var(--case-studies-bg);
+}
+
+.insight:hover::before {
+  transform: scaleX(1);
+}
+
+.insightIcon {
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, var(--case-studies-bg), var(--results-bg));
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+}
+
+.insightContent h4 {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin: 0 0 0.5rem 0;
+}
+
+.insightContent p {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Responsive Design */
+@container (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .viewModeToggle {
+    width: 100%;
+  }
+
+  .modeButton {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .metricsOverview {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .canvasContainer {
+    height: 350px;
+  }
+
+  .nodeDetails {
+    min-width: 300px;
+    padding: 1.5rem;
+  }
+
+  .nodeMetrics {
+    grid-template-columns: 1fr;
+  }
+
+  .insightsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@container (max-width: 480px) {
+  .metricsOverview {
+    grid-template-columns: 1fr;
+  }
+
+  .canvasContainer {
+    height: 300px;
+  }
+
+  .insight {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .insightIcon {
+    align-self: center;
+  }
+
+  .nodeDetails {
+    min-width: 280px;
+    max-width: 95vw;
+  }
+}
+
+/* Animation Enhancements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.canvas3D {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.title {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Accessibility Enhancements */
+@media (prefers-reduced-motion: reduce) {
+  .canvas3D,
+  .title {
+    animation: none;
+  }
+  
+  .modeButton::before {
+    transition: none;
+  }
+  
+  .insight::before,
+  .metricCard::before {
+    transition: none;
+  }
+}
+
+/* Dark Mode Optimizations */
+@media (prefers-color-scheme: dark) {
+  .analytics {
+    background: linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(29, 78, 216, 0.1) 50%, rgba(10, 10, 10, 0.9) 100%);
+  }
+  
+  .metricCard,
+  .canvas3D,
+  .chart2D,
+  .engagementInsights {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+}

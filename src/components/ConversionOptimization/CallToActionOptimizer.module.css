@@ -1,0 +1,375 @@
+/* Call To Action Optimizer - Dynamic context-aware CTAs */
+
+.ctaOptimizer {
+  z-index: 1000;
+  font-family: var(--font-family-primary);
+}
+
+/* Position Variants */
+.position--floating {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  max-width: 320px;
+  width: auto;
+}
+
+.position--inline {
+  position: relative;
+  margin: 2rem 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.position--modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
+  width: 90vw;
+  z-index: 1001;
+}
+
+.position--banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: none;
+  border-radius: 0;
+  border-bottom: none;
+}
+
+/* CTA Content */
+.ctaContent {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.ctaDescription {
+  font-size: var(--small-size);
+  color: var(--text-on-dark);
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+  font-weight: var(--font-medium);
+}
+
+.ctaActions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ctaButton {
+  flex: 1;
+  min-width: 0;
+}
+
+.dismissButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.dismissButton:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--text-on-dark);
+}
+
+.dismissButton:active {
+  transform: scale(0.95);
+}
+
+/* Urgency Variants */
+.cta--low {
+  border-color: rgba(148, 163, 184, 0.3);
+  box-shadow: 0 4px 16px rgba(148, 163, 184, 0.1);
+}
+
+.cta--low .ctaDescription {
+  color: var(--text-secondary);
+}
+
+.cta--medium {
+  border-color: rgba(251, 191, 36, 0.3);
+  box-shadow: 0 6px 24px rgba(251, 191, 36, 0.15);
+}
+
+.cta--medium::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(135deg, 
+    rgba(251, 191, 36, 0.1) 0%, 
+    transparent 50%, 
+    rgba(251, 191, 36, 0.1) 100%);
+  border-radius: 16px;
+  z-index: -1;
+}
+
+.cta--high {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
+}
+
+.cta--high::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(135deg, 
+    rgba(16, 185, 129, 0.15) 0%, 
+    transparent 50%, 
+    rgba(16, 185, 129, 0.15) 100%);
+  border-radius: 16px;
+  z-index: -1;
+}
+
+.cta--urgent {
+  border-color: rgba(220, 38, 38, 0.4);
+  box-shadow: 0 12px 48px rgba(220, 38, 38, 0.25);
+  animation: urgentPulse 2s ease-in-out infinite;
+}
+
+.cta--urgent::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, 
+    rgba(220, 38, 38, 0.2) 0%, 
+    rgba(220, 38, 38, 0.1) 25%,
+    transparent 50%, 
+    rgba(220, 38, 38, 0.1) 75%,
+    rgba(220, 38, 38, 0.2) 100%);
+  border-radius: 17px;
+  z-index: -1;
+}
+
+.cta--urgent .ctaDescription {
+  color: var(--text-on-dark);
+  font-weight: var(--font-semibold);
+}
+
+/* Urgent pulse animation */
+@keyframes urgentPulse {
+  0%, 100% {
+    box-shadow: 0 12px 48px rgba(220, 38, 38, 0.25);
+  }
+  50% {
+    box-shadow: 0 16px 64px rgba(220, 38, 38, 0.35);
+  }
+}
+
+/* Position-specific adjustments */
+.position--floating .ctaContent {
+  background: rgba(15, 23, 42, 0.98);
+  backdrop-filter: blur(16px);
+}
+
+.position--modal .ctaContent {
+  background: rgba(15, 23, 42, 0.98);
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+}
+
+.position--banner .ctaContent {
+  border-radius: 0;
+  padding: 1rem 2rem;
+  background: rgba(15, 23, 42, 0.98);
+  backdrop-filter: blur(12px);
+  border-left: none;
+  border-right: none;
+}
+
+.position--banner .ctaActions {
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.position--inline .ctaContent {
+  background: rgba(16, 185, 129, 0.05);
+  border-color: rgba(16, 185, 129, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .position--floating {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    max-width: none;
+  }
+
+  .position--floating .ctaContent {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .position--modal {
+    top: auto;
+    bottom: 2rem;
+    left: 1rem;
+    right: 1rem;
+    transform: none;
+    width: auto;
+    max-width: none;
+  }
+
+  .position--banner .ctaContent {
+    padding: 1rem;
+  }
+
+  .position--banner .ctaActions {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: stretch;
+  }
+
+  .position--banner .ctaButton {
+    flex: none;
+  }
+
+  .ctaActions {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .dismissButton {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+
+  .ctaDescription {
+    padding-right: 2rem; /* Space for dismiss button */
+  }
+
+  .position--inline .ctaActions {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .position--floating {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    max-width: 300px;
+  }
+
+  .position--modal {
+    max-width: 380px;
+  }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1400px) {
+  .position--floating {
+    bottom: 3rem;
+    right: 3rem;
+    max-width: 360px;
+  }
+
+  .position--floating .ctaContent {
+    padding: 2rem;
+  }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  .ctaContent {
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(16px);
+  }
+
+  .dismissButton {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .dismissButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .cta--urgent {
+    animation: none;
+  }
+
+  .ctaContent,
+  .dismissButton {
+    transition: none;
+  }
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+  .ctaContent {
+    border-width: 2px;
+    background: rgba(0, 0, 0, 0.95);
+  }
+
+  .dismissButton {
+    border-width: 2px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .cta--urgent {
+    border-color: var(--accent-red);
+    border-width: 3px;
+  }
+
+  .cta--high {
+    border-color: var(--results-bg);
+    border-width: 2px;
+  }
+
+  .cta--medium {
+    border-color: var(--contact-bg);
+    border-width: 2px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .ctaOptimizer {
+    display: none;
+  }
+}

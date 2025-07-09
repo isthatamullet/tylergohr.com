@@ -1,0 +1,324 @@
+/* Tyler Gohr Portfolio - Section Component Styles */
+/* Enterprise Solutions Architect Design System */
+
+/* ==========================================================================
+   BASE SECTION COMPONENT
+   ========================================================================== */
+
+.section {
+  /* Base section styling */
+  width: 100%;
+  position: relative;
+  
+  /* Typography inheritance */
+  font-family: var(--font-family-primary);
+  
+  /* Performance optimization */
+  will-change: auto;
+}
+
+/* ==========================================================================
+   SECTION BACKGROUND VARIANTS - Using Brand Tokens
+   ========================================================================== */
+
+.section--hero {
+  background-color: var(--hero-bg);
+  color: var(--text-on-dark);
+}
+
+.section--about {
+  background-color: var(--about-bg);
+  color: var(--text-on-dark);
+}
+
+.section--results {
+  background-color: var(--results-bg);
+  color: var(--text-on-light);
+}
+
+.section--case-studies {
+  background-color: var(--case-studies-bg);
+  color: var(--text-on-dark);
+}
+
+.section--how-i-work {
+  background-color: var(--how-i-work-bg);
+  color: var(--text-on-light);
+}
+
+.section--technical-expertise {
+  background-color: var(--hero-bg); /* Same as hero for consistency */
+  color: var(--text-on-dark);
+}
+
+.section--contact {
+  background-color: var(--contact-bg);
+  color: var(--text-on-light);
+}
+
+.section--footer {
+  background-color: var(--footer-bg);
+  color: var(--text-on-dark);
+}
+
+/* ==========================================================================
+   CONTAINER SYSTEM - 1400px Max Width with Responsive Padding
+   ========================================================================== */
+
+.container {
+  /* Modern container system */
+  max-width: var(--container-max-width); /* 1400px */
+  margin: 0 auto;
+  padding: 0 var(--container-padding); /* Responsive horizontal padding */
+  width: 100%;
+  
+  /* Content organization */
+  position: relative;
+}
+
+.container--custom-width {
+  /* Override for custom max-width via style prop */
+  max-width: inherit;
+}
+
+/* ==========================================================================
+   PADDING SYSTEM - Granular Control
+   ========================================================================== */
+
+/* Vertical Padding Variants */
+.section--padding-y-none {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.section--padding-y-sm {
+  padding-top: var(--spacing-xl); /* 48px */
+  padding-bottom: var(--spacing-xl);
+}
+
+.section--padding-y-md {
+  padding-top: calc(var(--section-padding-y) * 0.75); /* ~75% of standard */
+  padding-bottom: calc(var(--section-padding-y) * 0.75);
+}
+
+.section--padding-y-lg {
+  padding-top: var(--section-padding-y); /* Standard section padding */
+  padding-bottom: var(--section-padding-y);
+}
+
+.section--padding-y-xl {
+  padding-top: calc(var(--section-padding-y) * 1.5); /* 150% for emphasis */
+  padding-bottom: calc(var(--section-padding-y) * 1.5);
+}
+
+/* Horizontal Padding Variants */
+.section--padding-x-none {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.section--padding-x-sm {
+  padding-left: var(--spacing-sm); /* 16px */
+  padding-right: var(--spacing-sm);
+}
+
+.section--padding-x-md {
+  padding-left: var(--spacing-lg); /* 32px */
+  padding-right: var(--spacing-lg);
+}
+
+.section--padding-x-lg {
+  padding-left: var(--section-padding-x); /* Standard section padding */
+  padding-right: var(--section-padding-x);
+}
+
+.section--padding-x-xl {
+  padding-left: calc(var(--section-padding-x) * 1.5);
+  padding-right: calc(var(--section-padding-x) * 1.5);
+}
+
+/* ==========================================================================
+   CONTENT ALIGNMENT OPTIONS
+   ========================================================================== */
+
+.section--centered {
+  text-align: center;
+}
+
+.section--centered .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN - Mobile-First Approach
+   ========================================================================== */
+
+/* Mobile devices (320px - 767px) */
+@media (max-width: 767px) {
+  .container {
+    padding: 0 clamp(1rem, 4vw, 2rem); /* More compact on mobile */
+  }
+  
+  .section--padding-y-lg {
+    padding-top: clamp(2rem, 8vw, 4rem); /* Responsive vertical padding */
+    padding-bottom: clamp(2rem, 8vw, 4rem);
+  }
+  
+  .section--padding-y-xl {
+    padding-top: clamp(3rem, 10vw, 6rem);
+    padding-bottom: clamp(3rem, 10vw, 6rem);
+  }
+}
+
+/* Tablet devices (768px - 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .container {
+    max-width: 960px; /* Tablet-optimized width */
+    padding: 0 clamp(2rem, 4vw, 3rem);
+  }
+}
+
+/* Large desktop (1400px+) */
+@media (min-width: 1400px) {
+  .container {
+    padding: 0 clamp(2rem, 3vw, 4rem); /* Generous padding on large screens */
+  }
+}
+
+/* ==========================================================================
+   SCROLL ANIMATION PREPARATION
+   ========================================================================== */
+
+.section {
+  /* Scroll animation readiness */
+  scroll-margin-top: 70px; /* Account for fixed navigation */
+}
+
+/* Animation trigger preparation for future implementation */
+.section[data-animate="true"] {
+  /* Placeholder for scroll-triggered animations */
+  transform: translateZ(0); /* Hardware acceleration */
+}
+
+/* ==========================================================================
+   ACCESSIBILITY & REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    /* Disable any future animations */
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   HIGH CONTRAST MODE SUPPORT
+   ========================================================================== */
+
+@media (prefers-contrast: high) {
+  .section--hero,
+  .section--about,
+  .section--case-studies,
+  .section--technical-expertise,
+  .section--footer {
+    border-bottom: 2px solid var(--text-on-dark);
+  }
+  
+  .section--results,
+  .section--how-i-work,
+  .section--contact {
+    border-bottom: 2px solid var(--text-on-light);
+  }
+}
+
+/* ==========================================================================
+   PRINT STYLES
+   ========================================================================== */
+
+@media print {
+  .section {
+    break-inside: avoid;
+    padding: 1rem !important;
+  }
+  
+  .container {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+}
+
+/* ==========================================================================
+   UTILITY CLASSES FOR SECTION CONTENT
+   ========================================================================== */
+
+.section h1,
+.section h2,
+.section h3,
+.section h4,
+.section h5,
+.section h6 {
+  /* Ensure headings inherit correct color from section background */
+  color: inherit;
+}
+
+.section p {
+  /* Paragraph styling within sections */
+  color: inherit;
+  opacity: 0.9; /* Slightly reduce opacity for hierarchy */
+}
+
+.section a {
+  /* Link styling within sections */
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.section a:hover {
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   SECTION-SPECIFIC ENHANCEMENTS
+   ========================================================================== */
+
+/* Hero section specific styling */
+.section--hero {
+  min-height: 100vh; /* Full viewport for hero sections */
+  display: flex;
+  align-items: center;
+}
+
+.section--hero .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - 140px); /* Account for navigation */
+}
+
+/* Results section with subtle texture */
+.section--results {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+}
+
+/* Case studies section with gradient overlay */
+.section--case-studies {
+  background-image: linear-gradient(135deg, var(--case-studies-bg) 0%, rgba(29, 78, 216, 0.8) 100%);
+}
+
+/* Contact section with subtle pattern */
+.section--contact {
+  background-image: 
+    linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}

@@ -1,0 +1,471 @@
+/**
+ * TechnicalStorytellingScroll Styles - Phase 3.2 Day 3
+ * 
+ * Styles for professional scroll hijacking and narrative control
+ * with enterprise-grade presentation polish.
+ */
+
+/* Story Navigation */
+.storyNavigation {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  background: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(15px);
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 16px;
+  max-width: 280px;
+  transition: all 0.3s ease;
+}
+
+.storyNavigation.compact {
+  padding: 8px;
+  max-width: 200px;
+}
+
+.sectionList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionItem {
+  margin: 0;
+}
+
+.sectionButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #ccc;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.compact .sectionButton {
+  padding: 8px 12px;
+  font-size: 12px;
+  gap: 8px;
+}
+
+.sectionButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #10b981;
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.sectionButton.active {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  color: #10b981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+.sectionNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: #333;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.compact .sectionNumber {
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+}
+
+.sectionButton.active .sectionNumber {
+  background: #10b981;
+  color: #000;
+}
+
+.sectionTitle {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Story Progress Indicator */
+.storyProgress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981 0%, #3b82f6 100%);
+  transform-origin: left center;
+  transition: transform 0.3s ease;
+}
+
+.currentSection {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 101;
+  background: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(15px);
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 12px 16px;
+  max-width: 300px;
+  color: #ffffff;
+  animation: slideInLeft 0.3s ease;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.currentSection .sectionTitle {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #10b981;
+  margin-bottom: 4px;
+}
+
+.currentSection .sectionDescription {
+  display: block;
+  font-size: 12px;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+/* Presentation Mode Controls */
+.presentationControls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 102;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(15px);
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 12px;
+  animation: slideInUp 0.3s ease;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.presentationToggle {
+  background: #10b981;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #000;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.presentationToggle:hover {
+  background: #0d9488;
+  transform: scale(1.05);
+}
+
+.presentationToggle.active {
+  background: #ef4444;
+}
+
+.presentationToggle.active:hover {
+  background: #dc2626;
+}
+
+.navigationControls {
+  display: flex;
+  gap: 8px;
+}
+
+.navButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 8px 12px;
+  color: #ccc;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #10b981;
+  color: #10b981;
+}
+
+.navButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Story Focus Effect */
+.storyFocus {
+  position: relative;
+  z-index: 50;
+  animation: storyHighlight 2s ease;
+}
+
+@keyframes storyHighlight {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 20px 10px rgba(16, 185, 129, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+  .storyNavigation {
+    position: static;
+    transform: none;
+    right: auto;
+    top: auto;
+    width: 100%;
+    max-width: none;
+    margin: 16px 0;
+    border-radius: 8px;
+  }
+  
+  .sectionList {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .sectionButton {
+    flex: 1;
+    min-width: 0;
+    padding: 8px;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+  }
+  
+  .sectionTitle {
+    display: none; /* Show numbers only on mobile */
+  }
+  
+  .currentSection {
+    position: static;
+    margin: 16px 0;
+    width: 100%;
+    max-width: none;
+    animation: none;
+  }
+  
+  .presentationControls {
+    bottom: 10px;
+    right: 10px;
+    padding: 8px;
+    gap: 8px;
+  }
+  
+  .presentationToggle,
+  .navButton {
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .storyNavigation {
+    right: 10px;
+    max-width: 240px;
+  }
+  
+  .currentSection {
+    left: 10px;
+    top: 10px;
+    max-width: 250px;
+  }
+}
+
+/* High-contrast mode support */
+@media (prefers-contrast: high) {
+  .storyNavigation,
+  .currentSection,
+  .presentationControls {
+    background: #000;
+    border-color: #fff;
+  }
+  
+  .sectionButton {
+    border-color: #fff;
+  }
+  
+  .sectionButton.active {
+    background: #fff;
+    color: #000;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .sectionButton,
+  .presentationToggle,
+  .navButton {
+    transition: none;
+  }
+  
+  .progressBar {
+    transition: none;
+  }
+  
+  .currentSection {
+    animation: none;
+  }
+  
+  .presentationControls {
+    animation: none;
+  }
+  
+  .storyFocus {
+    animation: none;
+    box-shadow: 0 0 0 2px #10b981;
+  }
+  
+  .sectionButton:hover {
+    transform: none;
+  }
+  
+  .presentationToggle:hover {
+    transform: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .storyNavigation,
+  .storyProgress,
+  .currentSection,
+  .presentationControls {
+    display: none;
+  }
+}
+
+/* Focus management for accessibility */
+.sectionButton:focus-visible,
+.presentationToggle:focus-visible,
+.navButton:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+/* Keyboard navigation indicators */
+.storyNavigation[data-keyboard-active="true"] .sectionButton:focus {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: #10b981;
+}
+
+/* Loading states */
+.storyNavigation[data-loading="true"] {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.storyNavigation[data-loading="true"]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid transparent;
+  border-top: 2px solid #10b981;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Integration with brand design system */
+.storyNavigation,
+.currentSection,
+.presentationControls {
+  font-family: var(--font-family-primary, 'JetBrains Mono', monospace);
+}
+
+.sectionButton.active,
+.presentationToggle,
+.progressBar {
+  color: var(--results-bg, #10b981);
+  background-color: var(--results-bg, #10b981);
+}
+
+/* Smooth transitions for story navigation */
+.storyNavigation,
+.currentSection {
+  transition: 
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0.3s ease;
+}
+
+.storyNavigation[data-hidden="true"],
+.currentSection[data-hidden="true"] {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+}

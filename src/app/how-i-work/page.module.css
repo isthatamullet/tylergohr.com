@@ -1,0 +1,868 @@
+/* How I Work Detail Page Styles - Hero section now matches Case Studies mobile layout */
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+
+
+.heroHeader {
+  opacity: 1;
+  transform: var(--detail-reveal-transform);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+}
+
+.heroHeader.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.heroTitle {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 24px 0;
+  color: #ffffff !important;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.heroDescription {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9) !important;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   PROCESS SECTION
+   ========================================================================== */
+
+.processSection {
+  position: relative;
+  overflow: hidden;
+}
+
+.processContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.processHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+  opacity: 1;
+  transform: var(--detail-reveal-transform);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+}
+
+.processHeader.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.processTitle {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: #1e293b !important;
+}
+
+.processDescription {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.6;
+  color: #64748b !important;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   S-CURVE VISUALIZATION - EXACT CANVA DESIGN
+   ========================================================================== */
+
+.sCurveContainer {
+  position: relative;
+  margin: 4rem 0;
+  height: 700px;
+  opacity: 1;
+  transform: translateY(40px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sCurveContainer.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sCurvePath {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.animatedPath {
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: drawPath 4s ease-in-out 0.8s forwards;
+}
+
+@keyframes drawPath {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ==========================================================================
+   PROCESS STEPS - EXACT POSITIONING LIKE CANVA
+   ========================================================================== */
+
+.processSteps {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
+
+.processStep {
+  position: absolute;
+  opacity: 1;
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+}
+
+.processStep.revealed {
+  opacity: 1;
+}
+
+/* Step 1: Discovery & Requirements - Top center-right */
+.step1 {
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-delay: 0.2s;
+}
+
+/* Step 2: Research & Planning - Left side */
+.step2 {
+  top: 20%;
+  left: 15%;
+  animation-delay: 0.4s;
+}
+
+/* Step 3: Design & Prototyping - Right side */
+.step3 {
+  top: 35%;
+  right: 15%;
+  animation-delay: 0.6s;
+}
+
+/* Step 4: Implementation - Left side */
+.step4 {
+  top: 50%;
+  left: 8%;
+  animation-delay: 0.8s;
+}
+
+/* Step 5: Testing & Quality - Right side */
+.step5 {
+  top: 65%;
+  right: 8%;
+  animation-delay: 1.0s;
+}
+
+/* Step 6: Deployment & Launch - Left side */
+.step6 {
+  top: 80%;
+  left: 25%;
+  animation-delay: 1.2s;
+}
+
+/* Step 7: Optimization & Support - Bottom right */
+.step7 {
+  bottom: 5%;
+  right: 20%;
+  animation-delay: 1.4s;
+}
+
+/* ==========================================================================
+   STEP BUTTON LAYOUTS
+   ========================================================================== */
+
+.stepButton {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(99, 102, 241, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+  min-width: 280px;
+}
+
+.stepButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.stepButton.active {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.05);
+}
+
+/* Text RIGHT of icon (steps 1, 3, 5, 7) */
+.rightText {
+  flex-direction: row;
+}
+
+/* Text LEFT of icon (steps 2, 4, 6) */
+.leftText {
+  flex-direction: row-reverse;
+}
+
+.stepIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.stepContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+/* Text alignment for left vs right positioning */
+.leftText .stepContent {
+  text-align: right;
+}
+
+.rightText .stepContent {
+  text-align: left;
+}
+
+.stepTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.stepDescription {
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ==========================================================================
+   STEP DETAILS (EXPANDABLE)
+   ========================================================================== */
+
+.stepDetails {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background: rgba(248, 250, 252, 0.8);
+  border-radius: 8px;
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  animation: expandDetails 0.3s ease-out;
+}
+
+@keyframes expandDetails {
+  from {
+    opacity: 0;
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+.stepDetailsContent h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+}
+
+.stepDetailsContent ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.stepDetailsContent li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #475569;
+}
+
+.stepDetailsContent li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.businessValue {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(226, 232, 240, 0.6);
+}
+
+.businessValue p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #374151;
+  margin: 0;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   SIMPLE LIST FORMAT
+   ========================================================================== */
+
+.processListContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  opacity: 1;
+  transform: translateY(40px);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.processListContainer.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.processListItem {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 2px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.6);
+  backdrop-filter: blur(10px);
+  opacity: 1;
+  transform: var(--detail-reveal-transform);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+}
+
+.processListItem.itemRevealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.listItemHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.listItemIcon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.iconEmoji {
+  display: block;
+}
+
+.listItemTitleSection {
+  flex: 1;
+}
+
+.listItemTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b !important;
+  line-height: 1.3;
+  margin: 0 0 0.5rem 0;
+}
+
+.listItemDescription {
+  font-size: 1.1rem;
+  color: #64748b !important;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.listItemContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.listItemDetails {
+  /* Details section */
+}
+
+.detailsHeading {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b !important;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detailsHeading::before {
+  content: '📋';
+  font-size: 1rem;
+}
+
+.detailsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.detailsItem {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #475569 !important;
+}
+
+.detailsItem::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #16a34a;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.businessValueSection {
+  padding: 1.5rem;
+  background: rgba(99, 102, 241, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.businessValueHeading {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b !important;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.businessValueHeading::before {
+  content: '💰';
+  font-size: 1rem;
+}
+
+.businessValueText {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #374151 !important;
+  margin: 0;
+  font-style: italic;
+}
+
+.listItemSeparator {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(226, 232, 240, 0.6), transparent);
+  margin: 2rem 0;
+}
+
+/* ==========================================================================
+   CALL TO ACTION SECTION
+   ========================================================================== */
+
+.ctaSection {
+  opacity: 1;
+  transform: var(--detail-reveal-transform);
+  transition: all var(--detail-reveal-duration) var(--detail-reveal-easing);
+}
+
+.ctaSection.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ctaContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.ctaTitle {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  color: #f8fafc;
+}
+
+.ctaDescription {
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.6;
+  color: rgba(248, 250, 252, 0.9);
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.ctaPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+}
+
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  color: rgba(248, 250, 252, 0.9);
+  text-decoration: none;
+  border: 2px solid rgba(248, 250, 252, 0.2);
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.ctaSecondary:hover {
+  color: #f8fafc;
+  border-color: rgba(248, 250, 252, 0.4);
+  background: rgba(248, 250, 252, 0.05);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* Tablet Layout */
+@media (max-width: 1024px) {
+  .processStep:nth-child(odd),
+  .processStep:nth-child(even) {
+    justify-self: center;
+    max-width: 80%;
+  }
+  
+  .sCurvePath {
+    display: none;
+  }
+}
+
+/* Mobile Layout - Consistent with other detail pages */
+@media (max-width: 767px) {
+  .heroTitle {
+    font-size: clamp(2rem, 8vw, 2.5rem);
+    margin-bottom: 16px;
+  }
+  
+  .heroDescription {
+    font-size: 1.125rem;
+  }
+  
+  .heroContainer {
+    padding: 0 20px;
+  }
+  
+  .processContainer {
+    padding: 0 1rem;
+  }
+  
+  .sCurveContainer {
+    height: auto;
+    padding: 2rem 0;
+  }
+  
+  .sCurvePath {
+    display: none; /* Hide S-curve on mobile for simplicity */
+  }
+  
+  .processSteps {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: auto;
+  }
+  
+  .processStep {
+    position: static !important;
+    opacity: 1 !important;
+    width: 100%;
+    transform: none !important;
+  }
+  
+  .stepButton {
+    min-width: auto;
+    width: 100%;
+    padding: 1rem;
+    flex-direction: row !important; /* Force horizontal layout on mobile */
+    text-align: left;
+  }
+  
+  .leftText,
+  .rightText {
+    flex-direction: row !important; /* Icon left, text right on mobile */
+  }
+  
+  .leftText .stepContent,
+  .rightText .stepContent {
+    text-align: left !important;
+  }
+  
+  .stepIcon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+  
+  .stepTitle {
+    font-size: 1rem;
+  }
+  
+  .stepDescription {
+    font-size: 0.85rem;
+  }
+  
+  /* Simple List Format - Mobile */
+  .processListItem {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .listItemHeader {
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .listItemIcon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+  }
+  
+  .listItemTitle {
+    font-size: 1.25rem;
+  }
+  
+  .listItemDescription {
+    font-size: 1rem;
+  }
+  
+  .listItemContent {
+    gap: 1.5rem;
+  }
+  
+  .businessValueSection {
+    padding: 1rem;
+  }
+  
+  .detailsHeading,
+  .businessValueHeading {
+    font-size: 1rem;
+  }
+  
+  .detailsItem {
+    font-size: 0.9rem;
+  }
+  
+  .businessValueText {
+    font-size: 0.9rem;
+  }
+  
+  .ctaActions {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .ctaPrimary,
+  .ctaSecondary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 480px) {
+  .compactHero {
+    height: 280px !important;
+    min-height: 280px !important;
+    max-height: 280px !important;
+    contain: layout style !important;
+    isolation: isolate !important;
+    position: relative !important;
+  }
+  
+  .compactHero .heroContainer {
+    position: absolute !important;
+    top: 90px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 10 !important;
+    contain: layout !important;
+    isolation: isolate !important;
+    padding: 0 16px;
+    width: 100% !important;
+    max-width: calc(100vw - 32px) !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* ULTRA-SPECIFIC HERO TEXT UNIFORMITY RULES */
+  .compactHero .heroContainer .heroTitle {
+    font-size: clamp(2rem, 8vw, 2.5rem) !important;
+    font-weight: 700 !important;
+    line-height: 1.1 !important;
+    margin: 0 0 16px 0 !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
+    text-align: center !important;
+  }
+  
+  .compactHero .heroContainer .heroDescription {
+    font-size: 1.125rem !important;
+    line-height: 1.6 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin: 0 auto !important;
+    max-width: 800px !important;
+    text-align: center !important;
+  }
+  
+  .heroHeader {
+    margin-bottom: 48px;
+  }
+  
+  .processHeader {
+    margin-bottom: 3rem;
+  }
+  
+  .stepDetails {
+    padding: 1rem;
+  }
+}
+
+/* ==========================================================================
+   COMPACT HERO OVERRIDE - Standardized Detail Page Layout (DESKTOP)
+   ========================================================================== */
+
+.compactHero {
+  /* Fixed height - no variables, no inheritance */
+  height: 360px !important;
+  min-height: 360px !important;
+  max-height: 360px !important;
+  
+  /* Container setup */
+  position: relative !important;
+  
+  /* Remove all padding/margin */
+  padding: 0 !important;
+  margin: 0 !important;
+  
+  /* Override how-i-work gradient background for hero-only */
+  background-image: none !important;
+  background-color: var(--how-i-work-bg) !important;
+}
+
+.compactHero .heroContainer {
+  /* Absolute positioning for complete control */
+  position: absolute !important;
+  top: 135px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  
+  /* Text alignment */
+  text-align: center !important;
+  
+  /* Width control */
+  width: 800px !important;
+  max-width: 90vw !important;
+  
+  /* Remove all other positioning */
+  display: block !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* ==========================================================================
+   CONSISTENT CONTENT BACKGROUND
+   ========================================================================== */
+
+/* Ensure first section after hero gets proper background */
+.compactHero + section {
+  background-color: var(--about-bg) !important;
+  background-image: none !important;
+}

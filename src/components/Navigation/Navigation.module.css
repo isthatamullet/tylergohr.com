@@ -1,0 +1,593 @@
+/* Tyler Gohr Portfolio - Enterprise Solutions Navigation Component */
+/* /2 Directory Navigation with Brand Tokens Integration */
+
+.navigation {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 99999 !important;
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Force hardware acceleration and create isolated stacking context */
+  transform: translateZ(0);
+  will-change: background, box-shadow;
+  /* Defensive positioning to prevent any layout interference */
+  isolation: isolate;
+  contain: layout style;
+  /* Additional viewport-relative positioning protection */
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  /* Ensure navigation is always visible and interactive */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Fallback for browsers without backdrop-filter support */
+@supports not (backdrop-filter: blur(12px)) {
+  .navigation {
+    background: rgba(10, 10, 10, 0.95);
+  }
+}
+
+.navigation.scrolled {
+  background: rgba(10, 10, 10, 0.95);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--container-padding);
+  position: relative;
+  /* Use brand token for navigation height consistency */
+  min-height: var(--navigation-height);
+}
+
+/* Tech Company Logo with Logo Float Animation Preparation */
+.logo {
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  padding: 0.125rem; /* Ultra-aggressive padding for minimal navigation height */
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  /* Logo float animation preparation */
+  transform-origin: center;
+  will-change: transform, top, left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Logo Float Animation States */
+.logo.logoScrolled {
+  /* Animation state for when scrolled past 200px */
+  /* Additional transform states will be added via JavaScript */
+}
+
+.logo:hover {
+  transform: translateY(-2px) scale(1.05);
+  filter: drop-shadow(0 8px 16px rgba(22, 163, 74, 0.3));
+}
+
+.logo:focus {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+}
+
+.logoImage {
+  object-fit: contain;
+  object-position: center;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+/* Desktop Navigation */
+.desktopNav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  /* Center navigation items as per specifications */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Navigation item containers for dropdown support */
+.navItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.navItem.hasDropdown {
+  /* Ensure dropdown positioning works correctly */
+  z-index: 10;
+}
+
+.navLink {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-family-primary);
+  font-size: var(--small-size);
+  font-weight: var(--font-medium);
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-green),
+    var(--accent-red)
+  );
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navLink:hover {
+  color: var(--text-on-dark);
+  transform: translateY(-1px);
+}
+
+.navLink:hover::after {
+  width: 100%;
+}
+
+.navLink:focus {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Active state for navigation links */
+.navLink.active {
+  color: var(--text-on-dark);
+  transform: translateY(-1px);
+}
+
+.navLink.active::after {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-green),
+    var(--interactive-blue)
+  );
+  transition: all 0.3s ease;
+}
+
+/* Mobile Menu Button */
+.mobileMenuButton {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 1001;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.mobileMenuButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mobileMenuButton:focus {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+}
+
+.hamburgerLine {
+  width: 24px;
+  height: 2px;
+  background: var(--text-on-dark);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.hamburgerLine.hamburgerOpen:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburgerLine.hamburgerOpen:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburgerLine.hamburgerOpen:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile Navigation */
+.mobileNav {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 1rem var(--container-padding) 2rem;
+  
+  /* Height constraints for viewport containment */
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobileNav.mobileNavOpen {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobileNavLink {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-family-primary);
+  font-size: var(--body-size);
+  font-weight: var(--font-medium);
+  text-align: left;
+  padding: 1rem 0;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.mobileNavLink:hover {
+  color: var(--text-on-dark);
+  padding-left: 1rem;
+  border-left: 3px solid var(--accent-green);
+}
+
+.mobileNavLink:focus {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.mobileNavLink:last-child {
+  border-bottom: none;
+}
+
+/* Active state for mobile navigation links */
+.mobileNavLink.active {
+  color: var(--text-on-dark);
+  border-left: 3px solid var(--accent-green);
+  padding-left: 1rem;
+}
+
+/* Mobile Navigation Item Containers */
+.mobileNavItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileNavLinkContainer {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mobileNavLinkContainer:last-child {
+  border-bottom: none;
+}
+
+/* Mobile dropdown toggle button */
+.mobileDropdownToggle {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  padding: 1rem 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+.mobileDropdownToggle:hover {
+  color: var(--text-on-dark);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mobileDropdownToggle:focus {
+  outline: 2px solid var(--accent-green);
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+
+.dropdownArrow {
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.mobileDropdownToggle.expanded .dropdownArrow {
+  transform: rotate(180deg);
+}
+
+/* Mobile dropdown content */
+.mobileDropdownContent {
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 2px solid var(--accent-green);
+  margin-left: 1rem;
+  animation: slideDown 0.3s ease;
+  
+  /* Enhanced scroll containment for all dropdown types */
+  max-height: calc(40vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  
+  /* Additional containment properties */
+  position: relative;
+  contain: layout style;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: calc(40vh);
+  }
+}
+
+.mobileDropdownItem {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.mobileDropdownItem:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mobileDropdownItem:focus {
+  outline: 2px solid var(--accent-green);
+  outline-offset: -2px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mobileDropdownItem:last-child {
+  border-bottom: none;
+}
+
+.mobileDropdownItemContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+}
+
+.mobileDropdownIcon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.mobileDropdownText {
+  flex: 1;
+  min-width: 0;
+}
+
+.mobileDropdownTitle {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  line-height: 1.3;
+}
+
+.mobileDropdownBadge {
+  font-size: 0.6rem;
+  font-weight: 500;
+  background: linear-gradient(135deg, var(--accent-green), var(--accent-red));
+  color: var(--text-on-light);
+  padding: 0.125rem 0.25rem;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  flex-shrink: 0;
+  
+  /* Prevent badge layout from breaking containment */
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mobileDropdownDescription {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Page link styling for mobile */
+.mobileDropdownItem.mobilePageLink .mobileDropdownTitle {
+  color: var(--accent-green);
+  font-weight: 700;
+}
+
+.mobileDropdownItem.mobilePageLink:hover .mobileDropdownTitle {
+  color: var(--text-on-dark);
+}
+
+/* Adjust mobile nav link to work with dropdown toggle */
+.mobileNavLinkContainer .mobileNavLink {
+  flex: 1;
+  border-bottom: none;
+}
+
+/* Mobile Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 99998;
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+  
+  /* Prevent touch scroll bleeding */
+  touch-action: none;
+  overscroll-behavior: contain;
+  
+  /* Performance optimization */
+  will-change: opacity;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Logo Float Animation Keyframes */
+@keyframes logoFloat {
+  from {
+    transform: translateX(0) translateY(0) scale(1);
+  }
+  to {
+    transform: translateX(-50vw) translateY(-5vh) scale(0.7);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+  .desktopNav {
+    display: none;
+  }
+
+  .mobileMenuButton {
+    display: flex;
+  }
+
+  .container {
+    padding: 0 var(--spacing-sm);
+  }
+
+  .logo {
+    padding: 0.125rem; /* Ultra-aggressive mobile padding reduction */
+  }
+
+  .logoText {
+    font-size: 1.125rem;
+  }
+
+  /* Mobile logo float animation - shorter distance */
+  @keyframes logoFloatMobile {
+    from {
+      transform: translateX(0) translateY(0) scale(1);
+    }
+    to {
+      transform: translateX(-30vw) translateY(-3vh) scale(0.8);
+    }
+  }
+}
+
+/* Responsive breakpoints using brand tokens */
+@media (min-width: 768px) {
+  .container {
+    padding: 1rem var(--container-padding);
+  }
+}
+
+@media (min-width: 1200px) {
+  .desktopNav {
+    gap: 2.5rem;
+  }
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .navigation,
+  .logo,
+  .navLink,
+  .mobileNav,
+  .hamburgerLine,
+  .mobileNavLink {
+    transition: none;
+  }
+
+  .logo:hover {
+    transform: none;
+  }
+
+  .navLink:hover {
+    transform: none;
+  }
+
+  /* Disable logo float animation */
+  .logo.logoScrolled {
+    animation: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .navigation {
+    border-bottom-color: var(--text-on-dark);
+  }
+
+  .navLink {
+    color: var(--text-on-dark);
+  }
+
+  .logo {
+    background: var(--text-on-dark);
+  }
+
+  .logoText {
+    color: var(--text-on-light);
+  }
+}
