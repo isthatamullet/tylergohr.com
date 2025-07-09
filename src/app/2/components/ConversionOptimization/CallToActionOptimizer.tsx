@@ -151,19 +151,6 @@ export const CallToActionOptimizer: React.FC<CallToActionOptimizerProps> = ({
       }
     },
     
-    // Exit intent prevention
-    {
-      id: 'exit-intent-capture',
-      text: 'Wait! Get My Project Planning Guide',
-      description: 'Free guide: How to plan enterprise-level technical projects',
-      urgency: 'urgent',
-      target: 'contact',
-      conditions: {
-        minScrollProgress: 20,
-        minTimeOnPage: 30000, // 30 seconds
-        engagementLevel: ['low', 'medium', 'high']
-      }
-    },
     
     // Returning visitor re-engagement
     {
