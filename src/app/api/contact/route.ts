@@ -160,13 +160,33 @@ function validateFormData(data: unknown): { isValid: boolean; errors: string[]; 
     return { isValid: false, errors };
   }
   
-  // Sanitize data
+  // Sanitize data (include enhanced form fields)
   const sanitized: ContactFormData = {
     name: (formData.name as string).trim().substring(0, 100), // Limit length
     email: (formData.email as string).trim().toLowerCase().substring(0, 100),
     projectType: formData.projectType as ContactFormData['projectType'],
     message: (formData.message as string).trim().substring(0, 2000) // Limit message length
   };
+  
+  // Add enhanced form fields if present (including empty strings)
+  if (formData.companySize !== undefined) {
+    sanitized.companySize = formData.companySize as ContactFormData['companySize'];
+  }
+  if (formData.timeline !== undefined) {
+    sanitized.timeline = formData.timeline as ContactFormData['timeline'];
+  }
+  if (formData.budget !== undefined) {
+    sanitized.budget = formData.budget as ContactFormData['budget'];
+  }
+  if (typeof formData.decisionMaker === 'boolean') {
+    sanitized.decisionMaker = formData.decisionMaker;
+  }
+  if (typeof formData.leadScore === 'number') {
+    sanitized.leadScore = formData.leadScore;
+  }
+  if (formData.qualificationLevel !== undefined) {
+    sanitized.qualificationLevel = formData.qualificationLevel as ContactFormData['qualificationLevel'];
+  }
   
   return { isValid: true, errors: [], sanitized };
 }
@@ -440,6 +460,10 @@ export async function POST(request: NextRequest): Promise<NextResponse<ContactRe
     let body;
     try {
       body = await request.json();
+      
+      // Log request for monitoring
+      console.log('[Contact API] Contact form submission received');
+      
     } catch {
       return NextResponse.json(
         {
@@ -453,7 +477,9 @@ export async function POST(request: NextRequest): Promise<NextResponse<ContactRe
 
     // Validate form data
     const validation = validateFormData(body);
+    
     if (!validation.isValid) {
+      console.error('[Contact API] Validation failed with errors:', validation.errors);
       return NextResponse.json(
         {
           success: false,
@@ -465,14 +491,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ContactRe
     }
 
     // Send email notification
-    console.log('[Contact API] Sending email notification for form data:', {
-      name: validation.sanitized!.name,
-      email: validation.sanitized!.email,
-      projectType: validation.sanitized!.projectType,
-      isEnhanced: !!(validation.sanitized!.companySize || validation.sanitized!.timeline || validation.sanitized!.budget),
-      leadScore: validation.sanitized!.leadScore,
-      qualificationLevel: validation.sanitized!.qualificationLevel
-    });
+    console.log('[Contact API] Sending email notification');
     
     await sendEmailNotification(validation.sanitized!);
 

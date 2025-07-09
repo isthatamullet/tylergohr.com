@@ -12,9 +12,9 @@ export interface EnhancedContactFormData {
   projectType: 'web-app' | 'ecommerce' | 'leadership' | 'integration' | 'other'
   
   // Step 2: Business qualification
-  companySize: 'startup' | 'small' | 'medium' | 'enterprise' | ''
-  timeline: 'urgent' | '1-3months' | '3-6months' | 'exploring' | ''
-  budget: 'under-10k' | '10k-50k' | '50k-100k' | '100k+' | 'discuss' | ''
+  companySize?: 'startup' | 'small' | 'medium' | 'enterprise'
+  timeline?: 'urgent' | '1-3months' | '3-6months' | 'exploring'
+  budget?: 'under-10k' | '10k-50k' | '50k-100k' | '100k+' | 'discuss'
   decisionMaker: boolean
   
   // Step 3: Project details
@@ -56,9 +56,9 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
     name: '',
     email: '',
     projectType: 'web-app',
-    companySize: '',
-    timeline: '',
-    budget: '',
+    companySize: undefined,
+    timeline: undefined,
+    budget: undefined,
     decisionMaker: false,
     message: ''
   })
@@ -106,15 +106,15 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
     let score = 0
     
     // Company size scoring
-    const companySizeScore = companySizeOptions.find(opt => opt.value === data.companySize)?.score || 0
+    const companySizeScore = data.companySize ? companySizeOptions.find(opt => opt.value === data.companySize)?.score || 0 : 0
     score += companySizeScore
     
     // Timeline urgency scoring
-    const timelineScore = timelineOptions.find(opt => opt.value === data.timeline)?.score || 0
+    const timelineScore = data.timeline ? timelineOptions.find(opt => opt.value === data.timeline)?.score || 0 : 0
     score += timelineScore
     
     // Budget investment scoring
-    const budgetScore = budgetOptions.find(opt => opt.value === data.budget)?.score || 0
+    const budgetScore = data.budget ? budgetOptions.find(opt => opt.value === data.budget)?.score || 0 : 0
     score += budgetScore
     
     // Decision maker bonus
@@ -196,7 +196,7 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
   // Handle input changes
   const handleInputChange = (
     field: keyof EnhancedContactFormData,
-    value: string | boolean
+    value: string | boolean | undefined
   ) => {
     setFormData(prev => ({
       ...prev,
@@ -234,12 +234,35 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
         qualificationLevel
       }
 
+      // ENHANCED DEBUGGING: Log form data before submission
+      console.log('[Enhanced Contact Form] Submitting form data:', JSON.stringify(enhancedFormData, null, 2))
+      console.log('[Enhanced Contact Form] Form data analysis:', {
+        step: currentStep,
+        hasName: !!enhancedFormData.name,
+        nameValue: enhancedFormData.name,
+        hasEmail: !!enhancedFormData.email,
+        emailValue: enhancedFormData.email,
+        hasMessage: !!enhancedFormData.message,
+        messageLength: enhancedFormData.message.length,
+        projectType: enhancedFormData.projectType,
+        companySize: enhancedFormData.companySize,
+        companySizeIsUndefined: enhancedFormData.companySize === undefined,
+        timeline: enhancedFormData.timeline,
+        timelineIsUndefined: enhancedFormData.timeline === undefined,
+        budget: enhancedFormData.budget,
+        budgetIsUndefined: enhancedFormData.budget === undefined,
+        decisionMaker: enhancedFormData.decisionMaker,
+        leadScore: enhancedFormData.leadScore,
+        qualificationLevel: enhancedFormData.qualificationLevel
+      })
+
       // Call lead qualification callback if provided
       if (onLeadQualified) {
         onLeadQualified(enhancedFormData)
       }
 
       // Submit to contact API with enhanced data
+      console.log('[Enhanced Contact Form] Making API request to /api/contact')
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -250,7 +273,17 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
 
       const result = await response.json()
 
+      // ENHANCED DEBUGGING: Log API response details
+      console.log('[Enhanced Contact Form] API Response received:', {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok,
+        headers: Object.fromEntries(response.headers.entries()),
+        result: result
+      })
+
       if (response.ok && result.success) {
+        console.log('[Enhanced Contact Form] SUCCESS: Form submitted successfully')
         setSubmitStatus('success')
         
         // Reset form after successful submission
@@ -258,9 +291,9 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
           name: '',
           email: '',
           projectType: 'web-app',
-          companySize: '',
-          timeline: '',
-          budget: '',
+          companySize: undefined,
+          timeline: undefined,
+          budget: undefined,
           decisionMaker: false,
           message: ''
         })
@@ -269,13 +302,26 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
         // Reset success status after 5 seconds
         setTimeout(() => setSubmitStatus('idle'), 5000)
       } else {
-        console.error('Enhanced contact form API error:', result.message)
+        console.error('[Enhanced Contact Form] ERROR: API returned error response')
+        console.error('[Enhanced Contact Form] Error details:', {
+          status: response.status,
+          statusText: response.statusText,
+          ok: response.ok,
+          resultMessage: result.message,
+          fullResult: result
+        })
         setSubmitStatus('error')
         setTimeout(() => setSubmitStatus('idle'), 5000)
       }
       
     } catch (error) {
-      console.error('Enhanced contact form submission error:', error)
+      console.error('[Enhanced Contact Form] NETWORK/FETCH ERROR: Request failed before reaching API')
+      console.error('[Enhanced Contact Form] Error details:', {
+        error: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : 'No stack trace',
+        type: typeof error,
+        errorObject: error
+      })
       setSubmitStatus('error')
       setTimeout(() => setSubmitStatus('idle'), 5000)
     }
@@ -411,8 +457,8 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
               </label>
               <select
                 id="enhanced-company-size"
-                value={formData.companySize}
-                onChange={(e) => handleInputChange('companySize', e.target.value as EnhancedContactFormData['companySize'])}
+                value={formData.companySize || ''}
+                onChange={(e) => handleInputChange('companySize', e.target.value || undefined)}
                 className={`${styles.select} ${errors.companySize ? styles.inputError : ''}`}
                 disabled={submitStatus === 'submitting'}
               >
@@ -437,8 +483,8 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
               </label>
               <select
                 id="enhanced-timeline"
-                value={formData.timeline}
-                onChange={(e) => handleInputChange('timeline', e.target.value as EnhancedContactFormData['timeline'])}
+                value={formData.timeline || ''}
+                onChange={(e) => handleInputChange('timeline', e.target.value || undefined)}
                 className={`${styles.select} ${errors.timeline ? styles.inputError : ''}`}
                 disabled={submitStatus === 'submitting'}
               >
@@ -463,8 +509,8 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
               </label>
               <select
                 id="enhanced-budget"
-                value={formData.budget}
-                onChange={(e) => handleInputChange('budget', e.target.value as EnhancedContactFormData['budget'])}
+                value={formData.budget || ''}
+                onChange={(e) => handleInputChange('budget', e.target.value || undefined)}
                 className={`${styles.select} ${errors.budget ? styles.inputError : ''}`}
                 disabled={submitStatus === 'submitting'}
               >

@@ -79,13 +79,13 @@ export const LeadQualificationFlow = ({
     let score = 0
     
     // Company size scoring
-    score += criteria.companySize[data.companySize] || 0
+    score += (data.companySize && criteria.companySize[data.companySize]) || 0
     
     // Timeline urgency scoring
-    score += criteria.timeline[data.timeline] || 0
+    score += (data.timeline && criteria.timeline[data.timeline]) || 0
     
     // Budget investment scoring
-    score += criteria.budget[data.budget] || 0
+    score += (data.budget && criteria.budget[data.budget]) || 0
     
     // Project type complexity scoring
     score += criteria.projectType[data.projectType] || 0
