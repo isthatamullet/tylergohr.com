@@ -22,7 +22,7 @@ interface NavLinkConfig {
 export default function Navigation({ className = "" }: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("about");
+  const [activeSection, setActiveSection] = useState("");
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [expandedMobileDropdown, setExpandedMobileDropdown] = useState<string | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
@@ -32,10 +32,10 @@ export default function Navigation({ className = "" }: NavigationProps) {
   // Lock body scroll when mobile menu is open
   useScrollLock(isMenuOpen);
 
-  // Enhanced debug logging to verify /2 Navigation is rendering
-  console.log('[/2 Navigation] Component is rendering, pathname:', pathname);
-  console.log('[/2 Navigation] This should be the ONLY navigation on /2 routes');
-  console.log('[/2 Navigation] Component mounted at:', new Date().toISOString());
+  // Enhanced debug logging to verify Navigation is rendering
+  console.log('[Navigation] Component is rendering, pathname:', pathname);
+  console.log('[Navigation] This should be the ONLY navigation on main site');
+  console.log('[Navigation] Component mounted at:', new Date().toISOString());
 
   // Navigation height for offset calculation - use brand token
   const NAV_HEIGHT = 70; // TODO: Replace with getComputedStyle to read CSS custom property
@@ -45,31 +45,31 @@ export default function Navigation({ className = "" }: NavigationProps) {
     {
       title: "Emmy-winning Streaming Platform",
       description: "Technical excellence recognized by Television Academy",
-      href: "/2/case-studies?tab=emmy",
+      href: "/case-studies?tab=emmy",
       badge: "Emmy Award"
     },
     {
       title: "Fox Corporation Cost Optimization", 
       description: "$2M+ savings through automation architecture",
-      href: "/2/case-studies?tab=fox",
+      href: "/case-studies?tab=fox",
       badge: "Cost Savings"
     },
     {
       title: "Warner Bros Delivery Enhancement",
       description: "96% success rate workflow optimization", 
-      href: "/2/case-studies?tab=warner",
+      href: "/case-studies?tab=warner",
       badge: "Success Rate"
     },
     {
       title: "AI-Powered Media Automation",
       description: "Revolutionary automation for SDI Media",
-      href: "/2/case-studies?tab=ai", 
+      href: "/case-studies?tab=ai", 
       badge: "Innovation"
     },
     {
       title: "View All Case Studies",
       description: "Complete project portfolio and technical details",
-      href: "/2/case-studies",
+      href: "/case-studies",
       type: "page-link"
     }
   ];
@@ -78,42 +78,42 @@ export default function Navigation({ className = "" }: NavigationProps) {
     {
       title: "Discovery & Requirements",
       description: "Comprehensive project analysis and stakeholder alignment",
-      href: "/2/how-i-work#discovery"
+      href: "/how-i-work#discovery"
     },
     {
       title: "Research & Planning", 
       description: "Technical architecture and strategic planning",
-      href: "/2/how-i-work#research"
+      href: "/how-i-work#research"
     },
     {
       title: "Design & Prototyping",
       description: "User experience and system design validation",
-      href: "/2/how-i-work#design"
+      href: "/how-i-work#design"
     },
     {
       title: "Implementation & Development",
       description: "Agile development with continuous integration",
-      href: "/2/how-i-work#implementation"
+      href: "/how-i-work#implementation"
     },
     {
       title: "Testing & Quality Assurance",
       description: "Comprehensive testing and performance optimization",
-      href: "/2/how-i-work#testing"
+      href: "/how-i-work#testing"
     },
     {
       title: "Deployment & Launch",
       description: "Production deployment and go-live coordination",
-      href: "/2/how-i-work#deployment"
+      href: "/how-i-work#deployment"
     },
     {
       title: "Optimization & Support",
       description: "Ongoing performance monitoring and enhancement",
-      href: "/2/how-i-work#optimization"
+      href: "/how-i-work#optimization"
     },
     {
       title: "View Full Process",
       description: "Complete development methodology and case studies",
-      href: "/2/how-i-work",
+      href: "/how-i-work",
       type: "page-link"
     }
   ];
@@ -122,37 +122,37 @@ export default function Navigation({ className = "" }: NavigationProps) {
     {
       title: "Frontend Development",
       description: "React, Next.js, TypeScript, and modern CSS",
-      href: "/2/technical-expertise?tab=frontend",
+      href: "/technical-expertise?tab=frontend",
       icon: "⚛️"
     },
     {
       title: "Backend Architecture",
       description: "Node.js, Python, database design, and API development", 
-      href: "/2/technical-expertise?tab=backend",
+      href: "/technical-expertise?tab=backend",
       icon: "🔧"
     },
     {
       title: "Cloud Infrastructure",
       description: "AWS, Google Cloud, Docker, and DevOps automation",
-      href: "/2/technical-expertise?tab=cloud", 
+      href: "/technical-expertise?tab=cloud", 
       icon: "☁️"
     },
     {
       title: "Team Leadership",
       description: "Agile methodology, project management, and mentoring",
-      href: "/2/technical-expertise?tab=leadership",
+      href: "/technical-expertise?tab=leadership",
       icon: "👥"
     },
     {
       title: "AI Innovation",
       description: "Machine learning integration and automation solutions",
-      href: "/2/technical-expertise?tab=ai",
+      href: "/technical-expertise?tab=ai",
       icon: "🤖"
     },
     {
       title: "View All Skills",
       description: "Complete technical expertise and project examples",
-      href: "/2/technical-expertise",
+      href: "/technical-expertise",
       type: "page-link"
     }
   ];
@@ -170,11 +170,11 @@ export default function Navigation({ className = "" }: NavigationProps) {
     }
   }, []);
 
-  // Enhanced navigation handler for /2 routes
+  // Enhanced navigation handler for main site routes
   const navigateToSection = useCallback((sectionId: string) => {
-    // If we're not on the /2 landing page, navigate to landing page with hash
-    if (pathname !== "/2") {
-      window.location.href = `/2#${sectionId}`;
+    // If we're not on the main landing page, navigate to landing page with hash
+    if (pathname !== "/") {
+      window.location.href = `/#${sectionId}`;
       return;
     }
     
@@ -190,7 +190,7 @@ export default function Navigation({ className = "" }: NavigationProps) {
       });
 
       // Update URL hash
-      window.history.pushState(null, "", `/2#${sectionId}`);
+      window.history.pushState(null, "", `/#${sectionId}`);
       
       // Update active section immediately for responsive feedback
       setActiveSection(sectionId);
@@ -198,14 +198,14 @@ export default function Navigation({ className = "" }: NavigationProps) {
     setIsMenuOpen(false); // Close mobile menu after navigation
   }, [pathname]);
 
-  // Logo navigation - always go to /2 landing page top
+  // Logo navigation - always go to main landing page top
   const navigateToHome = useCallback(() => {
-    if (pathname !== "/2") {
-      window.location.href = "/2";
+    if (pathname !== "/") {
+      window.location.href = "/";
     } else {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      setActiveSection("about");
-      window.history.pushState(null, "", "/2");
+      setActiveSection("");
+      window.history.pushState(null, "", "/");
     }
     setIsMenuOpen(false);
   }, [pathname]);
@@ -219,40 +219,40 @@ export default function Navigation({ className = "" }: NavigationProps) {
   // Handle active state based on current page/section
   useEffect(() => {
     // If we're on case studies page, set work as active
-    if (pathname.startsWith("/2/case-studies")) {
+    if (pathname.startsWith("/case-studies")) {
       setActiveSection("work");
       return;
     }
     
     // If we're on how I work page, set process as active  
-    if (pathname.startsWith("/2/how-i-work")) {
+    if (pathname.startsWith("/how-i-work")) {
       setActiveSection("process");
       return;
     }
     
     // If we're on technical expertise page, set skills as active
-    if (pathname.startsWith("/2/technical-expertise")) {
+    if (pathname.startsWith("/technical-expertise")) {
       setActiveSection("skills");
       return;
     }
     
-    // If we're on /2 landing page, check for hash or default to about
-    if (pathname === "/2") {
+    // If we're on main landing page, check for hash or start with no active section
+    if (pathname === "/") {
       const hash = window.location.hash.slice(1);
       if (hash && ["hero", "about", "results", "work", "process", "skills", "contact"].includes(hash)) {
         setActiveSection(hash);
         // Small delay to ensure DOM is ready for scrolling
         setTimeout(() => navigateToSection(hash), 100);
       } else {
-        setActiveSection("about");
+        setActiveSection(""); // Start with no active section
       }
     }
   }, [pathname, navigateToSection]);
 
   // Intersection Observer for active section detection (only on landing page)
   useEffect(() => {
-    // Only set up intersection observer on /2 landing page
-    if (pathname !== "/2") {
+    // Only set up intersection observer on main landing page
+    if (pathname !== "/") {
       return;
     }
 
@@ -308,12 +308,12 @@ export default function Navigation({ className = "" }: NavigationProps) {
               }
             }
             
-            console.log(`/2 Navigation: Active section changed to: ${selectedSection}`);
+            console.log(`Navigation: Active section changed to: ${selectedSection}`);
             setActiveSection(selectedSection);
             
             // Update URL hash without causing scroll
             if (window.location.hash !== `#${selectedSection}`) {
-              window.history.replaceState(null, "", `/2#${selectedSection}`);
+              window.history.replaceState(null, "", `/#${selectedSection}`);
             }
           }
         },
@@ -330,18 +330,18 @@ export default function Navigation({ className = "" }: NavigationProps) {
         if (element) {
           observerRef.current?.observe(element);
           observedCount++;
-          console.log(`/2 Navigation: Successfully observing section: ${sectionId}`);
+          console.log(`Navigation: Successfully observing section: ${sectionId}`);
         } else {
-          console.warn(`/2 Navigation: Section element not found: ${sectionId}`);
+          console.warn(`Navigation: Section element not found: ${sectionId}`);
         }
       });
 
-      console.log(`/2 Navigation: Observing ${observedCount}/${sections.length} sections`);
+      console.log(`Navigation: Observing ${observedCount}/${sections.length} sections`);
       
       // If not all sections found, retry after a longer delay
       if (observedCount < sections.length) {
         setTimeout(() => {
-          console.log('/2 Navigation: Retrying section observation with longer delay...');
+          console.log('Navigation: Retrying section observation with longer delay...');
           setupObserver();
         }, 2500); // Increased from 1000ms to 2500ms for better reliability
       }
@@ -352,10 +352,10 @@ export default function Navigation({ className = "" }: NavigationProps) {
       // Check if most sections are already in DOM before setting up observer
       const existingSections = sections.filter(id => document.getElementById(id));
       if (existingSections.length >= sections.length - 2) { // Allow 2 missing sections for lazy loading
-        console.log('/2 Navigation: Most sections found, setting up observer immediately');
+        console.log('Navigation: Most sections found, setting up observer immediately');
         setupObserver();
       } else {
-        console.log(`/2 Navigation: Only ${existingSections.length}/${sections.length} sections found, waiting longer for lazy loading`);
+        console.log(`Navigation: Only ${existingSections.length}/${sections.length} sections found, waiting longer for lazy loading`);
         setTimeout(setupObserver, 1500); // Longer delay for lazy components
       }
     }, 800); // Reduced initial delay since we have smarter detection
