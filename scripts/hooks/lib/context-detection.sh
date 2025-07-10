@@ -9,21 +9,18 @@ if [[ "${HOOK_UTILS_LOADED:-}" != "true" ]]; then
     source "$SCRIPT_DIR/hook-utils.sh"
 fi
 
-# Context patterns for different development areas
-REDESIGN_2_PATTERNS=(
-    "src/app/2/"
-    "app/2/"
-    "/2/"
-    "redesign"
-    "enterprise"
-)
-
-MAIN_PORTFOLIO_PATTERNS=(
+# Context patterns for development areas
+ENTERPRISE_PORTFOLIO_PATTERNS=(
     "src/app/page"
     "src/app/layout"
-    "src/components/"
+    "src/app/components/"
     "app/page"
     "app/layout"
+    "app/components/"
+    "enterprise"
+    "case-studies"
+    "how-i-work"
+    "technical-expertise"
 )
 
 TESTING_PATTERNS=(
@@ -48,14 +45,6 @@ detect_development_context() {
     local file_path="$1"
     local relative_path=$(get_relative_path "$file_path")
     
-    # Check for /2 redesign context
-    for pattern in "${REDESIGN_2_PATTERNS[@]}"; do
-        if [[ "$relative_path" =~ $pattern ]]; then
-            echo "redesign_2"
-            return 0
-        fi
-    done
-    
     # Check for testing context
     for pattern in "${TESTING_PATTERNS[@]}"; do
         if [[ "$relative_path" =~ $pattern ]]; then
@@ -72,10 +61,10 @@ detect_development_context() {
         fi
     done
     
-    # Check for main portfolio context
-    for pattern in "${MAIN_PORTFOLIO_PATTERNS[@]}"; do
+    # Check for enterprise portfolio context
+    for pattern in "${ENTERPRISE_PORTFOLIO_PATTERNS[@]}"; do
         if [[ "$relative_path" =~ $pattern ]]; then
-            echo "main_portfolio"
+            echo "enterprise_portfolio"
             return 0
         fi
     done
@@ -89,9 +78,9 @@ detect_current_development_context() {
     local current_dir="$PWD"
     local project_root=$(get_project_root)
     
-    # Check current working directory
-    if [[ "$current_dir" =~ /2/ ]]; then
-        echo "redesign_2"
+    # Check current working directory for enterprise portfolio context
+    if [[ "$current_dir" =~ src/app|components|case-studies|how-i-work|technical-expertise ]]; then
+        echo "enterprise_portfolio"
         return 0
     fi
     
@@ -99,8 +88,8 @@ detect_current_development_context() {
     if is_git_repo; then
         local recent_files=$(git diff --name-only HEAD~1 2>/dev/null || echo "")
         
-        if [[ "$recent_files" =~ app/2/ ]]; then
-            echo "redesign_2"
+        if [[ "$recent_files" =~ src/app/|components/ ]]; then
+            echo "enterprise_portfolio"
             return 0
         fi
         
@@ -141,24 +130,14 @@ get_context_config() {
     local context="$1"
     
     case "$context" in
-        "redesign_2")
+        "enterprise_portfolio")
             echo '{
-                "focus_area": "/2",
-                "test_strategy": "fast",
+                "focus_area": "enterprise",
+                "test_strategy": "comprehensive",
                 "visual_testing": true,
                 "brand_validation": true,
                 "performance_monitoring": true,
                 "target_audience": "enterprise"
-            }'
-            ;;
-        "main_portfolio")
-            echo '{
-                "focus_area": "main",
-                "test_strategy": "comprehensive", 
-                "visual_testing": true,
-                "brand_validation": false,
-                "performance_monitoring": true,
-                "target_audience": "general"
             }'
             ;;
         "testing")

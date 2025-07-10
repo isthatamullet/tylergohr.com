@@ -2,14 +2,14 @@
 
 ## Overview
 
-This guide covers daily development workflows for the Tyler Gohr Portfolio, focusing on the `/2` redesign (Enterprise Solutions Architect). Use this as your primary reference for efficient development within the sophisticated automation and testing infrastructure.
+This guide covers daily development workflows for the Tyler Gohr Portfolio (Enterprise Solutions Architect). Use this as your primary reference for efficient development within the sophisticated automation and testing infrastructure.
 
 ## Development Environment Setup
 
 ### **Quick Start**
 ```bash
-# Navigate to /2 development context
-cd /home/user/tylergohr.com/src/app/2/
+# Navigate to enterprise portfolio development context
+cd /home/user/tylergohr.com/
 
 # Start development server (auto-detects optimal port)
 npm run dev                          # Smart development server with port detection
@@ -46,11 +46,11 @@ eval "$(./scripts/detect-active-port.sh quiet export)"
 echo "Port: $ACTIVE_DEV_PORT, URL: $ACTIVE_DEV_URL"
 ```
 
-## /2 Redesign Architecture
+## Enterprise Portfolio Architecture
 
 ### **Component Organization**
 ```bash
-src/app/2/components/
+src/app/components/
 ├── About/                           # Network animation & Emmy Award background
 ├── BrowserTabs/                     # Cross-page browser tab simulation
 │   ├── BrowserTabs.tsx              # Main tab interface
@@ -63,7 +63,7 @@ src/app/2/components/
 ├── Contact/                         # Professional engagement forms
 ├── Hero/                           # Enterprise Solutions Architect positioning
 ├── HowIWork/                       # Process methodology showcase
-├── Navigation/                     # /2-specific navigation system
+├── Navigation/                     # Enterprise navigation system
 ├── Results/                        # Measurable business impact metrics
 ├── Scene/                          # React Three Fiber 3D scenes
 ├── ScrollEffects/                  # Advanced scroll-driven animations
@@ -80,13 +80,13 @@ src/app/2/components/
 ### **File Structure Patterns**
 ```bash
 # Standard component pattern
-src/app/2/components/[ComponentName]/
+src/app/components/[ComponentName]/
 ├── [ComponentName].tsx              # React component
 ├── [ComponentName].module.css       # CSS modules styling
 └── index.ts                        # Export definitions (optional)
 
 # Page structure pattern  
-src/app/2/[page-name]/
+src/app/[page-name]/
 ├── page.tsx                        # Next.js page component
 └── page.module.css                 # Page-specific styling
 ```
@@ -94,7 +94,7 @@ src/app/2/[page-name]/
 ### **Brand Tokens System**
 ```bash
 # Design system reference
-src/app/2/styles/brand-tokens.css    # Complete design system
+src/app/styles/brand-tokens.css    # Complete design system
 
 # Usage in components
 .component {
@@ -136,10 +136,10 @@ npm run test:e2e:portfolio          # Comprehensive E2E validation
 
 ### **Component Development Workflow**
 ```bash
-# Create new component in /2 architecture
-mkdir src/app/2/components/NewComponent
-touch src/app/2/components/NewComponent/NewComponent.tsx
-touch src/app/2/components/NewComponent/NewComponent.module.css
+# Create new component in enterprise architecture
+mkdir src/app/components/NewComponent
+touch src/app/components/NewComponent/NewComponent.tsx
+touch src/app/components/NewComponent/NewComponent.module.css
 
 # Follow established patterns:
 # - Use CSS modules for styling
@@ -185,7 +185,7 @@ npm run test:e2e:dev                # Functional testing (2-3min)
 npm run test:e2e:debug              # Interactive debugging with browser
 
 # Comprehensive testing
-npm run test:e2e:portfolio          # Complete /2 redesign validation
+npm run test:e2e:portfolio          # Complete enterprise portfolio validation
 npm run test:e2e:navigation         # Navigation behavior testing
 npm run test:e2e:visual            # Visual regression testing
 npm run test:e2e:accessibility     # WCAG 2.1 AA compliance
@@ -231,24 +231,20 @@ npm run bundle-check                # Bundle size validation (6MB budget)
 
 ## Context Switching & Architecture
 
-### **Main vs /2 Development**
+### **Enterprise Portfolio Development**
 ```bash
-# /2 redesign development context
-cd /home/user/tylergohr.com/src/app/2/  # Navigate to /2 context
-claude code                             # Launch Claude Code with /2 Enterprise context
-
-# Main portfolio development context  
-cd /home/user/tylergohr.com/           # Navigate to main context
-claude code                           # Launch Claude Code with general portfolio context
+# Enterprise portfolio development context
+cd /home/user/tylergohr.com/           # Navigate to portfolio root
+claude code                           # Launch Claude Code with Enterprise Solutions Architect context
 ```
 
 ### **Route Structure Understanding**
 ```bash
-# /2 redesign routes (isolated architecture)
-/2                                  # Enterprise Solutions Architect homepage
-/2/case-studies                    # Detailed project showcases
-/2/how-i-work                      # Process methodology deep dive
-/2/technical-expertise             # Comprehensive skills demonstration
+# Enterprise portfolio routes
+/                                  # Enterprise Solutions Architect homepage
+/case-studies                      # Detailed project showcases
+/how-i-work                        # Process methodology deep dive
+/technical-expertise               # Comprehensive skills demonstration
 
 # Shared infrastructure but isolated routing
 # - Same repository and CI/CD pipeline
@@ -259,8 +255,8 @@ claude code                           # Launch Claude Code with general portfoli
 ### **Cross-Page Navigation Development**
 ```bash
 # Key navigation components
-src/app/2/components/BrowserTabs/   # Simulates browser tab navigation
-src/app/2/components/Navigation/    # /2-specific navigation system
+src/app/components/BrowserTabs/   # Simulates browser tab navigation
+src/app/components/Navigation/    # Enterprise navigation system
 
 # Navigation testing
 npm run test:e2e:navigation         # Comprehensive navigation behavior tests
@@ -301,7 +297,7 @@ source ./scripts/init-port-env.sh   # Initialize cloud-aware environment
 ### **Environment Validation**
 ```bash
 # Check development server health
-curl -s -o /dev/null -w "%{http_code}" http://localhost:3000/2  # Should return 200
+curl -s -o /dev/null -w "%{http_code}" http://localhost:3000  # Should return 200
 
 # Verify environment variables
 echo "Port: $ACTIVE_DEV_PORT, URL: $ACTIVE_DEV_URL"
@@ -319,7 +315,7 @@ eval "$(./scripts/detect-active-port.sh quiet export)"
 npm run test:e2e:performance        # Core Web Vitals monitoring
 npm run hooks:performance-check     # Hooks-integrated performance validation
 
-# Core Web Vitals targets for /2 redesign
+# Core Web Vitals targets for enterprise portfolio
 # - LCP (Largest Contentful Paint): <2.5s
 # - FID (First Input Delay): <100ms  
 # - CLS (Cumulative Layout Shift): <0.1
@@ -328,7 +324,7 @@ npm run hooks:performance-check     # Hooks-integrated performance validation
 
 ### **Animation Performance Requirements**
 ```bash
-# 60fps animation standards for /2 redesign
+# 60fps animation standards for enterprise portfolio
 # - Network animation in About section
 # - Metric counter animations in Results section
 # - Scroll-driven animations throughout
@@ -345,10 +341,10 @@ npm run hooks:performance-check     # Hooks-integrated performance validation
 ### **Bundle Size Management**
 ```bash
 # Monitor bundle size during development
-npm run bundle-check                # Validates <6MB budget for /2 redesign
+npm run bundle-check                # Validates <6MB budget for enterprise portfolio
 
 # Bundle optimization strategies:
-# - Lazy loading for below-fold /2 components
+# - Lazy loading for below-fold components
 # - Dynamic imports for heavy 3D components
 # - Image optimization for case study assets
 # - Font loading optimization (JetBrains Mono)
@@ -381,7 +377,7 @@ npx playwright test e2e/quick-screenshots.spec.ts --project=chromium # Test with
 
 ### **Component Development Issues**
 ```bash
-# TypeScript errors in /2 components
+# TypeScript errors in enterprise components
 npm run typecheck                   # Validate TypeScript across entire project
 # Check imports and ensure @types packages are installed
 
@@ -420,8 +416,8 @@ CLAUDE_AUTO_SUBAGENT=true npm run dev:enhanced     # Force sub-agent recommendat
 ### **Protected Files (Hooks System)**
 ```bash
 # Critical files that require extra confirmation before modification:
-src/app/2/styles/brand-tokens.css   # Core design system
-src/app/2/layout.tsx                # Enterprise metadata and routing
+src/app/styles/brand-tokens.css   # Core design system
+src/app/layout.tsx                  # Enterprise metadata and routing
 next.config.js                      # Build configuration
 package.json                        # Dependencies and scripts
 .env* files                         # Environment configuration
@@ -442,7 +438,7 @@ OVERRIDE_PROTECTION=true [command]   # Override file protection when intentional
 
 ---
 
-**Focus**: Daily /2 redesign development workflows with enterprise automation  
+**Focus**: Daily enterprise portfolio development workflows with automation  
 **Architecture**: Component-based with brand tokens, CSS modules, and TypeScript  
 **Performance**: 60fps animations, <2.5s LCP, <6MB bundle budget  
 **Quality**: 100% TypeScript compliance, WCAG 2.1 AA accessibility standards

@@ -14,7 +14,7 @@
     ".gitignore"
   ],
   "design_system_files": [
-    "src/app/2/styles/brand-tokens.css",
+    "src/app/styles/brand-tokens.css",
     "src/app/globals.css"
   ],
   "configuration_files": [

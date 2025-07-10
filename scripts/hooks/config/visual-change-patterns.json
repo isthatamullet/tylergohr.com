@@ -16,7 +16,7 @@
       "patterns": [
         "components/*.tsx",
         "components/*.jsx",
-        "app/2/components/*.tsx",
+        "src/app/components/*.tsx",
         "src/components/*.tsx"
       ],
       "change_type": "component",
@@ -95,14 +95,14 @@
     }
   },
   "context_specific_patterns": {
-    "redesign_2": {
+    "enterprise_portfolio": {
       "patterns": [
-        "src/app/2/*",
-        "app/2/*"
+        "src/app/*",
+        "app/*"
       ],
       "special_handling": {
         "brand_tokens": {
-          "file": "src/app/2/styles/brand-tokens.css",
+          "file": "src/app/styles/brand-tokens.css",
           "screenshot_requirement": "comprehensive_visual",
           "additional_validation": ["brand_consistency", "enterprise_standards"]
         },
@@ -110,16 +110,7 @@
           "patterns": ["*Navigation*", "*BrowserTabs*"],
           "screenshot_requirement": "component_focused",
           "additional_testing": ["navigation_behavior", "scroll_detection"]
-        }
-      }
-    },
-    "main_portfolio": {
-      "patterns": [
-        "src/app/page*",
-        "src/app/layout*",
-        "src/components/*"
-      ],
-      "special_handling": {
+        },
         "global_styles": {
           "file": "src/app/globals.css",
           "screenshot_requirement": "comprehensive_visual",
