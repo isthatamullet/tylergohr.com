@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide covers the complete technical architecture of the Tyler Gohr Portfolio, including the main portfolio and the `/2` redesign (Enterprise Solutions Architect). The project demonstrates enterprise-grade architecture with modern web technologies, performance optimization, and scalable patterns.
+This guide covers the complete technical architecture of the Tyler Gohr Portfolio (Enterprise Solutions Architect). The project demonstrates enterprise-grade architecture with modern web technologies, performance optimization, and scalable patterns.
 
 ## Project Structure
 
@@ -10,20 +10,17 @@ This guide covers the complete technical architecture of the Tyler Gohr Portfoli
 ```bash
 tylergohr.com/
 ├── src/app/                         # Next.js 14+ App Router architecture
-│   ├── layout.tsx                   # Main portfolio layout
-│   ├── page.tsx                     # Main portfolio homepage
+│   ├── layout.tsx                   # Enterprise portfolio layout
+│   ├── page.tsx                     # Enterprise homepage
+│   ├── template.tsx                 # Page transitions with Framer Motion
 │   ├── globals.css                  # Global styles and CSS reset
-│   ├── 2/                          # /2 redesign (Enterprise Solutions Architect)
-│   │   ├── layout.tsx               # Enterprise metadata and navigation
-│   │   ├── page.tsx                 # Enterprise homepage
-│   │   ├── template.tsx             # Page transitions with Framer Motion
-│   │   ├── styles/brand-tokens.css  # Complete design system
-│   │   ├── components/              # /2-specific component library
-│   │   ├── hooks/                   # Custom React hooks
-│   │   ├── lib/                     # Utility libraries
-│   │   ├── case-studies/            # Detail page route
-│   │   ├── how-i-work/              # Detail page route
-│   │   └── technical-expertise/     # Detail page route
+│   ├── styles/brand-tokens.css      # Complete design system
+│   ├── components/                  # Enterprise component library
+│   ├── hooks/                       # Custom React hooks
+│   ├── lib/                         # Utility libraries
+│   ├── case-studies/                # Detail page route
+│   ├── how-i-work/                  # Detail page route
+│   └── technical-expertise/         # Detail page route
 │   ├── api/                         # Next.js API routes
 │   │   ├── contact/route.ts         # Contact form submission
 │   │   └── health/route.ts          # Health check endpoint
@@ -36,57 +33,50 @@ tylergohr.com/
 └── .vscode/                        # VS Code integration and automation
 ```
 
-## Main Portfolio vs /2 Redesign Architecture
+## Enterprise Solutions Architect Architecture
 
-### **Shared Infrastructure**
+### **Core Infrastructure**
 ```bash
-# Common foundation
+# Technology foundation
 - Next.js 14+ App Router
 - TypeScript throughout
-- Same deployment pipeline (Google Cloud Run)
-- Shared API routes and health checks
-- Common performance monitoring
-- Same quality gates and testing standards
+- Google Cloud Run deployment pipeline
+- API routes and health checks
+- Performance monitoring and optimization
+- Comprehensive quality gates and testing standards
 ```
 
-### **Architectural Separation**
+### **Brand & Focus**
 ```bash
-# Main Portfolio (/)
-- Focus: Full-stack developer & creative problem solver
-- Styling: Global CSS with modern features
-- Navigation: Creative, portfolio-focused
-- Content: Projects, blog, technical showcases
-- Brand: Creative developer with cutting-edge skills
-
-# /2 Redesign (/2)
-- Focus: Enterprise Solutions Architect
+# Enterprise Solutions Architect Portfolio
+- Focus: Enterprise Solutions Architect demonstrating business value
 - Styling: Brand tokens system with CSS modules
 - Navigation: Professional, business-focused
-- Content: Business impact, enterprise case studies
-- Brand: Emmy Award, Fox Corporation, Warner Bros experience
+- Content: Business impact, enterprise case studies, technical expertise
+- Brand: Emmy Award, Fox Corporation, Warner Bros experience (16+ years)
 ```
 
-## /2 Redesign Architecture Deep Dive
+## Portfolio Architecture Deep Dive
 
 ### **Layout & Routing System**
 ```bash
-# /2 Layout Structure (src/app/2/layout.tsx)
+# Layout Structure (src/app/layout.tsx)
 - Enterprise-specific metadata and SEO
 - Structured data (JSON-LD) for business positioning
 - Performance optimizations (hero image preloading)
 - Accessibility features (skip navigation, ARIA)
-- /2-specific navigation component integration
+- Enterprise navigation component integration
 
 # Route Organization
-/2                          # Enterprise homepage
-/2/case-studies            # Detailed project showcases  
-/2/how-i-work              # Process methodology deep dive
-/2/technical-expertise     # Comprehensive skills demonstration
+/                           # Enterprise homepage
+/case-studies              # Detailed project showcases  
+/how-i-work                # Process methodology deep dive
+/technical-expertise       # Comprehensive skills demonstration
 ```
 
 ### **Component Architecture**
 ```bash
-# Component Library Organization (src/app/2/components/)
+# Component Library Organization (src/app/components/)
 ├── About/                           # Network animation & Emmy Award background
 │   ├── About.tsx                    # Main about section
 │   ├── NetworkAnimation.tsx         # Dynamic node connections
@@ -108,7 +98,7 @@ tylergohr.com/
 │   └── LogoFloat.tsx               # Animated logo element
 ├── HowIWork/                       # Process methodology
 │   └── HowIWorkPreview.tsx         # Process highlights (7 steps)
-├── Navigation/                     # /2-specific navigation
+├── Navigation/                     # Enterprise navigation
 │   ├── Navigation.tsx              # Main navigation component
 │   └── DropdownMenu.tsx           # Hover-enhanced dropdowns
 ├── Results/                        # Business impact metrics
@@ -135,17 +125,17 @@ tylergohr.com/
 
 ### **Preview/Detail Pattern**
 ```bash
-# Consistent architectural pattern across /2 redesign
+# Consistent architectural pattern across enterprise portfolio
 Homepage Previews → Detail Pages:
 
-1. CaseStudiesPreview.tsx → /2/case-studies (page.tsx)
+1. CaseStudiesPreview.tsx → /case-studies (page.tsx)
    - 4 interactive project cards → Full project case studies
    - Deep linking from cards to specific browser tabs
 
-2. HowIWorkPreview.tsx → /2/how-i-work (page.tsx)  
+2. HowIWorkPreview.tsx → /how-i-work (page.tsx)  
    - 7 process steps in staircase design → Complete methodology
 
-3. TechnicalExpertisePreview.tsx → /2/technical-expertise (page.tsx)
+3. TechnicalExpertisePreview.tsx → /technical-expertise (page.tsx)
    - 4 glassmorphism skill cards → Comprehensive technical showcase
 ```
 
@@ -153,7 +143,7 @@ Homepage Previews → Detail Pages:
 
 ### **Brand Tokens Architecture**
 ```bash
-# Central design system (src/app/2/styles/brand-tokens.css)
+# Central design system (src/app/styles/brand-tokens.css)
 :root {
   /* Section-specific color system */
   --hero-bg: #0a0a0a;           /* Pure black for hero */
@@ -250,7 +240,7 @@ Homepage Previews → Detail Pages:
 
 ### **Core Web Vitals Optimization**
 ```bash
-# Performance targets for /2 redesign
+# Performance targets for enterprise portfolio
 - LCP (Largest Contentful Paint): <2.5s
 - FID (First Input Delay): <100ms
 - CLS (Cumulative Layout Shift): <0.1
@@ -386,7 +376,7 @@ content/blog/2025/
 
 ### **WCAG 2.1 AA Compliance**
 ```bash
-# Accessibility features (/2 layout)
+# Accessibility features (main layout)
 - Skip navigation link
 - ARIA live regions for announcements
 - Semantic HTML structure
@@ -408,27 +398,25 @@ content/blog/2025/
 
 ## Integration Patterns
 
-### **Context Switching Architecture**
+### **Development Architecture**
 ```bash
-# Main portfolio ↔ /2 redesign
-- Independent routing systems
-- Shared infrastructure (API, deployment)
-- Separate styling approaches
-- Different navigation patterns
-- Context-aware development workflows
+# Enterprise portfolio development
+- Unified routing system with clear navigation
+- Integrated infrastructure (API, deployment)
+- Consistent brand tokens styling approach
+- Professional navigation patterns
+- Enterprise-focused development workflows
 ```
 
-### **Component Reusability**
+### **Component Architecture**
 ```bash
-# Shared components
-- PerformanceOptimizations (both layouts)
-- WebVitals monitoring (both layouts)
+# Core components
+- PerformanceOptimizations for web vitals
+- WebVitals monitoring and optimization
 - Common UI patterns (buttons, cards)
-
-# /2-specific components
-- Complete component isolation
-- Brand tokens integration
+- Brand tokens integration throughout
 - Enterprise-focused functionality
+- Complete accessibility compliance
 ```
 
 ---

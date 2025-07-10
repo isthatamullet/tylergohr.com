@@ -1,12 +1,10 @@
-# Tyler Gohr Portfolio - /2 Redesign (Enterprise Solutions Architect)
+# Tyler Gohr Portfolio - Enterprise Solutions Architect
 
 ## Quick Project Reference
-**Mission**: Enterprise Solutions Architect portfolio redesign showcasing business-focused technical mastery  
-**Live URLs**: 
-- **Production**: https://tylergohr.com (original portfolio)
-- **Redesign**: https://tylergohr.com/2 (Enterprise Solutions Architect focus)
-**Status**: 🚧 Active Development - /2 redesign in progress  
-**Current Priority**: Check GitHub issues for latest /2 development focus
+**Mission**: Enterprise Solutions Architect portfolio showcasing business-focused technical mastery and measurable business impact  
+**Live URL**: https://tylergohr.com (Enterprise Solutions Architect focus)
+**Status**: ✅ Production - Continuously enhanced with new features  
+**Current Priority**: Check GitHub issues for latest development focus
 
 WHEN USER SAYS "PUSH ALL FILES TO GITHUB" / "PUSH ALL FILES TO THE PR" / OR ANYTHING RELATED TO PUSHING *ALL* FILES - YOU *MUST* PUSH *ALL* FILES AS INSTRUCTED!!!!!!
 
@@ -56,19 +54,19 @@ npm run test:e2e:screenshot:enhanced # Timeout-resistant screenshots
 
 ---
 
-## Project Goals - /2 Redesign Specific
+## Project Goals - Enterprise Solutions Architect Portfolio
 - **Primary Purpose**: Enterprise Solutions Architect portfolio demonstrating business value delivery
 - **Brand Focus**: Emmy Award-winning developer with 16+ years Fox Corporation & Warner Bros experience
 - **Target Audience**: Enterprise clients, technical decision makers, business stakeholders
 - **Messaging Strategy**: "Powerful digital solutions that solve real business problems"
 - **Creative Freedom**: Professional sophistication with interactive technical demonstrations
 
-## Tech Stack (Shared Infrastructure)
+## Tech Stack
 - **Framework**: Next.js 14+ with App Router + TypeScript
-- **Styling**: CSS Modules with brand tokens system (`/2/styles/brand-tokens.css`)
+- **Styling**: CSS Modules with brand tokens system (`src/app/styles/brand-tokens.css`)
 - **Architecture**: Component-based with preview/detail page patterns
-- **Testing**: Playwright E2E with /2-specific test suites
-- **Deployment**: Same Google Cloud Run infrastructure as main site
+- **Testing**: Playwright E2E test suites
+- **Deployment**: Google Cloud Run infrastructure with custom domain
 - **Development Automation**: Claude Code hooks system for workflow optimization
 
 ## 🚀 Claude Code Hooks System - Development Automation
@@ -81,7 +79,7 @@ Intelligent development workflow automation system that provides real-time quali
 - **Quality Gates**: Automated TypeScript validation and testing
 - **Visual Development**: Automated screenshot generation for design iteration
 - **Performance Monitoring**: Real-time Core Web Vitals impact detection
-- **Context Awareness**: Optimizes workflow for main portfolio vs /2 redesign development
+- **Context Awareness**: Optimizes workflow for Enterprise Solutions Architect portfolio development
 
 ### **Hook Configuration**
 ```bash
@@ -101,7 +99,7 @@ Intelligent development workflow automation system that provides real-time quali
 # 3. Smart test selection based on change scope
 # 4. Visual change detection and screenshot generation
 # 5. Performance impact monitoring
-# 6. Brand consistency validation for /2 redesign
+# 6. Brand consistency validation for Enterprise portfolio
 ```
 
 ### **Hook Scripts Structure**
@@ -119,7 +117,7 @@ scripts/hooks/
 │   ├── test-selection.sh           # Smart test strategy
 │   ├── visual-change-detection.sh  # UI change identification
 │   ├── performance-monitoring.sh   # Core Web Vitals checks
-│   ├── context-detection.sh        # Main vs /2 detection
+│   ├── context-detection.sh        # Development context detection
 │   └── hook-utils.sh               # Shared utilities
 └── config/                         # Configuration files
     ├── protected-files.json         # Critical file definitions
@@ -129,7 +127,7 @@ scripts/hooks/
 ```
 
 ### **Smart Testing Integration**
-- **Context-Aware**: Different testing strategies for main portfolio vs /2 redesign
+- **Context-Aware**: Intelligent testing strategies for Enterprise Solutions Architect portfolio
 - **Change-Based**: Automatic test selection based on file types and components
 - **Performance-First**: Real-time impact monitoring for animations and Core Web Vitals
 - **Visual Validation**: Automated screenshot generation for design changes
@@ -154,7 +152,7 @@ scripts/hooks/
 - **80% Faster Quality Gates**: Automated pre-validation prevents error cycles
 - **90% Reduction in Manual Testing**: Smart test selection based on change scope
 - **95% Screenshot Automation**: Eliminate manual visual validation steps
-- **100% Context Awareness**: Perfect workflow adaptation for main vs /2 development
+- **100% Context Awareness**: Perfect workflow adaptation for Enterprise portfolio development
 - **Zero Protected File Accidents**: Automated prevention of critical file modifications
 - **Continuous Performance Monitoring**: Real-time Core Web Vitals impact detection
 
@@ -168,7 +166,7 @@ The hooks system now includes sophisticated sub-agent delegation logic that **el
 # The system analyzes operations and assigns complexity scores (0-15):
 # - Operation complexity: comprehensive_testing (+5), visual_regression (+4)
 # - Time complexity: >120s (+5), >60s (+3), >30s (+1)  
-# - Context complexity: testing (+3), /2 redesign (+2)
+# - Context complexity: testing (+3), enterprise features (+2)
 # - Tool complexity: timeout-prone Bash commands (+2)
 
 # When complexity ≥8 AND timeout risk = high:
@@ -319,10 +317,10 @@ For detailed information on specific topics, Claude Code instances should refere
 - **@docs/HOOKS.md** - Hook system orchestrator, installation, debugging, performance monitoring
 - **@docs/COMMANDS.md** - All available commands with usage scenarios and examples
 - **@docs/TROUBLESHOOTING.md** - Common issues, solutions, and emergency recovery procedures
-- **@docs/ARCHITECTURE.md** - Technical architecture, /2 component structure, brand tokens system
+- **@docs/ARCHITECTURE.md** - Technical architecture, component structure, brand tokens system
 - **@docs/DEPLOYMENT.md** - Google Cloud Run deployment, staging, production procedures
 - **@docs/CLAUDE-WORKFLOWS.md** - Claude Code optimization patterns, sub-agent integration
-- **@docs/DEVELOPMENT.md** - Daily development workflows, /2 context switching
+- **@docs/DEVELOPMENT.md** - Daily development workflows, enterprise development patterns
 - **@CROSS-SESSION-TIMEOUT-PREVENTION-GUIDE.md** - Cross-session timeout issues and enhanced command solutions
 
 ### **Documentation Restructure Methodology**
@@ -360,13 +358,13 @@ This documentation structure follows a systematic restructure plan that transfor
 → @CROSS-SESSION-TIMEOUT-PREVENTION-GUIDE.md
 ```
 
-## /2 Architecture Overview
+## Portfolio Architecture Overview
 
 ### **Route Structure**
-- **Main**: `/2` - Enterprise Solutions Architect homepage
-- **Case Studies**: `/2/case-studies` - Detailed project showcases
-- **How I Work**: `/2/how-i-work` - Process methodology deep dive
-- **Technical Expertise**: `/2/technical-expertise` - Comprehensive skills demonstration
+- **Main**: `/` - Enterprise Solutions Architect homepage
+- **Case Studies**: `/case-studies` - Detailed project showcases
+- **How I Work**: `/how-i-work` - Process methodology deep dive
+- **Technical Expertise**: `/technical-expertise` - Comprehensive skills demonstration
 
 *For complete architecture details, see @docs/ARCHITECTURE.md*
 
@@ -395,7 +393,7 @@ eval "$(./scripts/detect-active-port.sh quiet export)"  # Set ACTIVE_DEV_PORT an
 ## Brand System & Architecture
 
 ### **Brand Tokens System**
-- **Design System**: `src/app/2/styles/brand-tokens.css` (🛡️ PROTECTED FILE)
+- **Design System**: `src/app/styles/brand-tokens.css` (🛡️ PROTECTED FILE)
 - **Primary Font**: JetBrains Mono (developer-focused monospace)
 - **Color Strategy**: Section-specific backgrounds (black/grey/green/blue/pink/yellow)
 - **Responsive**: Mobile-first clamp() system
@@ -409,16 +407,14 @@ eval "$(./scripts/detect-active-port.sh quiet export)"  # Set ACTIVE_DEV_PORT an
 
 ## Development Protocols
 
-### **Context Switching - Main vs /2 Redesign**
+### **Development Context**
 ```bash
-# /2 Redesign Development
-cd /home/user/tylergohr.com/src/app/2/ && claude code    # Enterprise Solutions Architect context
-
-# Main Portfolio Development  
-cd /home/user/tylergohr.com/ && claude code             # General portfolio context
+# Enterprise Portfolio Development
+cd /home/user/tylergohr.com/ && claude code             # Enterprise Solutions Architect context
 
 # Check current development tasks
-gh issue list --label "redesign"                        # /2 development tasks
+gh issue list --label "enhancement"                     # Current development tasks
+gh issue list --state open                              # All active issues
 ```
 
 ### **Environment Setup for Cloud Development**
@@ -428,10 +424,11 @@ eval "$(./scripts/detect-active-port.sh quiet export)"
 # Creates: ACTIVE_DEV_PORT and ACTIVE_DEV_URL for your environment
 ```
 
-### **Branch Naming for /2 Work**
-- ✅ `feature/2-hero` - /2 hero section work
-- ✅ `fix/2-nav` - /2 navigation fixes  
-- ❌ `feature/2-technical-expertise` - too long for Docker tags
+### **Branch Naming Conventions**
+- ✅ `feature/hero-enhancement` - Hero section improvements
+- ✅ `fix/navigation-bug` - Navigation fixes  
+- ✅ `enhancement/case-studies` - Case studies enhancements
+- ❌ `feature/very-long-branch-name-that-exceeds-limits` - too long for Docker tags
 
 *For complete development workflows, see @docs/DEVELOPMENT.md*
 
@@ -477,7 +474,7 @@ npx playwright test e2e/quick-screenshots.spec.ts --project=chromium  # Fast scr
 # Output: screenshots/quick-review/ (desktop + mobile screenshots)
 
 # Comprehensive Testing (Pre-commit)
-npm run test:e2e:portfolio         # Full /2 E2E validation
+npm run test:e2e:portfolio         # Full enterprise portfolio E2E validation
 npm run test:e2e:visual           # Visual regression testing
 ```
 
@@ -494,7 +491,7 @@ npm run test:e2e:visual           # Visual regression testing
 - CLAUDE.md, README.md, Dockerfile
 
 # Design system files (🎨 BRAND PROTECTION)
-- src/app/2/styles/brand-tokens.css (core /2 design system)
+- src/app/styles/brand-tokens.css (core design system)
 - src/app/globals.css
 
 # Configuration files (⚙️ CONFIG PROTECTION)
@@ -502,9 +499,9 @@ npm run test:e2e:visual           # Visual regression testing
 ```
 
 ### **✅ Safe to Modify**
-- Individual component files within `/2/components/`
-- Component-specific CSS modules
-- `/2` page content (page.tsx files in /2 subdirectories)
+- Individual component files within `src/app/components/`
+- Component-specific CSS modules  
+- Page content (page.tsx files in route subdirectories)
 - Documentation files (*.md) in docs/
 
 *When hooks detect protected file modification, they will request confirmation before proceeding.*
@@ -517,14 +514,14 @@ npm run test:e2e:visual           # Visual regression testing
 
 *For complete performance guidelines, see @docs/ARCHITECTURE.md*
 
-## Quick Start - /2 Development
+## Quick Start - Enterprise Portfolio Development
 
 ### **Daily Workflow**
 ```bash
 # 1. Start development
-cd /home/user/tylergohr.com/src/app/2/ && claude code    # /2 context
+cd /home/user/tylergohr.com/ && claude code              # Enterprise portfolio context
 npm run dev:enhanced                                     # Timeout-resistant dev server
-gh issue list --label "redesign"                        # Check /2 tasks
+gh issue list --label "enhancement"                     # Check current tasks
 
 # 2. Fast development testing  
 npm run test:e2e:smoke                                   # Quick validation (<1min)
@@ -535,7 +532,7 @@ npx playwright test e2e/quick-screenshots.spec.ts --project=chromium  # Generate
 
 # 4. Pre-commit validation
 npm run validate                                         # Quality gates
-npm run test:e2e:portfolio                              # Full /2 validation
+npm run test:e2e:portfolio                              # Full enterprise portfolio validation
 ```
 
 ### **🚨 Claude Code Sub-Agent Integration**
