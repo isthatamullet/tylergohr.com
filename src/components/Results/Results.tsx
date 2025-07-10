@@ -113,6 +113,8 @@ export const Results: React.FC<ResultsProps> = ({
       className={`${styles.resultsSection} ${className}`}
       aria-labelledby="results-title"
     >
+      <div className={styles.backgroundOverlay} />
+      
       <div className={styles.resultsContainer}>
         <header className={styles.resultsHeader}>
           <h2 id="results-title" className={styles.resultsTitle}>

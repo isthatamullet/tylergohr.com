@@ -2,6 +2,10 @@
 .resultsSection {
   padding: 120px 0;
   background: var(--color-background-results, #10b981);
+  background-image: url('/images/results-metrics-bg.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--color-text-on-green, #ffffff);
   position: relative;
 }
