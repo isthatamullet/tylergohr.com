@@ -1,0 +1,360 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Dev Server - Port 3000",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "dev"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "options": {
+                "env": {
+                    "PORT": "3000",
+                    "HOSTNAME": "0.0.0.0",
+                    "ACTIVE_DEV_PORT": "3000",
+                    "ACTIVE_DEV_URL": "${env:CODESPACE_NAME:+https://${env:CODESPACE_NAME}-3000.${env:GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}}${env:CODESPACE_NAME:-http://localhost:3000}",
+                    "DEV_SERVER_MANAGED": "true"
+                }
+            },
+            "problemMatcher": [
+                {
+                    "owner": "nextjs",
+                    "fileLocation": ["relative", "${workspaceFolder}"],
+                    "pattern": [
+                        {
+                            "regexp": "^(.*):(\\d+):(\\d+)\\s+(error|warning|info)\\s+(.*)$",
+                            "file": 1,
+                            "line": 2,
+                            "column": 3,
+                            "severity": 4,
+                            "message": 5
+                        }
+                    ]
+                }
+            ],
+            "background": {
+                "activeOnStart": true,
+                "beginsPattern": "^.*starting.*development.*server.*",
+                "endsPattern": "^.*ready.*started.*server.*on.*http://localhost:3000.*"
+            },
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "folderOpen"
+            }
+        },
+        {
+            "label": "Dev Server - Port 3001",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "dev"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "env": {
+                    "PORT": "3001",
+                    "HOSTNAME": "0.0.0.0",
+                    "ACTIVE_DEV_PORT": "3001",
+                    "ACTIVE_DEV_URL": "${env:CODESPACE_NAME:+https://${env:CODESPACE_NAME}-3001.${env:GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}}${env:CODESPACE_NAME:-http://localhost:3001}",
+                    "DEV_SERVER_MANAGED": "true"
+                }
+            },
+            "problemMatcher": [
+                {
+                    "owner": "nextjs",
+                    "fileLocation": ["relative", "${workspaceFolder}"],
+                    "pattern": [
+                        {
+                            "regexp": "^(.*):(\\d+):(\\d+)\\s+(error|warning|info)\\s+(.*)$",
+                            "file": 1,
+                            "line": 2,
+                            "column": 3,
+                            "severity": 4,
+                            "message": 5
+                        }
+                    ]
+                }
+            ],
+            "background": {
+                "activeOnStart": true,
+                "beginsPattern": "^.*starting.*development.*server.*",
+                "endsPattern": "^.*ready.*started.*server.*on.*http://localhost:3001.*"
+            }
+        },
+        {
+            "label": "Dev Server - Port 4000",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "dev"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "options": {
+                "env": {
+                    "PORT": "4000",
+                    "HOSTNAME": "0.0.0.0",
+                    "ACTIVE_DEV_PORT": "4000",
+                    "ACTIVE_DEV_URL": "${env:CODESPACE_NAME:+https://${env:CODESPACE_NAME}-4000.${env:GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}}${env:CODESPACE_NAME:-http://localhost:4000}",
+                    "DEV_SERVER_MANAGED": "true"
+                }
+            },
+            "background": {
+                "activeOnStart": true,
+                "beginsPattern": "^.*starting.*development.*server.*",
+                "endsPattern": "^.*ready.*started.*server.*on.*http://localhost:4000.*"
+            }
+        },
+        {
+            "label": "Wait for Server Ready",
+            "type": "shell",
+            "command": "bash",
+            "args": ["-c", "for i in {1..30}; do if curl -s http://localhost:${ACTIVE_DEV_PORT:-3000} >/dev/null 2>&1; then echo 'Server ready'; exit 0; fi; echo 'Waiting for server...' && sleep 2; done; echo 'Timeout waiting for server' && exit 1"],
+            "presentation": {
+                "echo": true,
+                "reveal": "silent"
+            },
+            "options": {
+                "env": {
+                    "ACTIVE_DEV_PORT": "3000"
+                }
+            }
+        },
+        {
+            "label": "Test: E2E Development",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "test:e2e:dev"],
+            "group": "test",
+            "dependsOn": "Dev Server - Port 3000",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "options": {
+                "env": {
+                    "ACTIVE_DEV_PORT": "3000",
+                    "ACTIVE_DEV_URL": "${env:CODESPACE_NAME:+https://${env:CODESPACE_NAME}-3000.${env:GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}}${env:CODESPACE_NAME:-http://localhost:3000}"
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Test: E2E Quick Screenshots",
+            "type": "shell",
+            "command": "npx",
+            "args": ["playwright", "test", "e2e/quick-screenshots.spec.ts", "--project=chromium"],
+            "group": "test",
+            "dependsOn": "Dev Server - Port 3000",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "options": {
+                "env": {
+                    "ACTIVE_DEV_PORT": "3000",
+                    "ACTIVE_DEV_URL": "${env:CODESPACE_NAME:+https://${env:CODESPACE_NAME}-3000.${env:GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}}${env:CODESPACE_NAME:-http://localhost:3000}"
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Test: E2E Smoke Tests",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "test:e2e:smoke"],
+            "group": "test",
+            "dependsOn": "Dev Server - Port 3000",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "options": {
+                "env": {
+                    "ACTIVE_DEV_PORT": "3000",
+                    "ACTIVE_DEV_URL": "${env:CODESPACE_NAME:+https://${env:CODESPACE_NAME}-3000.${env:GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}}${env:CODESPACE_NAME:-http://localhost:3000}"
+                }
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Test: Playwright Visual Regression",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "test:e2e:visual"],
+            "group": "test",
+            "dependsOn": "Dev Server - Port 3000",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "options": {
+                "env": {
+                    "ACTIVE_DEV_PORT": "3000",
+                    "ACTIVE_DEV_URL": "${env:CODESPACE_NAME:+https://${env:CODESPACE_NAME}-3000.${env:GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}}${env:CODESPACE_NAME:-http://localhost:3000}"
+                }
+            }
+        },
+        {
+            "label": "Test: Accessibility",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "test:e2e:accessibility"],
+            "group": "test",
+            "dependsOn": "Dev Server - Port 3000",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Hooks: Visual Development Workflow",
+            "type": "shell",
+            "command": "./scripts/hooks/visual-development-workflow.sh",
+            "args": ["${file}"],
+            "group": "build",
+            "dependsOn": "Dev Server - Port 3000",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "options": {
+                "env": {
+                    "ACTIVE_DEV_PORT": "3000",
+                    "ACTIVE_DEV_URL": "${env:CODESPACE_NAME:+https://${env:CODESPACE_NAME}-3000.${env:GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}}${env:CODESPACE_NAME:-http://localhost:3000}",
+                    "DEV_SERVER_MANAGED": "true"
+                }
+            }
+        },
+        {
+            "label": "Hooks: Performance Excellence Check",
+            "type": "shell",
+            "command": "./scripts/hooks/performance-excellence-check.sh",
+            "args": ["component", "${file}"],
+            "group": "build",
+            "dependsOn": "Dev Server - Port 3000",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "options": {
+                "env": {
+                    "ACTIVE_DEV_PORT": "3000",
+                    "ACTIVE_DEV_URL": "${env:CODESPACE_NAME:+https://${env:CODESPACE_NAME}-3000.${env:GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}}${env:CODESPACE_NAME:-http://localhost:3000}",
+                    "DEV_SERVER_MANAGED": "true"
+                }
+            }
+        },
+        {
+            "label": "Full E2E Test Suite",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Dev Server - Port 3000",
+                "Wait for Server Ready",
+                "Test: E2E Development",
+                "Test: E2E Quick Screenshots",
+                "Test: Accessibility"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true
+            }
+        },
+        {
+            "label": "Build: TypeScript Check",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "typecheck"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [
+                "$tsc"
+            ]
+        },
+        {
+            "label": "Build: Lint",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "lint"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [
+                "$eslint-stylish"
+            ]
+        },
+        {
+            "label": "Build: Production Build",
+            "type": "shell",
+            "command": "npm",
+            "args": ["run", "build"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Quality Gates: Full Validation",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Build: TypeScript Check",
+                "Build: Lint",
+                "Build: Production Build"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true
+            }
+        }
+    ]
+}

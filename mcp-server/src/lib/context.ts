@@ -14,7 +14,8 @@ import {
  * Initialize project context by detecting environment and project state
  */
 export async function initializeProjectContext(): Promise<ProjectContext> {
-  const projectRoot = process.env.PROJECT_ROOT || process.cwd();
+  // Ensure we're using the Tyler Gohr portfolio root directory
+  const projectRoot = process.env.PROJECT_ROOT || "/home/user/tylergohr.com";
   
   return {
     projectRoot,
@@ -225,45 +226,119 @@ export async function detectActivePort(): Promise<{ port: number; url: string } 
     if (envPort && envUrl) {
       const port = parseInt(envPort);
       if (!isNaN(port)) {
-        return { port, url: envUrl };
+        // Validate the port is actually responding
+        const isHealthy = await testPortHealth(port);
+        if (isHealthy) {
+          return { port, url: envUrl };
+        }
       }
     }
     
-    // Try to find Next.js processes
-    const psOutput = await runCommand("ps", ["aux"]);
-    const nextjsProcesses = psOutput
-      .split('\n')
-      .filter(line => line.includes('next-server') || line.includes('next dev'))
-      .filter(line => !line.includes('grep'));
-    
-    for (const processLine of nextjsProcesses) {
-      const pid = processLine.split(/\s+/)[1];
-      if (pid) {
-        try {
-          const lsofOutput = await runCommand("lsof", ["-i", "-P", "-n"]);
-          const portLines = lsofOutput
-            .split('\n')
-            .filter(line => line.includes(pid) && line.includes('LISTEN'));
-          
-          for (const portLine of portLines) {
-            const portMatch = portLine.match(/:(\d+)/);
-            if (portMatch) {
-              const port = parseInt(portMatch[1]);
-              if (port >= 3000 && port <= 65535) {
-                const url = await constructUrl(port);
+    // Use the same working logic as smart-dev.sh
+    try {
+      const netstatOutput = await runCommand("netstat", ["-tlnp"]);
+      
+      // Find Next.js servers using the proven approach from smart-dev.sh
+      const nextServerLines = netstatOutput.split('\n').filter(line => line.includes('next-server'));
+      
+      if (nextServerLines.length > 0) {
+        // Extract ports from Next.js server lines
+        for (const line of nextServerLines) {
+          const portMatch = line.match(/:(\d+)/);
+          if (portMatch) {
+            const port = parseInt(portMatch[1]);
+            if (port >= 3000 && port <= 4010) {
+              const url = await constructUrl(port);
+              const isHealthy = await testPortHealth(port);
+              if (isHealthy) {
+                // Set environment variables when successful detection occurs
+                process.env.ACTIVE_DEV_PORT = port.toString();
+                process.env.ACTIVE_DEV_URL = url;
                 return { port, url };
               }
             }
           }
-        } catch {
-          // Continue to next process
         }
+      }
+    } catch {
+      // Netstat failed, try fallback with lsof
+    }
+    
+    // Fallback: Try to find Next.js processes and match with lsof
+    try {
+      const psOutput = await runCommand("ps", ["aux"]);
+      const nextjsProcesses = psOutput
+        .split('\n')
+        .filter(line => line.includes('next-server') || line.includes('next dev'))
+        .filter(line => !line.includes('grep'));
+      
+      for (const processLine of nextjsProcesses) {
+        const pid = processLine.split(/\s+/)[1];
+        if (pid) {
+          try {
+            // Use lsof with IPv6 support
+            const lsofOutput = await runCommand("lsof", ["-i", "-P", "-n", "-p", pid]);
+            const portLines = lsofOutput
+              .split('\n')
+              .filter(line => line.includes('LISTEN'));
+            
+            for (const portLine of portLines) {
+              const portMatch = portLine.match(/:(\d+)/);
+              if (portMatch) {
+                const port = parseInt(portMatch[1]);
+                if (port >= 3000 && port <= 65535) {
+                  const url = await constructUrl(port);
+                  const isHealthy = await testPortHealth(port);
+                  if (isHealthy) {
+                    // Set environment variables when successful detection occurs
+                    process.env.ACTIVE_DEV_PORT = port.toString();
+                    process.env.ACTIVE_DEV_URL = url;
+                    return { port, url };
+                  }
+                }
+              }
+            }
+          } catch {
+            // Continue to next process
+          }
+        }
+      }
+    } catch {
+      // Process detection failed
+    }
+    
+    // Last resort: Test common development ports directly
+    const commonPorts = [3000, 3001, 3002, 4000, 4001];
+    for (const port of commonPorts) {
+      const isHealthy = await testPortHealth(port);
+      if (isHealthy) {
+        const url = await constructUrl(port);
+        // Set environment variables when successful detection occurs
+        process.env.ACTIVE_DEV_PORT = port.toString();
+        process.env.ACTIVE_DEV_URL = url;
+        return { port, url };
       }
     }
     
     return null;
   } catch {
     return null;
+  }
+}
+
+/**
+ * Test if a port is responding with a Next.js server
+ */
+async function testPortHealth(port: number): Promise<boolean> {
+  try {
+    const url = await constructUrl(port);
+    const response = await fetch(url, {
+      method: "HEAD",
+      signal: AbortSignal.timeout(3000), // 3 second timeout
+    });
+    return response.ok;
+  } catch {
+    return false;
   }
 }
 

@@ -404,7 +404,7 @@ async function findOptimalPort(
  */
 async function isPortAvailable(port: number): Promise<boolean> {
   return new Promise((resolve) => {
-    const { spawn } = require("child_process");
+    // spawn is already imported at the top of the file
     
     const lsof = spawn("lsof", ["-i", `:${port}`]);
     let output = "";
@@ -469,7 +469,7 @@ async function validateServerHealth(port: number): Promise<boolean> {
  */
 async function killServerProcess(port: number): Promise<boolean> {
   try {
-    const { spawn } = require("child_process");
+    // spawn is already imported at the top of the file
     
     // Find the PID using the port
     const lsof = spawn("lsof", ["-ti", `:${port}`]);

@@ -4,7 +4,7 @@
         {
             "label": "Auto-Start Dev Server",
             "type": "shell",
-            "command": "./scripts/simple-env-setup.sh",
+            "command": "./scripts/smart-dev.sh",
             "args": [],
             "group": {
                 "kind": "build",

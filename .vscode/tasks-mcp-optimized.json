@@ -2,10 +2,10 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Auto-Start Dev Server",
+            "label": "MCP: Start Dev Server",
             "type": "shell",
-            "command": "./scripts/simple-env-setup.sh",
-            "args": [],
+            "command": "node",
+            "args": ["mcp-server/dist/index.js", "startDevServerMCP", "--action=start", "--enhanced=true"],
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -20,25 +20,21 @@
             },
             "options": {
                 "env": {
-                    "PORT": "3000",
-                    "HOSTNAME": "0.0.0.0",
-                    "NODE_ENV": "development",
-                    "CLAUDE_AUTO_SUBAGENT": "true",
-                    "MCP_ENFORCEMENT_ACTIVE": "true"
+                    "MCP_ENVIRONMENT": "auto",
+                    "TIMEOUT_PREVENTION": "true",
+                    "CLAUDE_AUTO_SUBAGENT": "true"
                 }
             },
             "problemMatcher": [
                 {
-                    "owner": "next-dev",
+                    "owner": "mcp-server",
                     "fileLocation": ["relative", "${workspaceFolder}"],
                     "pattern": [
                         {
-                            "regexp": "^(.+)\\((\\d+),(\\d+)\\):\\s+(error|warning)\\s+(.+)$",
+                            "regexp": "^❌\\s+(.*):\\s+(.*)$",
                             "file": 1,
-                            "line": 2,
-                            "column": 3,
-                            "severity": 4,
-                            "message": 5
+                            "message": 2,
+                            "severity": "error"
                         }
                     ]
                 }
@@ -46,7 +42,7 @@
             "background": {
                 "activeOnStart": true,
                 "beginsPattern": "^.*Starting.*development.*server.*",
-                "endsPattern": "^.*ready.*started.*server.*on.*http://localhost.*"
+                "endsPattern": "^.*Development server started successfully.*"
             },
             "runOptions": {
                 "instanceLimit": 1,
@@ -55,10 +51,10 @@
             }
         },
         {
-            "label": "Detect Active Port",
+            "label": "MCP: Detect Active Port",
             "type": "shell",
-            "command": "./scripts/detect-active-port.sh",
-            "args": [],
+            "command": "node",
+            "args": ["mcp-server/dist/index.js", "detectActivePortMCP", "--includeHealth=true", "--scanPorts=true"],
             "group": "build",
             "presentation": {
                 "echo": true,
@@ -68,17 +64,17 @@
             },
             "options": {
                 "env": {
-                    "CLAUDE_AUTO_SUBAGENT": "true"
+                    "MCP_ENVIRONMENT": "auto"
                 }
             }
         },
         {
-            "label": "Execute Smoke Tests",
+            "label": "MCP: Execute Smoke Tests",
             "type": "shell",
-            "command": "npm",
-            "args": ["run", "test:e2e:smoke"],
+            "command": "node",
+            "args": ["mcp-server/dist/index.js", "executeTestMCP", "--testType=smoke", "--strategy=auto", "--fastMode=true"],
             "group": "test",
-            "dependsOn": "Auto-Start Dev Server",
+            "dependsOn": "MCP: Start Dev Server",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -87,19 +83,19 @@
             },
             "options": {
                 "env": {
-                    "CLAUDE_AUTO_SUBAGENT": "true",
+                    "MCP_ENVIRONMENT": "auto",
                     "TIMEOUT_PREVENTION": "true"
                 }
             },
             "problemMatcher": []
         },
         {
-            "label": "Execute Development Tests",
+            "label": "MCP: Execute Development Tests",
             "type": "shell",
-            "command": "npm",
-            "args": ["run", "test:e2e:dev"],
+            "command": "node",
+            "args": ["mcp-server/dist/index.js", "executeTestMCP", "--testType=dev", "--strategy=auto", "--skipVisual=true"],
             "group": "test",
-            "dependsOn": "Auto-Start Dev Server",
+            "dependsOn": "MCP: Start Dev Server",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -108,17 +104,16 @@
             },
             "options": {
                 "env": {
-                    "CLAUDE_AUTO_SUBAGENT": "true",
-                    "TIMEOUT_PREVENTION": "true",
-                    "SKIP_VISUAL": "true"
+                    "MCP_ENVIRONMENT": "auto",
+                    "TIMEOUT_PREVENTION": "true"
                 }
             }
         },
         {
-            "label": "Validate Quality Gates",
+            "label": "MCP: Validate Quality Gates",
             "type": "shell",
-            "command": "npm",
-            "args": ["run", "validate"],
+            "command": "node",
+            "args": ["mcp-server/dist/index.js", "validateQualityGatesMCP", "--checks=[\"typescript\",\"eslint\",\"build\"]"],
             "group": "build",
             "presentation": {
                 "echo": true,
@@ -128,7 +123,7 @@
             },
             "options": {
                 "env": {
-                    "CLAUDE_AUTO_SUBAGENT": "true",
+                    "MCP_ENVIRONMENT": "auto",
                     "TIMEOUT_PREVENTION": "true"
                 }
             },
@@ -138,40 +133,30 @@
             ]
         },
         {
-            "label": "Monitor Performance",
+            "label": "MCP: Monitor Performance",
             "type": "shell",
-            "command": "npm",
-            "args": ["run", "test:e2e:performance"],
+            "command": "node",
+            "args": ["mcp-server/dist/index.js", "monitorPerformanceMCP", "--includeBundle=true", "--includeLighthouse=true"],
             "group": "test",
-            "dependsOn": "Auto-Start Dev Server",
+            "dependsOn": "MCP: Start Dev Server",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
                 "focus": true,
                 "panel": "new"
-            },
-            "options": {
-                "env": {
-                    "CLAUDE_AUTO_SUBAGENT": "true"
-                }
             }
         },
         {
-            "label": "Check System Health",
+            "label": "MCP: Check System Health",
             "type": "shell",
-            "command": "./scripts/hooks/orchestrator/orchestrator.sh",
-            "args": ["health"],
+            "command": "node",
+            "args": ["mcp-server/dist/index.js", "checkSystemHealthMCP", "--format=detailed", "--includeInsights=true"],
             "group": "build",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
                 "focus": true,
                 "panel": "new"
-            },
-            "options": {
-                "env": {
-                    "CLAUDE_AUTO_SUBAGENT": "true"
-                }
             }
         },
         {
@@ -208,7 +193,7 @@
             "command": "./scripts/mcp-enforcement-system.sh",
             "args": ["intercept", "npm", "run", "test:e2e:smoke"],
             "group": "test",
-            "dependsOn": "Auto-Start Dev Server",
+            "dependsOn": "MCP: Start Dev Server",
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -226,8 +211,8 @@
             "label": "Development Workflow: Quick Iteration",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "Auto-Start Dev Server",
-                "Execute Smoke Tests"
+                "MCP: Start Dev Server",
+                "MCP: Execute Smoke Tests"
             ],
             "group": "build",
             "presentation": {
@@ -240,9 +225,9 @@
             "label": "Quality Assurance: Complete Validation",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "Validate Quality Gates",
-                "Execute Development Tests",
-                "Monitor Performance"
+                "MCP: Validate Quality Gates",
+                "MCP: Execute Development Tests",
+                "MCP: Monitor Performance"
             ],
             "group": "test",
             "presentation": {
@@ -255,8 +240,8 @@
             "label": "Emergency: System Health Check",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "Check System Health",
-                "Detect Active Port"
+                "MCP: Check System Health",
+                "MCP: Detect Active Port"
             ],
             "group": "build",
             "presentation": {
