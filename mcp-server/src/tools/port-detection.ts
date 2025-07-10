@@ -130,25 +130,39 @@ async function analyzePort(port: number, environment: string): Promise<ServerInf
 }
 
 /**
- * Check if port is listening
+ * Check if port is listening (supports IPv4 and IPv6)
  */
 async function checkPortListening(port: number): Promise<boolean> {
-  return new Promise((resolve) => {
-    const lsof = spawn("lsof", ["-i", `:${port}`, "-sTCP:LISTEN"]);
-    let output = "";
+  try {
+    // Use netstat which handles IPv6 better than lsof
+    const netstatOutput = await runCommand("netstat", ["-tln"]);
+    const lines = netstatOutput.split('\n');
     
-    lsof.stdout.on("data", (data) => {
-      output += data.toString();
-    });
+    // Look for port in both IPv4 and IPv6 formats
+    const portPatterns = [
+      `:${port} `,           // IPv4: 0.0.0.0:3000
+      `:::${port} `,         // IPv6: :::3000
+      `127.0.0.1:${port} `,  // Localhost IPv4
+      `::1:${port} `,        // Localhost IPv6
+    ];
     
-    lsof.on("close", (code) => {
-      resolve(output.trim().length > 0);
-    });
-    
-    lsof.on("error", () => {
-      resolve(false);
-    });
-  });
+    return lines.some(line => 
+      line.includes('LISTEN') && 
+      portPatterns.some(pattern => line.includes(pattern))
+    );
+  } catch {
+    // Fallback to basic port test
+    try {
+      const url = `http://localhost:${port}`;
+      const response = await fetch(url, {
+        method: "HEAD",
+        signal: AbortSignal.timeout(2000),
+      });
+      return response.ok;
+    } catch {
+      return false;
+    }
+  }
 }
 
 /**
@@ -156,22 +170,48 @@ async function checkPortListening(port: number): Promise<boolean> {
  */
 async function getPortProcessInfo(port: number): Promise<{ pid: number; processName: string } | null> {
   try {
-    const lsofOutput = await runCommand("lsof", ["-i", `:${port}`, "-sTCP:LISTEN"]);
-    const lines = lsofOutput.trim().split('\n');
+    // Use netstat with process information
+    const netstatOutput = await runCommand("netstat", ["-tlnp"]);
+    const lines = netstatOutput.split('\n');
     
-    if (lines.length > 1) {
-      const processLine = lines[1];
-      const parts = processLine.split(/\s+/);
-      const processName = parts[0];
-      const pid = parseInt(parts[1]);
-      
-      if (!isNaN(pid)) {
-        return { pid, processName };
+    // Look for the port and extract process info
+    for (const line of lines) {
+      if (line.includes(`:${port} `) && line.includes('LISTEN')) {
+        const processMatch = line.match(/(\d+)\/(.+)$/);
+        if (processMatch) {
+          const pid = parseInt(processMatch[1]);
+          const processName = processMatch[2];
+          
+          if (!isNaN(pid)) {
+            return { pid, processName };
+          }
+        }
       }
     }
     
     return null;
   } catch {
+    // Fallback: try to find Next.js processes and guess
+    try {
+      const psOutput = await runCommand("ps", ["aux"]);
+      const nextjsProcesses = psOutput
+        .split('\n')
+        .filter(line => line.includes('next-server') || line.includes('next dev'))
+        .filter(line => !line.includes('grep'));
+      
+      if (nextjsProcesses.length > 0) {
+        const processLine = nextjsProcesses[0];
+        const pid = parseInt(processLine.split(/\s+/)[1]);
+        const processName = "next-server";
+        
+        if (!isNaN(pid)) {
+          return { pid, processName };
+        }
+      }
+    } catch {
+      // Final fallback
+    }
+    
     return null;
   }
 }
