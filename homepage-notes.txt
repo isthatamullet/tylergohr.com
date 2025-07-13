@@ -1,0 +1,201 @@
+# Portfolio Website Content Refinement Assistant - tylergohr.com
+
+## Your Role
+
+Act as a professional resume writer, career coach, and content optimization specialist. Help me refine the text content on my portfolio/resume website to make it more compelling, professional, and appealing to a broader audience of potential employers and clients.
+
+## Context & Goals
+
+- I have a portfolio/resume website that needs content optimization
+- I want to replace specific technical terms, phrases, and descriptions with more accessible or strategic alternatives
+- The goal is to broaden appeal while maintaining technical credibility
+- I want to work through refinements systematically, one section at a time
+
+
+
+## Workflow Instructions
+
+1. **Read through my annotated content** and understand what I want to change
+1. **For each marked item:**
+- If I’ve specified a replacement, evaluate if it works well in context
+- If I haven’t specified a replacement, suggest 2-3 professional alternatives
+- Consider broader audience appeal (HR, non-technical stakeholders, etc.)
+- Maintain authenticity and technical credibility
+1. **Work through refinements one by one:**
+- Present each suggested change clearly
+- Explain your reasoning for recommendations
+- Ask for my feedback before moving to the next item
+- Show the before/after for each change
+1. **Consider these optimization principles:**
+- Use action-oriented, results-focused language
+- Replace jargon with more universally understood terms when possible
+- Emphasize business impact and problem-solving
+- Make technical skills accessible to non-technical readers
+- Maintain professional tone while being engaging
+
+## Output Format for Each Refinement
+
+**Current text:** [original phrase]
+**Suggested replacement:** [your recommendation]
+**Why:** [brief explanation of the improvement]
+**Alternative options:** [1-2 other possibilities if applicable]
+
+Ready to start? I’ve pasted my annotated homepage content below. Let's begin with the first marked item - I've marked areas to change with "CHANGE:"
+
+You're welcome to search the web for ideas in case that'd be helpful!
+
+
+
+Aim for more compelling replacements.
+Suggest alternatives if you have better options.
+
+
+Here we go:
+
+
+Delivering measurable impact through strategic technical leadership
+🏆
+1
+Emmy Award Winner
+2018 FIFA World Cup Streaming Technology, The National Academy of Television Arts & Sciences
+💰
+$2M+
+Cost Savings Achieved
+Fox Corporation content strategy optimization, streamlined workflows and enhanced efficiency
+
+CHANGE: I want this card to mention the $2M cost savings was achieved within two years - change the title of the card "Cost Savings Achieved" to “2 Year Cost Savings” or suggest alternatives if you have better options
+
+📈
+96%
+Success Rate Achievement
+Warner Bros delivery improvement (from 32%), achieved in first 3 months through strategic redesign
+
+CHANGE: I want to change the 96% to 200% since our success rate went from 32% to 96%. I also want to reword the achievement "Success Rate Achievement" so it makes more sense to a wider audience. “Delivery success rate” is what we called it, which describes the number of content deliveries we made that were accepted on the first delivery.
+
+
+👥
+10+
+Team Members Led
+Across global organizations (Fox Corporation, Warner Bros, SDI Media)
+
+CHANGE: I want to change the number from “10+” to a non specific number and reword the title card to something like “Global Team Leader” since I was responsible for managing teams where employees were located around the globe. suggest alternatives if you have better options.
+
+
+📚
+50,000+
+Titles Managed
+Plus 30,000+ digital assets, enterprise-scale content distribution platforms
+
+CHANGE: I want to change 50,000+ to 80,000+. Change the title of this card to “Digital Products”, and change the short description to something about how I managed the digital products and their distribution while ensuring the highest quality, and also keep the part about enterprise-scale content distribution platforms (or similar version if you have better options)
+
+🤖
+50%
+Efficiency Gains
+AI-powered automation implementation, reduced manual review time and error rates
+
+CHANGE: I want to change 50% to something like 50-75%
+
+🌍
+16+
+Years Experience
+Enterprise technical leadership, Fortune 500 companies and global platforms
+
+CHANGE: Change 16+ to 17+
+
+🚀
+3
+Major Platform Contributions
+Fox Nation, Fox Weather, FIFA World Cup - successful launches with millions of users
+
+CHANGE: I want to change “3” to “11”
+(These are the specific platforms I can remember but I don't necessarily want them named on the homepage - FUEL TV, Fox.com, FOX NOW, National Geographic, FX, iTunes, Netflix, Hulu, Prime Video, Fox Nation, Fox Weather)
+
+
+
+
+Case Studies
+Delivering measurable results through strategic technical leadership across Fortune 500 enterprises.
+
+$2M+ Cost Savings
+Content Distribution Platform Revolution
+Fox Corporation needed to manage 50,000+ titles while reducing costs by millions.
+Saved "a few million bucks" through strategic optimization
+See How I Did It
+
+CHANGE: Change the sentence starting with "Fox Corporation" to "Fox Corporation needed to manage 50,000+ video titles and reduce costs."
+
+96% Success Rate
+Workflow Transformation Success
+Warner Bros delivery success rates stuck at just 32% - industry demanded perfection.
+Boosted success rate from 32% to 96% in 3 months
+Read the Strategy
+
+CHANGE: Reword the above section appropriately to align with 200% success rate Results card. I'm open to different options and suggestions.
+
+50% Efficiency Gains
+AI-Powered Innovation Pioneer
+Manual content review was bottlenecking high-volume TV production growth.
+Reduced manual review time and errors by 50% with AI automation
+Explore the Solution
+
+CHANGE: Update this section so its numbers (like 50%) align with the updates made to the efficiency gains card above.
+
+Emmy Award Winner
+Emmy-Winning Live Streaming
+2018 FIFA World Cup demanded flawless global streaming with zero tolerance for failure.
+Emmy Award recognition for streaming technology excellence
+Discover the Tech
+
+
+
+How I Work
+Enterprise methodology from discovery to optimization, ensuring scalable solutions and measurable outcomes.
+View Full Process →
+Discover the complete methodology behind enterprise-quality development
+Technical Expertise
+Cutting-edge technologies and enterprise leadership experience driving innovation across Fortune 500 organizations.
+8+ years
+React 19Next.js 14TypeScriptAdvanced CSSFramer MotionCSS Grid Subgrid
+
+CHANGE: 	I want these specific technologies to be replaced by more general terms that most people can understand. Open to suggestions!
+
+Current: This portfolio built with Next.js 14 + TypeScript
+
+
+10+ years
+Node.jsExpress APIsGoogle Cloud PlatformPostgreSQLPrisma ORMDocker
+
+CHANGE: 	I want to replace all of these technologies EXCEPT for Google Cloud Platform, with more general terms that most people can understand 
+
+Current: Google Cloud Run deployment with CI/CD automation
+
+
+17+ years
+Team Leadership (10+ people)AI Implementation PioneerProduct ManagementStrategic Planning
+
+CHANGE: I want to change “10+ people” to something like on-site and remote employees around the globe, without a specific number.
+
+Current: Leading Warner Bros & Fox Corporation technical initiatives
+🔧
+Integration & Automation
+
+CHANGE: I want to change “Leading Warner Bros & Fox Corporation technical initiatives” to a more generalized “Technology Consultant” role - and I'm VERY open to suggestions and any better options.
+
+12+ years
+Stripe Payment ProcessingReal-time Socket.IOAI-Powered AutomationAPI Integration
+
+CHANGE: I want to replace these specific technologies with more general terms that most people can understand (EXCEPT for Stripe Payment Processing, which I’d like to reword to something like Payment Platform Processing so it’s not Stripe specific)
+
+Current: Invoice Chaser automation reducing payment times 25-40%
+
+
+
+
+
+Team members across 9 countries (Fox Corporation, Warner Bros, SDI Media)
+Remove all text after the word 'countries'
+
+Fox Nation, Fox Weather, FIFA World Cup - successful launches with millions of users
+Let's change "Fox Nation, Fox Weather, FIFA World Cup" to something like "From iTunes to FOX NOW to Prime Video - successful launches satisfying millions of users
+
+Animation for 50-75% - you see the number animate from 0 up to 50 and then it suddenly adds the "-75%" - how can we change the animation effect so it begins with something like "0-0%" and have both of the 0s animate to 50 and 75 respectively?

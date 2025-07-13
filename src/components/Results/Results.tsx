@@ -43,7 +43,7 @@ const metrics: Metric[] = [
     id: 'team-leadership',
     number: '9',
     label: 'Worldwide Team Scope',
-    description: 'Team members across 9 countries (Fox Corporation, Warner Bros, SDI Media)',
+    description: 'Team members across 9 countries',
     icon: '👥',
     category: 'leadership'
   },
@@ -75,7 +75,7 @@ const metrics: Metric[] = [
     id: 'platform-contributions',
     number: '11',
     label: 'Leading Platform Contributions',
-    description: 'Fox Nation, Fox Weather, FIFA World Cup - successful launches with millions of users',
+    description: 'From iTunes to FOX NOW to Prime Video - successful launches satisfying millions of users',
     icon: '🚀',
     category: 'platform'
   }
