@@ -65,13 +65,6 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   animate = true,
   className = ''
 }) => {
-  const [isVisible, setIsVisible] = useState(false)
-  const [hasAnimated, setHasAnimated] = useState(false)
-  const cardRef = useRef<HTMLDivElement>(null)
-  const countValue = useMotionValue(0)
-  const countValue2 = useMotionValue(0)
-  const [displayValue, setDisplayValue] = useState(isRange ? '0-0' : '0')
-
   // Extract numeric value(s) from metric.number for animation
   const getNumericValues = (numberString: string): { value1: number; value2?: number; isRange: boolean } => {
     // Check if it's a range (like "50-75%")
@@ -91,6 +84,13 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   }
 
   const { value1: finalValue, value2: finalValue2, isRange } = getNumericValues(metric.number)
+
+  const [isVisible, setIsVisible] = useState(false)
+  const [hasAnimated, setHasAnimated] = useState(false)
+  const cardRef = useRef<HTMLDivElement>(null)
+  const countValue = useMotionValue(0)
+  const countValue2 = useMotionValue(0)
+  const [displayValue, setDisplayValue] = useState(isRange ? '0-0' : '0')
 
   // Intersection Observer for scroll-triggered animation
   useEffect(() => {
