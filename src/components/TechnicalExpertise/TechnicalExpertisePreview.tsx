@@ -28,7 +28,7 @@ export const TechnicalExpertisePreview: React.FC = () => {
     {
       id: 'modern-frontend',
       category: 'Modern Frontend',
-      skills: ['React 19', 'Next.js 14', 'TypeScript', 'Advanced CSS', 'Framer Motion', 'CSS Grid Subgrid'],
+      skills: ['User Interface Development', 'Modern Web Applications', 'Interactive Design', 'Advanced Styling', 'Smooth Animations', 'Responsive Layouts'],
       experience: '8+ years',
       currentExample: 'This portfolio built with Next.js 14 + TypeScript',
       icon: '⚛️'
@@ -36,7 +36,7 @@ export const TechnicalExpertisePreview: React.FC = () => {
     {
       id: 'backend-cloud',
       category: 'Backend & Cloud',
-      skills: ['Node.js', 'Express APIs', 'Google Cloud Platform', 'PostgreSQL', 'Prisma ORM', 'Docker'],
+      skills: ['Server Development', 'API Development', 'Google Cloud Platform', 'Database Management', 'Data Architecture', 'Containerization'],
       experience: '10+ years',
       currentExample: 'Google Cloud Run deployment with CI/CD automation',
       icon: '☁️'
@@ -44,15 +44,15 @@ export const TechnicalExpertisePreview: React.FC = () => {
     {
       id: 'enterprise-leadership',
       category: 'Enterprise Leadership',
-      skills: ['Team Leadership (10+ people)', 'AI Implementation Pioneer', 'Product Management', 'Strategic Planning'],
-      experience: '16+ years',
-      currentExample: 'Leading Warner Bros & Fox Corporation technical initiatives',
+      skills: ['Global Team Leadership', 'AI Implementation Pioneer', 'Product Management', 'Strategic Planning'],
+      experience: '17+ years',
+      currentExample: 'Technology and Business Solutions Consultant for growing companies and large-scale enterprises',
       icon: '👥'
     },
     {
       id: 'integration-automation',
       category: 'Integration & Automation',
-      skills: ['Stripe Payment Processing', 'Real-time Socket.IO', 'AI-Powered Automation', 'API Integration'],
+      skills: ['Payment Platform Processing', 'Real-time Communication', 'AI-Powered Automation', 'System Integration'],
       experience: '12+ years',
       currentExample: 'Invoice Chaser automation reducing payment times 25-40%',
       icon: '🔧'

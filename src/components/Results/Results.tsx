@@ -26,38 +26,38 @@ const metrics: Metric[] = [
   {
     id: 'cost-savings',
     number: '$2M+',
-    label: 'Cost Savings Achieved',
+    label: '2-Year ROI Impact',
     description: 'Fox Corporation content strategy optimization, streamlined workflows and enhanced efficiency',
     icon: '💰',
     category: 'financial'
   },
   {
     id: 'success-rate',
-    number: '96%',
-    label: 'Success Rate Achievement',
-    description: 'Warner Bros delivery improvement (from 32%), achieved in first 3 months through strategic redesign',
+    number: '200%',
+    label: 'Performance Improvement',
+    description: 'Warner Bros delivery performance increased from 32% to 96% in first 3 months through strategic redesign',
     icon: '📈',
     category: 'performance'
   },
   {
     id: 'team-leadership',
-    number: '10+',
-    label: 'Team Members Led',
-    description: 'Across global organizations (Fox Corporation, Warner Bros, SDI Media)',
+    number: '9',
+    label: 'Worldwide Team Scope',
+    description: 'Team members across 9 countries',
     icon: '👥',
     category: 'leadership'
   },
   {
     id: 'content-scale',
-    number: '50,000+',
-    label: 'Titles Managed',
-    description: 'Plus 30,000+ digital assets, enterprise-scale content distribution platforms',
+    number: '80,000+',
+    label: 'Digital Products',
+    description: 'Managed digital products and distribution across enterprise-scale platforms, ensuring highest quality standards',
     icon: '📚',
     category: 'scale'
   },
   {
     id: 'efficiency-gains',
-    number: '50%',
+    number: '50-75%',
     label: 'Efficiency Gains',
     description: 'AI-powered automation implementation, reduced manual review time and error rates',
     icon: '🤖',
@@ -65,7 +65,7 @@ const metrics: Metric[] = [
   },
   {
     id: 'experience',
-    number: '16+',
+    number: '17+',
     label: 'Years Experience',
     description: 'Enterprise technical leadership, Fortune 500 companies and global platforms',
     icon: '🌍',
@@ -73,9 +73,9 @@ const metrics: Metric[] = [
   },
   {
     id: 'platform-contributions',
-    number: '3',
-    label: 'Major Platform Contributions',
-    description: 'Fox Nation, Fox Weather, FIFA World Cup - successful launches with millions of users',
+    number: '11',
+    label: 'Leading Platform Contributions',
+    description: 'From iTunes to FOX NOW to Prime Video - successful launches satisfying millions of users',
     icon: '🚀',
     category: 'platform'
   }
@@ -113,6 +113,8 @@ export const Results: React.FC<ResultsProps> = ({
       className={`${styles.resultsSection} ${className}`}
       aria-labelledby="results-title"
     >
+      <div className={styles.backgroundOverlay} />
+      
       <div className={styles.resultsContainer}>
         <header className={styles.resultsHeader}>
           <h2 id="results-title" className={styles.resultsTitle}>

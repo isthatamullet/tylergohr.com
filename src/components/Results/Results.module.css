@@ -4,12 +4,27 @@
   background: var(--color-background-results, #10b981);
   color: var(--color-text-on-green, #ffffff);
   position: relative;
+  overflow: hidden;
+}
+
+/* Background overlay for animated metrics visualization */
+.backgroundOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/images/results-metrics-bg.svg') center/cover no-repeat;
+  z-index: 1;
+  opacity: 0.5;
 }
 
 .resultsContainer {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px;
+  position: relative;
+  z-index: 2;
 }
 
 .resultsHeader {

@@ -4,8 +4,8 @@
         {
             "label": "Auto-Start Dev Server",
             "type": "shell",
-            "command": "./scripts/simple-env-setup.sh",
-            "args": [],
+            "command": "npm",
+            "args": ["run", "dev"],
             "group": {
                 "kind": "build",
                 "isDefault": true

@@ -48,6 +48,7 @@
   gap: 24px;
   margin-bottom: 64px;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr; /* Force equal row height - all cards match tallest */
 }
 
 /* Section CTA */
@@ -103,7 +104,7 @@
   
   .caseStudiesGrid {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr); /* Force equal row heights in 2x2 layout */
     gap: 20px;
   }
   

@@ -38,7 +38,7 @@ export const CaseStudiesPreview: React.FC = () => {
     {
       id: 'content-distribution-platform',
       title: 'Content Distribution Platform Revolution',
-      challengeTeaser: 'Fox Corporation needed to manage 50,000+ titles while reducing costs by millions.',
+      challengeTeaser: 'Fox Corporation needed to manage 50,000+ video titles and reduce costs.',
       keyImpact: 'Saved "a few million bucks" through strategic optimization',
       metricBadge: '$2M+ Cost Savings',
       metricCategory: 'savings',
@@ -49,8 +49,8 @@ export const CaseStudiesPreview: React.FC = () => {
       id: 'workflow-transformation',
       title: 'Workflow Transformation Success',
       challengeTeaser: 'Warner Bros delivery success rates stuck at just 32% - industry demanded perfection.',
-      keyImpact: 'Boosted success rate from 32% to 96% in 3 months',
-      metricBadge: '96% Success Rate',
+      keyImpact: 'Warner Bros delivery performance increased from 32% to 96% in first 3 months through strategic redesign',
+      metricBadge: '200% Performance Improvement',
       metricCategory: 'success',
       ctaText: 'Read the Strategy',
       link: '/2/case-studies?tab=warner'
@@ -59,8 +59,8 @@ export const CaseStudiesPreview: React.FC = () => {
       id: 'ai-powered-innovation',
       title: 'AI-Powered Innovation Pioneer',
       challengeTeaser: 'Manual content review was bottlenecking high-volume TV production growth.',
-      keyImpact: 'Reduced manual review time and errors by 50% with AI automation',
-      metricBadge: '50% Efficiency Gains',
+      keyImpact: 'Reduced manual review time and errors by 50-75% with AI automation',
+      metricBadge: '50-75% Efficiency Gains',
       metricCategory: 'innovation',
       ctaText: 'Explore the Solution',
       link: '/2/case-studies?tab=ai'

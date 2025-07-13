@@ -6,7 +6,7 @@
   "author": "Tyler Gohr",
   "license": "MIT",
   "scripts": {
-    "dev": "./scripts/simple-env-setup.sh",
+    "dev": "next dev",
     "dev:enhanced": "./scripts/subagent-integration.sh run npm run dev",
     "dev:claude": "CLAUDE_AUTO_SUBAGENT=true ./scripts/subagent-integration.sh run npm run dev",
     "dev:mcp": "./scripts/smart-dev-mcp.sh start",
