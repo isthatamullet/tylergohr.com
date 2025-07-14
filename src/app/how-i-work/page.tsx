@@ -44,7 +44,7 @@ const processSteps: ProcessStep[] = [
       'Resource planning and timeline development with realistic milestones',
       'Competitive analysis and best practices research'
     ],
-    businessValue: 'Strategic planning reduces development time by 30-40% and prevents technical debt that costs exponentially more to fix later.'
+    businessValue: 'Strategic planning reduces development time by 50-75% and prevents technical debt that costs exponentially more to fix later.'
   },
   {
     id: 'design',
@@ -72,7 +72,7 @@ const processSteps: ProcessStep[] = [
       'CI/CD pipeline setup for automated testing and deployment',
       'Performance optimization built-in from the start'
     ],
-    businessValue: 'Modern development practices deliver features 25-40% faster while maintaining enterprise-grade quality and reliability.'
+    businessValue: 'Modern development practices deliver features 50-75% faster while maintaining enterprise-grade quality and reliability.'
   },
   {
     id: 'testing',
@@ -80,13 +80,13 @@ const processSteps: ProcessStep[] = [
     description: 'Jest testing, TypeScript validation, performance optimization',
     icon: '🧪',
     details: [
-      'Comprehensive Jest testing suite for component and integration testing',
+      'Comprehensive Playwright testing suite for component and integration testing',
       'TypeScript validation for compile-time error prevention',
       'Performance testing and Core Web Vitals optimization',
       'Cross-browser and cross-device compatibility testing',
       'Security testing and vulnerability assessment'
     ],
-    businessValue: 'Rigorous testing reduces post-launch bugs by 80% and prevents costly emergency fixes that disrupt business operations.'
+    businessValue: 'Rigorous testing reduces post-launch bugs by 75% and prevents costly emergency fixes that disrupt business operations.'
   },
   {
     id: 'deployment',

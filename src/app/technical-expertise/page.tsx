@@ -92,7 +92,7 @@ const technicalAreas: TechnicalArea[] = [
     businessValue: 'From simple contact forms to complex financial systems, I build backend solutions that scale with your business while maintaining security, performance, and reliability that enterprise customers demand.',
     badge: {
       label: 'API Dev',
-      value: '16+ Yrs',
+      value: '17+ Yrs',
       type: 'backend'
     }
   },
@@ -132,13 +132,13 @@ const technicalAreas: TechnicalArea[] = [
   {
     id: 'leadership-strategy',
     title: 'Technical Leadership & Strategy',
-    description: 'Fortune 500 leadership experience managing teams of 10+ with strategic technical decision making and enterprise architecture.',
+    description: 'Fortune 500 leadership experience with global team leadership and strategic technical decision making and enterprise architecture.',
     skills: [
-      'Team Leadership: Led 10+ content specialists across global organizations',
+      'Team Leadership: Led cross-functional team members across 9 countries and global organizations',
       'Cross-Functional Coordination: Managed relationships between technical teams and executives',
       'Training & Development: Created comprehensive onboarding and technical documentation',
       'Budget & Resource Management: Cost optimization with focus on measurable ROI',
-      'Platform Architecture: Defined requirements for enterprise systems handling 50,000+ titles',
+      'Platform Architecture: Defined requirements for enterprise systems handling 80,000+ digital products',
       'Stakeholder Communication: Progress reporting to C-level executives and technical teams',
       'Quality Standards: Established protocols improving success rates from 32% to 96%',
       'Change Management: Led organization-wide process improvements and technology adoption'
@@ -151,7 +151,7 @@ const technicalAreas: TechnicalArea[] = [
     ],
     achievements: [
       'Improved content delivery success rates from 32% to 96% in 3 months',
-      'Led teams managing $2M+ in cost savings for Fox Corporation',
+      'Led teams delivering $2M+ in 2-year ROI impact for Fox Corporation',
       'Trained 10+ specialists in enterprise content management workflows',
       'Created 150+ page technical documentation adopted across organization'
     ],
@@ -183,7 +183,7 @@ const technicalAreas: TechnicalArea[] = [
       'Content automation: AI tools for content creation and moderation'
     ],
     achievements: [
-      'Reduced manual review time by 50% through AI automation implementation',
+      'Reduced manual review time by 50-75% through AI automation implementation',
       'Built financial systems achieving 25-40% payment time reduction',
       'Pioneered AI integration ahead of industry standard adoption',
       'Created automation saving thousands of hours of manual processing'
@@ -305,7 +305,7 @@ function TechnicalExpertisePageContent() {
               Technical Expertise
             </h1>
             <p className={styles.heroDescription}>
-              16+ years of enterprise leadership experience combined with cutting-edge modern development practices and proven results.
+              17+ years of enterprise leadership experience combined with cutting-edge modern development practices and proven results.
             </p>
           </header>
         </div>

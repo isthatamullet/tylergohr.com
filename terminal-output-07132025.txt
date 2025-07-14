@@ -1,0 +1,29 @@
+When i start claude code it says one of my MCP servers failed to start. then when i run /mcp i see:
+
+Manage MCP servers                                                                                                      │
+│                                                                                                                         │
+│ ❯ 1. context7              ✔ connected · Enter to view details                                                          │
+│   2. puppeteer             ✔ connected · Enter to view details                                                          │
+│   3. sequential-thinking   ✘ failed · Enter to view details                                                             │
+│   4. tyler-gohr-portfolio  ✔ connected · Enter to view details
+
+when i type enter on #3, i see:
+
+Sequential-thinking MCP Server                                                                                          │
+│                                                                                                                         │
+│ Status: ✘ failed                                                                                                        │
+│ Command: mcp-server-sequential-thinking
+
+
+i am assuming that the command listed here should not be mcp-server-sequential-thinking
+if i'm not mistaken - the correct command should be:
+
+@modelcontextprotocol/server-sequential-thinking
+
+sequential thinking mcp server is configured in my .vscode/settings.json file as instructed in the official documentation for that server. my other 3 mcp servers are configured in .mcp.json in my root directory.
+
+i've been troubleshooting this sequential thinking mcp server for hours and have gotten nowhere. i can't imagine there is anything so super duper special about my vscode setup or my claude code setup keeping it from working properly like my other 3 mcp servers. 
+
+yes, i could just uninstall and not use the mcp server, but this is just too fascinating, that after using several claude code terminals, stopping, starting vscode, exiting claude, starting claude, etc etc etc - this simple mcp server is still not working. 
+
+if claude is in fact trying to start the mcp server using mcp-server-sequential-thinking and not @modelcontextprotocol/server-sequential-thinking - why is that happening? the last claude code instance promised it had fixed things and that after i exit all claude terminals and restart vscode that the mcp server would work. i would really like this stupid mcp server to work. what are your thoughts on this? do you have any smart troubleshooting suggestions to try?
