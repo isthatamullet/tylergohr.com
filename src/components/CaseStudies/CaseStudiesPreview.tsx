@@ -43,7 +43,7 @@ export const CaseStudiesPreview: React.FC = () => {
       metricBadge: '$2M+ Cost Savings',
       metricCategory: 'savings',
       ctaText: 'See How I Did It',
-      link: '/2/case-studies?tab=fox'
+      link: '/case-studies?tab=fox'
     },
     {
       id: 'workflow-transformation',
@@ -53,7 +53,7 @@ export const CaseStudiesPreview: React.FC = () => {
       metricBadge: '200% Performance Improvement',
       metricCategory: 'success',
       ctaText: 'Read the Strategy',
-      link: '/2/case-studies?tab=warner'
+      link: '/case-studies?tab=warner'
     },
     {
       id: 'ai-powered-innovation',
@@ -63,7 +63,7 @@ export const CaseStudiesPreview: React.FC = () => {
       metricBadge: '50-75% Efficiency Gains',
       metricCategory: 'innovation',
       ctaText: 'Explore the Solution',
-      link: '/2/case-studies?tab=ai'
+      link: '/case-studies?tab=ai'
     },
     {
       id: 'emmy-streaming-excellence',
@@ -73,7 +73,7 @@ export const CaseStudiesPreview: React.FC = () => {
       metricBadge: 'Emmy Award Winner',
       metricCategory: 'emmy',
       ctaText: 'Discover the Tech',
-      link: '/2/case-studies?tab=emmy'
+      link: '/case-studies?tab=emmy'
     }
   ]
 
