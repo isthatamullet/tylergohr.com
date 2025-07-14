@@ -1,5 +1,5 @@
 {
-  "servers": {
+  "mcpServers": {
     "tyler-gohr-portfolio": {
       "command": "node",
       "args": ["/home/user/tylergohr.com/mcp-server/dist/index.js"],
@@ -20,7 +20,8 @@
       "args": ["-y", "@upstash/context7-mcp"]
     },
     "sequential-thinking": {
-      "command": "mcp-server-sequential-thinking"
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
     }
   }
 }
