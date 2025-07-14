@@ -1,4 +1,4 @@
-<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <!-- Cosmic nebula sphere gradients -->
     <radialGradient id="nebulaCore1" cx="40%" cy="30%" r="60%">
