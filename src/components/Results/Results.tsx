@@ -112,6 +112,8 @@ export const Results: React.FC<ResultsProps> = ({
       id="results" 
       className={`${styles.resultsSection} ${className}`}
       aria-labelledby="results-title"
+      paddingY="none"
+      paddingX="none"
     >
       <div className={styles.backgroundOverlay} />
       
