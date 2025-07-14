@@ -262,7 +262,21 @@ function CaseStudiesPageContent() {
               can deliver the measurable outcomes your business needs.
             </p>
             <div className={styles.ctaActions}>
-              <Link href="/#contact" className={styles.ctaPrimary}>
+              <Link 
+                href="/#contact" 
+                className={styles.ctaPrimary}
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = '/#contact';
+                  // Small delay to ensure page loads before scrolling
+                  setTimeout(() => {
+                    const element = document.getElementById('contact');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }, 100);
+                }}
+              >
                 Start Your Project →
               </Link>
               <Link href="/" className={styles.ctaSecondary}>
