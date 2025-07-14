@@ -61,7 +61,7 @@ export const CallToActionOptimizer: React.FC<CallToActionOptimizerProps> = ({
 
   // Default CTA variants with intelligent targeting
   const defaultVariants: CTAVariant[] = useMemo(() => [
-    // Early engagement - Hero/About sections
+    // Early engagement - Hero/About sections (First-time visitors only)
     {
       id: 'hero-project-start',
       text: 'Start Your Project',
@@ -69,8 +69,8 @@ export const CallToActionOptimizer: React.FC<CallToActionOptimizerProps> = ({
       urgency: 'medium',
       target: 'contact',
       conditions: {
-        minScrollProgress: 0,
-        minTimeOnPage: 0,
+        minScrollProgress: 25,
+        minTimeOnPage: 15000,
         requiredSections: ['hero'],
         engagementLevel: ['low', 'medium', 'high']
       }
@@ -152,7 +152,7 @@ export const CallToActionOptimizer: React.FC<CallToActionOptimizerProps> = ({
     },
     
     
-    // Returning visitor re-engagement
+    // Returning visitor re-engagement (For users who've visited other pages)
     {
       id: 'returning-visitor',
       text: 'Ready to Move Forward?',
@@ -160,9 +160,9 @@ export const CallToActionOptimizer: React.FC<CallToActionOptimizerProps> = ({
       urgency: 'high',
       target: 'contact',
       conditions: {
-        minScrollProgress: 10,
-        minTimeOnPage: 15000, // 15 seconds
-        engagementLevel: ['medium', 'high']
+        minScrollProgress: 0, // No scroll requirement - appear immediately
+        minTimeOnPage: 2000, // Just 2 seconds to allow page to load
+        engagementLevel: ['low', 'medium', 'high']
       }
     },
     
@@ -191,6 +191,17 @@ export const CallToActionOptimizer: React.FC<CallToActionOptimizerProps> = ({
   // Check if a variant meets its conditions
   const checkVariantConditions = useCallback((variant: CTAVariant): boolean => {
     const { conditions } = variant
+    
+    // Exclusive visitor type logic
+    if (variant.id === 'hero-project-start' && context.isReturningVisitor) {
+      // Don't show first-time visitor popup to returning visitors
+      return false
+    }
+    
+    if (variant.id === 'returning-visitor' && !context.isReturningVisitor) {
+      // Don't show returning visitor popup to first-time visitors
+      return false
+    }
     
     // Check scroll progress
     if (conditions.minScrollProgress !== undefined && 
