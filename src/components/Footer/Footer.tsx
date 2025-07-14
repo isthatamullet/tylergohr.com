@@ -10,20 +10,45 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = ({ className }) => {
   const handleNavClick = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
-      });
+    // Check if we're on the homepage
+    const isHomepage = window.location.pathname === '/';
+    
+    if (isHomepage) {
+      // On homepage - scroll to section directly
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    } else {
+      // On detail page - navigate to homepage then scroll to section
+      window.location.href = `/#${sectionId}`;
+      // Small delay to ensure page loads before scrolling
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
   };
 
   const handleHomeClick = () => {
-    window.scrollTo({ 
-      top: 0, 
-      behavior: 'smooth' 
-    });
+    // Check if we're on the homepage
+    const isHomepage = window.location.pathname === '/';
+    
+    if (isHomepage) {
+      // On homepage - scroll to top
+      window.scrollTo({ 
+        top: 0, 
+        behavior: 'smooth' 
+      });
+    } else {
+      // On detail page - navigate to homepage
+      window.location.href = '/';
+    }
   };
 
   const handleGitHubClick = () => {
