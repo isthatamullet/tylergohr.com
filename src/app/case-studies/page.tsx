@@ -32,7 +32,7 @@ const caseStudies: CaseStudy[] = [
     id: 'content-distribution-platform',
     title: 'Content Distribution Platform Revolution',
     company: 'Fox Corporation',
-    challenge: 'Fox Corporation needed to revolutionize their content strategy for their largest direct-to-consumer video product, managing over 17,000 titles while ensuring high-quality, engaging content across diverse platforms. The existing system was inefficient, costly, and couldn&apos;t scale with their growing streaming ambitions.',
+    challenge: 'Fox Corporation needed to revolutionize their content strategy for their largest direct-to-consumer video product, managing 80,000+ digital products while ensuring high-quality, engaging content across diverse platforms. The existing system was inefficient, costly, and couldn&apos;t scale with their growing streaming ambitions.',
     solution: 'As Lead Content Operator, I architected a comprehensive content distribution platform that handled everything from content ingest and user account management to monetization and digital rights management. I completely reworked workflows for closed captioning, digital asset management, and created a product component tracking system that connected all required digital components.',
     implementation: [
       'Content Management: Designed workflows for video, audio, captions, subtitles, metadata, and artwork',
@@ -41,14 +41,14 @@ const caseStudies: CaseStudy[] = [
       'Security: Implemented robust DRM systems and paywall protection'
     ],
     results: [
-      'Cost Savings: Saved Fox Corporation &quot;a few million bucks&quot; through strategic optimization',
+      '2-Year ROI Impact: Saved Fox Corporation &quot;a few million bucks&quot; through strategic optimization within two years',
       'Efficiency Gains: Improved content management efficiency by 50% through enhanced systems',
       'Revenue Growth: Contributed to successful launches of Fox Nation and Fox Weather platforms',
-      'Quality Excellence: Achieved industry-leading content standards across 17,000+ titles'
+      'Quality Excellence: Achieved industry-leading content standards across 80,000+ digital products'
     ],
     businessValue: 'Whether you&apos;re managing hundreds of products or thousands of digital assets, the right systems architecture makes the difference between chaos and success. I bring the same strategic thinking to businesses of every size — from custom e-commerce platforms to content management solutions that scale with your growth.',
     badge: {
-      label: 'Cost Savings',
+      label: '2-Year ROI Impact',
       value: '$2M+',
       type: 'savings'
     }
@@ -66,7 +66,7 @@ const caseStudies: CaseStudy[] = [
       'Quality Standards: Implemented robust review measures aligned with industry requirements'
     ],
     results: [
-      'Success Rate: Boosted delivery success from 32% to 96% in just 3 months',
+      '200% Performance Improvement: Boosted delivery success from 32% to 96% in just 3 months',
       'Operational Excellence: Sustained improvement through systematic process enhancement',
       'Industry Recognition: Hosted visits from Warner Bros executives and Apple&apos;s head of iTunes Movies',
       'Knowledge Transfer: Created comprehensive training materials for cross-departmental use'
@@ -74,7 +74,7 @@ const caseStudies: CaseStudy[] = [
     businessValue: 'Every business has processes that could work better. I specialize in identifying what&apos;s not working, why it&apos;s failing, and implementing solutions that deliver measurable improvements. Whether it&apos;s your customer onboarding, order fulfillment, or content workflow — strategic process optimization drives real business results.',
     badge: {
       label: 'Success Rate',
-      value: '96%',
+      value: '200%',
       type: 'success'
     }
   },
@@ -92,14 +92,14 @@ const caseStudies: CaseStudy[] = [
     ],
     results: [
       'Efficiency: Significantly increased high-volume output while maintaining quality',
-      'Cost Reduction: Reduced manual review time and error rates by 50%',
+      'Efficiency Gains: Reduced manual review time and error rates by 50-75%',
       'Innovation Leadership: Pioneered AI implementation in content production workflows',
       'Competitive Advantage: Advanced capabilities ahead of industry standard adoption'
     ],
     businessValue: 'AI isn&apos;t just for big corporations — smart automation can streamline any business process. From customer service chatbots to inventory management, I help businesses identify where AI can eliminate repetitive tasks, reduce errors, and free up your team to focus on what matters most: growing your business.',
     badge: {
       label: 'Efficiency Gains',
-      value: '50%',
+      value: '50-75%',
       type: 'innovation'
     }
   },

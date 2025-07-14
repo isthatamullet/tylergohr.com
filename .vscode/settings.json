@@ -157,5 +157,6 @@
   },
 
   // Problems Configuration
-  "problems.showCurrentInStatus": true
+  "problems.showCurrentInStatus": true,
+
 }
