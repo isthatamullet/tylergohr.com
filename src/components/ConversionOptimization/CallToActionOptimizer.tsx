@@ -160,8 +160,8 @@ export const CallToActionOptimizer: React.FC<CallToActionOptimizerProps> = ({
       urgency: 'high',
       target: 'contact',
       conditions: {
-        minScrollProgress: 15,
-        minTimeOnPage: 10000, // 10 seconds
+        minScrollProgress: 0, // No scroll requirement - appear immediately
+        minTimeOnPage: 2000, // Just 2 seconds to allow page to load
         engagementLevel: ['low', 'medium', 'high']
       }
     },
