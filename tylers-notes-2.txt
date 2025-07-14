@@ -258,3 +258,12 @@ Wait! Get My Project Planning Guide
 
 excellent! now i want to work on making the CTA section of my how i work detail page to have the same button layout as the other 2 detail pages. on those pages, the Start Your Project is positioned above the Back to Portfolio link. please arrange the buttons on the how i work CTA section exactly the same as the other 2 pages CTA section buttons.
 now i want to work on some more buttons, specifically, the Start Your Project button that appears in the bottom CTA section of my 3 detail pages. when i click them, they just load the top of the homepage. clicking those buttons should load the contact section of the homepage. please make the buttons load the contact section of the homepage.
+
+
+
+
+
+
+
+
+PR 108: latest changes completely removed animated background from Results section
