@@ -1,16 +1,10 @@
 /* Results & Impact Section */
 .resultsSection {
-  padding: 120px 0;
   background: var(--color-background-results, #10b981);
-  color: var(--color-text-on-green, #ffffff);
+  padding: 120px 0;
   position: relative;
   overflow: hidden;
-  /* Override Section component texture to allow clean cosmic background */
-  background-image: none !important;
-  /* Ensure no background patterns from Section component interfere */
-  background-size: auto !important;
-  background-position: initial !important;
-  background-repeat: initial !important;
+  color: var(--color-text-on-green, #ffffff);
 }
 
 /* Background overlay for animated metrics visualization */
@@ -20,17 +14,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  width: 100%;
-  height: 100%;
   background: url('/images/results-metrics-bg-cosmic.svg') center center / cover no-repeat;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
   z-index: 1;
-  opacity: 0.65;
-  /* GPU acceleration for smooth rendering */
   will-change: transform;
-  transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); /* GPU acceleration */
 }
 
 .resultsContainer {
@@ -38,7 +25,7 @@
   margin: 0 auto;
   padding: 0 24px;
   position: relative;
-  z-index: 2;
+  z-index: 2; /* Ensure content appears above background */
 }
 
 .resultsHeader {
