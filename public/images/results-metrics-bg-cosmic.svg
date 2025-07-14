@@ -1,0 +1,184 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Cosmic nebula sphere gradients -->
+    <radialGradient id="nebulaCore1" cx="40%" cy="30%" r="60%">
+      <stop offset="0%" style="stop-color:#ecfdf5;stop-opacity:0.9" />
+      <stop offset="20%" style="stop-color:#d1fae5;stop-opacity:0.7" />
+      <stop offset="50%" style="stop-color:#a7f3d0;stop-opacity:0.4" />
+      <stop offset="80%" style="stop-color:#6ee7b7;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#34d399;stop-opacity:0.05" />
+    </radialGradient>
+    
+    <radialGradient id="nebulaCore2" cx="60%" cy="40%" r="80%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8" />
+      <stop offset="30%" style="stop-color:#ecfdf5;stop-opacity:0.6" />
+      <stop offset="60%" style="stop-color:#d1fae5;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#a7f3d0;stop-opacity:0.1" />
+    </radialGradient>
+    
+    <radialGradient id="nebulaCore3" cx="30%" cy="60%" r="70%">
+      <stop offset="0%" style="stop-color:#f0fdf4;stop-opacity:0.7" />
+      <stop offset="40%" style="stop-color:#dcfce7;stop-opacity:0.5" />
+      <stop offset="70%" style="stop-color:#bbf7d0;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#86efac;stop-opacity:0.1" />
+    </radialGradient>
+    
+    <!-- Stellar explosion gradient -->
+    <radialGradient id="stellarBurst" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#fef3c7;stop-opacity:0.8" />
+      <stop offset="30%" style="stop-color:#fde68a;stop-opacity:0.6" />
+      <stop offset="60%" style="stop-color:#facc15;stop-opacity:0.4" />
+      <stop offset="80%" style="stop-color:#eab308;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#ca8a04;stop-opacity:0.05" />
+    </radialGradient>
+    
+    <!-- Cosmic dust trails -->
+    <linearGradient id="dustTrail" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ecfdf5;stop-opacity:0" />
+      <stop offset="40%" style="stop-color:#d1fae5;stop-opacity:0.3" />
+      <stop offset="60%" style="stop-color:#a7f3d0;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#6ee7b7;stop-opacity:0" />
+    </linearGradient>
+    
+    <!-- Plasma field gradient -->
+    <radialGradient id="plasmaField" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#6ee7b7;stop-opacity:0" />
+      <stop offset="60%" style="stop-color:#34d399;stop-opacity:0" />
+      <stop offset="75%" style="stop-color:#10b981;stop-opacity:0.3" />
+      <stop offset="85%" style="stop-color:#047857;stop-opacity:0.4" />
+      <stop offset="95%" style="stop-color:#065f46;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#064e3b;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Star twinkle filter -->
+    <filter id="starTwinkle" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- NO BACKGROUND RECT - TRANSPARENT -->
+  
+  <!-- Massive cosmic nebula - bottom left quadrant -->
+  <circle cx="100" cy="400" r="350" fill="url(#nebulaCore1)" opacity="0.4">
+    <animate attributeName="r" values="350;400;350" dur="40s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0.2;0.4" dur="25s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Massive cosmic nebula - top right quadrant -->
+  <circle cx="1000" cy="150" r="320" fill="url(#nebulaCore2)" opacity="0.5">
+    <animate attributeName="r" values="320;380;320" dur="35s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0.3;0.5" dur="30s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Central cosmic nexus -->
+  <circle cx="600" cy="300" r="280" fill="url(#nebulaCore3)" opacity="0.3">
+    <animate attributeName="r" values="280;330;280" dur="45s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;0.15;0.3" dur="35s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Stellar explosion centers -->
+  <circle cx="200" cy="180" r="120" fill="url(#stellarBurst)" opacity="0.6">
+    <animate attributeName="r" values="100;150;100" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.6;0.8;0.6" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="900" cy="450" r="100" fill="url(#stellarBurst)" opacity="0.5">
+    <animate attributeName="r" values="80;130;80" dur="10s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.5;0.7;0.5" dur="7s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Plasma field waves -->
+  <circle cx="400" cy="100" r="150" fill="url(#plasmaField)" opacity="0.7">
+    <animate attributeName="r" values="120;200;120" dur="12s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.7;0.3;0.7" dur="9s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="750" cy="500" r="130" fill="url(#plasmaField)" opacity="0.6">
+    <animate attributeName="r" values="100;180;100" dur="14s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.6;0.2;0.6" dur="11s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Cosmic dust trails -->
+  <ellipse cx="300" cy="200" rx="200" ry="60" fill="url(#dustTrail)" opacity="0.4" transform="rotate(30 300 200)">
+    <animateTransform attributeName="transform" type="rotate" 
+                      values="30 300 200;60 300 200;30 300 200" dur="20s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.4;0.6;0.4" dur="15s" repeatCount="indefinite"/>
+  </ellipse>
+  
+  <ellipse cx="800" cy="350" rx="180" ry="50" fill="url(#dustTrail)" opacity="0.3" transform="rotate(-45 800 350)">
+    <animateTransform attributeName="transform" type="rotate" 
+                      values="-45 800 350;-15 800 350;-45 800 350" dur="25s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;0.5;0.3" dur="18s" repeatCount="indefinite"/>
+  </ellipse>
+  
+  <!-- Floating cosmic orbs -->
+  <circle cx="150" cy="300" r="25" fill="rgba(255, 255, 255, 0.7)" filter="url(#starTwinkle)">
+    <animate attributeName="cy" values="300;280;300" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.7;0.9;0.7" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="500" cy="450" r="30" fill="rgba(236, 253, 245, 0.8)" filter="url(#starTwinkle)">
+    <animate attributeName="cy" values="450;430;450" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.8;1.0;0.8" dur="5s" repeatCount="indefinite"/>
+  </circle>
+  
+  <circle cx="950" cy="250" r="20" fill="rgba(209, 250, 229, 0.9)" filter="url(#starTwinkle)">
+    <animate attributeName="cy" values="250;230;250" dur="7s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.9;0.6;0.9" dur="6s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Cosmic energy spirals -->
+  <g opacity="0.4">
+    <path d="M 200 180 Q 400 120 600 160 Q 800 200 900 450" 
+          stroke="rgba(167, 243, 208, 0.6)" stroke-width="4" fill="none">
+      <animate attributeName="stroke-dasharray" values="0,800;400,400;800,0" dur="16s" repeatCount="indefinite"/>
+    </path>
+    
+    <path d="M 100 400 Q 300 300 600 320 Q 900 340 1000 150" 
+          stroke="rgba(209, 250, 229, 0.5)" stroke-width="3" fill="none">
+      <animate attributeName="stroke-dasharray" values="0,900;450,450;900,0" dur="20s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Stellar constellation points -->
+  <g opacity="0.8" filter="url(#starTwinkle)">
+    <circle cx="350" cy="150" r="3" fill="#ffffff">
+      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="3s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="650" cy="120" r="2" fill="#ecfdf5">
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="850" cy="300" r="4" fill="#d1fae5">
+      <animate attributeName="opacity" values="0.8;0.2;0.8" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="250" cy="400" r="2.5" fill="#a7f3d0">
+      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="3.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="750" cy="180" r="3.5" fill="#6ee7b7">
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="4.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Orbiting cosmic debris -->
+  <g opacity="0.5">
+    <circle cx="600" cy="300" r="1.5" fill="#fef3c7">
+      <animateTransform attributeName="transform" type="rotate" 
+                        values="0 600 300;360 600 300" dur="30s" repeatCount="indefinite"/>
+      <animateMotion dur="30s" repeatCount="indefinite">
+        <path d="M 0,0 m -250,0 a 250,250 0 1,1 500,0 a 250,250 0 1,1 -500,0"/>
+      </animateMotion>
+    </circle>
+    
+    <circle cx="600" cy="300" r="2" fill="#fde68a">
+      <animateTransform attributeName="transform" type="rotate" 
+                        values="180 600 300;540 600 300" dur="30s" repeatCount="indefinite"/>
+      <animateMotion dur="30s" repeatCount="indefinite">
+        <path d="M 0,0 m -200,0 a 200,200 0 1,0 400,0 a 200,200 0 1,0 -400,0"/>
+      </animateMotion>
+    </circle>
+  </g>
+</svg>
