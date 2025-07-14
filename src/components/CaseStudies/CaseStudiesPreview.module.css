@@ -1,15 +1,30 @@
 /* Case Studies Preview Section */
 .caseStudiesSection {
-  background: #1d4ed8 url('/images/case-studies-bg-blueprint-grid-blue.svg') center center / cover fixed; /* Navy background with blueprint pattern and subtle parallax */
+  background: #1d4ed8; /* Navy background base color */
   padding: 120px 0;
   position: relative;
   overflow: hidden;
+}
+
+/* Parallax background overlay */
+.backgroundOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/images/case-studies-bg-blueprint-grid-blue.svg') center center / cover no-repeat;
+  z-index: 1;
+  will-change: transform;
+  transform: translate3d(0, 0, 0); /* GPU acceleration */
 }
 
 .container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 32px;
+  position: relative;
+  z-index: 2; /* Ensure content appears above parallax background */
 }
 
 /* Section Header */

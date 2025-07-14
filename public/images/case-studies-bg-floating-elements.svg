@@ -1,0 +1,205 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Project type gradients -->
+    <linearGradient id="webProjectGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dbeafe;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#93c5fd;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0.4" />
+    </linearGradient>
+    
+    <linearGradient id="mobileProjectGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d1fae5;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#6ee7b7;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.4" />
+    </linearGradient>
+    
+    <linearGradient id="apiProjectGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fde68a;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#f59e0b;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:0.4" />
+    </linearGradient>
+    
+    <linearGradient id="dataProjectGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e9d5ff;stop-opacity:0.8" />
+      <stop offset="50%" style="stop-color:#c084fc;stop-opacity:0.6" />
+      <stop offset="100%" style="stop-color:#9333ea;stop-opacity:0.4" />
+    </linearGradient>
+    
+    <!-- Floating glow effect -->
+    <radialGradient id="floatingGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3" />
+      <stop offset="70%" style="stop-color:#dbeafe;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- Parallax depth gradient -->
+    <linearGradient id="depthGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#e2e8f0;stop-opacity:0.05" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Large background geometric shapes (far depth) -->
+  <g opacity="0.3">
+    <!-- Large hexagon -->
+    <polygon points="150,50 250,100 250,200 150,250 50,200 50,100" 
+             fill="url(#webProjectGrad)" transform="rotate(15 150 150)">
+      <animateTransform attributeName="transform" type="rotate" 
+                        values="15 150 150;45 150 150;15 150 150" dur="40s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="25s" repeatCount="indefinite"/>
+    </polygon>
+    
+    <!-- Large triangle -->
+    <polygon points="900,80 1050,80 975,200" fill="url(#mobileProjectGrad)" transform="rotate(-10 975 140)">
+      <animateTransform attributeName="transform" type="rotate" 
+                        values="-10 975 140;20 975 140;-10 975 140" dur="35s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.15;0.3" dur="30s" repeatCount="indefinite"/>
+    </polygon>
+    
+    <!-- Large circle -->
+    <circle cx="200" cy="450" r="80" fill="url(#apiProjectGrad)">
+      <animate attributeName="r" values="80;100;80" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="20s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Large diamond -->
+    <polygon points="1000,400 1080,480 1000,560 920,480" fill="url(#dataProjectGrad)" transform="rotate(25 1000 480)">
+      <animateTransform attributeName="transform" type="rotate" 
+                        values="25 1000 480;55 1000 480;25 1000 480" dur="45s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.1;0.3" dur="35s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+  
+  <!-- Medium floating shapes (mid depth) -->
+  <g opacity="0.5">
+    <!-- Web development shapes -->
+    <rect x="300" y="100" width="60" height="60" fill="url(#webProjectGrad)" rx="8" transform="rotate(20 330 130)">
+      <animateTransform attributeName="transform" type="rotate" 
+                        values="20 330 130;50 330 130;20 330 130" dur="20s" repeatCount="indefinite"/>
+      <animate attributeName="y" values="100;80;100" dur="12s" repeatCount="indefinite"/>
+    </rect>
+    
+    <polygon points="700,150 750,150 775,200 725,250 675,200" fill="url(#webProjectGrad)">
+      <animate attributeName="transform" values="translate(0,0);translate(0,-20);translate(0,0)" dur="15s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0.7;0.5" dur="8s" repeatCount="indefinite"/>
+    </polygon>
+    
+    <!-- Mobile development shapes -->
+    <ellipse cx="500" cy="400" rx="40" ry="25" fill="url(#mobileProjectGrad)" transform="rotate(-15 500 400)">
+      <animateTransform attributeName="transform" type="rotate" 
+                        values="-15 500 400;15 500 400;-15 500 400" dur="18s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="400;380;400" dur="10s" repeatCount="indefinite"/>
+    </ellipse>
+    
+    <polygon points="850,350 900,375 875,425 825,425 800,375" fill="url(#mobileProjectGrad)">
+      <animate attributeName="transform" values="translate(0,0);translate(0,-15);translate(0,0)" dur="14s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0.8;0.5" dur="9s" repeatCount="indefinite"/>
+    </polygon>
+    
+    <!-- API/Backend shapes -->
+    <rect x="400" y="250" width="50" height="20" fill="url(#apiProjectGrad)" rx="10">
+      <animate attributeName="y" values="250;230;250" dur="16s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.5;0.7;0.5" dur="11s" repeatCount="indefinite"/>
+    </rect>
+    
+    <circle cx="650" cy="500" r="25" fill="url(#apiProjectGrad)">
+      <animate attributeName="r" values="25;35;25" dur="13s" repeatCount="indefinite"/>
+      <animate attributeName="cy" values="500;480;500" dur="17s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Small detail shapes (near depth) -->
+  <g opacity="0.7">
+    <!-- Code symbols -->
+    <polygon points="150,300 170,300 160,320" fill="url(#webProjectGrad)">
+      <animate attributeName="transform" values="translate(0,0);translate(0,-10);translate(0,0)" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0.4;0.7" dur="5s" repeatCount="indefinite"/>
+    </polygon>
+    
+    <rect x="950" y="200" width="15" height="15" fill="url(#mobileProjectGrad)" rx="3" transform="rotate(45 957 207)">
+      <animateTransform attributeName="transform" type="rotate" 
+                        values="45 957 207;90 957 207;45 957 207" dur="12s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0.3;0.7" dur="6s" repeatCount="indefinite"/>
+    </rect>
+    
+    <circle cx="300" cy="350" r="8" fill="url(#apiProjectGrad)">
+      <animate attributeName="r" values="8;12;8" dur="7s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0.4;0.7" dur="4s" repeatCount="indefinite"/>
+    </circle>
+    
+    <polygon points="1100,350 1110,350 1105,365" fill="url(#dataProjectGrad)">
+      <animate attributeName="transform" values="translate(0,0);translate(0,-8);translate(0,0)" dur="9s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.7;0.4;0.7" dur="6s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+  
+  <!-- Floating tech icons (abstract) -->
+  <g opacity="0.6">
+    <!-- Browser window representation -->
+    <rect x="100" y="150" width="40" height="30" fill="none" stroke="rgba(59, 130, 246, 0.6)" stroke-width="2" rx="4">
+      <animate attributeName="y" values="150;130;150" dur="12s" repeatCount="indefinite"/>
+      <animate attributeName="stroke-opacity" values="0.6;0.3;0.6" dur="8s" repeatCount="indefinite"/>
+    </rect>
+    <line x1="105" y1="160" x2="135" y2="160" stroke="rgba(59, 130, 246, 0.4)" stroke-width="1">
+      <animate attributeName="stroke-opacity" values="0.4;0.2;0.4" dur="8s" repeatCount="indefinite"/>
+    </line>
+    
+    <!-- Mobile device representation -->
+    <rect x="1050" y="450" width="20" height="35" fill="none" stroke="rgba(16, 185, 129, 0.6)" stroke-width="2" rx="8">
+      <animate attributeName="y" values="450;430;450" dur="14s" repeatCount="indefinite"/>
+      <animate attributeName="stroke-opacity" values="0.6;0.3;0.6" dur="10s" repeatCount="indefinite"/>
+    </rect>
+    <circle cx="1060" cy="460" r="2" fill="rgba(16, 185, 129, 0.4)">
+      <animate attributeName="fill-opacity" values="0.4;0.2;0.4" dur="10s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Database representation -->
+    <ellipse cx="600" cy="100" rx="15" ry="5" fill="none" stroke="rgba(245, 158, 11, 0.6)" stroke-width="2">
+      <animate attributeName="cy" values="100;80;100" dur="16s" repeatCount="indefinite"/>
+      <animate attributeName="stroke-opacity" values="0.6;0.3;0.6" dur="12s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="600" cy="110" rx="15" ry="5" fill="none" stroke="rgba(245, 158, 11, 0.4)" stroke-width="1">
+      <animate attributeName="stroke-opacity" values="0.4;0.2;0.4" dur="12s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+  
+  <!-- Connecting lines (project relationships) -->
+  <g opacity="0.3" stroke-dasharray="5,5">
+    <line x1="330" y1="130" x2="500" y2="250" stroke="rgba(147, 197, 253, 0.4)" stroke-width="1">
+      <animate attributeName="stroke-dashoffset" values="0;10;0" dur="6s" repeatCount="indefinite"/>
+    </line>
+    <line x1="650" y1="200" x2="800" y2="350" stroke="rgba(110, 231, 183, 0.4)" stroke-width="1">
+      <animate attributeName="stroke-dashoffset" values="0;10;0" dur="8s" repeatCount="indefinite"/>
+    </line>
+    <line x1="400" y1="270" x2="600" y2="400" stroke="rgba(251, 191, 36, 0.4)" stroke-width="1">
+      <animate attributeName="stroke-dashoffset" values="0;10;0" dur="7s" repeatCount="indefinite"/>
+    </line>
+  </g>
+  
+  <!-- Orbital motion elements -->
+  <g opacity="0.4">
+    <circle cx="600" cy="300" r="3" fill="rgba(147, 197, 253, 0.8)">
+      <animateTransform attributeName="transform" type="rotate" 
+                        values="0 600 300;360 600 300" dur="30s" repeatCount="indefinite"/>
+      <animateMotion dur="30s" repeatCount="indefinite">
+        <path d="M 0,0 m -200,0 a 200,200 0 1,1 400,0 a 200,200 0 1,1 -400,0"/>
+      </animateMotion>
+    </circle>
+    
+    <circle cx="600" cy="300" r="2" fill="rgba(110, 231, 183, 0.8)">
+      <animateTransform attributeName="transform" type="rotate" 
+                        values="120 600 300;480 600 300" dur="30s" repeatCount="indefinite"/>
+      <animateMotion dur="30s" repeatCount="indefinite">
+        <path d="M 0,0 m -150,0 a 150,150 0 1,0 300,0 a 150,150 0 1,0 -300,0"/>
+      </animateMotion>
+    </circle>
+    
+    <circle cx="600" cy="300" r="1.5" fill="rgba(251, 191, 36, 0.8)">
+      <animateTransform attributeName="transform" type="rotate" 
+                        values="240 600 300;600 600 300" dur="30s" repeatCount="indefinite"/>
+      <animateMotion dur="30s" repeatCount="indefinite">
+        <path d="M 0,0 m -100,0 a 100,100 0 1,1 200,0 a 100,100 0 1,1 -200,0"/>
+      </animateMotion>
+    </circle>
+  </g>
+</svg>

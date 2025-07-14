@@ -1,0 +1,220 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Blueprint grid pattern -->
+    <pattern id="blueprintGrid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(147, 197, 253, 0.2)" stroke-width="0.5"/>
+      <path d="M 10 0 L 10 50 M 20 0 L 20 50 M 30 0 L 30 50 M 40 0 L 40 50" 
+            fill="none" stroke="rgba(147, 197, 253, 0.1)" stroke-width="0.25"/>
+      <path d="M 0 10 L 50 10 M 0 20 L 50 20 M 0 30 L 50 30 M 0 40 L 50 40" 
+            fill="none" stroke="rgba(147, 197, 253, 0.1)" stroke-width="0.25"/>
+    </pattern>
+    
+    <!-- Technical annotation gradients -->
+    <linearGradient id="dimensionLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0" />
+      <stop offset="20%" style="stop-color:#60a5fa;stop-opacity:0.8" />
+      <stop offset="80%" style="stop-color:#93c5fd;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#dbeafe;stop-opacity:0" />
+    </linearGradient>
+    
+    <linearGradient id="measurementGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.6" />
+      <stop offset="50%" style="stop-color:#34d399;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#6ee7b7;stop-opacity:0.2" />
+    </linearGradient>
+    
+    <!-- Blueprint annotation font -->
+    <style>
+      .blueprint-text {
+        font-family: 'JetBrains Mono', 'Courier New', monospace;
+        font-size: 10px;
+        fill: rgba(147, 197, 253, 0.7);
+      }
+      .dimension-text {
+        font-family: 'JetBrains Mono', 'Courier New', monospace;
+        font-size: 8px;
+        fill: rgba(59, 130, 246, 0.8);
+      }
+    </style>
+    
+    <!-- Dimension arrow marker -->
+    <marker id="dimensionArrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L6,3 z" fill="rgba(59, 130, 246, 0.8)"/>
+    </marker>
+    
+    <!-- Measurement point -->
+    <circle id="measurePoint" cx="0" cy="0" r="2" fill="rgba(16, 185, 129, 0.8)" stroke="rgba(255, 255, 255, 0.6)" stroke-width="1">
+      <animate attributeName="r" values="2;3;2" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="fill-opacity" values="0.8;0.4;0.8" dur="2s" repeatCount="indefinite"/>
+    </circle>
+  </defs>
+  
+  <!-- Blueprint grid background -->
+  <rect width="1200" height="600" fill="url(#blueprintGrid)"/>
+  
+  <!-- Major grid lines (structural) -->
+  <g opacity="0.4">
+    <!-- Vertical structural lines -->
+    <line x1="200" y1="0" x2="200" y2="600" stroke="rgba(59, 130, 246, 0.6)" stroke-width="1" stroke-dasharray="10,5"/>
+    <line x1="400" y1="0" x2="400" y2="600" stroke="rgba(59, 130, 246, 0.6)" stroke-width="1" stroke-dasharray="10,5"/>
+    <line x1="600" y1="0" x2="600" y2="600" stroke="rgba(59, 130, 246, 0.6)" stroke-width="1" stroke-dasharray="10,5"/>
+    <line x1="800" y1="0" x2="800" y2="600" stroke="rgba(59, 130, 246, 0.6)" stroke-width="1" stroke-dasharray="10,5"/>
+    <line x1="1000" y1="0" x2="1000" y2="600" stroke="rgba(59, 130, 246, 0.6)" stroke-width="1" stroke-dasharray="10,5"/>
+    
+    <!-- Horizontal structural lines -->
+    <line x1="0" y1="150" x2="1200" y2="150" stroke="rgba(59, 130, 246, 0.6)" stroke-width="1" stroke-dasharray="10,5"/>
+    <line x1="0" y1="300" x2="1200" y2="300" stroke="rgba(59, 130, 246, 0.6)" stroke-width="1" stroke-dasharray="10,5"/>
+    <line x1="0" y1="450" x2="1200" y2="450" stroke="rgba(59, 130, 246, 0.6)" stroke-width="1" stroke-dasharray="10,5"/>
+  </g>
+  
+  <!-- Animated dimension lines -->
+  <g opacity="0.7">
+    <!-- Horizontal dimension line 1 -->
+    <line x1="150" y1="120" x2="450" y2="120" stroke="url(#dimensionLine)" stroke-width="2" marker-start="url(#dimensionArrow)" marker-end="url(#dimensionArrow)">
+      <animate attributeName="stroke-dasharray" values="0,300;150,150;300,0" dur="8s" repeatCount="indefinite"/>
+    </line>
+    <text x="300" y="115" text-anchor="middle" class="dimension-text">300px</text>
+    
+    <!-- Vertical dimension line 1 -->
+    <line x1="580" y1="80" x2="580" y2="280" stroke="url(#dimensionLine)" stroke-width="2" marker-start="url(#dimensionArrow)" marker-end="url(#dimensionArrow)">
+      <animate attributeName="stroke-dasharray" values="0,200;100,100;200,0" dur="10s" repeatCount="indefinite"/>
+    </line>
+    <text x="585" y="185" class="dimension-text">200px</text>
+    
+    <!-- Horizontal dimension line 2 -->
+    <line x1="750" y1="420" x2="1050" y2="420" stroke="url(#dimensionLine)" stroke-width="2" marker-start="url(#dimensionArrow)" marker-end="url(#dimensionArrow)">
+      <animate attributeName="stroke-dasharray" values="0,300;150,150;300,0" dur="12s" repeatCount="indefinite"/>
+    </line>
+    <text x="900" y="415" text-anchor="middle" class="dimension-text">300px</text>
+    
+    <!-- Diagonal dimension line -->
+    <line x1="100" y1="350" x2="350" y2="500" stroke="url(#dimensionLine)" stroke-width="2" marker-start="url(#dimensionArrow)" marker-end="url(#dimensionArrow)">
+      <animate attributeName="stroke-dasharray" values="0,300;150,150;300,0" dur="14s" repeatCount="indefinite"/>
+    </line>
+    <text x="225" y="430" text-anchor="middle" class="dimension-text" transform="rotate(31 225 430)">354px</text>
+  </g>
+  
+  <!-- Technical annotations and callouts -->
+  <g opacity="0.6">
+    <!-- Section callout 1 -->
+    <rect x="180" y="130" width="40" height="40" fill="none" stroke="rgba(16, 185, 129, 0.6)" stroke-width="2" stroke-dasharray="3,3">
+      <animate attributeName="stroke-dashoffset" values="0;6;0" dur="4s" repeatCount="indefinite"/>
+    </rect>
+    <line x1="220" y1="130" x2="280" y2="90" stroke="rgba(16, 185, 129, 0.6)" stroke-width="1"/>
+    <text x="285" y="88" class="blueprint-text">COMPONENT A</text>
+    <text x="285" y="100" class="blueprint-text">React Component</text>
+    
+    <!-- Section callout 2 -->
+    <circle cx="800" cy="180" r="25" fill="none" stroke="rgba(16, 185, 129, 0.6)" stroke-width="2" stroke-dasharray="5,3">
+      <animate attributeName="stroke-dashoffset" values="0;8;0" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    <line x1="825" y1="180" x2="870" y2="140" stroke="rgba(16, 185, 129, 0.6)" stroke-width="1"/>
+    <text x="875" y="138" class="blueprint-text">API ENDPOINT</text>
+    <text x="875" y="150" class="blueprint-text">GraphQL Schema</text>
+    
+    <!-- Section callout 3 -->
+    <polygon points="380,330 420,330 420,370 380,370" fill="none" stroke="rgba(16, 185, 129, 0.6)" stroke-width="2" stroke-dasharray="4,2">
+      <animate attributeName="stroke-dashoffset" values="0;6;0" dur="6s" repeatCount="indefinite"/>
+    </polygon>
+    <line x1="420" y1="350" x2="480" y2="320" stroke="rgba(16, 185, 129, 0.6)" stroke-width="1"/>
+    <text x="485" y="318" class="blueprint-text">DATABASE</text>
+    <text x="485" y="330" class="blueprint-text">PostgreSQL</text>
+    
+    <!-- Section callout 4 -->
+    <rect x="950" y="380" width="60" height="30" fill="none" stroke="rgba(16, 185, 129, 0.6)" stroke-width="2" stroke-dasharray="6,2">
+      <animate attributeName="stroke-dashoffset" values="0;8;0" dur="7s" repeatCount="indefinite"/>
+    </rect>
+    <line x1="950" y1="395" x2="890" y2="360" stroke="rgba(16, 185, 129, 0.6)" stroke-width="1"/>
+    <text x="885" y="358" class="blueprint-text" text-anchor="end">DEPLOYMENT</text>
+    <text x="885" y="370" class="blueprint-text" text-anchor="end">Cloud Run</text>
+  </g>
+  
+  <!-- Measurement points -->
+  <g opacity="0.8">
+    <use href="#measurePoint" transform="translate(200, 150)"/>
+    <use href="#measurePoint" transform="translate(400, 150)">
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="4s" repeatCount="indefinite"/>
+    </use>
+    <use href="#measurePoint" transform="translate(600, 150)">
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="3s" repeatCount="indefinite"/>
+    </use>
+    <use href="#measurePoint" transform="translate(800, 150)">
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="5s" repeatCount="indefinite"/>
+    </use>
+    <use href="#measurePoint" transform="translate(1000, 150)"/>
+    
+    <use href="#measurePoint" transform="translate(200, 300)">
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="6s" repeatCount="indefinite"/>
+    </use>
+    <use href="#measurePoint" transform="translate(400, 300)"/>
+    <use href="#measurePoint" transform="translate(600, 300)">
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="4.5s" repeatCount="indefinite"/>
+    </use>
+    <use href="#measurePoint" transform="translate(800, 300)">
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="3.5s" repeatCount="indefinite"/>
+    </use>
+    <use href="#measurePoint" transform="translate(1000, 300)"/>
+    
+    <use href="#measurePoint" transform="translate(200, 450)"/>
+    <use href="#measurePoint" transform="translate(400, 450)">
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="5.5s" repeatCount="indefinite"/>
+    </use>
+    <use href="#measurePoint" transform="translate(600, 450)"/>
+    <use href="#measurePoint" transform="translate(800, 450)">
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="4s" repeatCount="indefinite"/>
+    </use>
+    <use href="#measurePoint" transform="translate(1000, 450)"/>
+  </g>
+  
+  <!-- Animated construction guides -->
+  <g opacity="0.5">
+    <!-- Construction arc 1 -->
+    <path d="M 300 200 A 50 50 0 0 1 400 250" 
+          fill="none" stroke="rgba(245, 158, 11, 0.6)" stroke-width="1.5" stroke-dasharray="3,2">
+      <animate attributeName="stroke-dashoffset" values="0;5;0" dur="8s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Construction arc 2 -->
+    <path d="M 700 350 A 75 75 0 0 0 850 300" 
+          fill="none" stroke="rgba(245, 158, 11, 0.6)" stroke-width="1.5" stroke-dasharray="4,3">
+      <animate attributeName="stroke-dashoffset" values="0;7;0" dur="10s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Center lines -->
+    <line x1="190" y1="140" x2="210" y2="160" stroke="rgba(245, 158, 11, 0.6)" stroke-width="1"/>
+    <line x1="210" y1="140" x2="190" y2="160" stroke="rgba(245, 158, 11, 0.6)" stroke-width="1"/>
+    
+    <line x1="590" y1="290" x2="610" y2="310" stroke="rgba(245, 158, 11, 0.6)" stroke-width="1"/>
+    <line x1="610" y1="290" x2="590" y2="310" stroke="rgba(245, 158, 11, 0.6)" stroke-width="1"/>
+    
+    <line x1="990" y1="440" x2="1010" y2="460" stroke="rgba(245, 158, 11, 0.6)" stroke-width="1"/>
+    <line x1="1010" y1="440" x2="990" y2="460" stroke="rgba(245, 158, 11, 0.6)" stroke-width="1"/>
+  </g>
+  
+  <!-- Technical specifications text -->
+  <g opacity="0.4">
+    <text x="50" y="50" class="blueprint-text">PROJECT ARCHITECTURE BLUEPRINT</text>
+    <text x="50" y="65" class="blueprint-text">Scale: 1:1 | Grid: 50px</text>
+    
+    <text x="950" y="550" class="blueprint-text" text-anchor="end">CASE STUDIES</text>
+    <text x="950" y="565" class="blueprint-text" text-anchor="end">Technical Specifications</text>
+    <text x="950" y="580" class="blueprint-text" text-anchor="end">Rev. 2025.01</text>
+  </g>
+  
+  <!-- Animated measurement extension lines -->
+  <g opacity="0.3">
+    <line x1="150" y1="100" x2="150" y2="140" stroke="rgba(59, 130, 246, 0.4)" stroke-width="1">
+      <animate attributeName="stroke-dasharray" values="0,40;20,20;40,0" dur="6s" repeatCount="indefinite"/>
+    </line>
+    <line x1="450" y1="100" x2="450" y2="140" stroke="rgba(59, 130, 246, 0.4)" stroke-width="1">
+      <animate attributeName="stroke-dasharray" values="0,40;20,20;40,0" dur="6s" repeatCount="indefinite"/>
+    </line>
+    
+    <line x1="560" y1="80" x2="600" y2="80" stroke="rgba(59, 130, 246, 0.4)" stroke-width="1">
+      <animate attributeName="stroke-dasharray" values="0,40;20,20;40,0" dur="8s" repeatCount="indefinite"/>
+    </line>
+    <line x1="560" y1="280" x2="600" y2="280" stroke="rgba(59, 130, 246, 0.4)" stroke-width="1">
+      <animate attributeName="stroke-dasharray" values="0,40;20,20;40,0" dur="8s" repeatCount="indefinite"/>
+    </line>
+  </g>
+</svg>
