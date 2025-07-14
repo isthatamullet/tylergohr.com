@@ -69,8 +69,8 @@ export const CallToActionOptimizer: React.FC<CallToActionOptimizerProps> = ({
       urgency: 'medium',
       target: 'contact',
       conditions: {
-        minScrollProgress: 0,
-        minTimeOnPage: 0,
+        minScrollProgress: 25,
+        minTimeOnPage: 15000,
         requiredSections: ['hero'],
         engagementLevel: ['low', 'medium', 'high']
       }
