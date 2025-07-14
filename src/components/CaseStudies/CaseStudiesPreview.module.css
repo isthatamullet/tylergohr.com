@@ -1,6 +1,6 @@
 /* Case Studies Preview Section */
 .caseStudiesSection {
-  background: #1d4ed8; /* Navy background as specified */
+  background: #1d4ed8 url('/images/case-studies-bg-blueprint-grid-blue.svg') center center / cover no-repeat; /* Navy background with blueprint pattern */
   padding: 120px 0;
   position: relative;
   overflow: hidden;
