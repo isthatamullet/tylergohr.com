@@ -462,11 +462,11 @@ a:focus-visible {
   border-radius: var(--radius-sm);
 }
 
-/* Focus within containers */
-:focus-within {
+/* Focus within containers - DISABLED to prevent unwanted blue lines on click/tap */
+/* :focus-within {
   outline: 1px solid rgba(37, 99, 235, 0.3);
   outline-offset: 1px;
-}
+} */
 
 /* Keyboard navigation enhancements */
 [tabindex="-1"]:focus {
