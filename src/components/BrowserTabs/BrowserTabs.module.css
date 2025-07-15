@@ -146,7 +146,7 @@
 }
 
 .tab:focus {
-  outline: 2px solid #2563eb;
+  outline: none;
   outline-offset: 0;
   /* Prevent scroll-to-focus behavior that causes border bleeding */
   scroll-margin-top: 0;
@@ -661,7 +661,7 @@
 
 /* Focus management for keyboard navigation */
 .tab:focus-visible {
-  outline: 2px solid #2563eb;
+  outline: 2px solid var(--accent-green);
   outline-offset: 0;
   z-index: 20;
 }
