@@ -1,7 +1,6 @@
 "use client"
 
 import React from 'react'
-import { ResultsSection } from '../Section/Section'
 import { MetricCard } from './MetricCard'
 import styles from './Results.module.css'
 
@@ -108,7 +107,7 @@ export const Results: React.FC<ResultsProps> = ({
   animate = true
 }) => {
   return (
-    <ResultsSection 
+    <section 
       id="results" 
       className={`${styles.resultsSection} ${className}`}
       aria-labelledby="results-title"
@@ -133,7 +132,7 @@ export const Results: React.FC<ResultsProps> = ({
           ))}
         </div>
       </div>
-    </ResultsSection>
+    </section>
   )
 }
 

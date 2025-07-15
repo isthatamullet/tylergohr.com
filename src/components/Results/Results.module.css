@@ -1,10 +1,10 @@
 /* Results & Impact Section */
 .resultsSection {
-  padding: 120px 0;
   background: var(--color-background-results, #10b981);
-  color: var(--color-text-on-green, #ffffff);
+  padding: 120px 0;
   position: relative;
   overflow: hidden;
+  color: var(--color-text-on-green, #ffffff);
 }
 
 /* Background overlay for animated metrics visualization */
@@ -16,7 +16,8 @@
   bottom: 0;
   background: url('/images/results-metrics-bg-cosmic.svg') center center / cover no-repeat;
   z-index: 1;
-  opacity: 0.65;
+  will-change: transform;
+  transform: translate3d(0, 0, 0); /* GPU acceleration */
 }
 
 .resultsContainer {
@@ -24,7 +25,7 @@
   margin: 0 auto;
   padding: 0 24px;
   position: relative;
-  z-index: 2;
+  z-index: 2; /* Ensure content appears above background */
 }
 
 .resultsHeader {

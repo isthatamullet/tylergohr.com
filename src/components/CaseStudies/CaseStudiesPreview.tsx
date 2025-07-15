@@ -33,6 +33,43 @@ export const CaseStudiesPreview: React.FC = () => {
   const [webglReady, setWebglReady] = useState<boolean | null>(null) // null = checking, boolean = determined
   const sectionRef = useRef<HTMLElement>(null)
 
+  // Parallax effect for background
+  useEffect(() => {
+    const handleParallax = () => {
+      if (!sectionRef.current) return;
+      
+      const sectionTop = sectionRef.current.offsetTop;
+      const sectionHeight = sectionRef.current.offsetHeight;
+      const scrollY = window.pageYOffset;
+      const windowHeight = window.innerHeight;
+      
+      // Only apply parallax when section is in view
+      if (scrollY + windowHeight > sectionTop && scrollY < sectionTop + sectionHeight) {
+        const backgroundElement = sectionRef.current.querySelector('[data-parallax-bg]') as HTMLElement;
+        if (backgroundElement) {
+          const parallaxSpeed = 0.3; // Background moves 30% slower than scroll
+          const yPos = (scrollY - sectionTop) * parallaxSpeed;
+          backgroundElement.style.transform = `translate3d(0, ${yPos}px, 0)`;
+        }
+      }
+    };
+
+    // Throttle scroll events for performance
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleParallax();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   // Case studies data from PORTFOLIO-REDESIGN-CONTENT-CONDENSED.md
   const caseStudies: CaseStudy[] = [
     {
@@ -123,6 +160,13 @@ export const CaseStudiesPreview: React.FC = () => {
       aria-labelledby="case-studies-title"
       role="region"
     >
+      {/* Parallax background overlay */}
+      <div 
+        className={styles.backgroundOverlay} 
+        data-parallax-bg
+        aria-hidden="true"
+      />
+      
       <div className={styles.container}>
         <header 
           className={`${styles.caseStudiesHeader} ${isVisible ? styles.revealed : ''}`}

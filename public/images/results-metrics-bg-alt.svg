@@ -1,0 +1,140 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Flowing circuit board pattern gradients -->
+    <linearGradient id="circuitFlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#065f46;stop-opacity:0.1" />
+      <stop offset="25%" style="stop-color:#047857;stop-opacity:0.08" />
+      <stop offset="50%" style="stop-color:#10b981;stop-opacity:0.06" />
+      <stop offset="75%" style="stop-color:#34d399;stop-opacity:0.08" />
+      <stop offset="100%" style="stop-color:#6ee7b7;stop-opacity:0.1" />
+    </linearGradient>
+    
+    <linearGradient id="dataStream" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0" />
+      <stop offset="20%" style="stop-color:#34d399;stop-opacity:0.4" />
+      <stop offset="50%" style="stop-color:#6ee7b7;stop-opacity:0.7" />
+      <stop offset="80%" style="stop-color:#34d399;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:0" />
+    </linearGradient>
+    
+    <!-- Hexagonal data nodes -->
+    <polygon id="hexNode" points="10,0 30,0 40,17.32 30,34.64 10,34.64 0,17.32" 
+             fill="none" stroke="rgba(52, 211, 153, 0.3)" stroke-width="1"/>
+    
+    <!-- Connection pulse pattern -->
+    <circle id="pulseNode" cx="0" cy="0" r="3" fill="rgba(110, 231, 183, 0.6)">
+      <animate attributeName="r" values="2;6;2" dur="3s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="3s" repeatCount="indefinite"/>
+    </circle>
+  </defs>
+  
+  <!-- Base circuit board background -->
+  <rect width="1200" height="600" fill="url(#circuitFlow)"/>
+  
+  <!-- Data flow network connections -->
+  <g opacity="0.5">
+    <!-- Horizontal data streams -->
+    <line x1="0" y1="150" x2="1200" y2="180" stroke="url(#dataStream)" stroke-width="2">
+      <animate attributeName="x1" values="0;1200;0" dur="12s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="1200;2400;1200" dur="12s" repeatCount="indefinite"/>
+    </line>
+    
+    <line x1="0" y1="300" x2="1200" y2="280" stroke="url(#dataStream)" stroke-width="2">
+      <animate attributeName="x1" values="0;1200;0" dur="15s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="1200;2400;1200" dur="15s" repeatCount="indefinite"/>
+    </line>
+    
+    <line x1="0" y1="450" x2="1200" y2="420" stroke="url(#dataStream)" stroke-width="2">
+      <animate attributeName="x1" values="0;1200;0" dur="18s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="1200;2400;1200" dur="18s" repeatCount="indefinite"/>
+    </line>
+    
+    <!-- Vertical connections -->
+    <line x1="200" y1="0" x2="220" y2="600" stroke="rgba(16, 185, 129, 0.2)" stroke-width="1"/>
+    <line x1="500" y1="0" x2="480" y2="600" stroke="rgba(16, 185, 129, 0.2)" stroke-width="1"/>
+    <line x1="800" y1="0" x2="820" y2="600" stroke="rgba(16, 185, 129, 0.2)" stroke-width="1"/>
+    <line x1="1000" y1="0" x2="980" y2="600" stroke="rgba(16, 185, 129, 0.2)" stroke-width="1"/>
+  </g>
+  
+  <!-- Hexagonal data nodes scattered throughout -->
+  <g opacity="0.4">
+    <use href="#hexNode" transform="translate(150, 100)">
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="4s" repeatCount="indefinite"/>
+    </use>
+    <use href="#hexNode" transform="translate(350, 200) scale(0.8)">
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="6s" repeatCount="indefinite"/>
+    </use>
+    <use href="#hexNode" transform="translate(550, 120) scale(1.2)">
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="5s" repeatCount="indefinite"/>
+    </use>
+    <use href="#hexNode" transform="translate(750, 350) scale(0.9)">
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="7s" repeatCount="indefinite"/>
+    </use>
+    <use href="#hexNode" transform="translate(950, 250)">
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="4.5s" repeatCount="indefinite"/>
+    </use>
+    <use href="#hexNode" transform="translate(250, 400) scale(0.7)">
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="5.5s" repeatCount="indefinite"/>
+    </use>
+    <use href="#hexNode" transform="translate(650, 480) scale(1.1)">
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="6.5s" repeatCount="indefinite"/>
+    </use>
+  </g>
+  
+  <!-- Pulsing connection nodes at intersections -->
+  <g opacity="0.6">
+    <use href="#pulseNode" transform="translate(200, 160)"/>
+    <use href="#pulseNode" transform="translate(500, 290)">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="4s" repeatCount="indefinite"/>
+    </use>
+    <use href="#pulseNode" transform="translate(800, 430)">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="5s" repeatCount="indefinite"/>
+    </use>
+    <use href="#pulseNode" transform="translate(350, 180)">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="3.5s" repeatCount="indefinite"/>
+    </use>
+    <use href="#pulseNode" transform="translate(650, 300)">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="4.5s" repeatCount="indefinite"/>
+    </use>
+    <use href="#pulseNode" transform="translate(950, 440)">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="5.5s" repeatCount="indefinite"/>
+    </use>
+  </g>
+  
+  <!-- Flowing data particles -->
+  <g opacity="0.7">
+    <circle cx="50" cy="170" r="2" fill="rgba(110, 231, 183, 0.8)">
+      <animateMotion dur="10s" repeatCount="indefinite">
+        <path d="M0,0 Q300,-50 600,0 Q900,50 1200,0"/>
+      </animateMotion>
+    </circle>
+    
+    <circle cx="30" cy="320" r="1.5" fill="rgba(52, 211, 153, 0.9)">
+      <animateMotion dur="14s" repeatCount="indefinite">
+        <path d="M0,0 Q400,60 800,-30 Q1000,20 1200,0"/>
+      </animateMotion>
+    </circle>
+    
+    <circle cx="70" cy="470" r="2.5" fill="rgba(16, 185, 129, 0.7)">
+      <animateMotion dur="12s" repeatCount="indefinite">
+        <path d="M0,0 Q200,40 500,-20 Q800,30 1200,0"/>
+      </animateMotion>
+    </circle>
+  </g>
+  
+  <!-- Success metrics bars (subtle) -->
+  <g opacity="0.15" transform="translate(50, 50)">
+    <rect x="0" y="100" width="15" height="40" fill="#34d399">
+      <animate attributeName="height" values="20;60;40;80;40" dur="8s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="25" y="80" width="15" height="60" fill="#10b981">
+      <animate attributeName="height" values="40;80;60;100;60" dur="10s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="50" y="60" width="15" height="80" fill="#047857">
+      <animate attributeName="height" values="60;100;80;120;80" dur="12s" repeatCount="indefinite"/>
+    </rect>
+    <rect x="75" y="40" width="15" height="100" fill="#065f46">
+      <animate attributeName="height" values="80;120;100;140;100" dur="9s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+</svg>
