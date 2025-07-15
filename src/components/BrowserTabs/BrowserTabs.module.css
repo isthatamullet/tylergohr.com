@@ -145,12 +145,6 @@
   transform: translateY(-1px);
 }
 
-.tab:focus {
-  outline: none;
-  outline-offset: 0;
-  /* Prevent scroll-to-focus behavior that causes border bleeding */
-  scroll-margin-top: 0;
-}
 
 /* Active Tab */
 .tabActive {
