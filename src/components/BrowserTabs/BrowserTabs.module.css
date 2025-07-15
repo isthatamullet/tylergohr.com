@@ -1,6 +1,16 @@
 /* Browser Tab Interface Component Styles */
 
 /* ==========================================================================
+   BLUE FOCUS LINES FIX - Make all blue focus styling transparent
+   ========================================================================== */
+
+.browserContainer,
+.tabBar,
+.tab {
+  --portfolio-interactive: transparent;
+}
+
+/* ==========================================================================
    BROWSER CONTAINER
    ========================================================================== */
 
