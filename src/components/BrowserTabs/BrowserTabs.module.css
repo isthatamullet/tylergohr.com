@@ -1,13 +1,13 @@
 /* Browser Tab Interface Component Styles */
 
 /* ==========================================================================
-   BLUE FOCUS LINES FIX - Make all blue focus styling transparent
+   BLUE FOCUS LINES FIX - Remove focus rings on mouse/touch, keep for keyboard
    ========================================================================== */
 
-.browserContainer,
-.tabBar,
-.tab {
-  --portfolio-interactive: transparent;
+.browserContainer:focus:not(:focus-visible),
+.tabBar:focus:not(:focus-visible),
+.tab:focus:not(:focus-visible) {
+  outline: none;
 }
 
 /* ==========================================================================
