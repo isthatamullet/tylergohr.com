@@ -228,9 +228,6 @@ export default function ConcertoPage() {
       <section className={styles.cta}>
         <h2 className={styles.ctaTitle}>Ready to explore partnership opportunities:</h2>
         <div className={styles.ctaButtons}>
-          <a href="./partnership-brief.pdf" className={styles.ctaButton}>
-            Download Partnership Brief
-          </a>
           <a href="mailto:tyler@tylergohr.com?subject=Concerto Technical Discussion" className={styles.ctaButton}>
             Request Technical Discussion
           </a>
