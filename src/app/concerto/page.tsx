@@ -183,6 +183,19 @@ export default function ConcertoPage() {
             <span className={styles.statLabel}>productivity improvements achievable with reliable orchestration</span>
           </div>
         </div>
+        
+        <div className={styles.musicNote}>
+          <h3><strong>AI Industry Speed Reality</strong></h3>
+          <p>
+            The AI development space moves at breakneck speed. New models are released every 2-3 months, 
+            and major tech companies can replicate concepts in 8-12 weeks. First-mover advantage is 
+            measured in weeks, not months.
+          </p>
+          <p>
+            <strong>With 92% of developers already using AI tools, the market is ready NOW.</strong> 
+            The window for orchestration leadership is 6 months before market saturation.
+          </p>
+        </div>
       </section>
 
       {/* Research Foundation Section */}
