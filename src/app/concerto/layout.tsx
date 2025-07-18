@@ -24,8 +24,8 @@ export default function ConcertoLayout({
 }) {
   return (
     <>
-      {/* No main navigation - clean layout for Concerto pages */}
-      <main>
+      {/* Clean layout for Concerto pages - Navigation hidden at component level */}
+      <main style={{ minHeight: '100vh', width: '100%' }}>
         {children}
       </main>
     </>
