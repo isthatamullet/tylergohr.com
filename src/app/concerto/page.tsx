@@ -241,8 +241,8 @@ export default function ConcertoPage() {
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>About the Founder</h2>
         <p>
-          Tyler Gohr brings a unique combination of technical expertise and musical understanding to AI orchestration. 
-          As both a developer and musician, he understands the importance of perfect timing, coordination, and harmony 
+          Tyler Gohr brings a unique combination of technical expertise and award-winning creative experience to AI orchestration. 
+          As an Emmy Award winner and musician, he understands the importance of perfect timing, coordination, and harmony 
           in creating exceptional performance.
         </p>
         <p><strong>Background:</strong></p>
