@@ -18,6 +18,17 @@ export default function ConcertoPage() {
         </p>
       </section>
 
+      {/* Our Vision Section */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>Our Vision</h2>
+        <p>
+          For development teams and individual developers who struggle with AI tool fragmentation and context loss, 
+          Concerto is an AI development orchestration platform that provides intelligent coordination of multiple AI tools 
+          with persistent context preservation. Unlike manual tool switching and single-provider solutions, Concerto 
+          automatically orchestrates optimal AI responses while maintaining shared context across sessions and team members.
+        </p>
+      </section>
+
       {/* Why Concerto Section */}
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>Why &ldquo;Concerto&rdquo;?</h2>
@@ -49,6 +60,41 @@ export default function ConcertoPage() {
           <li><strong>&ldquo;Vibe Coding&rdquo; Crisis</strong>: Studies show widespread reliability issues in AI-generated code</li>
           <li><strong>Trust Gap</strong>: Enterprise adoption limited by accuracy and security concerns</li>
           <li><strong>Performance Issues</strong>: Slow context retrieval disrupts developer flow</li>
+        </ul>
+      </section>
+
+      {/* Who We Serve Section */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>Who We Serve</h2>
+        
+        <div className={styles.sectionSubtitle}>Primary Target Customers:</div>
+        
+        <div className={styles.sectionSubtitle}>Enterprise Development Teams (10-50 developers)</div>
+        <ul className={styles.solutionList}>
+          <li><strong>Company Profile:</strong> Fortune 1000 companies with mature software development practices</li>
+          <li><strong>Team Structure:</strong> Cross-functional teams including frontend, backend, DevOps, and QA engineers</li>
+          <li><strong>Key Decision Makers:</strong> Engineering managers, VP of Engineering, CTOs</li>
+          <li><strong>Pain Points:</strong> Managing multiple AI tools creates workflow fragmentation, context loss between sessions affects code quality, tool switching reduces productivity by 25-30%</li>
+          <li><strong>Success Criteria:</strong> Measurable productivity improvements, reduced development cycle times, improved code quality</li>
+        </ul>
+
+        <div className={styles.sectionSubtitle}>Mid-Market Software Companies (50-200 developers)</div>
+        <ul className={styles.solutionList}>
+          <li><strong>Company Profile:</strong> Growing technology companies with established DevOps practices</li>
+          <li><strong>Team Structure:</strong> Multiple development teams with specialized roles and responsibilities</li>
+          <li><strong>Key Decision Makers:</strong> Head of Engineering, Technical Directors, Engineering Managers</li>
+          <li><strong>Pain Points:</strong> Scaling development processes while maintaining quality, coordinating AI tool usage across multiple teams</li>
+          <li><strong>Success Criteria:</strong> Improved team coordination, cost optimization, scalable development processes</li>
+        </ul>
+
+        <div className={styles.sectionSubtitle}>Secondary Target Customers:</div>
+        
+        <div className={styles.sectionSubtitle}>Individual Developers &amp; Indie Hackers</div>
+        <ul className={styles.solutionList}>
+          <li><strong>Profile:</strong> Solo developers, freelancers, startup founders, open-source contributors</li>
+          <li><strong>Key Characteristics:</strong> High AI tool adoption, experimental mindset, cost-conscious</li>
+          <li><strong>Pain Points:</strong> Juggling multiple AI tools disrupts creative flow, limited budget for premium AI coding tools</li>
+          <li><strong>Success Criteria:</strong> Enhanced productivity, cost efficiency, learning acceleration</li>
         </ul>
       </section>
 
@@ -88,6 +134,32 @@ export default function ConcertoPage() {
             </ul>
           </div>
         </div>
+      </section>
+
+      {/* How We're Different Section */}
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>How We&rsquo;re Different</h2>
+        
+        <div className={styles.sectionSubtitle}>For Enterprise Teams:</div>
+        <ul className={styles.solutionList}>
+          <li><strong>Multi-Provider Intelligence:</strong> Orchestrates GitHub Copilot, Claude, GPT-4 simultaneously vs. single-tool limitations</li>
+          <li><strong>Team Context Sharing:</strong> Maintains shared context across team members vs. individual-only tools</li>
+          <li><strong>Enterprise Governance:</strong> Built-in compliance and audit trails vs. consumer tools with enterprise add-ons</li>
+        </ul>
+
+        <div className={styles.sectionSubtitle}>For Individual Developers &amp; Indie Hackers:</div>
+        <ul className={styles.solutionList}>
+          <li><strong>Cost-Optimized Orchestration:</strong> Automatically routes to free/low-cost AI providers vs. expensive enterprise-only tools</li>
+          <li><strong>Vibe Coding Enhanced:</strong> Seamless flow between creative experimentation and production code vs. rigid enterprise workflows</li>
+          <li><strong>Learning Acceleration:</strong> AI mentorship that adapts to your skill level vs. one-size-fits-all assistance</li>
+          <li><strong>Solo-to-Scale Ready:</strong> Starts individual, grows with your team vs. enterprise-first complexity</li>
+        </ul>
+
+        <div className={styles.sectionSubtitle}>Universal Advantages:</div>
+        <ul className={styles.solutionList}>
+          <li><strong>Persistent Context:</strong> Never lose your coding context across sessions vs. session-based limitations</li>
+          <li><strong>Proactive Orchestration:</strong> Automatically coordinates optimal AI responses vs. manual tool switching</li>
+        </ul>
       </section>
 
       {/* Market Opportunity Section */}
