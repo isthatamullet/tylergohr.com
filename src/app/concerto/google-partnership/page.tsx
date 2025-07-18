@@ -352,7 +352,7 @@ export default function GooglePartnershipPage() {
       <footer className={styles.confidentialFooter}>
         <strong>Confidential Information</strong>: This document contains proprietary information intended solely 
         for Google Cloud partnership evaluation. Please maintain confidentiality and direct all questions to 
-        <a href="mailto:tyler@tylergohr.com" style={{ color: '#721c24', marginLeft: '0.5rem' }}>tyler@tylergohr.com</a>.
+        <a href="mailto:tyler@tylergohr.com" style={{ color: '#ffffff', marginLeft: '0.5rem' }}>tyler@tylergohr.com</a>.
       </footer>
     </div>
   )
