@@ -192,7 +192,7 @@ export default function ConcertoPage() {
             measured in weeks, not months.
           </p>
           <p>
-            <strong>With 92% of developers already using AI tools, the market is ready NOW.</strong> 
+            <strong>With 92% of developers already using AI tools, the market is ready NOW.</strong>{' '}
             The window for orchestration leadership is 6 months before market saturation.
           </p>
         </div>
