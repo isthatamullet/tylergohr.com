@@ -267,3 +267,29 @@ now i want to work on some more buttons, specifically, the Start Your Project bu
 
 
 PR 108: latest changes completely removed animated background from Results section
+
+
+
+
+
+
+what data can we read from my site visitors?
+what tools are available to try and detect user info?
+if user data is available somehow - is there a way to personalize the popups on my homepage based off of any user data?
+
+
+
+
+
+
+
+
+For the landing page:
+  - "Add @concerto/competitive-positioning.md to the landing page as instructed. Make sure to use the correct font colors for easy readability."
+  - "Add @concerto/vision-statement.md to the landing page as instructed. Make sure to use the correct font colors for easy readability."
+  - "Add @concerto/target-customers.md to the landing page as instructed. Make sure to use the correct font colors for easy readability."
+
+  For the Google partnership page:
+  - "Add @concerto/success-metrics.md to the Google partnership page as instructed. Make sure to use the correct font colors for easy readability."
+  - "Add @concerto/risk-mitigation.md to the Google partnership page as instructed. Make sure to use the correct font colors for easy readability."
+  - "Use the detailed competitive analysis from @concerto/competitive-positioning.md for the Google partnership page. Make sure to use the correct font colors for easy readability."

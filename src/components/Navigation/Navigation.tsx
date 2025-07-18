@@ -455,6 +455,11 @@ export default function Navigation({ className = "" }: NavigationProps) {
     { id: "contact", label: "Contact", href: "#contact", type: "simple" },
   ];
 
+  // Hide navigation completely on Concerto pages
+  if (pathname.startsWith('/concerto')) {
+    return null;
+  }
+
   return (
     <nav
       className={`${styles.navigation} ${isScrolled ? styles.scrolled : ""} ${className}`}

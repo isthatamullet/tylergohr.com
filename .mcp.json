@@ -1,6 +1,7 @@
 {
   "mcpServers": {
     "tyler-gohr-portfolio": {
+      "type": "stdio",
       "command": "node",
       "args": ["/home/user/tylergohr.com/mcp-server/dist/index.js"],
       "env": {
@@ -8,6 +9,7 @@
       }
     },
     "puppeteer": {
+      "type": "stdio",
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
       "env": {
@@ -16,10 +18,12 @@
       }
     },
     "context7": {
+      "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp"]
+      "args": ["-y", "@upstash/context7-mcp@latest"]
     },
     "sequential-thinking": {
+      "type": "stdio",
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
     }
