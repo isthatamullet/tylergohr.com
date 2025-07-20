@@ -1,5 +1,21 @@
 # Tyler Gohr Portfolio - Enterprise Solutions Architect
 
+## Development Environment Overview
+
+This is a **multi-project development workspace** running on Google Cloud Workstations with browser-based VS Code. The environment is optimized for iPad development with AI-assisted coding workflows.
+
+### Core Setup
+- **Platform**: Google Cloud Workstations (browser-based VS Code)
+- **Device**: iPad (no local terminal access)
+- **Port Management**: Smart auto-allocation starting from port 3000
+- **VS Code Access**: https://studio.tylergohr.com (or https://34.69.148.95:8080)
+
+### Environment Constraints
+- **No desktop screenshots**: Use Puppeteer with headless browser options
+- **Browser-based development**: All tools must work in browser context
+- **Port limitations**: Preview URLs may need external access for iPad viewing
+- **No local file system access**: All development through VS Code web interface
+
 ## Quick Project Reference
 **Mission**: Enterprise Solutions Architect portfolio showcasing business-focused technical mastery and measurable business impact  
 **Live URL**: https://tylergohr.com (Enterprise Solutions Architect focus)
@@ -62,7 +78,7 @@ npm run test:e2e:screenshot:enhanced # Timeout-resistant screenshots
 - **Creative Freedom**: Professional sophistication with interactive technical demonstrations
 
 ## Tech Stack
-- **Framework**: Next.js 14+ with App Router + TypeScript
+- **Framework**: Next.js 15+ with App Router + TypeScript
 - **Styling**: CSS Modules with brand tokens system (`src/app/styles/brand-tokens.css`)
 - **Architecture**: Component-based with preview/detail page patterns
 - **Testing**: Playwright E2E test suites
@@ -495,7 +511,7 @@ npm run test:e2e:visual           # Visual regression testing
 - src/app/globals.css
 
 # Configuration files (⚙️ CONFIG PROTECTION)
-- .env*, eslint.config.js, postcss.config.js
+- .env*, .eslintrc.json, postcss.config.js
 ```
 
 ### **✅ Safe to Modify**
