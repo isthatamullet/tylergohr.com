@@ -32,10 +32,6 @@ export default function Navigation({ className = "" }: NavigationProps) {
   // Lock body scroll when mobile menu is open
   useScrollLock(isMenuOpen);
 
-  // Enhanced debug logging to verify /2 Navigation is rendering
-  console.log('[/2 Navigation] Component is rendering, pathname:', pathname);
-  console.log('[/2 Navigation] This should be the ONLY navigation on /2 routes');
-  console.log('[/2 Navigation] Component mounted at:', new Date().toISOString());
 
   // Navigation height for offset calculation - use brand token
   const NAV_HEIGHT = 70; // TODO: Replace with getComputedStyle to read CSS custom property
@@ -308,7 +304,6 @@ export default function Navigation({ className = "" }: NavigationProps) {
               }
             }
             
-            console.log(`/2 Navigation: Active section changed to: ${selectedSection}`);
             setActiveSection(selectedSection);
             
             // Update URL hash without causing scroll
@@ -330,18 +325,15 @@ export default function Navigation({ className = "" }: NavigationProps) {
         if (element) {
           observerRef.current?.observe(element);
           observedCount++;
-          console.log(`/2 Navigation: Successfully observing section: ${sectionId}`);
         } else {
           console.warn(`/2 Navigation: Section element not found: ${sectionId}`);
         }
       });
 
-      console.log(`/2 Navigation: Observing ${observedCount}/${sections.length} sections`);
       
       // If not all sections found, retry after a longer delay
       if (observedCount < sections.length) {
         setTimeout(() => {
-          console.log('/2 Navigation: Retrying section observation with longer delay...');
           setupObserver();
         }, 2500); // Increased from 1000ms to 2500ms for better reliability
       }
@@ -352,10 +344,8 @@ export default function Navigation({ className = "" }: NavigationProps) {
       // Check if most sections are already in DOM before setting up observer
       const existingSections = sections.filter(id => document.getElementById(id));
       if (existingSections.length >= sections.length - 2) { // Allow 2 missing sections for lazy loading
-        console.log('/2 Navigation: Most sections found, setting up observer immediately');
         setupObserver();
       } else {
-        console.log(`/2 Navigation: Only ${existingSections.length}/${sections.length} sections found, waiting longer for lazy loading`);
         setTimeout(setupObserver, 1500); // Longer delay for lazy components
       }
     }, 800); // Reduced initial delay since we have smarter detection

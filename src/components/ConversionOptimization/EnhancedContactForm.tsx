@@ -234,27 +234,6 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
         qualificationLevel
       }
 
-      // ENHANCED DEBUGGING: Log form data before submission
-      console.log('[Enhanced Contact Form] Submitting form data:', JSON.stringify(enhancedFormData, null, 2))
-      console.log('[Enhanced Contact Form] Form data analysis:', {
-        step: currentStep,
-        hasName: !!enhancedFormData.name,
-        nameValue: enhancedFormData.name,
-        hasEmail: !!enhancedFormData.email,
-        emailValue: enhancedFormData.email,
-        hasMessage: !!enhancedFormData.message,
-        messageLength: enhancedFormData.message.length,
-        projectType: enhancedFormData.projectType,
-        companySize: enhancedFormData.companySize,
-        companySizeIsUndefined: enhancedFormData.companySize === undefined,
-        timeline: enhancedFormData.timeline,
-        timelineIsUndefined: enhancedFormData.timeline === undefined,
-        budget: enhancedFormData.budget,
-        budgetIsUndefined: enhancedFormData.budget === undefined,
-        decisionMaker: enhancedFormData.decisionMaker,
-        leadScore: enhancedFormData.leadScore,
-        qualificationLevel: enhancedFormData.qualificationLevel
-      })
 
       // Call lead qualification callback if provided
       if (onLeadQualified) {
@@ -262,7 +241,6 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
       }
 
       // Submit to contact API with enhanced data
-      console.log('[Enhanced Contact Form] Making API request to /api/contact')
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -273,17 +251,8 @@ export const EnhancedContactForm: React.FC<EnhancedContactFormProps> = ({
 
       const result = await response.json()
 
-      // ENHANCED DEBUGGING: Log API response details
-      console.log('[Enhanced Contact Form] API Response received:', {
-        status: response.status,
-        statusText: response.statusText,
-        ok: response.ok,
-        headers: Object.fromEntries(response.headers.entries()),
-        result: result
-      })
 
       if (response.ok && result.success) {
-        console.log('[Enhanced Contact Form] SUCCESS: Form submitted successfully')
         setSubmitStatus('success')
         
         // Reset form after successful submission

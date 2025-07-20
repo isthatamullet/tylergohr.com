@@ -136,10 +136,6 @@ export const BasicSceneClient: React.FC<BasicSceneClientProps> = ({ webglConfig 
           onCreated={({ gl }) => {
             try {
               gl.setClearColor('#1a1a1a');
-              console.log('WebGL context created successfully:', {
-                renderer: gl.domElement.width,
-                capabilities: gl.capabilities
-              });
             } catch (error) {
               console.warn('WebGL context setup warning:', error);
             }
