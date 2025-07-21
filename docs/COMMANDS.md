@@ -128,17 +128,15 @@ npm run test:e2e:task-managed   # Use VS Code task-managed environment
 
 ## Hook System Commands
 
-### **Hook Orchestrator Management**
+### **Simple File Protection Management**
 ```bash
-# System health and status
-./scripts/hooks/orchestrator/orchestrator.sh health      # System health check
-./scripts/hooks/orchestrator/orchestrator.sh status      # Current hook status
-./scripts/hooks/orchestrator/orchestrator.sh debug       # Debug mode activation
-./scripts/hooks/orchestrator/orchestrator.sh logs        # View hook logs
+# File protection is now managed via ~/.claude/settings.json
+# No complex orchestrator commands needed
 
-# Resource management
-./scripts/hooks/orchestrator/resource-manager.sh check_resources  # Resource status
-./scripts/hooks/orchestrator/resource-manager.sh cleanup          # Clean shared resources
+# Emergency bypass when protection is active
+HOOK_BYPASS_PROTECTION=true [command]     # Bypass file protection temporarily
+
+# Current status: File protection is ACTIVE via simple hooks configuration
 ```
 
 ### **Hook-Integrated Workflows**
@@ -156,9 +154,8 @@ npm run test:e2e:puppeteer-mobile    # Mobile Puppeteer screenshots
 
 ### **Hook System Debugging**
 ```bash
-# Hook installation and management
-./scripts/hooks/install-hooks.sh     # Install hook system
-./scripts/hooks/uninstall-hooks.sh   # Uninstall with backup
+# File protection is managed via ~/.claude/settings.json
+# No installation/uninstall scripts needed
 
 # Manual hook testing
 ./scripts/hooks/pre-edit-validation.sh "Edit" "/path/to/file"
@@ -301,14 +298,13 @@ npx playwright show-report                                  # View test report
 
 ### **Hook System Issues**
 ```bash
-# Hook system debugging
+# File protection debugging
 HOOK_BYPASS_PROTECTION=true [command]        # Bypass file protection
-./scripts/hooks/orchestrator/orchestrator.sh debug  # Enable debug mode
-./scripts/hooks/orchestrator/orchestrator.sh logs   # View detailed logs
+# Hook logs appear in Claude Code interface when protection is triggered
+# No complex orchestrator debugging needed
 
-# Emergency hook reset
-./scripts/hooks/uninstall-hooks.sh           # Uninstall hooks with backup
-./scripts/hooks/install-hooks.sh             # Reinstall hook system
+# Emergency reset: Remove "hooks" section from ~/.claude/settings.json to disable
+# Re-add "hooks" section to ~/.claude/settings.json to re-enable
 ```
 
 ## Environment Variables Reference

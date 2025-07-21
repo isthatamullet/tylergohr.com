@@ -298,3 +298,5 @@ For the landing page:
 
 
 what is the setting or config that made you say "Error: File has not been read yet. Read it first before writing to it."
+
+well i dont know if its being on a compute engine VM vs the cloud workstation i had before, but seeing that you were able to run that many npm commands without all of them timing out is already a noticeable improvement. tell me about the hard coded ports in my package.json file - is it recommended ot have hard coded ports in that file?

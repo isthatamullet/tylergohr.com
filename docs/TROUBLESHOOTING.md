@@ -283,23 +283,23 @@ Hook system error messages
 Performance degradation with hooks active
 ```
 
-#### Solution 1: Check Hook System Health
+#### Solution 1: Check File Protection Status
 ```bash
-# System diagnostics
-./scripts/hooks/orchestrator/orchestrator.sh health    # Overall health
-./scripts/hooks/orchestrator/orchestrator.sh status    # Current status
-./scripts/hooks/orchestrator/orchestrator.sh logs      # Detailed logs
+# File protection is managed via ~/.claude/settings.json
+# Check if "hooks" section exists in settings
+cat ~/.claude/settings.json | grep -A10 "hooks"
+
+# File protection logs appear in Claude Code interface when triggered
 ```
 
-#### Solution 2: Resource Management
+#### Solution 2: Reset File Protection
 ```bash
-# Clean up hook resources
-./scripts/hooks/orchestrator/resource-manager.sh cleanup
-./scripts/hooks/orchestrator/resource-manager.sh check_resources
+# Disable file protection (remove hooks from settings)
+# Edit ~/.claude/settings.json and remove the "hooks" section
 
-# Reset hook system if needed
-./scripts/hooks/uninstall-hooks.sh           # Uninstall with backup
-./scripts/hooks/install-hooks.sh             # Reinstall fresh
+# Re-enable file protection (add hooks back to settings)
+# Add the hooks configuration back to ~/.claude/settings.json
+# File protection uses simple JSON configuration, no installation needed
 ```
 
 #### Solution 3: Temporary Hook Bypass
@@ -575,18 +575,19 @@ npm run test:e2e:smoke
 # 1. Bypass all hooks temporarily
 export HOOK_BYPASS_PROTECTION=true
 
-# 2. Uninstall hook system
-./scripts/hooks/uninstall-hooks.sh
+# 2. Reset file protection system
+# Remove "hooks" section from ~/.claude/settings.json
 
-# 3. Clean hook resources
+# 3. Clean any temporary files
 rm -rf /tmp/claude-hooks-*
 rm -rf ~/.claude/temp-hooks-*
 
 # 4. Reinstall fresh
-./scripts/hooks/install-hooks.sh
+# File protection is now managed via simple JSON configuration
+# No installation scripts needed
 
-# 5. Test hook system
-./scripts/hooks/orchestrator/orchestrator.sh health
+# 5. Verify file protection is working
+# Try editing a protected file like package.json to test
 ```
 
 ### **Project Repository Reset**
