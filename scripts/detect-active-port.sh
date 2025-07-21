@@ -110,23 +110,8 @@ detect_and_export_port() {
         fi
     fi
     
-    # For quiet mode, skip hook system to avoid log noise
-    if [[ "$QUIET_MODE" != "quiet" ]]; then
-        # Attempt to use hook system if available
-        if [[ -f "$SCRIPT_DIR/hooks/orchestrator/resource-manager.sh" ]]; then
-            conditional_log info "Attempting to use Claude Code hook infrastructure..."
-            
-            if source "$SCRIPT_DIR/hooks/orchestrator/resource-manager.sh" 2>/dev/null; then
-                if get_shared_port_detection "standalone" >/dev/null 2>&1; then
-                    if [[ -n "$ACTIVE_DEV_PORT" ]]; then
-                        local validation_url=$(construct_test_url "$ACTIVE_DEV_PORT")
-                        export ACTIVE_DEV_URL="$validation_url"
-                        conditional_log success "Port detected via hook system: $ACTIVE_DEV_PORT"
-                        conditional_log info "Server URL: $validation_url"
-                        return 0
-                    fi
-                fi
-            fi
+    # Hook system integration removed - using direct detection
+    # (Orchestrator system archived as over-engineering)
             conditional_log info "Hook system not available, using standalone detection..."
         fi
         

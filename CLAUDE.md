@@ -83,119 +83,67 @@ npm run test:e2e:screenshot:enhanced # Timeout-resistant screenshots
 - **Architecture**: Component-based with preview/detail page patterns
 - **Testing**: Playwright E2E test suites
 - **Deployment**: Google Cloud Run infrastructure with custom domain
-- **Development Automation**: Claude Code hooks system for workflow optimization
+- **Development Automation**: Simple npm commands + optional file protection
 
-## 🚀 Claude Code Hooks System - Development Automation
+## 🔧 Simple Development Workflow (Hooks Disabled)
 
 ### **Overview**
-Intelligent development workflow automation system that provides real-time quality gates, performance monitoring, and context-aware optimization for the Tyler Gohr Portfolio development process.
+After removing 7,766+ lines of over-engineered automation, the development workflow is now simple and fast.
 
-### **Core Features**
-- **File Protection**: Prevents accidental modification of critical files
-- **Quality Gates**: Automated TypeScript validation and testing
-- **Visual Development**: Automated screenshot generation for design iteration
-- **Performance Monitoring**: Real-time Core Web Vitals impact detection
-- **Context Awareness**: Optimizes workflow for Enterprise Solutions Architect portfolio development
+### **Core Commands**
+- **Daily Development**: `npm run typecheck && npm run lint` (4-6 seconds)
+- **Before Commits**: `npm run validate` (full validation when ready)
+- **Screenshots**: `npx playwright test e2e/quick-screenshots.spec.ts --project=chromium`
 
-### **Hook Configuration**
-```bash
-# Location: ~/.claude/settings.json
-# Comprehensive hooks covering:
-# - PreToolUse: File protection and validation
-# - PostToolUse: Quality gates and performance checks
-# - Notification: Context-aware development optimization
-# - Stop: Cleanup and optimization
-```
+### **What Was Archived**
+We removed 7,766+ lines of over-engineered automation including:
+- Complex orchestrator system (3,925 lines)
+- Screenshot management complexity (1,728 lines)  
+- Context detection over-engineering (513 lines)
+- Port management scripts (15 files)
+- Visual workflow automation (252 lines)
 
-### **Development Workflow Integration**
-```bash
-# Hooks automatically trigger during development:
-# 1. Pre-edit validation before file modifications
-# 2. Post-edit quality gates after changes
-# 3. Smart test selection based on change scope
-# 4. Visual change detection and screenshot generation
-# 5. Performance impact monitoring
-# 6. Brand consistency validation for Enterprise portfolio
-```
-
-### **Hook Scripts Structure**
+### **Simple File Protection (Available)**
+If you want basic file protection, 3 simple files remain:
 ```
 scripts/hooks/
-├── pre-edit-validation.sh           # Quality gate before edits
-├── post-edit-quality-gate.sh        # Validation after changes
-├── visual-development-workflow.sh   # Visual change automation
-├── performance-excellence-check.sh  # Performance monitoring
-├── development-context-optimizer.sh # Context-aware optimization
-├── install-hooks.sh                 # Installation script
-├── uninstall-hooks.sh              # Uninstallation script
-├── lib/                            # Utility libraries
-│   ├── file-protection.sh          # Protected file validation
-│   ├── test-selection.sh           # Smart test strategy
-│   ├── visual-change-detection.sh  # UI change identification
-│   ├── performance-monitoring.sh   # Core Web Vitals checks
-│   ├── context-detection.sh        # Development context detection
-│   └── hook-utils.sh               # Shared utilities
-└── config/                         # Configuration files
-    ├── protected-files.json         # Critical file definitions
-    ├── test-strategies.json         # Test selection rules
-    ├── performance-thresholds.json  # Excellence standards
-    └── visual-change-patterns.json  # UI change detection patterns
+├── install-hooks.sh              # Install basic file protection
+├── uninstall-hooks.sh           # Remove file protection  
+└── lib/
+    ├── file-protection.sh        # Prevents corruption of critical files
+    ├── context-detection.sh      # Simple 13-line context detection
+    └── hook-utils.sh            # Basic logging utilities
 ```
 
-### **Smart Testing Integration**
-- **Context-Aware**: Intelligent testing strategies for Enterprise Solutions Architect portfolio
-- **Change-Based**: Automatic test selection based on file types and components
-- **Performance-First**: Real-time impact monitoring for animations and Core Web Vitals
-- **Visual Validation**: Automated screenshot generation for design changes
+### **Why Simple is Better**
+- **Before**: 8-12 minute hook chains with timeouts
+- **After**: 4-6 second commands that always work
+- **Result**: Actually get work done instead of waiting for automation
 
-### **Hook Management Commands**
+
+
+
+
+### **How to Enable File Protection (Optional)**
 ```bash
-# Installation (automatically configures ~/.claude/settings.json)
+# Install basic file protection only
 ./scripts/hooks/install-hooks.sh
 
-# Uninstallation (with backup)
+# Remove file protection
 ./scripts/hooks/uninstall-hooks.sh
-
-# Manual testing of individual hooks
-./scripts/hooks/pre-edit-validation.sh "Edit" "/path/to/file"
-./scripts/hooks/post-edit-quality-gate.sh "component" "/path/to/file"
-./scripts/hooks/visual-development-workflow.sh "/path/to/file"
-./scripts/hooks/performance-excellence-check.sh "ui-component" "/path/to/file"
-./scripts/hooks/development-context-optimizer.sh "notification"
 ```
 
-### **Enterprise Solutions Architect Benefits**
-- **80% Faster Quality Gates**: Automated pre-validation prevents error cycles
-- **90% Reduction in Manual Testing**: Smart test selection based on change scope
-- **95% Screenshot Automation**: Eliminate manual visual validation steps
-- **100% Context Awareness**: Perfect workflow adaptation for Enterprise portfolio development
-- **Zero Protected File Accidents**: Automated prevention of critical file modifications
-- **Continuous Performance Monitoring**: Real-time Core Web Vitals impact detection
+---
 
 ## 🤖 Sub-Agent Integration System
 
-### **Intelligent Timeout Prevention**
-The hooks system now includes sophisticated sub-agent delegation logic that **eliminates the 2-minute timeout failures** you were experiencing. The system automatically detects complexity and timeout risk, then recommends the appropriate Agent tool patterns.
+### **Timeout Prevention for Claude Code**
 
-### **Complexity Detection Engine**
-```bash
-# The system analyzes operations and assigns complexity scores (0-15):
-# - Operation complexity: comprehensive_testing (+5), visual_regression (+4)
-# - Time complexity: >120s (+5), >60s (+3), >30s (+1)  
-# - Context complexity: testing (+3), enterprise features (+2)
-# - Tool complexity: timeout-prone Bash commands (+2)
-
-# When complexity ≥8 AND timeout risk = high:
-🤖 HIGH COMPLEXITY DETECTED - Recommending sub-agent delegation
-💡 Suggested Claude prompt: 'Use the Agent tool to handle...'
-```
-
-### **Sub-Agent Patterns**
+This project has timeout-prone operations that benefit from using the Agent tool. When you encounter these patterns, use the Agent tool for reliable execution:
 
 #### **1. Environment Setup Agent**
 ```bash
-# Triggered by: npm run dev, port conflicts, server issues
-# Complexity threshold: 5+ (medium)
+# Use for: npm run dev, port conflicts, server startup issues
 
 💡 Claude Prompt:
 "Use the Agent tool to handle environment setup: detect ports, validate servers, set environment variables, ensure ready for testing"
@@ -205,8 +153,7 @@ The hooks system now includes sophisticated sub-agent delegation logic that **el
 
 #### **2. Test Execution Agent**  
 ```bash
-# Triggered by: npm run test:e2e:smoke, playwright commands, testing operations
-# Complexity threshold: 8+ (high)
+# Use for: npm run test:e2e:smoke, playwright commands, testing operations
 
 💡 Claude Prompt:
 "Use the Agent tool to execute tests with full environment validation, timeout handling, and result analysis"
@@ -216,8 +163,7 @@ The hooks system now includes sophisticated sub-agent delegation logic that **el
 
 #### **3. Timeout Prevention Agent**
 ```bash
-# Triggered by: Any timeout-prone command pattern
-# Complexity threshold: 5+ (medium) + timeout risk
+# Use for: Any command that historically times out
 
 💡 Claude Prompt:  
 "Use the Agent tool to handle this timeout-prone operation with proper environment setup and execution strategy"
@@ -227,102 +173,54 @@ The hooks system now includes sophisticated sub-agent delegation logic that **el
 
 ### **Enhanced npm Scripts**
 ```bash
-# New timeout-resistant commands:
-npm run dev:enhanced                    # Environment setup agent integration
-npm run test:e2e:smoke:enhanced        # Test execution agent integration  
-npm run test:e2e:screenshot:enhanced   # Visual testing with agent support
+# Timeout-resistant alternatives (these just call the standard commands but serve as reminders)
+npm run dev:enhanced                    # Reminder to use Agent tool for npm run dev
+npm run test:e2e:smoke:enhanced        # Reminder to use Agent tool for testing
+npm run test:e2e:screenshot:enhanced   # Use npx playwright test e2e/quick-screenshots.spec.ts --project=chromium
 
-# Analysis and prompt generation:
-./scripts/subagent-integration.sh analyze npm "run test:e2e:smoke"
-./scripts/subagent-integration.sh prompt npm "run dev"
-
-# Environment controls:
-USE_SUBAGENT=true npm run test:e2e:smoke:enhanced     # Always recommend agent
-FORCE_SUBAGENT=true npm run dev:enhanced              # Block direct execution
+# Standard commands (may timeout in cloud environments)
+npm run dev                            # Consider Agent tool if timeouts occur
+npm run test:e2e:smoke                 # Consider Agent tool if timeouts occur
 ```
 
-### **Integration with Hooks Workflow**
-```bash
-# The hooks automatically:
-1. Analyze command complexity before execution
-2. Calculate timeout risk based on historical patterns  
-3. Recommend appropriate sub-agent patterns
-4. Provide ready-to-use Claude prompts
-5. Allow override with environment variables
-
-# Example output:
-🤖 TIMEOUT-PRONE COMMAND DETECTED
-🤖 Recommendation: Use 'test_execution_agent' pattern
-💡 SUGGESTED CLAUDE PROMPT: [detailed prompt provided]
-⚠️  This command has historically caused timeouts. Consider using the Agent tool.
-```
-
-### **Performance Transformation**
-- **Before**: 2-minute timeouts with no results
-- **After**: 30-60 second successful execution via sub-agents
-- **Success Rate**: 100% vs previous timeout failures
-- **Workflow Enhancement**: Proactive prevention vs reactive problem-solving
-
-### **Claude Code Instance Integration**
-
-#### **⚠️ Cross-Session Limitation Alert**
-**IMPORTANT**: The hooks system alerts may only be visible in the original Claude session that configured them. If you're experiencing 2-minute timeouts despite this system, see **@CROSS-SESSION-TIMEOUT-PREVENTION-GUIDE.md** for enhanced commands and reliable Agent tool patterns.
-
-#### **🚨 Priority Alert System**
-When `CLAUDE_AUTO_SUBAGENT=true` is set, Claude Code instances will see high-priority alerts:
-```bash
-🚨 CLAUDE CODE: USE AGENT TOOL NOW
-🚨 CLAUDE PROMPT: Use the Agent tool to execute tests with full environment validation, timeout handling, and result analysis
-🚨 REASON: Complexity score 8/15, timeout risk: high
-```
-
-#### **🤖 Recognition Patterns for Claude Code**
-Claude Code instances should automatically use the Agent tool when seeing:
-- **🚨 CLAUDE CODE: USE AGENT TOOL NOW** - Immediate action required
-- **Complexity score ≥8** AND **timeout risk: high/medium** - High likelihood of timeout
+### **🤖 Recognition Patterns for Claude Code**
+Claude Code instances should use the Agent tool when seeing:
 - **Timeout-prone command patterns**: `npm run test:e2e:smoke`, `playwright test`, `npm run dev`
+- **Previous 2-minute timeouts** with these commands
+- **Cloud environment complexity** (Google Cloud Workstations, Codespaces)
 
-#### **⚡ Claude-Optimized Commands**
+### **🎯 Decision Matrix for Claude Code Instances**
 ```bash
-# Automatic sub-agent recommendations for Claude Code:
-npm run dev:claude                      # Environment setup agent (priority alerts)
-npm run test:e2e:smoke:claude          # Test execution agent (priority alerts)
-
-# Manual analysis for Claude Code:
-CLAUDE_AUTO_SUBAGENT=true npm run test:e2e:smoke:enhanced
-CLAUDE_AUTO_SUBAGENT=true ./scripts/subagent-integration.sh run npm run dev
-```
-
-#### **🎯 Decision Matrix for Claude Code Instances**
-```bash
-# When to use Agent tool (automatic decision tree):
-IF hook_output.contains("🚨 CLAUDE CODE: USE AGENT TOOL NOW"):
-    → USE Agent tool with provided prompt immediately
+# When to use Agent tool:
+IF previous_attempt_timed_out_at_2_minutes:
+    → USE Agent tool with appropriate pattern immediately
     
-ELIF complexity_score >= 8 AND timeout_risk in ["high", "medium"]:
-    → STRONGLY RECOMMEND Agent tool usage
+ELIF command matches ["npm run dev", "npm run test:e2e:smoke", "playwright test"]:
+    → CONSIDER Agent tool for reliability in cloud environments
     
-ELIF command matches timeout_prone_patterns:
-    → CONSIDER Agent tool for reliability
+ELIF working_in_cloud_environment AND complex_operation:
+    → RECOMMEND Agent tool for timeout prevention
     
 ELSE:
     → Proceed with direct execution
 ```
 
-### **Manual Sub-Agent Commands**
+### **Manual Analysis Available**
 ```bash
-# Check if command needs sub-agent:
+# Analysis script exists but not required for normal usage
 ./scripts/subagent-integration.sh analyze npm "run test:e2e:smoke"
-# Output: test_execution_agent
+./scripts/subagent-integration.sh prompt npm "run dev"
 
-# Get Claude prompt for sub-agent:
-./scripts/subagent-integration.sh prompt npx "playwright test e2e/quick-screenshots.spec.ts"
-# Output: [Complete Agent tool prompt]
-
-# Run with analysis and recommendations:
-./scripts/subagent-integration.sh run npm run test:e2e:smoke
-# Output: [Analysis + recommendations + execution]
+# Environment variables for enhanced recommendations (optional)
+USE_SUBAGENT=true npm run test:e2e:smoke:enhanced    # Always show Agent tool recommendations
+CLAUDE_AUTO_SUBAGENT=true npm run dev               # Enhanced Claude integration
 ```
+
+### **Performance Benefits**
+- **Before**: 2-minute timeouts with no results
+- **After**: 30-60 second successful execution via Agent tool
+- **Success Rate**: 100% vs previous timeout failures
+- **Workflow Enhancement**: Proactive timeout prevention
 
 ## 📚 Documentation Guide
 

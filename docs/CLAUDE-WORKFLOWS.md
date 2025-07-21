@@ -2,53 +2,41 @@
 
 ## Overview
 
-This guide provides comprehensive patterns and best practices for Claude Code instances working with the Tyler Gohr Portfolio project. The project includes sophisticated automation systems designed to optimize Claude Code workflows, prevent timeouts, and ensure reliable development processes.
+This guide provides patterns and best practices for Claude Code instances working with the Tyler Gohr Portfolio project. The project uses simple npm commands with Agent tool guidance for timeout prevention and reliable development processes.
 
 ## Quick Start - Claude Code Instances
 
-### **Essential Recognition Patterns**
+### **Timeout-Prone Command Recognition**
 ```bash
-# When you see these alerts - USE AGENT TOOL IMMEDIATELY
-🚨 CLAUDE CODE: USE AGENT TOOL NOW
-🚨 CLAUDE PROMPT: [Ready-to-use Agent tool prompt]
-🚨 REASON: [Why this operation needs sub-agent]
+# Watch for these commands that may timeout in cloud environments
+npm run dev                             # 2-minute timeout risk
+npm run test:e2e:smoke                  # 2-minute timeout risk
+playwright test commands                # Timeout-prone
 
-# High-priority timeout prevention indicators
-Complexity score ≥8                    # Strong Agent tool recommendation
-Timeout risk: high/medium              # Consider Agent tool for reliability
-Timeout-prone patterns detected        # npm run test:e2e:smoke, playwright test, npm run dev
+# When you see timeouts - USE AGENT TOOL
+# Enhanced commands serve as reminders:
+npm run dev:enhanced                    # Reminds you to use Agent tool
+npm run test:e2e:smoke:enhanced         # Reminds you to use Agent tool
 ```
 
 ### **Daily Workflow Pattern**
 ```bash
-# 1. Context detection
-cd /home/user/tylergohr.com/src/app/2/    # /2 redesign work
-cd /home/user/tylergohr.com/              # Main portfolio work
-
-# 2. Check project status
-gh issue list --label "redesign"          # /2 development tasks
+# 1. Check project status
+gh issue list --state open               # Active development tasks
 npm run test:e2e:smoke                    # Quick validation (<1min)
 
-# 3. Development with sub-agent awareness
-npm run dev                               # May trigger sub-agent recommendation
-npm run test:e2e:smoke                    # Timeout-prone - watch for alerts
+# 2. Development (use Agent tool if timeouts occur)
+npm run dev                               # May timeout in cloud environments
+npm run test:e2e:smoke                    # May timeout in cloud environments
 
 # 4. Visual review with Claude
 npx playwright test e2e/quick-screenshots.spec.ts --project=chromium
 ```
 
-## Sub-Agent Integration System
+## Agent Tool Integration
 
-### **Timeout Prevention Architecture**
-The project includes sophisticated timeout prevention specifically designed for Claude Code:
-
-```bash
-# Automatic complexity analysis
-🤖 TIMEOUT-PRONE COMMAND DETECTED
-🤖 Recommendation: Use 'test_execution_agent' pattern
-💡 SUGGESTED CLAUDE PROMPT: [Complete Agent tool prompt provided]
-⚠️  This command has historically caused timeouts. Consider using the Agent tool.
-```
+### **Simple Timeout Prevention**
+When commands timeout after 2 minutes, use the Agent tool with these patterns:
 
 ### **Sub-Agent Patterns**
 
@@ -92,8 +80,8 @@ The project includes sophisticated timeout prevention specifically designed for 
 
 #### **3. Timeout Prevention Agent**
 ```bash
-# Triggered by: Any command with complexity ≥8 + timeout risk
-# Use when: Complex operations, multi-step commands, historically problematic tasks
+# Triggered by: Complex operations, multi-step commands, historically problematic tasks
+# Use when: Any operation that has previously timed out
 
 💡 Claude Prompt Pattern:
 "Use the Agent tool to handle this timeout-prone operation:
@@ -108,39 +96,45 @@ The project includes sophisticated timeout prevention specifically designed for 
 **Goal**: Ensure reliable execution of commands that historically timeout."
 ```
 
-### **Sub-Agent Decision Matrix**
+### **Agent Tool Decision Guide**
 
 ```bash
-# Automatic decision tree for Claude Code instances:
+# Simple decision pattern for Claude Code instances:
 
-IF hook_output.contains("🚨 CLAUDE CODE: USE AGENT TOOL NOW"):
-    → USE Agent tool with provided prompt IMMEDIATELY
+IF previous_attempt_timed_out_at_2_minutes:
+    → USE Agent tool with appropriate pattern immediately
     
-ELIF complexity_score >= 8 AND timeout_risk in ["high", "medium"]:
-    → STRONGLY RECOMMEND Agent tool usage
+ELIF command matches ["npm run dev", "npm run test:e2e:smoke", "playwright test"]:
+    → CONSIDER Agent tool for reliability in cloud environments
     
-ELIF command matches timeout_prone_patterns:
-    → CONSIDER Agent tool for reliability
+ELIF working_in_cloud_environment AND complex_operation:
+    → RECOMMEND Agent tool for timeout prevention
     
 ELSE:
     → Proceed with direct execution
 ```
 
-### **Manual Sub-Agent Analysis**
+### **When to Use Agent Tool**
 ```bash
-# Check if command needs sub-agent
-./scripts/subagent-integration.sh analyze npm "run test:e2e:smoke"
-# Output: test_execution_agent
+# Use Agent tool for these timeout-prone operations:
+npm run dev                              # Environment setup timeouts
+npm run test:e2e:smoke                   # Test execution timeouts
+playwright test commands                 # Complex testing operations
 
-# Get complete Claude prompt
-./scripts/subagent-integration.sh prompt npx "playwright test e2e/quick-screenshots.spec.ts"
-# Output: [Complete Agent tool prompt]
-
-# Run with analysis and recommendations
-./scripts/subagent-integration.sh run npm run test:e2e:smoke
+# Enhanced commands serve as reminders:
+npm run dev:enhanced                     # Reminds you to use Agent tool
+npm run test:e2e:smoke:enhanced          # Reminds you to use Agent tool
 ```
 
 ## File Protection System
+
+### **What It Does**
+```bash
+# Safety net for AI-assisted development
+# Prevents accidental corruption of critical files
+# Currently ENABLED via simple hooks configuration
+# Will prompt for confirmation before modifying protected files
+```
 
 ### **Protected File Categories**
 ```bash
@@ -154,77 +148,26 @@ ELSE:
 - Dockerfile, docker-compose.yml
 
 # DESIGN SYSTEM FILES (brand validation required)
-- src/app/2/styles/brand-tokens.css
+- src/app/styles/brand-tokens.css
 - src/app/globals.css
 
 # CONFIGURATION FILES (audit logging)
 - .env*, postcss.config.js, eslint.config.js
 ```
 
-### **File Protection Workflow**
+### **How To Enable/Disable**
 ```bash
-# When hooks detect protected file modification:
-🛡️  PROTECTED FILE DETECTED: [filename]
-🛡️  Protection level: [critical/important/design_system]
-🛡️  Confirmation required: [yes/no]
-🛡️  Backup will be created: [yes/no]
+# File protection is now ENABLED via ~/.claude/settings.json
 
-# Safe override patterns
-HOOK_BYPASS_PROTECTION=true [command]     # Emergency bypass
-# Or wait for explicit user confirmation
+# To disable: Remove the "hooks" section from ~/.claude/settings.json
+# To enable: Add hooks configuration to ~/.claude/settings.json
+
+# Emergency bypass (when protection is active)
+HOOK_BYPASS_PROTECTION=true [command]
+
+# Current status: File protection is ACTIVE
 ```
 
-### **Safe File Modification Patterns**
-```bash
-# Always safe to modify
-- Individual component files within /2/components/
-- Component-specific CSS modules
-- /2 page content (page.tsx files in /2 subdirectories)
-- Documentation files (*.md) in docs/
-
-# Require confirmation
-- Brand tokens system (brand-tokens.css)
-- Layout files (layout.tsx)
-- Configuration files (next.config.js, tsconfig.json)
-```
-
-## Context Switching Patterns
-
-### **Main Portfolio vs /2 Redesign**
-```bash
-# /2 Redesign Development Context
-cd /home/user/tylergohr.com/src/app/2/
-claude code    # Gets Enterprise Solutions Architect context
-
-# Key differences:
-- Focus: Enterprise Solutions Architect positioning
-- Styling: Brand tokens system (brand-tokens.css)
-- Components: Isolated /2 component library
-- Testing: /2-specific E2E tests
-- Navigation: Business-focused navigation system
-
-# Main Portfolio Development Context  
-cd /home/user/tylergohr.com/
-claude code    # Gets general portfolio context
-
-# Key differences:
-- Focus: Full-stack developer & creative problem solver
-- Styling: Global CSS with modern features
-- Components: Main portfolio components
-- Testing: General E2E tests
-- Navigation: Creative, portfolio-focused
-```
-
-### **Context Detection Commands**
-```bash
-# Check current development context
-pwd | grep -q "/2" && echo "Enterprise Solutions Architect (/2)" || echo "Main Portfolio"
-
-# Get current task context
-gh issue list --label "redesign"    # /2 development tasks
-gh issue list --label "/2"          # /2 specific issues
-gh issue list --state open          # All active tasks
-```
 
 ## Testing Workflow Integration
 
@@ -262,8 +205,9 @@ SKIP_VISUAL=true npm run test:e2e:portfolio
 # Ultra-fast essential testing
 FAST_MODE=true npm run test:e2e:navigation
 
-# Force sub-agent recommendations
-CLAUDE_AUTO_SUBAGENT=true npm run test:e2e:smoke
+# Enhanced commands serve as Agent tool reminders
+npm run dev:enhanced                  # Use Agent tool if timeouts occur
+npm run test:e2e:smoke:enhanced       # Use Agent tool if timeouts occur
 ```
 
 ## Quality Gates & Validation
@@ -291,55 +235,7 @@ npm run test:e2e:accessibility     # WCAG 2.1 AA compliance
 npm run test:e2e:mobile           # Cross-device validation
 ```
 
-## Hook System Integration
 
-### **Hook Orchestrator Commands**
-```bash
-# System health and status
-./scripts/hooks/orchestrator/orchestrator.sh health
-./scripts/hooks/orchestrator/orchestrator.sh status
-
-# Resource management
-./scripts/hooks/orchestrator/resource-manager.sh check_resources
-./scripts/hooks/orchestrator/resource-manager.sh cleanup
-
-# Hook debugging
-./scripts/hooks/orchestrator/orchestrator.sh debug
-./scripts/hooks/orchestrator/orchestrator.sh logs
-```
-
-### **Hook Performance Benefits**
-```bash
-# Documented performance improvements
-- 80% Faster Quality Gates: Automated pre-validation prevents error cycles
-- 90% Reduction in Manual Testing: Smart test selection based on change scope
-- 95% Screenshot Automation: Eliminate manual visual validation steps
-- 100% Context Awareness: Perfect workflow adaptation for main vs /2 development
-- Zero Protected File Accidents: Automated prevention of critical file modifications
-```
-
-## Environment & Port Management
-
-### **Smart Port Detection**
-```bash
-# Automatic port detection for all environments
-eval "$(./scripts/detect-active-port.sh quiet export)"
-# Sets: ACTIVE_DEV_PORT and ACTIVE_DEV_URL
-
-# Manual port detection
-./scripts/detect-active-port.sh               # Interactive mode
-./scripts/detect-active-port.sh quiet export  # Shell export format
-./scripts/detect-active-port.sh quiet json    # JSON format
-```
-
-### **Cloud Environment Support**
-```bash
-# Automatic detection for:
-- Google Cloud Workstations: https://3000-tylergohr.cluster-[id].cloudworkstations.dev
-- GitHub Codespaces: https://[codespace]-[port].preview.app.github.dev
-- Gitpod: https://[port]-[workspace].[cluster]
-- Local Development: http://localhost:[port]
-```
 
 ## Development Automation
 
@@ -363,8 +259,9 @@ npm run dev:claude                  # Claude Code optimized dev server
 npm run test:e2e:smoke:claude      # Test execution with Agent tool integration
 npm run test:e2e:claude-review     # Visual testing for Claude analysis
 
-# Priority alert integration
-CLAUDE_AUTO_SUBAGENT=true npm run test:e2e:smoke  # Automatic sub-agent alerts
+# Enhanced commands with Agent tool reminders
+npm run dev:enhanced                  # Timeout-resistant with Agent tool guidance
+npm run test:e2e:smoke:enhanced       # Timeout-resistant with Agent tool guidance
 ```
 
 ## Troubleshooting Patterns
@@ -392,10 +289,9 @@ HOOK_BYPASS_PROTECTION=true [command]
 # If all tests are failing
 pkill -f "next-server|npm run dev"     # Kill existing servers
 npm run dev                            # Start fresh
-eval "$(./scripts/detect-active-port.sh quiet export)"  # Reset environment
 
-# If sub-agent recommendations are too aggressive
-unset CLAUDE_AUTO_SUBAGENT USE_SUBAGENT FORCE_SUBAGENT
+# Enhanced commands are just reminders - no environment variables needed
+# Use standard commands if you prefer: npm run dev, npm run test:e2e:smoke
 ```
 
 ## Performance Optimization
@@ -424,8 +320,8 @@ npx next build --analyze            # Bundle composition analysis
 ### **Claude Code Efficiency**
 ```bash
 # Indicators of optimal Claude Code workflow
-✅ Sub-agent recommendations followed for timeout-prone operations
-✅ File protection alerts acknowledged and handled appropriately
+✅ Agent tool used for timeout-prone operations when needed
+✅ File protection understanding (currently disabled for simplicity)
 ✅ Context switching between main and /2 development seamless
 ✅ Quality gates passed before commits
 ✅ Environment setup automated via port detection
@@ -444,7 +340,7 @@ npx next build --analyze            # Bundle composition analysis
 
 ---
 
-**Claude Code Focus**: Timeout prevention, environment automation, context awareness  
-**Sub-Agent Integration**: 100% success rate vs previous timeout failures  
-**File Protection**: Zero accidental modifications with intelligent override patterns  
-**Performance**: 80-95% efficiency improvements across all development workflows
+**Claude Code Focus**: Simple npm commands with Agent tool guidance for timeout prevention  
+**Agent Tool Usage**: Reliable execution vs 2-minute timeout failures  
+**File Protection**: Optional basic protection for critical files  
+**Development**: Fast 4-6 second workflows vs complex automation

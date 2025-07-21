@@ -389,9 +389,9 @@ npm run typecheck                   # Validate TypeScript across entire project
 
 ### **Hook System Integration Problems**
 ```bash
-# Hooks not executing or timing out
-./scripts/hooks/orchestrator/orchestrator.sh health # Check orchestrator health
-ORCHESTRATOR_DEBUG=true npm run test:e2e:smoke    # Debug hook execution
+# File protection not working as expected
+# File protection hooks are managed via ~/.claude/settings.json
+# Check Claude Code interface for protection prompts and hook execution logs
 
 # Sub-agent recommendations not appearing
 CLAUDE_AUTO_SUBAGENT=true npm run dev:enhanced     # Force sub-agent recommendations
