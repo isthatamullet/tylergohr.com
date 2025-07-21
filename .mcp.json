@@ -1,13 +1,5 @@
 {
   "mcpServers": {
-    "tyler-gohr-portfolio": {
-      "type": "stdio",
-      "command": "node",
-      "args": ["/home/user/tylergohr.com/mcp-server/dist/index.js"],
-      "env": {
-        "PROJECT_ROOT": "/home/user/tylergohr.com"
-      }
-    },
     "puppeteer": {
       "type": "stdio",
       "command": "npx",
