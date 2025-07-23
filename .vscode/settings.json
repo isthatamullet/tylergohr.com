@@ -159,4 +159,16 @@
   // Problems Configuration
   "problems.showCurrentInStatus": true,
 
+  // Disable Annoying Popups (Keep Clipboard Functionality)
+  "security.workspace.trust.banner": "never",
+  "security.workspace.trust.startupPrompt": "never",
+  "workbench.startupEditor": "none",
+  "extensions.ignoreRecommendations": true,
+  "workbench.tips.enabled": false,
+  "update.showReleaseNotes": false,
+  
+  // Reduce Notification Noise (Keep Important Ones)
+  "problems.visibility": true,
+  "extensions.showRecommendationsOnlyOnDemand": true
+
 }

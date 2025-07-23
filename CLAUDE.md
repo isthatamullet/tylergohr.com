@@ -24,49 +24,17 @@ This is a **multi-project development workspace** running on Google Cloud Workst
 
 WHEN USER SAYS "PUSH ALL FILES TO GITHUB" / "PUSH ALL FILES TO THE PR" / OR ANYTHING RELATED TO PUSHING *ALL* FILES - YOU *MUST* PUSH *ALL* FILES AS INSTRUCTED!!!!!!
 
-## 🚨 Claude Code Timeout Prevention (MANDATORY)
+## 🤖 Agent Tool Usage
 
-**These commands timeout after 2 minutes in cloud environments - use Agent tool instead:**
+**Philosophy**: Proactive Agent tool usage for systematic, reliable development workflows.
 
-### **Timeout-Prone Commands:**
-- `npm run dev` → Use **environment_setup_agent** pattern
-- `npm run test:e2e:smoke` → Use **test_execution_agent** pattern  
-- Any `playwright test` commands → Use **test_execution_agent** pattern
-- Server startup and environment setup → Use **environment_setup_agent** pattern
+**For detailed patterns and workflows**: See @docs/CLAUDE-WORKFLOWS.md
 
-### **Agent Tool Patterns:**
-
-**Environment Setup Agent** (for `npm run dev`, server issues):
-```
-Use the Agent tool to handle complete environment setup:
-1. Detect active development server ports
-2. Verify server health and accessibility  
-3. Set correct environment variables (ACTIVE_DEV_PORT, ACTIVE_DEV_URL)
-4. Clean up any conflicting or unresponsive servers
-5. Start fresh server if needed
-6. Validate environment is ready for development/testing
-```
-
-**Test Execution Agent** (for `npm run test:e2e:smoke`, testing):
-```
-Use the Agent tool to execute tests with full environment validation:
-1. Verify development server is running and accessible
-2. Set correct environment variables for testing
-3. Execute the test command with proper timeout handling
-4. Provide detailed analysis of any failures
-5. Handle Framer Motion animation timing issues if present
-6. Generate screenshots for visual validation if applicable
-```
-
-### **Alternative: Enhanced Commands**
-```bash
-npm run dev:enhanced                  # Timeout-resistant dev server
-npm run test:e2e:smoke:enhanced      # Timeout-resistant testing
-npm run test:e2e:screenshot:enhanced # Timeout-resistant screenshots
-```
-
-### **Complete Patterns Available In:**
-**@CROSS-SESSION-TIMEOUT-PREVENTION-GUIDE.md** - Complete sub-agent integration guide
+**Quick reminder**: Use Agent tool proactively for:
+- Environment setup (`npm run dev`)
+- Complex testing (`npm run test:e2e:smoke`) 
+- Multi-step operations
+- When in doubt, prefer Agent tool over direct execution
 
 ---
 
@@ -104,15 +72,12 @@ We removed 7,766+ lines of over-engineered automation including:
 - Visual workflow automation (252 lines)
 
 ### **Simple File Protection (Available)**
-If you want basic file protection, 3 simple files remain:
+File protection is now managed via `~/.claude/settings.json` configuration:
 ```
-scripts/hooks/
-├── install-hooks.sh              # Install basic file protection
-├── uninstall-hooks.sh           # Remove file protection  
-└── lib/
-    ├── file-protection.sh        # Prevents corruption of critical files
-    ├── context-detection.sh      # Simple 13-line context detection
-    └── hook-utils.sh            # Basic logging utilities
+scripts/hooks/lib/
+├── file-protection.sh        # Prevents corruption of critical files
+├── context-detection.sh      # Simple 13-line context detection
+└── hook-utils.sh            # Basic logging utilities
 ```
 
 ### **Why Simple is Better**
@@ -126,121 +91,29 @@ scripts/hooks/
 
 ### **How to Enable File Protection (Optional)**
 ```bash
-# Install basic file protection only
-./scripts/hooks/install-hooks.sh
+# File protection is managed via ~/.claude/settings.json
+# Currently ENABLED - configured in settings with hooks section
 
-# Remove file protection
-./scripts/hooks/uninstall-hooks.sh
+# To disable: Remove the "hooks" section from ~/.claude/settings.json
+# To enable: Add hooks configuration back to ~/.claude/settings.json
 ```
 
 ---
 
-## 🤖 Sub-Agent Integration System
-
-### **Timeout Prevention for Claude Code**
-
-This project has timeout-prone operations that benefit from using the Agent tool. When you encounter these patterns, use the Agent tool for reliable execution:
-
-#### **1. Environment Setup Agent**
-```bash
-# Use for: npm run dev, port conflicts, server startup issues
-
-💡 Claude Prompt:
-"Use the Agent tool to handle environment setup: detect ports, validate servers, set environment variables, ensure ready for testing"
-
-# Solves: Multi-server conflicts, port detection failures, environment setup timeouts
-```
-
-#### **2. Test Execution Agent**  
-```bash
-# Use for: npm run test:e2e:smoke, playwright commands, testing operations
-
-💡 Claude Prompt:
-"Use the Agent tool to execute tests with full environment validation, timeout handling, and result analysis"
-
-# Solves: Test timeouts, Framer Motion animation issues, environment URL problems
-```
-
-#### **3. Timeout Prevention Agent**
-```bash
-# Use for: Any command that historically times out
-
-💡 Claude Prompt:  
-"Use the Agent tool to handle this timeout-prone operation with proper environment setup and execution strategy"
-
-# Solves: Generic timeout issues, complex multi-step operations
-```
-
-### **Enhanced npm Scripts**
-```bash
-# Timeout-resistant alternatives (these just call the standard commands but serve as reminders)
-npm run dev:enhanced                    # Reminder to use Agent tool for npm run dev
-npm run test:e2e:smoke:enhanced        # Reminder to use Agent tool for testing
-npm run test:e2e:screenshot:enhanced   # Use npx playwright test e2e/quick-screenshots.spec.ts --project=chromium
-
-# Standard commands (may timeout in cloud environments)
-npm run dev                            # Consider Agent tool if timeouts occur
-npm run test:e2e:smoke                 # Consider Agent tool if timeouts occur
-```
-
-### **🤖 Recognition Patterns for Claude Code**
-Claude Code instances should use the Agent tool when seeing:
-- **Timeout-prone command patterns**: `npm run test:e2e:smoke`, `playwright test`, `npm run dev`
-- **Previous 2-minute timeouts** with these commands
-- **Cloud environment complexity** (Google Cloud Workstations, Codespaces)
-
-### **🎯 Decision Matrix for Claude Code Instances**
-```bash
-# When to use Agent tool:
-IF previous_attempt_timed_out_at_2_minutes:
-    → USE Agent tool with appropriate pattern immediately
-    
-ELIF command matches ["npm run dev", "npm run test:e2e:smoke", "playwright test"]:
-    → CONSIDER Agent tool for reliability in cloud environments
-    
-ELIF working_in_cloud_environment AND complex_operation:
-    → RECOMMEND Agent tool for timeout prevention
-    
-ELSE:
-    → Proceed with direct execution
-```
-
-### **Manual Analysis Available**
-```bash
-# Analysis script exists but not required for normal usage
-./scripts/subagent-integration.sh analyze npm "run test:e2e:smoke"
-./scripts/subagent-integration.sh prompt npm "run dev"
-
-# Environment variables for enhanced recommendations (optional)
-USE_SUBAGENT=true npm run test:e2e:smoke:enhanced    # Always show Agent tool recommendations
-CLAUDE_AUTO_SUBAGENT=true npm run dev               # Enhanced Claude integration
-```
-
-### **Performance Benefits**
-- **Before**: 2-minute timeouts with no results
-- **After**: 30-60 second successful execution via Agent tool
-- **Success Rate**: 100% vs previous timeout failures
-- **Workflow Enhancement**: Proactive timeout prevention
 
 ## 📚 Documentation Guide
 
-### **Specialized Documentation Files**
-For detailed information on specific topics, Claude Code instances should reference these dedicated files:
+### **Available Documentation Files**
+For detailed information on specific topics, Claude Code instances should reference these files:
 
-- **@docs/TESTING.md** - Complete testing workflows (Playwright, Puppeteer, fast development patterns)
-- **@docs/HOOKS.md** - Hook system orchestrator, installation, debugging, performance monitoring
-- **@docs/COMMANDS.md** - All available commands with usage scenarios and examples
+- **@docs/CLAUDE-WORKFLOWS.md** - Agent tool patterns, workflow optimization, proactive usage philosophy
+- **@docs/COMMANDS.md** - All available commands with usage scenarios and examples  
+- **@docs/TESTING.md** - Complete testing workflows (Playwright, fast development patterns)
 - **@docs/TROUBLESHOOTING.md** - Common issues, solutions, and emergency recovery procedures
-- **@docs/ARCHITECTURE.md** - Technical architecture, component structure, brand tokens system
 - **@docs/DEPLOYMENT.md** - Google Cloud Run deployment, staging, production procedures
-- **@docs/CLAUDE-WORKFLOWS.md** - Claude Code optimization patterns, sub-agent integration
-- **@docs/DEVELOPMENT.md** - Daily development workflows, enterprise development patterns
-- **@CROSS-SESSION-TIMEOUT-PREVENTION-GUIDE.md** - Cross-session timeout issues and enhanced command solutions
 
 ### **Documentation Restructure Methodology**
 This documentation structure follows a systematic restructure plan that transformed CLAUDE.md from 2000+ lines into a focused 500-line "command center" with specialized reference files.
-
-*For the complete restructure methodology and rationale, see @docs/scratchpad/documentation-restructure-plan-2025-01-06.md*
 
 ### **When to Use Each File**
 ```bash
@@ -267,9 +140,6 @@ This documentation structure follows a systematic restructure plan that transfor
 
 # Daily development patterns
 → @docs/DEVELOPMENT.md
-
-# Experiencing 2-minute timeouts or cross-session issues
-→ @CROSS-SESSION-TIMEOUT-PREVENTION-GUIDE.md
 ```
 
 ## Portfolio Architecture Overview
@@ -287,8 +157,7 @@ This documentation structure follows a systematic restructure plan that transfor
 ### **Daily Development Workflow**
 ```bash
 # Start development  
-npm run dev:enhanced        # Timeout-resistant development server (RECOMMENDED)
-npm run dev                 # Basic dev server (may timeout in cloud environments)
+npm run dev                 # Development server (use Agent tool if timeouts occur)
 npm run validate           # 🔥 MANDATORY before commits (typecheck + lint + build)
 
 # Fast testing during development
@@ -434,7 +303,7 @@ npm run test:e2e:visual           # Visual regression testing
 ```bash
 # 1. Start development
 cd /home/user/tylergohr.com/ && claude code              # Enterprise portfolio context
-npm run dev:enhanced                                     # Timeout-resistant dev server
+npm run dev                                              # Development server
 gh issue list --label "enhancement"                     # Check current tasks
 
 # 2. Fast development testing  
@@ -463,7 +332,7 @@ npm run test:e2e:portfolio                              # Full enterprise portfo
 - **Timeout-prone patterns**: `npm run test:e2e:smoke`, `playwright test`, `npm run dev`
 - **🚨 CLAUDE CODE:** prefix = Immediate Agent tool usage required
 
-**⚠️ Experiencing 2-minute timeouts?** Use enhanced commands: `npm run dev:enhanced`, `npm run test:e2e:smoke:enhanced` or see **@CROSS-SESSION-TIMEOUT-PREVENTION-GUIDE.md**
+**⚠️ Experiencing 2-minute timeouts?** Use the Agent tool for complex operations as described in @docs/CLAUDE-WORKFLOWS.md
 
 *For complete Claude Code optimization patterns, see @docs/CLAUDE-WORKFLOWS.md*
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a comprehensive quick reference for all essential commands in the Tyler Gohr Portfolio project, organized by workflow and usage scenario. Commands are optimized for both main portfolio and `/2` redesign development.
+This is a comprehensive quick reference for all essential commands in the Tyler Gohr Portfolio project, organized by workflow and usage scenario.
 
 ## Daily Development Commands
 
@@ -10,8 +10,8 @@ This is a comprehensive quick reference for all essential commands in the Tyler 
 ```bash
 # 🚀 PRIMARY DEVELOPMENT COMMANDS
 npm run dev                      # Smart development server (auto port detection)
-npm run dev:enhanced             # With sub-agent integration for timeout prevention
-npm run dev:claude               # Claude Code optimized with automatic sub-agent alerts
+npm run dev:enhanced             # Alias for npm run dev (reminder to use Agent tool if needed)
+npm run dev:claude               # Alias for npm run dev (reminder for Claude Code instances)
 
 # Port-specific servers (for conflict resolution)
 npm run dev:3000                 # Force port 3000
@@ -43,9 +43,9 @@ npm run test:e2e:smoke          # Essential tests only (<1min)
 npm run test:e2e:dev            # Functional testing, skip visual regression (2-3min)
 npm run test:e2e:component      # Component-specific testing
 
-# Enhanced testing with sub-agent integration
-npm run test:e2e:smoke:enhanced # Smoke tests with sub-agent recommendations
-npm run test:e2e:smoke:claude   # Automatic Claude Code sub-agent alerts
+# Enhanced testing (aliases for standard commands)
+npm run test:e2e:smoke:enhanced # Alias for npm run test:e2e:smoke (Agent tool reminder)
+npm run test:e2e:smoke:claude   # Alias for npm run test:e2e:smoke (Claude Code reminder)
 ```
 
 ### **📸 Screenshot & Visual Testing**
@@ -65,8 +65,8 @@ npm run test:e2e:screenshot:mobile     # Mobile viewport screenshots only
 
 ### **Comprehensive Testing Suites**
 ```bash
-# /2 Redesign Testing
-npm run test:e2e:portfolio      # Complete /2 redesign E2E tests (8-10min)
+# Portfolio Testing
+npm run test:e2e:portfolio      # Complete portfolio E2E tests (8-10min)
 npm run test:e2e:navigation     # Navigation behavior + intersection observers
 npm run test:e2e:visual         # Visual regression across viewports
 
@@ -224,8 +224,8 @@ curl http://localhost:3000/api/health          # Test health endpoint
 ```bash
 # Check current development context
 gh issue list --state open                    # All open issues
-gh issue list --label "redesign"              # /2 redesign tasks
-gh issue list --label "/2"                    # /2 specific issues
+gh issue list --label "enhancement"            # Portfolio enhancement tasks
+gh issue list --state open                      # All open issues
 gh issue view 1                               # View specific issue details
 
 # GitHub CLI utilities
@@ -236,14 +236,14 @@ gh repo view                                   # Repository overview
 
 ### **Git Workflow**
 ```bash
-# Branch management for /2 work
-git checkout -b feature/2-short-name          # Create /2 feature branch
+# Branch management for portfolio work
+git checkout -b feature/short-name            # Create feature branch
 git status                                    # Check current state
 git add .                                     # Stage changes
 git commit -m "feat: description"            # Commit with conventional format
 
 # Development context switching
-cd /home/user/tylergohr.com/src/app/2/       # /2 redesign context
+cd /home/user/tylergohr.com/                 # Portfolio development context
 cd /home/user/tylergohr.com/                 # Main portfolio context
 ```
 
@@ -352,22 +352,21 @@ npm run test:e2e:portfolio          # Full validation
 pkill -f "next-server" && npm run dev  # Restart dev server
 ```
 
-### **Context Switching**
+### **Claude Code Slash Commands**
 ```bash
-# /2 Redesign Development
-cd /home/user/tylergohr.com/src/app/2/ && claude code
+# Available .claude/commands/ slash commands:
+/explore-plan-commit     # Explore codebase, plan changes, commit workflow
+/push-to-github         # GitHub push and PR creation workflow
+/tdd                    # Test-driven development workflow
+/visual-iterate         # Visual development and iteration workflow
+/work-on               # Focused work session management
 
-# Main Portfolio Development  
-cd /home/user/tylergohr.com/ && claude code
-
-# Check development context
-gh issue list --label "redesign"     # /2 tasks
-pwd | grep -q "/2" && echo "/2 context" || echo "Main context"
+# Usage: Type the slash command in Claude Code interface
 ```
 
 ---
 
-**Command Focus**: Fast development workflows, timeout prevention, environment automation  
-**Sub-Agent Integration**: Automatic Claude Code optimization for complex operations  
+**Command Focus**: Fast development workflows with proactive Agent tool usage  
+**Slash Commands**: Custom Claude Code workflows via .claude/commands/  
 **Testing Strategy**: Playwright-only with fast development patterns and visual automation  
 **Performance**: <1min smoke tests, 2-3min functional tests, comprehensive validation when ready
