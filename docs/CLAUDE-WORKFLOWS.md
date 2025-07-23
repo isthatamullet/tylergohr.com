@@ -2,21 +2,24 @@
 
 ## Overview
 
-This guide provides patterns and best practices for Claude Code instances working with the Tyler Gohr Portfolio project. The project uses simple npm commands with Agent tool guidance for timeout prevention and reliable development processes.
+This guide provides patterns and best practices for Claude Code instances working with the Tyler Gohr Portfolio project. **Philosophy: Proactively use the Agent tool for systematic approaches to complex operations rather than just reactive timeout prevention.**
 
 ## Quick Start - Claude Code Instances
 
-### **Timeout-Prone Command Recognition**
+### **Agent Tool Philosophy**
 ```bash
-# Watch for these commands that may timeout in cloud environments
-npm run dev                             # 2-minute timeout risk
-npm run test:e2e:smoke                  # 2-minute timeout risk
-playwright test commands                # Timeout-prone
+# Proactive Agent Tool Usage - Use for:
+✅ Any operation with >30 second complexity potential
+✅ Multi-step workflows and coordination tasks  
+✅ Environment setup and validation scenarios
+✅ Complex testing with multiple components
+✅ When systematic approach would prevent issues
+✅ When in doubt, prefer Agent tool over direct execution
 
-# When you see timeouts - USE AGENT TOOL
-# Enhanced commands serve as reminders:
-npm run dev:enhanced                    # Reminds you to use Agent tool
-npm run test:e2e:smoke:enhanced         # Reminds you to use Agent tool
+# Standard commands - consider Agent tool proactively:
+npm run dev                             # Agent tool for environment setup
+npm run test:e2e:smoke                  # Agent tool for systematic testing
+playwright test commands                # Agent tool for complex scenarios
 ```
 
 ### **Daily Workflow Pattern**
@@ -35,8 +38,8 @@ npx playwright test e2e/quick-screenshots.spec.ts --project=chromium
 
 ## Agent Tool Integration
 
-### **Simple Timeout Prevention**
-When commands timeout after 2 minutes, use the Agent tool with these patterns:
+### **Proactive Agent Tool Integration**
+Use the Agent tool systematically for complex operations, not just reactively for timeouts:
 
 ### **Sub-Agent Patterns**
 
@@ -96,34 +99,35 @@ When commands timeout after 2 minutes, use the Agent tool with these patterns:
 **Goal**: Ensure reliable execution of commands that historically timeout."
 ```
 
-### **Agent Tool Decision Guide**
+### **Agent Tool Decision Philosophy**
 
 ```bash
-# Simple decision pattern for Claude Code instances:
+# Proactive decision pattern for Claude Code instances:
 
-IF previous_attempt_timed_out_at_2_minutes:
-    → USE Agent tool with appropriate pattern immediately
+IF operation_could_benefit_from_systematic_approach:
+    → USE Agent tool proactively
     
-ELIF command matches ["npm run dev", "npm run test:e2e:smoke", "playwright test"]:
-    → CONSIDER Agent tool for reliability in cloud environments
+IF multi_step_workflow OR coordination_needed:
+    → USE Agent tool for orchestration
     
-ELIF working_in_cloud_environment AND complex_operation:
-    → RECOMMEND Agent tool for timeout prevention
+IF environment_setup OR complex_testing:
+    → USE Agent tool for reliability
     
-ELSE:
-    → Proceed with direct execution
+IF uncertain_about_complexity:
+    → PREFER Agent tool over direct execution
+    
+RATIONALE: Prevention is better than debugging
 ```
 
-### **When to Use Agent Tool**
+### **High-Value Agent Tool Scenarios**
 ```bash
-# Use Agent tool for these timeout-prone operations:
-npm run dev                              # Environment setup timeouts
-npm run test:e2e:smoke                   # Test execution timeouts
-playwright test commands                 # Complex testing operations
-
-# Enhanced commands serve as reminders:
-npm run dev:enhanced                     # Reminds you to use Agent tool
-npm run test:e2e:smoke:enhanced          # Reminds you to use Agent tool
+# Use Agent tool proactively for:
+🔧 Development environment setup and health validation
+🧪 Complex testing with environment coordination  
+📁 Multi-file changes and feature implementation
+🔍 Research and codebase analysis tasks
+⚡ Quality gate orchestration and validation
+🛠️ Any operation requiring systematic coordination
 ```
 
 ## File Protection System
@@ -205,9 +209,9 @@ SKIP_VISUAL=true npm run test:e2e:portfolio
 # Ultra-fast essential testing
 FAST_MODE=true npm run test:e2e:navigation
 
-# Enhanced commands serve as Agent tool reminders
-npm run dev:enhanced                  # Use Agent tool if timeouts occur
-npm run test:e2e:smoke:enhanced       # Use Agent tool if timeouts occur
+# Standard commands - use Agent tool when timeouts occur
+npm run dev                           # Use Agent tool for environment setup issues
+npm run test:e2e:smoke                # Use Agent tool for testing timeouts
 ```
 
 ## Quality Gates & Validation
@@ -252,16 +256,12 @@ npm run test:e2e:mobile           # Cross-device validation
 - Validate: Quality Gates
 ```
 
-### **Claude-Optimized Commands**
+### **Standard Commands with Agent Tool Guidance**
 ```bash
-# Enhanced development commands
-npm run dev:claude                  # Claude Code optimized dev server
-npm run test:e2e:smoke:claude      # Test execution with Agent tool integration
+# Standard development commands - use Agent tool for complex operations
+npm run dev                         # Development server (Agent tool for timeouts)
+npm run test:e2e:smoke             # Quick testing (Agent tool for complex scenarios)
 npm run test:e2e:claude-review     # Visual testing for Claude analysis
-
-# Enhanced commands with Agent tool reminders
-npm run dev:enhanced                  # Timeout-resistant with Agent tool guidance
-npm run test:e2e:smoke:enhanced       # Timeout-resistant with Agent tool guidance
 ```
 
 ## Troubleshooting Patterns
@@ -290,8 +290,8 @@ HOOK_BYPASS_PROTECTION=true [command]
 pkill -f "next-server|npm run dev"     # Kill existing servers
 npm run dev                            # Start fresh
 
-# Enhanced commands are just reminders - no environment variables needed
-# Use standard commands if you prefer: npm run dev, npm run test:e2e:smoke
+# Standard commands with Agent tool for complex operations:
+# npm run dev, npm run test:e2e:smoke
 ```
 
 ## Performance Optimization
@@ -321,7 +321,7 @@ npx next build --analyze            # Bundle composition analysis
 ```bash
 # Indicators of optimal Claude Code workflow
 ✅ Agent tool used for timeout-prone operations when needed
-✅ File protection understanding (currently disabled for simplicity)
+✅ File protection understanding (currently enabled via simple hooks)
 ✅ Context switching between main and /2 development seamless
 ✅ Quality gates passed before commits
 ✅ Environment setup automated via port detection
@@ -340,7 +340,7 @@ npx next build --analyze            # Bundle composition analysis
 
 ---
 
-**Claude Code Focus**: Simple npm commands with Agent tool guidance for timeout prevention  
-**Agent Tool Usage**: Reliable execution vs 2-minute timeout failures  
-**File Protection**: Optional basic protection for critical files  
-**Development**: Fast 4-6 second workflows vs complex automation
+**Claude Code Focus**: Proactive Agent tool usage for systematic, reliable development workflows  
+**Agent Tool Philosophy**: Prevention over reaction - use systematically for complex operations  
+**File Protection**: Enabled via simple hooks for critical file safety  
+**Development**: Intelligent automation through strategic Agent tool usage

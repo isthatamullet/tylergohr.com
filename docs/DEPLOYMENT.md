@@ -128,7 +128,7 @@ eval "$(./scripts/detect-active-port.sh quiet export)"
 ```bash
 # Recommended: Smart development server (auto-detects port)
 npm run dev                      # Primary development command
-npm run dev:enhanced             # With sub-agent integration
+npm run dev:enhanced             # Alias for npm run dev (Agent tool reminder)
 npm run dev:claude               # Claude Code optimized
 
 # Port-specific servers (use when you need a specific port)

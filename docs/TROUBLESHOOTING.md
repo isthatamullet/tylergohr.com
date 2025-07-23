@@ -76,10 +76,10 @@ Use the Agent tool to execute tests with full environment validation:
 
 #### Solution 2: Enhanced Commands
 ```bash
-# Use enhanced versions designed to prevent timeouts
-npm run dev:enhanced               # Sub-agent integration
-npm run dev:claude                 # Claude Code optimized
-npm run test:e2e:smoke:enhanced    # Enhanced testing
+# Use enhanced versions (aliases that remind you to use Agent tool)
+npm run dev:enhanced               # Alias for npm run dev
+npm run dev:claude                 # Alias for npm run dev
+npm run test:e2e:smoke:enhanced    # Alias for npm run test:e2e:smoke
 ```
 
 #### Solution 3: Environment Variables
@@ -193,8 +193,8 @@ npm run test:e2e:smoke                       # Quick validation
 npm run test:e2e:dev                         # Functional tests, skip visual
 SKIP_VISUAL=true npm run test:e2e:portfolio  # Skip visual regression
 
-# Use enhanced testing with sub-agent support
-npm run test:e2e:smoke:enhanced              # Sub-agent integration
+# Use enhanced testing (aliases for standard commands)
+npm run test:e2e:smoke:enhanced              # Alias for npm run test:e2e:smoke
 ```
 
 ### **Visual Regression / Screenshot Issues**
