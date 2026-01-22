@@ -1,0 +1,256 @@
+.experience {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(80px, 12vh, 120px) clamp(20px, 5vw, 80px);
+  overflow: hidden;
+}
+
+/* Background */
+.background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.backgroundImage {
+  object-fit: cover;
+  object-position: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+}
+
+/* Content */
+.content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Title */
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-section);
+  color: var(--color-white);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 48px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.content.visible .title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 48px;
+}
+
+/* Card */
+.card {
+  display: flex;
+  gap: 24px;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card:last-child {
+  border-bottom: none;
+}
+
+.cardLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 48px;
+  flex-shrink: 0;
+}
+
+.number {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.line {
+  flex: 1;
+  width: 2px;
+  background: linear-gradient(
+    180deg,
+    var(--color-accent) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  margin-top: 12px;
+}
+
+.cardContent {
+  flex: 1;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.company {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--color-white);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.jobTitle {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+.dates {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.headline {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+}
+
+.bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+}
+
+.bullets li {
+  position: relative;
+  padding-left: 16px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 4px;
+  height: 4px;
+  background: var(--color-text-muted);
+  border-radius: 50%;
+}
+
+/* CTA */
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-accent);
+  text-decoration: none;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out 0.6s, transform 0.6s ease-out 0.6s, gap 0.2s ease;
+}
+
+.content.visible .cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cta:hover {
+  gap: 16px;
+}
+
+.cta svg {
+  transition: transform 0.2s ease;
+}
+
+.cta:hover svg {
+  transform: translateY(2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .experience {
+    padding: 80px 20px;
+  }
+
+  .title {
+    margin-bottom: 32px;
+  }
+
+  .card {
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 0;
+  }
+
+  .cardLeft {
+    flex-direction: row;
+    width: auto;
+    gap: 12px;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .cardHeader {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .company {
+    font-size: 1.25rem;
+  }
+
+  .timeline {
+    margin-bottom: 32px;
+  }
+}
