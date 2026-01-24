@@ -19,10 +19,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 24px;
-  background: rgba(10, 10, 10, 0.85);
+  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 50px;
 }
 

@@ -110,8 +110,8 @@
 }
 
 .sectionLight {
-  background: #f8fafc;
-  color: #0f172a;
+  background: #0f172a;
+  color: #ffffff;
 }
 
 .sectionDark {
@@ -134,7 +134,7 @@
 }
 
 .sectionLight .sectionNumber {
-  color: #0f172a;
+  color: #ffffff;
 }
 
 .sectionDark .sectionNumber {
@@ -185,8 +185,8 @@
 }
 
 .sectionLight .tag {
-  background: rgba(15, 23, 42, 0.08);
-  color: #475569;
+  background: rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
 }
 
 .sectionDark .tag {
@@ -245,7 +245,7 @@
 }
 
 .sectionLight .summary {
-  color: #475569;
+  color: #94a3b8;
 }
 
 .sectionDark .summary {
@@ -283,8 +283,8 @@
 }
 
 .sectionLight .blockTitle {
-  color: #0f172a;
-  border-color: rgba(15, 23, 42, 0.2);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .sectionDark .blockTitle {
@@ -300,7 +300,7 @@
 }
 
 .sectionLight .blockContent p {
-  color: #475569;
+  color: #94a3b8;
 }
 
 .sectionDark .blockContent p {
@@ -342,7 +342,7 @@
 }
 
 .sectionLight .approachTitle {
-  color: #0f172a;
+  color: #ffffff;
 }
 
 .sectionDark .approachTitle {
@@ -356,7 +356,7 @@
 }
 
 .sectionLight .approachDesc {
-  color: #64748b;
+  color: #94a3b8;
 }
 
 .sectionDark .approachDesc {
@@ -378,7 +378,7 @@
 }
 
 .sectionLight .deliverablesList li {
-  color: #475569;
+  color: #94a3b8;
 }
 
 .sectionDark .deliverablesList li {
@@ -405,7 +405,7 @@
 }
 
 .sectionLight .resultItem {
-  background: rgba(15, 23, 42, 0.05);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .sectionDark .resultItem {
@@ -430,7 +430,7 @@
 }
 
 .sectionLight .resultMetric {
-  color: #64748b;
+  color: #94a3b8;
 }
 
 .sectionDark .resultMetric {
@@ -444,7 +444,7 @@
 }
 
 .sectionLight .impactBlock {
-  background: linear-gradient(135deg, rgba(220, 38, 38, 0.08), rgba(220, 38, 38, 0.02));
+  background: rgba(220, 38, 38, 0.1);
   border: 1px solid rgba(220, 38, 38, 0.2);
 }
 
@@ -467,7 +467,7 @@
 }
 
 .sectionLight .impactItem {
-  color: #475569;
+  color: #94a3b8;
 }
 
 .sectionDark .impactItem {
