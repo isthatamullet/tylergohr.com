@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 import { skillCategories, platformsTools } from '../skills-data';
-import styles from './SkillsNeon.module.css';
+import styles from './Skills.module.css';
 
 export default function SkillsNeonPage() {
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});

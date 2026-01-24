@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { skillCategories, platformsTools } from '../skills-data';
-import styles from './SkillsPremium.module.css';
+import { skillCategories, platformsTools } from '../../skills-data';
+import styles from './SkillsEditorial.module.css';
 
-export default function SkillsPremiumPage() {
+export default function SkillsEditorialPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleCategory = (index: number) => {
@@ -14,22 +14,12 @@ export default function SkillsPremiumPage() {
 
   return (
     <main className={styles.main}>
-      {/* Iridescent Ribbon Decoration */}
-      <div className={styles.ribbonTop} aria-hidden="true" />
-
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
-          <div className={styles.heroBadge}>
-            <span className={styles.badgeDot} />
-            <span>Emmy Award Winner</span>
-          </div>
-          <h1 className={styles.heroTitle}>
-            Skills &<br />Expertise
-          </h1>
+          <h1 className={styles.heroTitle}>Skills & Expertise</h1>
           <p className={styles.heroSubtitle}>
-            16+ years of enterprise content operations excellence.
-            Building systems that scale, documenting them to last.
+            16+ years building content operations that scale—from Emmy-winning platforms to AI-powered intelligence systems.
           </p>
         </div>
       </section>
@@ -47,24 +37,14 @@ export default function SkillsPremiumPage() {
                   aria-expanded={openIndex === index}
                   aria-controls={`panel-${category.id}`}
                 >
-                  <div className={styles.cardHeader}>
-                    <span className={styles.cardPill}>{category.headline}</span>
-                    <span className={styles.cardToggle}>
-                      {openIndex === index ? '−' : '+'}
-                    </span>
-                  </div>
+                  <span className={styles.cardNumber}>0{index + 1}</span>
+                  <h2 className={styles.cardTitle}>{category.headline}</h2>
                   <p className={styles.cardPreview}>
-                    {category.description.substring(0, 100)}...
+                    {category.description.substring(0, 80)}...
                   </p>
-                  <div className={styles.cardFooter}>
-                    <span className={styles.cardDot} />
-                    <span className={styles.cardCount}>
-                      {category.id === 'platforms-tools'
-                        ? `${platformsTools.length} categories`
-                        : `${category.competencies.length} competencies`
-                      }
-                    </span>
-                  </div>
+                  <span className={styles.cardToggle}>
+                    {openIndex === index ? '−' : '+'}
+                  </span>
                 </button>
 
                 {/* Expanded Panel */}
@@ -83,25 +63,19 @@ export default function SkillsPremiumPage() {
                       <div className={styles.platformsGrid}>
                         {platformsTools.map((platform) => (
                           <div key={platform.category} className={styles.platformItem}>
-                            <span className={styles.platformDot} />
-                            <div>
-                              <span className={styles.platformCategory}>{platform.category}</span>
-                              <span className={styles.platformTools}>{platform.tools}</span>
-                            </div>
+                            <span className={styles.platformCategory}>{platform.category}</span>
+                            <span className={styles.platformTools}>{platform.tools}</span>
                           </div>
                         ))}
                       </div>
                     ) : (
                       <>
-                        <div className={styles.sectionHeader}>
-                          <span className={styles.sectionDot} />
-                          <h3 className={styles.sectionLabel}>Core Competencies</h3>
-                        </div>
+                        <h3 className={styles.sectionLabel}>Core Competencies</h3>
                         <ul className={styles.competencies}>
                           {category.competencies.map((comp, i) => (
                             <li key={i} className={styles.competency}>
                               <strong className={styles.competencyLabel}>{comp.label}</strong>
-                              <span className={styles.competencyDesc}>{comp.description}</span>
+                              <span className={styles.competencyDesc}> — {comp.description}</span>
                             </li>
                           ))}
                         </ul>
@@ -109,18 +83,12 @@ export default function SkillsPremiumPage() {
                         {/* Evidence */}
                         {category.evidence.length > 0 && (
                           <>
-                            <div className={styles.sectionHeader}>
-                              <span className={styles.sectionDot} />
-                              <h3 className={styles.sectionLabel}>Results & Impact</h3>
-                            </div>
-                            <div className={styles.evidenceGrid}>
+                            <h3 className={styles.sectionLabel}>Evidence</h3>
+                            <ul className={styles.evidence}>
                               {category.evidence.map((item, i) => (
-                                <div key={i} className={styles.evidenceCard}>
-                                  <span className={styles.evidenceDot} />
-                                  <span>{item}</span>
-                                </div>
+                                <li key={i} className={styles.evidenceItem}>{item}</li>
                               ))}
-                            </div>
+                            </ul>
                           </>
                         )}
                       </>
@@ -133,23 +101,15 @@ export default function SkillsPremiumPage() {
         </div>
       </section>
 
-      {/* Iridescent Ribbon Decoration */}
-      <div className={styles.ribbonBottom} aria-hidden="true" />
-
       {/* CTA Section */}
       <section className={styles.ctaSection}>
         <div className={styles.container}>
-          <div className={styles.ctaBadge}>
-            <span className={styles.badgeDot} />
-            <span>Portfolio</span>
-          </div>
-          <h2 className={styles.ctaTitle}>See These Skills<br />In Action</h2>
+          <h2 className={styles.ctaTitle}>See These Skills in Action</h2>
           <p className={styles.ctaText}>
-            Explore detailed case studies showcasing real impact at Fox, Warner Bros, and beyond.
+            Explore real projects where I&apos;ve applied these capabilities to deliver measurable results.
           </p>
           <Link href="/case-studies" className={styles.ctaButton}>
-            View Case Studies
-            <span className={styles.ctaArrow}>→</span>
+            View Case Studies →
           </Link>
         </div>
       </section>
