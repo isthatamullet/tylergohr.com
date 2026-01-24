@@ -68,27 +68,26 @@
   transform: translateY(0);
 }
 
-/* Grid - Staggered Layout */
+/* Grid - Zigzag Staircase Layout */
 .grid {
   display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-/* Staggered card positioning - desktop */
+/* Zigzag card positioning - desktop */
 .cardLeft {
-  width: calc(50% - 12px);
+  width: 55%;
+  margin-right: auto;
+  margin-left: 0;
 }
 
 .cardRight {
-  width: calc(50% - 12px);
-  margin-top: 60px;
-}
-
-/* Last card (5th) - center it */
-.card:last-child {
-  margin: 0 auto;
+  width: 55%;
+  margin-left: auto;
+  margin-right: 0;
 }
 
 /* Card */
@@ -202,16 +201,10 @@
 
 /* Responsive */
 @media (max-width: 900px) {
-  .grid {
-    flex-direction: column;
-  }
-
   .cardLeft,
-  .cardRight,
-  .card:last-child {
+  .cardRight {
     width: 100%;
-    margin: 0;
-    margin-top: 0;
+    margin: 0 auto;
   }
 }
 
