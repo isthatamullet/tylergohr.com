@@ -1,0 +1,465 @@
+/* Skills Neon - Dark + Lime Green Variant */
+/* Inspiration: Green and Black Bold Creative Brief Presentation */
+
+.main {
+  min-height: 100vh;
+  background-color: #1a1a1a;
+  padding-top: 100px; /* Account for fixed nav */
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero {
+  padding: 80px 24px 100px;
+  background: linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 100%);
+}
+
+.heroContent {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.heroLabel {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #CCFF00;
+  padding: 8px 16px;
+  border: 1px solid #CCFF00;
+  border-radius: 50px;
+  margin-bottom: 32px;
+}
+
+.heroTitle {
+  font-family: var(--font-body);
+  font-size: clamp(3.5rem, 10vw, 6rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  margin: 0 0 24px;
+  line-height: 1;
+}
+
+.heroSubtitle {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: #9CA3AF;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 500px;
+}
+
+/* ============================================
+   MENU SECTION
+   ============================================ */
+
+.menuSection {
+  padding: 0 24px 80px;
+  background: #CCFF00;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  text-align: left;
+  transition: padding-left 0.3s ease;
+  width: 100%;
+}
+
+.menuItem:hover {
+  padding-left: 16px;
+}
+
+.menuItem:last-child {
+  border-bottom: none;
+}
+
+.menuItem:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+.menuNumber {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.4);
+  min-width: 40px;
+}
+
+.menuTitle {
+  font-family: var(--font-body);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 700;
+  color: #000;
+  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.menuArrow {
+  font-size: 1.5rem;
+  color: #000;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.menuItem:hover .menuArrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ============================================
+   SECTIONS CONTAINER
+   ============================================ */
+
+.sectionsContainer {
+  padding: 80px 24px;
+}
+
+/* ============================================
+   SKILL SECTION
+   ============================================ */
+
+.skillSection {
+  padding: 60px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.skillSection:last-child {
+  border-bottom: none;
+}
+
+/* Section Header */
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.sectionNumber {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: #CCFF00;
+}
+
+.sectionTitle {
+  font-family: var(--font-body);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin: 0;
+  line-height: 1.1;
+}
+
+/* Section Content */
+.sectionContent {
+  margin-bottom: 32px;
+}
+
+.sectionDescription {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: #9CA3AF;
+  line-height: 1.7;
+  margin: 0 0 48px;
+  max-width: 800px;
+}
+
+/* ============================================
+   CONTENT GRID
+   ============================================ */
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 48px;
+}
+
+@media (max-width: 900px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.columnLabel {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #CCFF00;
+  margin: 0 0 24px;
+}
+
+/* ============================================
+   COMPETENCIES
+   ============================================ */
+
+.competenciesColumn {
+  /* Takes remaining space */
+}
+
+.competencies {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.competency {
+  display: flex;
+  gap: 16px;
+}
+
+.competencyBullet {
+  color: #CCFF00;
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.competencyLabel {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.competencyDesc {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: #6B7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ============================================
+   EVIDENCE
+   ============================================ */
+
+.evidenceColumn {
+  /* Fixed width in grid */
+}
+
+.evidenceCards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.evidenceCard {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: #000;
+  line-height: 1.5;
+  padding: 20px;
+  background: #CCFF00;
+  border-radius: 8px;
+}
+
+/* ============================================
+   PLATFORMS GRID
+   ============================================ */
+
+.platformsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .platformsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.platformCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.platformCategory {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #CCFF00;
+}
+
+.platformTools {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: #9CA3AF;
+  line-height: 1.5;
+}
+
+/* ============================================
+   BACK TO TOP
+   ============================================ */
+
+.backToTop {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6B7280;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px 0;
+  transition: color 0.2s ease;
+}
+
+.backToTop:hover {
+  color: #CCFF00;
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+
+.ctaSection {
+  padding: 100px 24px;
+  background: #0d0d0d;
+  text-align: center;
+}
+
+.ctaLabel {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #CCFF00;
+  margin-bottom: 24px;
+}
+
+.ctaTitle {
+  font-family: var(--font-body);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  margin: 0 0 16px;
+}
+
+.ctaText {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: #6B7280;
+  line-height: 1.6;
+  margin: 0 0 40px;
+}
+
+.ctaButton {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #000;
+  background: #CCFF00;
+  padding: 18px 40px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(204, 255, 0, 0.3);
+}
+
+/* ============================================
+   MOBILE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 600px) {
+  .main {
+    padding-top: 80px;
+  }
+
+  .hero {
+    padding: 60px 16px 80px;
+  }
+
+  .menuSection {
+    padding: 0 16px 60px;
+  }
+
+  .menuItem {
+    padding: 20px 0;
+    gap: 16px;
+  }
+
+  .menuNumber {
+    min-width: 32px;
+    font-size: 0.75rem;
+  }
+
+  .sectionsContainer {
+    padding: 60px 16px;
+  }
+
+  .skillSection {
+    padding: 40px 0;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .sectionDescription {
+    font-size: 1rem;
+    margin-bottom: 32px;
+  }
+
+  .evidenceCard {
+    padding: 16px;
+  }
+
+  .ctaSection {
+    padding: 80px 16px;
+  }
+}
