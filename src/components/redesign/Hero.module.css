@@ -156,6 +156,7 @@
   gap: 16px;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
 }
 
 .btnPrimary,
@@ -253,7 +254,7 @@
 
   .content {
     padding: 90px 20px 60px;
-    gap: 32px;
+    gap: 28px;
   }
 
   .title {
@@ -284,6 +285,8 @@
   .ctas {
     flex-direction: row;
     gap: 16px;
+    width: 100%;
+    justify-content: center;
   }
 
   .btnPrimary,
