@@ -94,16 +94,6 @@ export default function Hero() {
           ))}
         </div>
 
-        {/* CTAs */}
-        <div className={styles.ctas}>
-          <a href="#contact" className={styles.btnPrimary}>
-            Get in Touch
-          </a>
-          <a href="/resume" className={styles.btnSecondary}>
-            View Resume
-          </a>
-        </div>
-
       </div>
 
       {/* Scroll indicator - outside content for proper centering */}
