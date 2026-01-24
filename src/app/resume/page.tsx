@@ -169,11 +169,6 @@ export default function ResumePage() {
             have and what they need. Transformed delivery from 32% to 96%, saved $1.5M+ in 6 months,
             managed teams across 10+ countries. Builds systems and documentation that outlast my tenure.
           </p>
-          <div className={styles.heroMeta}>
-            <span>Meridian, Idaho</span>
-            <span className={styles.metaDivider}>|</span>
-            <span>tyler@tylergohr.com</span>
-          </div>
         </div>
       </section>
 
