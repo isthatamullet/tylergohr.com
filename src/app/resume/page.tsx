@@ -163,7 +163,7 @@ export default function ResumePage() {
         <div className={styles.heroContent}>
           <span className={styles.heroBadge}>Resume</span>
           <h1 className={styles.heroTitle}>Tyler Gohr</h1>
-          <p className={styles.heroRole}>Enterprise Solutions Architect</p>
+          <p className={styles.heroRole}>Content Operations Leader</p>
           <p className={styles.heroSummary}>
             Emmy Award-winning content leader with 16+ years bridging gaps between what organizations
             have and what they need. Transformed delivery from 32% to 96%, saved $1.5M+ in 6 months,
