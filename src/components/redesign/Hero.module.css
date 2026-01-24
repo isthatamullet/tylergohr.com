@@ -60,7 +60,6 @@
 .content.loaded .headline { transition-delay: 0.1s; }
 .content.loaded .metrics { transition-delay: 0.4s; }
 .content.loaded .ctas { transition-delay: 0.6s; }
-.content.loaded .scrollIndicator { transition-delay: 0.8s; }
 
 /* Headline */
 .headline {
@@ -208,6 +207,14 @@
   align-items: center;
   gap: 8px;
   color: var(--color-text-muted);
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+  transition-delay: 0.8s;
+}
+
+.scrollLoaded {
+  opacity: 1;
 }
 
 .scrollText {

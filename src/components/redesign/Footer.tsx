@@ -72,7 +72,7 @@ export default function Footer() {
             <a href="mailto:tyler.gohr@gmail.com" className={styles.contactLink}>
               tyler.gohr@gmail.com
             </a>
-            <span className={styles.location}>Los Angeles, CA</span>
+            <span className={styles.location}>Meridian, Idaho</span>
           </div>
 
           <div className={styles.contactColumn}>
