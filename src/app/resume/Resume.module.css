@@ -1,0 +1,694 @@
+/* Resume Page - Premium Elegant Style */
+/* Dark + Gold accents, sophisticated professional aesthetic */
+
+.main {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%);
+  padding-top: 100px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   IRIDESCENT RIBBON DECORATIONS
+   ============================================ */
+
+.ribbonTop,
+.ribbonBottom {
+  position: fixed;
+  width: 600px;
+  height: 400px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ribbonTop {
+  top: 50px;
+  right: -200px;
+  background: linear-gradient(
+    135deg,
+    rgba(245, 166, 35, 0.15) 0%,
+    rgba(147, 51, 234, 0.1) 25%,
+    rgba(59, 130, 246, 0.1) 50%,
+    rgba(16, 185, 129, 0.1) 75%,
+    rgba(245, 166, 35, 0.15) 100%
+  );
+  filter: blur(100px);
+  border-radius: 50%;
+  transform: rotate(-15deg);
+  animation: shimmer 15s ease-in-out infinite;
+}
+
+.ribbonBottom {
+  bottom: 100px;
+  left: -200px;
+  background: linear-gradient(
+    -135deg,
+    rgba(245, 166, 35, 0.15) 0%,
+    rgba(236, 72, 153, 0.1) 25%,
+    rgba(147, 51, 234, 0.1) 50%,
+    rgba(59, 130, 246, 0.1) 75%,
+    rgba(245, 166, 35, 0.15) 100%
+  );
+  filter: blur(100px);
+  border-radius: 50%;
+  transform: rotate(15deg);
+  animation: shimmer 15s ease-in-out infinite reverse;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.5;
+    transform: rotate(-15deg) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: rotate(-10deg) scale(1.1);
+  }
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero {
+  padding: 60px 24px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #F5A623;
+  padding: 10px 24px;
+  background: rgba(245, 166, 35, 0.1);
+  border: 1px solid rgba(245, 166, 35, 0.3);
+  border-radius: 50px;
+  margin-bottom: 24px;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+
+.heroRole {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  color: #F5A623;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.heroSummary {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  max-width: 650px;
+  margin: 0 auto 24px;
+}
+
+.heroMeta {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.metaDivider {
+  margin: 0 12px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 60px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sectionInner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 32px;
+  position: relative;
+  padding-bottom: 12px;
+}
+
+.sectionTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #F5A623, transparent);
+}
+
+/* ============================================
+   HIGHLIGHTS GRID
+   ============================================ */
+
+.highlightsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.highlightCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.highlightCard:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(245, 166, 35, 0.3);
+  transform: translateY(-4px);
+}
+
+.highlightMetric {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  color: #F5A623;
+  margin-bottom: 8px;
+}
+
+.highlightLabel {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.highlightDesc {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ============================================
+   EXPERIENCE LIST
+   ============================================ */
+
+.experienceList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.experienceItem {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.experienceItem:hover {
+  border-color: rgba(245, 166, 35, 0.2);
+}
+
+.experienceHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease;
+}
+
+.experienceHeader:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.experienceHeaderLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.experienceHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.jobTitle {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+.jobCompany {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: #F5A623;
+  font-weight: 500;
+}
+
+.jobPeriod {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.expandIcon {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  color: #F5A623;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(245, 166, 35, 0.3);
+  border-radius: 50%;
+}
+
+.experienceContent {
+  padding: 0 24px 24px;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.achievementsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.achievementsList li {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  padding-left: 24px;
+  position: relative;
+}
+
+.achievementsList li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #F5A623;
+}
+
+/* ============================================
+   PROJECTS GRID
+   ============================================ */
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.projectCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.projectCard:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(245, 166, 35, 0.2);
+}
+
+.projectHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.projectName {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+.projectHighlight {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #F5A623;
+  background: rgba(245, 166, 35, 0.1);
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.projectCompany {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 12px;
+}
+
+.projectDesc {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ============================================
+   SKILLS GRID
+   ============================================ */
+
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.skillCategory {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.skillCategoryName {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  color: #F5A623;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 16px 0;
+}
+
+.skillsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skillsList li {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+}
+
+/* ============================================
+   AWARDS & EDUCATION
+   ============================================ */
+
+.twoColumnGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 48px;
+}
+
+.awardsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.awardItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 16px;
+  border-left: 2px solid rgba(245, 166, 35, 0.3);
+}
+
+.awardName {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.awardOrg {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.awardYear {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: #F5A623;
+}
+
+.educationItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 16px;
+  border-left: 2px solid rgba(245, 166, 35, 0.3);
+}
+
+.degree {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.school {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+
+.ctaSection {
+  position: relative;
+  z-index: 1;
+  padding: 80px 24px;
+  background: linear-gradient(180deg, transparent, rgba(245, 166, 35, 0.05));
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ctaContent {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ctaBadge {
+  display: inline-flex;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #F5A623;
+  padding: 8px 20px;
+  background: rgba(245, 166, 35, 0.1);
+  border: 1px solid rgba(245, 166, 35, 0.3);
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
+
+.ctaTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: #ffffff;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.ctaText {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 32px;
+}
+
+.ctaButtons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctaButtonPrimary {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #000000;
+  background: #F5A623;
+  padding: 14px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.ctaButtonPrimary:hover {
+  background: #ffc04d;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(245, 166, 35, 0.3);
+}
+
+.ctaButtonSecondary {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #F5A623;
+  background: transparent;
+  padding: 14px 32px;
+  border: 1px solid rgba(245, 166, 35, 0.5);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.ctaButtonSecondary:hover {
+  background: rgba(245, 166, 35, 0.1);
+  border-color: #F5A623;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 1024px) {
+  .highlightsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .skillsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding-top: 80px;
+  }
+
+  .hero {
+    padding: 40px 20px 60px;
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroSummary {
+    font-size: 1rem;
+  }
+
+  .section {
+    padding: 40px 20px;
+  }
+
+  .highlightsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .highlightCard {
+    padding: 20px;
+  }
+
+  .experienceHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .experienceHeaderRight {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .projectsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .skillsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .twoColumnGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .ctaButtons {
+    flex-direction: column;
+  }
+
+  .ctaButtonPrimary,
+  .ctaButtonSecondary {
+    width: 100%;
+    text-align: center;
+  }
+}

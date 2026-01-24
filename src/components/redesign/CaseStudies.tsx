@@ -30,6 +30,14 @@ const caseStudies = [
     tags: ['Cost Reduction', 'Training', 'Workflow Design'],
   },
   {
+    id: 'localization',
+    title: 'Global Localization Operations',
+    company: 'SDI Media + Warner Bros.',
+    metric: '20+ Languages',
+    description: 'Transformed QC from "send and hope" to systematic processes across 20+ languages.',
+    tags: ['Localization', 'Compliance', 'Vendor Management'],
+  },
+  {
     id: 'factspark',
     title: 'AI-Powered Content Intelligence',
     company: 'FactSpark',
@@ -46,10 +54,11 @@ interface CaseStudyCardProps {
 }
 
 function CaseStudyCard({ study, index, isVisible }: CaseStudyCardProps) {
+  const isOdd = index % 2 === 0; // 0, 2, 4 are "odd" positions (1st, 3rd, 5th cards)
   return (
     <a
       href={`/case-studies#${study.id}`}
-      className={`${styles.card} ${isVisible ? styles.visible : ''}`}
+      className={`${styles.card} ${isVisible ? styles.visible : ''} ${isOdd ? styles.cardLeft : styles.cardRight}`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <div className={styles.cardHeader}>
