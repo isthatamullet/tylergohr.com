@@ -80,9 +80,14 @@ export default function CaseStudiesEditorialPage() {
           <p className={styles.ctaText}>
             Let&apos;s discuss how I can help with your content operations challenges.
           </p>
-          <Link href="/#contact" className={styles.ctaButton}>
-            Get in Touch
-          </Link>
+          <div className={styles.ctaButtons}>
+            <Link href="/#contact" className={styles.ctaButton}>
+              Get in Touch
+            </Link>
+            <Link href="/resume" className={styles.ctaButtonSecondary}>
+              View Resume
+            </Link>
+          </div>
         </div>
       </section>
 

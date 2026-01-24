@@ -568,22 +568,16 @@
   margin-bottom: 32px;
 }
 
-.ctaButtons {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
 .ctaButtonPrimary {
+  display: inline-block;
   font-family: var(--font-body);
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #000000;
   background: #F5A623;
-  padding: 14px 32px;
+  padding: 18px 48px;
   border-radius: 8px;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -595,25 +589,6 @@
   box-shadow: 0 10px 30px rgba(245, 166, 35, 0.3);
 }
 
-.ctaButtonSecondary {
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #F5A623;
-  background: transparent;
-  padding: 14px 32px;
-  border: 1px solid rgba(245, 166, 35, 0.5);
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.ctaButtonSecondary:hover {
-  background: rgba(245, 166, 35, 0.1);
-  border-color: #F5A623;
-}
 
 /* ============================================
    RESPONSIVE
@@ -682,13 +657,4 @@
     gap: 40px;
   }
 
-  .ctaButtons {
-    flex-direction: column;
-  }
-
-  .ctaButtonPrimary,
-  .ctaButtonSecondary {
-    width: 100%;
-    text-align: center;
-  }
 }

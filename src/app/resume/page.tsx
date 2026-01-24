@@ -317,14 +317,9 @@ export default function ResumePage() {
           <p className={styles.ctaText}>
             Ready to discuss how I can help transform your content operations?
           </p>
-          <div className={styles.ctaButtons}>
-            <Link href="/#contact" className={styles.ctaButtonPrimary}>
-              Get in Touch
-            </Link>
-            <Link href="/case-studies" className={styles.ctaButtonSecondary}>
-              View Case Studies
-            </Link>
-          </div>
+          <Link href="/#contact" className={styles.ctaButtonPrimary}>
+            Get in Touch
+          </Link>
         </div>
       </section>
 
