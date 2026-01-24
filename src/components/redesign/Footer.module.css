@@ -1,6 +1,5 @@
 .footer {
   position: relative;
-  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,89 +52,10 @@
   transform: translateY(0);
 }
 
-.content.visible .ctaCard { transition-delay: 0s; }
-.content.visible .contactGrid { transition-delay: 0.2s; }
-.content.visible .copyright { transition-delay: 0.4s; }
-
-/* CTA Card */
-.ctaCard {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 24px;
-  padding: 48px;
-  text-align: center;
-}
-
-.ctaTitle {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3rem);
-  color: var(--color-white);
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  line-height: 1.1;
-}
-
-.accent {
-  color: var(--color-accent);
-}
-
-.ctaText {
-  font-family: var(--font-body);
-  font-size: var(--text-body);
-  color: var(--color-text-secondary);
-  margin-bottom: 32px;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.ctaButtons {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btnPrimary,
-.btnSecondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px 32px;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
-  text-decoration: none;
-}
-
-.btnPrimary {
-  background: var(--color-accent);
-  color: var(--color-white);
-  border: none;
-}
-
-.btnPrimary:hover {
-  background: var(--color-accent-hover);
-  transform: scale(1.02);
-  box-shadow: 0 10px 30px rgba(196, 30, 58, 0.4);
-}
-
-.btnSecondary {
-  background: transparent;
-  color: var(--color-white);
-  border: 2px solid var(--color-white);
-}
-
-.btnSecondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: scale(1.02);
-}
+/* Staggered animation delays - works with or without CTA */
+.content.visible > *:nth-child(1) { transition-delay: 0s; }
+.content.visible > *:nth-child(2) { transition-delay: 0.2s; }
+.content.visible > *:nth-child(3) { transition-delay: 0.4s; }
 
 /* Contact Grid */
 .contactGrid {
@@ -219,27 +139,6 @@
 
   .content {
     gap: 48px;
-  }
-
-  .ctaCard {
-    padding: 32px 24px;
-  }
-
-  .ctaTitle {
-    font-size: 1.75rem;
-  }
-
-  .ctaButtons {
-    flex-direction: column;
-    width: 100%;
-    max-width: 280px;
-    margin: 0 auto;
-  }
-
-  .btnPrimary,
-  .btnSecondary {
-    width: 100%;
-    padding: 14px 24px;
   }
 
   .contactGrid {

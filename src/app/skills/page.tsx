@@ -153,7 +153,7 @@ export default function SkillsNeonPage() {
         </div>
       </section>
 
-      <Footer hideCtaCard />
+      <Footer />
     </main>
   );
 }

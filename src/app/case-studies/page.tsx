@@ -91,7 +91,7 @@ export default function CaseStudiesEditorialPage() {
         </div>
       </section>
 
-      <Footer hideCtaCard />
+      <Footer />
     </main>
   );
 }

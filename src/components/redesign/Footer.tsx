@@ -1,15 +1,15 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Footer.module.css';
 
 interface FooterProps {
-  hideCtaCard?: boolean;
+  children?: ReactNode;
 }
 
-export default function Footer({ hideCtaCard = false }: FooterProps) {
+export default function Footer({ children }: FooterProps) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -52,25 +52,8 @@ export default function Footer({ hideCtaCard = false }: FooterProps) {
 
       {/* Content */}
       <div className={`${styles.content} ${isVisible ? styles.visible : ''}`}>
-        {/* CTA Card - only show on homepage */}
-        {!hideCtaCard && (
-          <div className={styles.ctaCard}>
-            <h2 className={styles.ctaTitle}>
-              Ready to build something that <span className={styles.accent}>scales</span>?
-            </h2>
-            <p className={styles.ctaText}>
-              Let&apos;s talk about your content operations challenges and how I can help.
-            </p>
-            <div className={styles.ctaButtons}>
-              <Link href="/contact" className={styles.btnPrimary}>
-                Get in Touch
-              </Link>
-              <Link href="/resume" className={styles.btnSecondary}>
-                View Resume
-              </Link>
-            </div>
-          </div>
-        )}
+        {/* Optional CTA (passed as children) */}
+        {children}
 
         {/* Contact Info Grid */}
         <div className={styles.contactGrid}>

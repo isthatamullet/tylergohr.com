@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import styles from './CaseStudies.module.css';
 
 const caseStudies = [
@@ -142,20 +141,6 @@ export default function CaseStudies() {
           ))}
         </div>
 
-        {/* CTA Section */}
-        <div className={styles.ctaSection}>
-          <p className={styles.ctaText}>
-            Want to see how I approach problems?
-          </p>
-          <div className={styles.ctaButtons}>
-            <Link href="/contact" className={styles.ctaButton}>
-              Get in Touch
-            </Link>
-            <Link href="/skills" className={styles.ctaButtonSecondary}>
-              View Skills
-            </Link>
-          </div>
-        </div>
       </div>
     </section>
   );

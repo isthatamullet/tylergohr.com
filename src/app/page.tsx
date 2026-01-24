@@ -5,6 +5,7 @@ import {
   Experience,
   CaseStudies,
   Footer,
+  FooterCTA,
   HashScrollHandler,
 } from '@/components/redesign';
 
@@ -19,7 +20,9 @@ export default function HomePage() {
         <Experience />
         <CaseStudies />
       </main>
-      <Footer />
+      <Footer>
+        <FooterCTA />
+      </Footer>
     </>
   );
 }
