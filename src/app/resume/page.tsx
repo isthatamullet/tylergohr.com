@@ -172,7 +172,7 @@ export default function ResumePage() {
           <div className={styles.heroMeta}>
             <span>Meridian, Idaho</span>
             <span className={styles.metaDivider}>|</span>
-            <span>tyler.gohr@gmail.com</span>
+            <span>tyler@tylergohr.com</span>
           </div>
         </div>
       </section>

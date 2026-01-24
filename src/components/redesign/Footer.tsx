@@ -62,7 +62,7 @@ export default function Footer({ hideCtaCard = false }: FooterProps) {
               Let&apos;s talk about your content operations challenges and how I can help.
             </p>
             <div className={styles.ctaButtons}>
-              <a href="mailto:tyler.gohr@gmail.com" className={styles.btnPrimary}>
+              <a href="mailto:tyler@tylergohr.com" className={styles.btnPrimary}>
                 Get in Touch
               </a>
               <Link href="/resume" className={styles.btnSecondary}>
@@ -76,8 +76,8 @@ export default function Footer({ hideCtaCard = false }: FooterProps) {
         <div className={styles.contactGrid}>
           <div className={styles.contactColumn}>
             <h3 className={styles.columnTitle}>Contact</h3>
-            <a href="mailto:tyler.gohr@gmail.com" className={styles.contactLink}>
-              tyler.gohr@gmail.com
+            <a href="mailto:tyler@tylergohr.com" className={styles.contactLink}>
+              tyler@tylergohr.com
             </a>
             <span className={styles.location}>Meridian, Idaho</span>
           </div>
