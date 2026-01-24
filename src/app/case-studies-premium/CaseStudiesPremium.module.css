@@ -1,0 +1,579 @@
+/* Case Studies - Premium Elegant Variant */
+/* Dark + Iridescent, Startup Pitch Deck Aesthetic */
+
+.main {
+  min-height: 100vh;
+  background-color: #000000;
+  padding-top: 100px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   IRIDESCENT RIBBON DECORATIONS
+   ============================================ */
+
+.ribbonTop,
+.ribbonBottom {
+  position: absolute;
+  width: 500px;
+  height: 300px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ribbonTop {
+  top: 100px;
+  right: -150px;
+  background: linear-gradient(
+    135deg,
+    rgba(147, 51, 234, 0.4) 0%,
+    rgba(59, 130, 246, 0.4) 25%,
+    rgba(16, 185, 129, 0.4) 50%,
+    rgba(245, 158, 11, 0.4) 75%,
+    rgba(239, 68, 68, 0.4) 100%
+  );
+  filter: blur(80px);
+  border-radius: 50%;
+  transform: rotate(-15deg);
+  animation: shimmer 10s ease-in-out infinite;
+}
+
+.ribbonBottom {
+  bottom: 200px;
+  left: -150px;
+  background: linear-gradient(
+    -135deg,
+    rgba(236, 72, 153, 0.4) 0%,
+    rgba(147, 51, 234, 0.4) 25%,
+    rgba(59, 130, 246, 0.4) 50%,
+    rgba(16, 185, 129, 0.4) 75%,
+    rgba(245, 158, 11, 0.4) 100%
+  );
+  filter: blur(80px);
+  border-radius: 50%;
+  transform: rotate(15deg);
+  animation: shimmer 10s ease-in-out infinite reverse;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.5;
+    transform: rotate(-15deg) scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: rotate(-10deg) scale(1.15);
+  }
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero {
+  padding: 60px 24px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heroBadge,
+.ctaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  margin-bottom: 24px;
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  background: #F5A623;
+  border-radius: 50%;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.heroSubtitle {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+/* ============================================
+   CARDS SECTION
+   ============================================ */
+
+.cardsSection {
+  padding: 0 24px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+/* Card Wrapper */
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Collapsed Card */
+.card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+}
+
+.cardActive {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: #F5A623;
+  border-radius: 16px 16px 0 0;
+  transform: none;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cardPill {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #000000;
+  background: #F5A623;
+  padding: 8px 16px;
+  border-radius: 50px;
+}
+
+.cardToggle {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.card:hover .cardToggle {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.metricDisplay {
+  margin-bottom: 16px;
+}
+
+.metricValue {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.metricLabel {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.cardPreview {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+}
+
+.tag {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+/* Expanded Panel */
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.panelOpen {
+  max-height: 2000px;
+}
+
+.panelContent {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #F5A623;
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+  padding: 28px;
+}
+
+.fullSummary {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 24px;
+}
+
+/* Content Sections */
+.contentSection {
+  margin-bottom: 28px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.sectionDot {
+  width: 8px;
+  height: 8px;
+  background: #F5A623;
+  border-radius: 50%;
+}
+
+.sectionLabel {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+}
+
+.sectionBody {
+  padding-left: 20px;
+}
+
+.sectionBody p {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+/* Approach List */
+.approachList {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.approachItem {
+  /* wrapper */
+}
+
+.approachTitle {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #F5A623;
+  margin-bottom: 6px;
+}
+
+.approachDesc {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+/* Deliverables */
+.deliverablesList {
+  padding-left: 36px;
+  list-style: none;
+}
+
+.deliverablesList li {
+  position: relative;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin-bottom: 12px;
+  padding-left: 20px;
+}
+
+.deliverablesList li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: #F5A623;
+}
+
+/* Results Grid */
+.resultsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  padding-left: 20px;
+}
+
+.resultCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.resultValue {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #F5A623;
+  margin-bottom: 4px;
+}
+
+.resultMetric {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 4px;
+}
+
+.resultContext {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Impact Cards */
+.impactCards {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.impactCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+}
+
+.impactDot {
+  width: 6px;
+  height: 6px;
+  margin-top: 8px;
+  background: rgba(245, 166, 35, 0.5);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+
+.ctaSection {
+  padding: 80px 24px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.ctaTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.ctaText {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 500px;
+  margin: 0 auto 32px;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #000000;
+  background: #F5A623;
+  border: none;
+  border-radius: 50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ctaButton:hover {
+  background: #ffb84d;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245, 166, 35, 0.3);
+}
+
+.ctaArrow {
+  font-size: 1.25rem;
+  transition: transform 0.2s ease;
+}
+
+.ctaButton:hover .ctaArrow {
+  transform: translateX(4px);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .metricValue {
+    font-size: 2rem;
+  }
+
+  .resultsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 40px 16px 60px;
+  }
+
+  .cardsSection {
+    padding: 0 16px 60px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .cardPill {
+    font-size: 0.6875rem;
+    padding: 6px 12px;
+  }
+
+  .metricValue {
+    font-size: 1.75rem;
+  }
+
+  .resultsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .panelContent {
+    padding: 20px;
+  }
+}

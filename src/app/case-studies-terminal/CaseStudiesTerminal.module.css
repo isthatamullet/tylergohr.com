@@ -1,0 +1,632 @@
+/* Case Studies - Terminal/IDE Variant */
+/* Inspired by VS Code Dark Theme */
+
+.main {
+  min-height: 100vh;
+  background-color: #0d1117;
+  padding-top: 100px;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero {
+  padding: 60px 24px 80px;
+  text-align: center;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heroLabel {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  color: #7ee787;
+  margin-bottom: 16px;
+  padding: 6px 12px;
+  background: rgba(126, 231, 135, 0.1);
+  border-radius: 4px;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 700;
+  color: #f0f6fc;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.heroSubtitle {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: #8b949e;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   TERMINAL SECTION
+   ============================================ */
+
+.terminalSection {
+  padding: 0 24px 80px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.terminalWindow {
+  background: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Window Chrome */
+.windowChrome {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: #323233;
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.windowControls {
+  display: flex;
+  gap: 8px;
+}
+
+.windowDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dotClose {
+  background: #ff5f57;
+}
+
+.dotMinimize {
+  background: #febc2e;
+}
+
+.dotMaximize {
+  background: #28c840;
+}
+
+.windowTitle {
+  flex: 1;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #8b949e;
+}
+
+.windowActions {
+  width: 68px;
+}
+
+/* Tab Bar */
+.tabBar {
+  display: flex;
+  background: #252526;
+  border-bottom: 1px solid #3c3c3c;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tabBar::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: transparent;
+  border: none;
+  border-right: 1px solid #3c3c3c;
+  color: #8b949e;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  background: #2d2d2d;
+  color: #e1e4e8;
+}
+
+.tabActive {
+  background: #1e1e1e;
+  color: #f0f6fc;
+  border-bottom: 2px solid #569cd6;
+  margin-bottom: -1px;
+}
+
+.tabIcon {
+  font-size: 1rem;
+}
+
+.tabLabel {
+  /* inherits font */
+}
+
+.tabClose {
+  margin-left: 8px;
+  font-size: 1rem;
+  color: #6e7681;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.tabActive .tabClose,
+.tab:hover .tabClose {
+  opacity: 1;
+}
+
+/* Content Area */
+.contentArea {
+  display: flex;
+  min-height: 600px;
+  max-height: 80vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 50px;
+  background: #1e1e1e;
+  border-right: 1px solid #3c3c3c;
+  padding: 16px 0;
+  overflow: hidden;
+}
+
+.lineNumbers {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-right: 16px;
+}
+
+.lineNumber {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #6e7681;
+  line-height: 1.6;
+  user-select: none;
+}
+
+.editorContent {
+  flex: 1;
+  padding: 16px 24px;
+  overflow-y: auto;
+  transition: opacity 0.15s ease;
+}
+
+.editorContent.transitioning {
+  opacity: 0.5;
+}
+
+/* Scrollbar styling */
+.editorContent::-webkit-scrollbar {
+  width: 10px;
+}
+
+.editorContent::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+.editorContent::-webkit-scrollbar-thumb {
+  background: #424242;
+  border-radius: 5px;
+}
+
+.editorContent::-webkit-scrollbar-thumb:hover {
+  background: #4f4f4f;
+}
+
+/* Status Bar */
+.statusBar {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 16px;
+  background: #007acc;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #ffffff;
+}
+
+.statusLeft,
+.statusRight {
+  display: flex;
+  gap: 16px;
+}
+
+.statusItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.statusIcon {
+  font-size: 0.875rem;
+}
+
+/* ============================================
+   CASE STUDY CONTENT (Markdown-style)
+   ============================================ */
+
+.caseStudy {
+  color: #d4d4d4;
+  line-height: 1.6;
+}
+
+.caseStudyHeader {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.metricBadge {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 20px;
+  background: rgba(86, 156, 214, 0.15);
+  border: 1px solid rgba(86, 156, 214, 0.3);
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.metricValue {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #4ec9b0;
+}
+
+.metricLabel {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #8b949e;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.caseStudyTitle {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: #f0f6fc;
+  margin-bottom: 8px;
+}
+
+.mdHash {
+  color: #569cd6;
+}
+
+.caseStudyCompany {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  color: #ce9178;
+}
+
+.summary {
+  font-size: 1.125rem;
+  color: #8b949e;
+  font-style: italic;
+  padding-left: 16px;
+  border-left: 3px solid #569cd6;
+  margin-bottom: 32px;
+}
+
+/* Sections */
+.section {
+  margin-bottom: 32px;
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f0f6fc;
+  margin-bottom: 16px;
+}
+
+.sectionContent {
+  padding-left: 16px;
+}
+
+.paragraph {
+  margin-bottom: 16px;
+  color: #d4d4d4;
+}
+
+/* Approach Grid */
+.approachGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 16px;
+}
+
+.approachItem {
+  /* inherits */
+}
+
+.approachTitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9375rem;
+  color: #f0f6fc;
+  margin-bottom: 4px;
+}
+
+.mdBullet {
+  color: #dcdcaa;
+}
+
+.highlight {
+  color: #4ec9b0;
+}
+
+.approachDesc {
+  font-size: 0.9375rem;
+  color: #8b949e;
+  padding-left: 16px;
+}
+
+/* Deliverables */
+.deliverablesList {
+  list-style: none;
+  padding-left: 16px;
+}
+
+.deliverableItem {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  color: #d4d4d4;
+  margin-bottom: 8px;
+}
+
+/* Results Table */
+.resultsTable {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8125rem;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.tableHeader,
+.tableRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.tableHeader {
+  color: #569cd6;
+  margin-bottom: 4px;
+}
+
+.tableDivider {
+  color: #6e7681;
+  margin-bottom: 8px;
+}
+
+.tableRow {
+  color: #d4d4d4;
+  margin-bottom: 4px;
+}
+
+.resultValue {
+  color: #4ec9b0;
+  font-weight: 600;
+}
+
+/* Impact List */
+.impactList {
+  list-style: none;
+  padding-left: 16px;
+}
+
+.impactItem {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  color: #dcdcaa;
+  margin-bottom: 8px;
+}
+
+/* Footer / Tags */
+.caseStudyFooter {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid #3c3c3c;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8125rem;
+}
+
+.tagsLabel {
+  color: #6e7681;
+}
+
+.tag {
+  color: #ce9178;
+  margin-right: 8px;
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+
+.ctaSection {
+  padding: 80px 24px;
+  text-align: center;
+  background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+}
+
+.ctaLabel {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  color: #7ee787;
+  margin-bottom: 16px;
+}
+
+.ctaTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #f0f6fc;
+  margin-bottom: 16px;
+}
+
+.ctaText {
+  font-size: 1.125rem;
+  color: #8b949e;
+  max-width: 500px;
+  margin: 0 auto 32px;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  color: #ffffff;
+  background: #238636;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ctaButton:hover {
+  background: #2ea043;
+  transform: translateY(-2px);
+}
+
+.ctaCursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  .terminalWindow {
+    border-radius: 8px;
+  }
+
+  .windowTitle {
+    display: none;
+  }
+
+  .tab {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+  }
+
+  .tabIcon {
+    display: none;
+  }
+
+  .contentArea {
+    min-height: 500px;
+  }
+
+  .sidebar {
+    width: 40px;
+  }
+
+  .lineNumber {
+    font-size: 0.6875rem;
+  }
+
+  .editorContent {
+    padding: 12px 16px;
+  }
+
+  .caseStudyTitle {
+    font-size: 1.5rem;
+  }
+
+  .resultsTable {
+    font-size: 0.75rem;
+  }
+
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tableHeader span:last-child,
+  .tableRow span:last-child {
+    display: none;
+  }
+
+  .statusBar {
+    font-size: 0.6875rem;
+    padding: 4px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 40px 16px 60px;
+  }
+
+  .terminalSection {
+    padding: 0 16px 60px;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .tabBar {
+    gap: 0;
+  }
+
+  .tab {
+    padding: 8px 10px;
+    font-size: 0.6875rem;
+    border-right: none;
+  }
+
+  .tabClose {
+    display: none;
+  }
+
+  .metricBadge {
+    padding: 10px 16px;
+  }
+
+  .metricValue {
+    font-size: 1.25rem;
+  }
+}
