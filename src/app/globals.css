@@ -326,7 +326,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .skip-nav {
   position: absolute;
-  top: -40px;
+  top: -100px;
   left: 0;
   background: var(--color-accent);
   color: var(--color-white);
