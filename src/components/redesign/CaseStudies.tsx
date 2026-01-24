@@ -148,7 +148,7 @@ export default function CaseStudies() {
             Want to see how I approach problems?
           </p>
           <div className={styles.ctaButtons}>
-            <Link href="/#contact" className={styles.ctaButton}>
+            <Link href="/contact" className={styles.ctaButton}>
               Get in Touch
             </Link>
             <Link href="/skills" className={styles.ctaButtonSecondary}>

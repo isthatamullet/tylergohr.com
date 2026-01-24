@@ -143,7 +143,7 @@ export default function SkillsNeonPage() {
             Real projects. Real results. Real impact.
           </p>
           <div className={styles.ctaButtons}>
-            <Link href="/#contact" className={styles.ctaButton}>
+            <Link href="/contact" className={styles.ctaButton}>
               Get in Touch
             </Link>
             <Link href="/case-studies" className={styles.ctaButtonSecondary}>

@@ -1,0 +1,257 @@
+/* Contact Page - Clean, Focused Design */
+
+.main {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 24px 80px;
+  overflow: hidden;
+}
+
+/* Background */
+.background {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  z-index: 0;
+}
+
+.gradientOrb1 {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: float1 20s ease-in-out infinite;
+}
+
+.gradientOrb2 {
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(60px);
+  animation: float2 25s ease-in-out infinite;
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(30px, -30px); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-20px, 20px); }
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(15, 23, 42, 0.5) 100%);
+}
+
+/* Content */
+.content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.label {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: #94a3b8;
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Form Wrapper */
+.formWrapper {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+/* Alternatives Section */
+.alternatives {
+  text-align: center;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+}
+
+.alternativesText {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: #64748b;
+  margin-bottom: 16px;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.socialLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.socialLink:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.socialLink svg {
+  opacity: 0.8;
+}
+
+.socialLink:hover svg {
+  opacity: 1;
+}
+
+/* Back Link */
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #64748b;
+  text-decoration: none;
+  margin-top: 32px;
+  transition: color 0.2s ease;
+}
+
+.backLink:hover {
+  color: #94a3b8;
+}
+
+.backLink svg {
+  transition: transform 0.2s ease;
+}
+
+.backLink:hover svg {
+  transform: translateX(-4px);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .main {
+    padding: 100px 20px 60px;
+  }
+
+  .header {
+    margin-bottom: 32px;
+  }
+
+  .label {
+    font-size: 0.6875rem;
+    padding: 6px 12px;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .socialLinks {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .socialLink {
+    justify-content: center;
+  }
+
+  .gradientOrb1,
+  .gradientOrb2 {
+    width: 300px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main {
+    padding: 90px 16px 40px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .alternatives {
+    padding-top: 24px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .gradientOrb1,
+  .gradientOrb2 {
+    animation: none;
+  }
+
+  .socialLink,
+  .backLink,
+  .backLink svg {
+    transition: none;
+  }
+}

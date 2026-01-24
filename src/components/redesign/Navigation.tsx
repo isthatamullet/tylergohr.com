@@ -52,7 +52,7 @@ export default function Navigation() {
           </ul>
 
           {/* CTA Button */}
-          <Link href="/#contact" className={styles.ctaButton}>
+          <Link href="/contact" className={styles.ctaButton}>
             Get in Touch
           </Link>
 
@@ -95,7 +95,7 @@ export default function Navigation() {
           ))}
         </ul>
         <Link
-          href="/#contact"
+          href="/contact"
           className={styles.mobileCta}
           onClick={closeMobileMenu}
         >

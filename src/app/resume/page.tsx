@@ -317,7 +317,7 @@ export default function ResumePage() {
           <p className={styles.ctaText}>
             Ready to discuss how I can help transform your content operations?
           </p>
-          <Link href="/#contact" className={styles.ctaButtonPrimary}>
+          <Link href="/contact" className={styles.ctaButtonPrimary}>
             Get in Touch
           </Link>
         </div>
