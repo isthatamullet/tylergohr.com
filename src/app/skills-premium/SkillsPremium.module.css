@@ -1,0 +1,570 @@
+/* Skills Premium - Dark + Iridescent Variant */
+/* Inspiration: Black Elegant and Modern Startup Pitch Deck */
+
+.main {
+  min-height: 100vh;
+  background-color: #000000;
+  padding-top: 100px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   IRIDESCENT RIBBON DECORATIONS
+   ============================================ */
+
+.ribbonTop,
+.ribbonBottom {
+  position: absolute;
+  width: 400px;
+  height: 200px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ribbonTop {
+  top: 80px;
+  right: -100px;
+  background: linear-gradient(
+    135deg,
+    rgba(147, 51, 234, 0.4) 0%,
+    rgba(59, 130, 246, 0.4) 25%,
+    rgba(16, 185, 129, 0.4) 50%,
+    rgba(245, 158, 11, 0.4) 75%,
+    rgba(239, 68, 68, 0.4) 100%
+  );
+  filter: blur(60px);
+  border-radius: 50%;
+  transform: rotate(-15deg);
+  animation: shimmer 8s ease-in-out infinite;
+}
+
+.ribbonBottom {
+  bottom: 400px;
+  left: -100px;
+  background: linear-gradient(
+    -135deg,
+    rgba(236, 72, 153, 0.4) 0%,
+    rgba(147, 51, 234, 0.4) 25%,
+    rgba(59, 130, 246, 0.4) 50%,
+    rgba(16, 185, 129, 0.4) 75%,
+    rgba(245, 158, 11, 0.4) 100%
+  );
+  filter: blur(60px);
+  border-radius: 50%;
+  transform: rotate(15deg);
+  animation: shimmer 8s ease-in-out infinite reverse;
+}
+
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.6;
+    transform: rotate(-15deg) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: rotate(-10deg) scale(1.1);
+  }
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero {
+  padding: 80px 24px 100px;
+  position: relative;
+  z-index: 1;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heroBadge,
+.ctaBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  margin-bottom: 32px;
+}
+
+.badgeDot {
+  width: 6px;
+  height: 6px;
+  background: #F59E0B;
+  border-radius: 50%;
+}
+
+.heroTitle {
+  font-family: var(--font-body);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  margin: 0 0 24px;
+  line-height: 1.05;
+}
+
+.heroSubtitle {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.7;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+/* ============================================
+   SKILLS SECTION
+   ============================================ */
+
+.skillsSection {
+  padding: 0 24px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   GRID LAYOUT
+   ============================================ */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* ============================================
+   CARD WRAPPER
+   ============================================ */
+
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+   COLLAPSED CARD
+   ============================================ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 28px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.card:focus {
+  outline: 2px solid #F59E0B;
+  outline-offset: 2px;
+}
+
+.cardActive {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.cardPill {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+  padding: 6px 14px;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 50px;
+}
+
+.cardToggle {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.card:hover .cardToggle {
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.cardPreview {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cardDot {
+  width: 6px;
+  height: 6px;
+  background: #F59E0B;
+  border-radius: 50%;
+}
+
+.cardCount {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================
+   EXPANDED PANEL
+   ============================================ */
+
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+}
+
+.panelOpen {
+  max-height: 2500px;
+  transition: max-height 0.5s ease-in;
+}
+
+.panelContent {
+  padding: 0 28px 28px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: none;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+/* ============================================
+   PANEL CONTENT STYLES
+   ============================================ */
+
+.description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.7;
+  margin: 0 0 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.sectionDot {
+  width: 8px;
+  height: 8px;
+  background: #F59E0B;
+  border-radius: 50%;
+}
+
+.sectionLabel {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+/* ============================================
+   COMPETENCIES LIST
+   ============================================ */
+
+.competencies {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.competency {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  padding-left: 20px;
+  position: relative;
+}
+
+.competency::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(135deg, #F59E0B, #EF4444);
+  border-radius: 50%;
+}
+
+.competencyLabel {
+  display: block;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+
+.competencyDesc {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ============================================
+   EVIDENCE GRID
+   ============================================ */
+
+.evidenceGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.evidenceCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  padding: 16px 20px;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 10px;
+}
+
+.evidenceDot {
+  width: 6px;
+  height: 6px;
+  background: #F59E0B;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+/* ============================================
+   PLATFORMS GRID
+   ============================================ */
+
+.platformsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .platformsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.platformItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+}
+
+.platformDot {
+  width: 6px;
+  height: 6px;
+  background: #F59E0B;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.platformCategory {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #F59E0B;
+  margin-bottom: 4px;
+}
+
+.platformTools {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.5;
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+
+.ctaSection {
+  padding: 100px 24px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+}
+
+.ctaTitle {
+  font-family: var(--font-body);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px;
+  line-height: 1.1;
+}
+
+.ctaText {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+  margin: 0 0 40px;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #000;
+  background: #FFFFFF;
+  padding: 16px 32px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.15);
+}
+
+.ctaArrow {
+  font-size: 1.125rem;
+  transition: transform 0.2s ease;
+}
+
+.ctaButton:hover .ctaArrow {
+  transform: translateX(4px);
+}
+
+/* ============================================
+   MOBILE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 600px) {
+  .main {
+    padding-top: 80px;
+  }
+
+  .ribbonTop,
+  .ribbonBottom {
+    width: 250px;
+    height: 150px;
+  }
+
+  .hero {
+    padding: 60px 16px 80px;
+  }
+
+  .skillsSection {
+    padding: 0 16px 60px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .panelContent {
+    padding: 0 20px 20px;
+  }
+
+  .competencies {
+    gap: 20px;
+  }
+
+  .ctaSection {
+    padding: 80px 16px;
+  }
+}
