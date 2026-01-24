@@ -3,7 +3,7 @@
   top: 24px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: var(--z-nav);
+  z-index: calc(var(--z-nav) + 1);
   width: calc(100% - 48px);
   max-width: 1000px;
   transition: top 0.3s ease, background 0.3s ease;

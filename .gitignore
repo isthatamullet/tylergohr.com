@@ -139,3 +139,13 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Research images (inspiration, backgrounds originals, etc.)
+research/**/*.png
+research/**/*.jpg
+research/**/*.jpeg
+research/**/*.gif
+research/**/*.webp
+research/**/*.svg
+# Old debug analysis files with sensitive data
+claude-error-analysis-20250723-060758/
