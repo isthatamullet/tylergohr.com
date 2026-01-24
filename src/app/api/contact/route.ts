@@ -8,10 +8,9 @@ import nodemailer from "nodemailer";
 interface ContactFormData {
   name: string;
   email: string;
-  projectType: 'web-app' | 'ecommerce' | 'leadership' | 'integration' | 'other';
   message: string;
-  
-  // Enhanced form fields (optional)
+
+  // Enhanced form fields (optional - for future use)
   companySize?: 'startup' | 'small' | 'medium' | 'enterprise';
   timeline?: 'urgent' | '1-3months' | '3-6months' | 'exploring';
   budget?: 'under-10k' | '10k-50k' | '50k-100k' | '100k+' | 'discuss';
@@ -29,15 +28,6 @@ interface ContactResponse {
 
 // Rate limiting storage (simple in-memory for now)
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-
-// Project type labels for email display
-const projectTypeLabels = {
-  'web-app': 'Web Application Development',
-  'ecommerce': 'E-commerce Platform',
-  'leadership': 'Technical Leadership Role',
-  'integration': 'System Integration & APIs',
-  'other': 'Other / Let\'s Discuss'
-};
 
 // Enhanced form labels for email display
 const companySizeLabels = {
@@ -150,24 +140,18 @@ function validateFormData(data: unknown): { isValid: boolean; errors: string[]; 
   if (!formData.message || typeof formData.message !== 'string' || formData.message.trim().length < 10) {
     errors.push('Message must be at least 10 characters');
   }
-  
-  const validProjectTypes = ['web-app', 'ecommerce', 'leadership', 'integration', 'other'];
-  if (!formData.projectType || !validProjectTypes.includes(formData.projectType as string)) {
-    errors.push('Invalid project type');
-  }
-  
+
   if (errors.length > 0) {
     return { isValid: false, errors };
   }
-  
-  // Sanitize data (include enhanced form fields)
+
+  // Sanitize data
   const sanitized: ContactFormData = {
     name: (formData.name as string).trim().substring(0, 100), // Limit length
     email: (formData.email as string).trim().toLowerCase().substring(0, 100),
-    projectType: formData.projectType as ContactFormData['projectType'],
     message: (formData.message as string).trim().substring(0, 2000) // Limit message length
   };
-  
+
   // Add enhanced form fields if present (including empty strings)
   if (formData.companySize !== undefined) {
     sanitized.companySize = formData.companySize as ContactFormData['companySize'];
@@ -259,16 +243,9 @@ function createEmailHTML(data: ContactFormData): string {
               <a href="mailto:${data.email}" style="color: #16a34a; text-decoration: none;">${data.email}</a>
             </div>
           </div>
-          
+
           <div class="field">
-            <span class="field-label">Project Type</span>
-            <div class="field-value">
-              <span class="badge">${projectTypeLabels[data.projectType]}</span>
-            </div>
-          </div>
-          
-          <div class="field">
-            <span class="field-label">Project Details</span>
+            <span class="field-label">Message</span>
             <div class="message-box">
               <div class="field-value">${data.message.replace(/\n/g, '<br>')}</div>
             </div>
@@ -301,8 +278,7 @@ function createEmailText(data: ContactFormData): string {
   let emailText = `New Contact Form Submission - Tyler Gohr Portfolio${isEnhancedForm ? ' - Qualified Lead' : ''}
 
 Name: ${data.name}
-Email: ${data.email}
-Project Type: ${projectTypeLabels[data.projectType]}`;
+Email: ${data.email}`;
 
   if (isEnhancedForm) {
     emailText += `
@@ -366,14 +342,14 @@ async function sendEmailNotification(data: ContactFormData): Promise<void> {
 
   // Create dynamic subject line based on lead qualification
   const isEnhancedForm = data.companySize || data.timeline || data.budget !== undefined;
-  let subject = `New Contact: ${data.name} - ${projectTypeLabels[data.projectType]}`;
-  
+  let subject = `New Contact: ${data.name}`;
+
   if (isEnhancedForm && data.qualificationLevel) {
     const priorityPrefix = data.qualificationLevel === 'premium' ? '🔥 PREMIUM' :
                           data.qualificationLevel === 'high' ? '⭐ HIGH PRIORITY' :
                           data.qualificationLevel === 'medium' ? '📈 QUALIFIED' : '';
     if (priorityPrefix) {
-      subject = `${priorityPrefix} Lead: ${data.name} - ${projectTypeLabels[data.projectType]}`;
+      subject = `${priorityPrefix} Lead: ${data.name}`;
     }
   }
 

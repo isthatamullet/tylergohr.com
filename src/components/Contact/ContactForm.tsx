@@ -6,7 +6,6 @@ import styles from './ContactForm.module.css'
 export interface ContactFormData {
   name: string
   email: string
-  projectType: 'web-app' | 'ecommerce' | 'leadership' | 'integration' | 'other'
   message: string
 }
 
@@ -30,22 +29,12 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className }) => {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
-    projectType: 'web-app',
     message: ''
   })
 
   const [errors, setErrors] = useState<FormErrors>({})
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle')
   const [isFormValid, setIsFormValid] = useState(false)
-
-  // Project type options with professional descriptions
-  const projectTypeOptions = [
-    { value: 'web-app', label: 'Web Application Development' },
-    { value: 'ecommerce', label: 'E-commerce Platform' },
-    { value: 'leadership', label: 'Technical Leadership Role' },
-    { value: 'integration', label: 'System Integration & APIs' },
-    { value: 'other', label: 'Other / Let\'s Discuss' }
-  ] as const
 
   // Real-time email validation
   const validateEmail = (email: string): boolean => {
@@ -126,7 +115,6 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className }) => {
         setFormData({
           name: '',
           email: '',
-          projectType: 'web-app',
           message: ''
         })
         
@@ -205,26 +193,6 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className }) => {
           />
         </div>
 
-        {/* Project Type Dropdown */}
-        <div className={styles.fieldGroup}>
-          <label htmlFor="contact-project-type" className={styles.label}>
-            Project Type
-          </label>
-          <select
-            id="contact-project-type"
-            value={formData.projectType}
-            onChange={(e) => handleInputChange('projectType', e.target.value as ContactFormData['projectType'])}
-            className={styles.select}
-            disabled={submitStatus === 'submitting'}
-          >
-            {projectTypeOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
         {/* Message Field */}
         <div className={styles.fieldGroup}>
           <label htmlFor="contact-message" className={styles.label}>
@@ -235,7 +203,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({ className }) => {
             value={formData.message}
             onChange={(e) => handleInputChange('message', e.target.value)}
             className={`${styles.textarea} ${errors.message ? styles.inputError : ''}`}
-            placeholder="Tell me about your project, goals, and how I can help..."
+            placeholder="Tell me everything..."
             rows={6}
             aria-describedby={errors.message ? 'message-error' : undefined}
             aria-invalid={!!errors.message}
