@@ -278,15 +278,14 @@
   }
 
   .ctas {
-    flex-direction: column;
-    width: 100%;
-    max-width: 300px;
+    flex-direction: row;
+    gap: 12px;
   }
 
   .btnPrimary,
   .btnSecondary {
-    width: 100%;
-    padding: 16px 24px;
+    padding: 14px 20px;
+    font-size: 0.9375rem;
   }
 
   .scrollIndicator {
