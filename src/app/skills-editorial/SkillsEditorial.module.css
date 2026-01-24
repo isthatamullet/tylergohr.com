@@ -1,0 +1,407 @@
+/* Skills Editorial - Light + Minimalist Variant */
+/* Inspiration: Black and Gray Minimalist Creative Portfolio */
+
+.main {
+  min-height: 100vh;
+  background-color: #F5F5F5;
+  padding-top: 100px; /* Account for fixed nav */
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero {
+  padding: 60px 24px 80px;
+  text-align: center;
+}
+
+.heroContent {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #000;
+  letter-spacing: 0.02em;
+  margin: 0 0 24px;
+  line-height: 1;
+}
+
+.heroSubtitle {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: #4B5563;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================
+   SKILLS SECTION
+   ============================================ */
+
+.skillsSection {
+  padding: 0 24px 80px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   GRID LAYOUT
+   ============================================ */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* ============================================
+   CARD WRAPPER
+   ============================================ */
+
+.cardWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+   COLLAPSED CARD
+   ============================================ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 28px 32px;
+  background: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  width: 100%;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card:focus {
+  outline: 2px solid #C41E3A;
+  outline-offset: 2px;
+}
+
+.cardActive {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.cardNumber {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  color: #9CA3AF;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #000;
+  letter-spacing: 0.02em;
+  margin: 0 0 12px;
+  line-height: 1.1;
+}
+
+.cardPreview {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: #6B7280;
+  line-height: 1.5;
+  margin: 0;
+  padding-right: 40px; /* Space for toggle */
+}
+
+.cardToggle {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: #9CA3AF;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.card:hover .cardToggle {
+  color: #C41E3A;
+}
+
+/* ============================================
+   EXPANDED PANEL
+   ============================================ */
+
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+}
+
+.panelOpen {
+  max-height: 2000px; /* Large enough for content */
+  transition: max-height 0.5s ease-in;
+}
+
+.panelContent {
+  padding: 0 32px 32px;
+  background: #FFFFFF;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
+   PANEL CONTENT STYLES
+   ============================================ */
+
+.description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: #374151;
+  line-height: 1.7;
+  margin: 0 0 32px;
+  padding-top: 8px;
+  border-top: 1px solid #E5E7EB;
+}
+
+.sectionLabel {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #C41E3A;
+  margin: 0 0 16px;
+}
+
+/* ============================================
+   COMPETENCIES LIST
+   ============================================ */
+
+.competencies {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.competency {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: #374151;
+  line-height: 1.6;
+  padding-left: 16px;
+  position: relative;
+}
+
+.competency::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 4px;
+  height: 4px;
+  background: #C41E3A;
+  border-radius: 50%;
+}
+
+.competencyLabel {
+  font-weight: 600;
+  color: #111827;
+}
+
+.competencyDesc {
+  color: #4B5563;
+}
+
+/* ============================================
+   EVIDENCE LIST
+   ============================================ */
+
+.evidence {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.evidenceItem {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: #374151;
+  line-height: 1.5;
+  padding: 12px 16px;
+  background: #F9FAFB;
+  border-left: 3px solid #C41E3A;
+  border-radius: 0 4px 4px 0;
+}
+
+/* ============================================
+   PLATFORMS & TOOLS GRID
+   ============================================ */
+
+.platformsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 600px) {
+  .platformsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.platformItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  background: #F9FAFB;
+  border-radius: 6px;
+}
+
+.platformCategory {
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #C41E3A;
+}
+
+.platformTools {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: #4B5563;
+  line-height: 1.5;
+}
+
+/* ============================================
+   CTA SECTION
+   ============================================ */
+
+.ctaSection {
+  padding: 80px 24px;
+  background: #000;
+  text-align: center;
+}
+
+.ctaTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #FFF;
+  letter-spacing: 0.02em;
+  margin: 0 0 16px;
+}
+
+.ctaText {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  color: #9CA3AF;
+  line-height: 1.6;
+  margin: 0 0 32px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ctaButton {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #000;
+  background: #FFF;
+  padding: 16px 32px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.ctaButton:hover {
+  background: #C41E3A;
+  color: #FFF;
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   MOBILE ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 600px) {
+  .main {
+    padding-top: 80px;
+  }
+
+  .hero {
+    padding: 40px 16px 60px;
+  }
+
+  .skillsSection {
+    padding: 0 16px 60px;
+  }
+
+  .card {
+    padding: 20px 24px;
+  }
+
+  .cardNumber {
+    font-size: 0.75rem;
+  }
+
+  .cardToggle {
+    top: 20px;
+    right: 20px;
+  }
+
+  .panelContent {
+    padding: 0 24px 24px;
+  }
+
+  .competencies {
+    gap: 16px;
+  }
+
+  .ctaSection {
+    padding: 60px 16px;
+  }
+}
