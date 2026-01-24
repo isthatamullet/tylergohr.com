@@ -1,7 +1,6 @@
 .hero {
   position: relative;
-  min-height: 100vh; /* Fallback for older browsers */
-  min-height: 100svh; /* Small viewport height - accounts for mobile browser UI */
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -248,8 +247,12 @@
 }
 
 @media (max-width: 768px) {
+  .hero {
+    min-height: 100svh; /* Accounts for mobile browser UI */
+  }
+
   .content {
-    padding: 75px 20px 60px;
+    padding: 90px 20px 60px;
     gap: 32px;
   }
 
