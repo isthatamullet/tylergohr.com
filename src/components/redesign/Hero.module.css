@@ -173,6 +173,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  min-width: 200px; /* Equal width buttons so gap is centered */
 }
 
 .btnPrimary {
@@ -292,8 +293,9 @@
 
   .btnPrimary,
   .btnSecondary {
-    padding: 18px 40px;
-    font-size: 1rem;
+    padding: 18px 24px;
+    font-size: 0.9rem;
+    min-width: 160px; /* Smaller equal-width for mobile */
   }
 
   .scrollIndicator {
