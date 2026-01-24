@@ -5,10 +5,10 @@ import Link from 'next/link';
 import styles from './Navigation.module.css';
 
 const navLinks = [
-  { href: '#about', label: 'About' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#experience', label: 'Experience' },
-  { href: '#work', label: 'Work' },
+  { href: '/#about', label: 'About' },
+  { href: '/#skills', label: 'Skills' },
+  { href: '/#experience', label: 'Experience' },
+  { href: '/#work', label: 'Work' },
 ];
 
 export default function Navigation() {
@@ -44,17 +44,17 @@ export default function Navigation() {
           <ul className={styles.navLinks}>
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a href={link.href} className={styles.navLink}>
+                <Link href={link.href} className={styles.navLink}>
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
 
           {/* CTA Button */}
-          <a href="#contact" className={styles.ctaButton}>
+          <Link href="/#contact" className={styles.ctaButton}>
             Get in Touch
-          </a>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
@@ -84,23 +84,23 @@ export default function Navigation() {
               key={link.href}
               style={{ transitionDelay: `${index * 50}ms` }}
             >
-              <a
+              <Link
                 href={link.href}
                 className={styles.mobileNavLink}
                 onClick={closeMobileMenu}
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
-        <a
-          href="#contact"
+        <Link
+          href="/#contact"
           className={styles.mobileCta}
           onClick={closeMobileMenu}
         >
           Get in Touch
-        </a>
+        </Link>
       </div>
     </>
   );

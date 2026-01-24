@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import Link from 'next/link';
 import { skillCategories, platformsTools } from '../skills-data';
 import styles from './Skills.module.css';
+import Footer from '@/components/redesign/Footer';
 
 export default function SkillsNeonPage() {
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
@@ -146,6 +147,8 @@ export default function SkillsNeonPage() {
           </Link>
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 }

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import styles from './Resume.module.css';
+import Footer from '@/components/redesign/Footer';
 
 interface ExperienceItem {
   title: string;
@@ -326,6 +327,8 @@ export default function ResumePage() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 }

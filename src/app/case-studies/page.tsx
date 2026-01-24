@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import Link from 'next/link';
 import { caseStudies, CaseStudy } from './case-study-data';
 import styles from './CaseStudiesEditorial.module.css';
+import Footer from '@/components/redesign/Footer';
 
 export default function CaseStudiesEditorialPage() {
   const sectionRefs = useRef<{ [key: string]: HTMLElement | null }>({});
@@ -84,6 +85,8 @@ export default function CaseStudiesEditorialPage() {
           </Link>
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 }

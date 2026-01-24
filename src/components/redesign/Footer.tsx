@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -103,10 +104,10 @@ export default function Footer() {
 
           <div className={styles.contactColumn}>
             <h3 className={styles.columnTitle}>Site</h3>
-            <a href="#about" className={styles.navLink}>About</a>
-            <a href="#skills" className={styles.navLink}>Skills</a>
-            <a href="#experience" className={styles.navLink}>Experience</a>
-            <a href="#work" className={styles.navLink}>Work</a>
+            <Link href="/#about" className={styles.navLink}>About</Link>
+            <Link href="/#skills" className={styles.navLink}>Skills</Link>
+            <Link href="/#experience" className={styles.navLink}>Experience</Link>
+            <Link href="/#work" className={styles.navLink}>Work</Link>
           </div>
         </div>
 
