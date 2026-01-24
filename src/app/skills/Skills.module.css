@@ -409,6 +409,34 @@
   box-shadow: 0 8px 24px rgba(204, 255, 0, 0.3);
 }
 
+.ctaButtons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctaButtonSecondary {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #CCFF00;
+  background: transparent;
+  border: 2px solid #CCFF00;
+  padding: 16px 38px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.ctaButtonSecondary:hover {
+  transform: translateY(-2px);
+  background: rgba(204, 255, 0, 0.1);
+}
+
 /* ============================================
    MOBILE ADJUSTMENTS
    ============================================ */

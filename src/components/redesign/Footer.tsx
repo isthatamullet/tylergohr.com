@@ -5,7 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Footer.module.css';
 
-export default function Footer() {
+interface FooterProps {
+  hideCtaCard?: boolean;
+}
+
+export default function Footer({ hideCtaCard = false }: FooterProps) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -48,23 +52,25 @@ export default function Footer() {
 
       {/* Content */}
       <div className={`${styles.content} ${isVisible ? styles.visible : ''}`}>
-        {/* CTA Card */}
-        <div className={styles.ctaCard}>
-          <h2 className={styles.ctaTitle}>
-            Ready to build something that <span className={styles.accent}>scales</span>?
-          </h2>
-          <p className={styles.ctaText}>
-            Let&apos;s talk about your content operations challenges and how I can help.
-          </p>
-          <div className={styles.ctaButtons}>
-            <a href="mailto:tyler.gohr@gmail.com" className={styles.btnPrimary}>
-              Get in Touch
-            </a>
-            <Link href="/resume" className={styles.btnSecondary}>
-              View Resume
-            </Link>
+        {/* CTA Card - only show on homepage */}
+        {!hideCtaCard && (
+          <div className={styles.ctaCard}>
+            <h2 className={styles.ctaTitle}>
+              Ready to build something that <span className={styles.accent}>scales</span>?
+            </h2>
+            <p className={styles.ctaText}>
+              Let&apos;s talk about your content operations challenges and how I can help.
+            </p>
+            <div className={styles.ctaButtons}>
+              <a href="mailto:tyler.gohr@gmail.com" className={styles.btnPrimary}>
+                Get in Touch
+              </a>
+              <Link href="/resume" className={styles.btnSecondary}>
+                View Resume
+              </Link>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Contact Info Grid */}
         <div className={styles.contactGrid}>

@@ -328,7 +328,7 @@ export default function ResumePage() {
         </div>
       </section>
 
-      <Footer />
+      <Footer hideCtaCard />
     </main>
   );
 }
