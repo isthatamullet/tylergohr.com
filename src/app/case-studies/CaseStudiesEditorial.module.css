@@ -94,45 +94,6 @@
   font-weight: 500;
 }
 
-/* Hero Decoration */
-.heroDecoration {
-  position: absolute;
-  top: 50%;
-  right: 5%;
-  transform: translateY(-50%);
-  opacity: 0.1;
-}
-
-.decorHex {
-  width: 150px;
-  height: 170px;
-  background: transparent;
-  border: 3px solid #dc2626;
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  position: absolute;
-}
-
-.decorHex:first-child {
-  top: -80px;
-  right: 0;
-}
-
-.decorHex:nth-child(2) {
-  top: 60px;
-  right: 100px;
-  width: 100px;
-  height: 115px;
-}
-
-.decorLine {
-  position: absolute;
-  width: 200px;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, #dc2626, transparent);
-  top: 50%;
-  right: -50px;
-  transform: rotate(-45deg);
-}
 
 /* ============================================
    CASE STUDY SECTIONS
@@ -517,23 +478,31 @@
   color: #dc2626;
 }
 
-/* Section Accent */
-.sectionAccent {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 200px;
-  height: 200px;
-  opacity: 0.03;
-  pointer-events: none;
+/* Back to Top Button */
+.backToTop {
+  display: block;
+  margin: 40px auto 0;
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6B7280;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 12px 0;
+  transition: color 0.2s ease;
 }
 
-.sectionLight .sectionAccent {
-  background: linear-gradient(135deg, #0f172a, transparent);
+.backToTop:hover {
+  color: #dc2626;
 }
 
-.sectionDark .sectionAccent {
-  background: linear-gradient(135deg, #ffffff, transparent);
+.sectionDark .backToTop {
+  color: #9CA3AF;
+}
+
+.sectionDark .backToTop:hover {
+  color: #ef4444;
 }
 
 /* ============================================
