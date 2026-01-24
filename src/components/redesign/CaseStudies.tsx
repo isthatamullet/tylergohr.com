@@ -48,7 +48,7 @@ interface CaseStudyCardProps {
 function CaseStudyCard({ study, index, isVisible }: CaseStudyCardProps) {
   return (
     <a
-      href={`/case-studies/${study.id}`}
+      href={`/case-studies#${study.id}`}
       className={`${styles.card} ${isVisible ? styles.visible : ''}`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
