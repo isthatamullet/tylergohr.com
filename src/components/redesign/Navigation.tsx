@@ -6,9 +6,9 @@ import styles from './Navigation.module.css';
 
 const navLinks = [
   { href: '/#about', label: 'About' },
-  { href: '/#skills', label: 'Skills' },
-  { href: '/#experience', label: 'Experience' },
-  { href: '/#work', label: 'Work' },
+  { href: '/skills', label: 'Skills' },
+  { href: '/case-studies', label: 'Work' },
+  { href: '/resume', label: 'Resume' },
 ];
 
 export default function Navigation() {

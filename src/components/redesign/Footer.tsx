@@ -60,9 +60,9 @@ export default function Footer() {
             <a href="mailto:tyler.gohr@gmail.com" className={styles.btnPrimary}>
               Get in Touch
             </a>
-            <a href="/resume" className={styles.btnSecondary}>
-              Download Resume
-            </a>
+            <Link href="/resume" className={styles.btnSecondary}>
+              View Resume
+            </Link>
           </div>
         </div>
 
@@ -105,9 +105,9 @@ export default function Footer() {
           <div className={styles.contactColumn}>
             <h3 className={styles.columnTitle}>Site</h3>
             <Link href="/#about" className={styles.navLink}>About</Link>
-            <Link href="/#skills" className={styles.navLink}>Skills</Link>
-            <Link href="/#experience" className={styles.navLink}>Experience</Link>
-            <Link href="/#work" className={styles.navLink}>Work</Link>
+            <Link href="/skills" className={styles.navLink}>Skills</Link>
+            <Link href="/case-studies" className={styles.navLink}>Work</Link>
+            <Link href="/resume" className={styles.navLink}>Resume</Link>
           </div>
         </div>
 
