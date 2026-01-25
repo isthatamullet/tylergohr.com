@@ -165,8 +165,8 @@ export default function StoryPage() {
           fragments: true,
           fragmentInURL: false, // Don't track fragments in URL
 
-          // Auto-Slide (225ms per word fragment - balanced reading pace)
-          autoSlide: 225,
+          // Auto-Slide (190ms per word fragment - baseline reading pace)
+          autoSlide: 190,
           autoSlideStoppable: true,
 
           // Transitions
