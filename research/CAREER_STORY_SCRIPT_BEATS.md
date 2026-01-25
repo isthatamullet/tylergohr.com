@@ -433,6 +433,77 @@ Use Reveal.js native fragments for smooth back/forth navigation. No external lib
 
 ---
 
+## EXTERNAL REVIEW FEEDBACK (January 25, 2026)
+
+### What's Working ✅
+- Emmy = showstopper, undeniable proof in 10 words
+- Numbers are concrete ($1.5M, 68%→96%, 1B minutes)
+- "iTunes Whisperer" = memorable branding
+- "Most people are watching. I'm building." = money line (but it's buried!)
+- Philosophy ending lands authentically
+
+### What Needs Work ⚠️
+
+**SDI section drags** - Ready for Fox by beat 23. Consider trimming.
+
+**Beat 22 (language list) too long** - Audience gets it by line 3. (Note: our escalating effect idea may fix this - make it intentionally overwhelming)
+
+**Fox Nation/Weather = laundry list** - Too much "and then I did this." (Our rewrite already addresses this somewhat)
+
+**AI section is vague** - "Serving traffic" means nothing. What problem does it solve? Who uses it?
+
+**Missing elements:**
+- Team size ("managed X direct reports", "coordinated 30+ vendors")
+- Budget ownership (did you OWN a budget?)
+- One failure story (everything working is suspicious)
+- Explicit CTA at end (what are you looking for?)
+- Tech stack keywords (Python? Node? AWS? Azure?)
+
+**Peter Jackson story** - Reads as heroics, not systems. Was there a systemic fix after?
+
+### Personas Summary (Claude)
+| Persona | Verdict |
+|---------|---------|
+| Hiring Manager | Wants team size, budget, CTA |
+| Impatient Exec | Skip beats 3-4, language list, Fox laundry list |
+| Technical Leader | Wants architecture tradeoffs, failure stories |
+| Recruiter | Needs tech stack, level language, availability keyword |
+
+---
+
+## GEMINI REVIEW FEEDBACK (January 25, 2026)
+
+### Verdicts by Persona
+| Persona | Verdict |
+|---------|---------|
+| Hiring Manager | "Yes, I'd interview him" ✅ |
+| Impatient Exec | "Stop at Beat 20, but forward to VP" |
+| Technical Leader | "Skeptical - can he actually code?" ⚠️ |
+| Recruiter | "Hard to categorize - PM? Ops? Dev?" |
+
+### Unique Gemini Insights
+
+**"Sorcery" is a RED FLAG** - Beat 15 "Then I began my sorcery" sounds like hand-waving. Technical leaders want: "wrote a Python script to parse XML metadata." Don't hide the how.
+
+**Needs "TL;DR" slide 0** - Executive wants summary upfront: "I fixed digital supply chains for Fox and Warner Bros. Here's how."
+
+**Fuel TV / 2008 = ancient history** - Almost closed tab at "Flash." Consider starting with big wins or summary.
+
+**Movie titles don't matter** - Corpse Bride/Watchmen don't help. Volume/metrics do.
+
+**Role clarity problem** - Recruiter can't slot you: PM? Ops Director? Lead Dev? The "box" is unclear.
+
+**$1.5M = most memorable** - Executive will remember this 5 minutes later. Nothing else.
+
+### Overlapping Themes (Both Models Agree)
+1. ⚠️ SDI section drags
+2. ⚠️ Missing team size/management scope
+3. ⚠️ AI section too vague
+4. ⚠️ Missing tech stack keywords
+5. ⚠️ Ending needs harder CTA
+
+---
+
 ## REVISION NOTES (from prototype testing - January 25, 2026)
 
 ### ⭐ BIG IDEA: Variable Speech Pacing (Future Enhancement)
@@ -600,6 +671,44 @@ Make it feel more like actual dialogue/in-the-moment:
 3. **Story = embedded component** → Contextual next action
 
 **Decision:** TBD based on where story ultimately lives. For now, keep placeholder or remove entirely.
+
+---
+
+## TEXT POSITIONING DESIGN DECISION
+
+### Consistent Anchor Point
+**Default position:** Left-center (left side of screen, vertically centered)
+- First word of every slide starts at the same X,Y coordinate
+- Additional lines stack below
+- Reader always knows where to look
+
+### Exception: Punchy Statements
+Short emphatic lines can break pattern and go **centered**:
+- "I'm building."
+- "You're hired!"
+- "That's the best part."
+- etc.
+
+**Why this works:** Center is still predictable (middle of screen). The pattern break becomes a SIGNAL - "this moment is different/important." Reader learns: text is usually left, BIG moments are center.
+
+### CSS Implementation
+```css
+/* Default: left-center anchor */
+.beat-content {
+  position: absolute;
+  left: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: left;
+}
+
+/* Exception: centered emphasis */
+.beat-content.centered {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+```
 
 ### ⭐ Beat 22: Language List - ESCALATING EFFECT (Creative Enhancement)
 **Vision:** Languages start slow, get faster and BIGGER - overwhelming cascade effect
