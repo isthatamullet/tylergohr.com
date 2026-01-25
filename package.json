@@ -64,7 +64,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
     "@axe-core/react": "^4.10.2",
-    "@playwright/test": "^1.53.1",
+    "@playwright/test": "^1.56.1",
     "@types/nodemailer": "^6.4.17",
     "@types/reveal.js": "^5.2.2",
     "autoprefixer": "^10.4.21",
