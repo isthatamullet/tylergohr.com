@@ -5,129 +5,362 @@ import Link from 'next/link';
 import 'reveal.js/dist/reveal.css';
 import 'reveal.js/dist/theme/black.css';
 
-// Beat data - all 49 beats from the script
-const beats = [
-  // CHAPTER 1: FUEL TV (2008-2011)
+// Beat type definitions for V2
+type BeatLine = {
+  text: string;
+  timing?: number; // Override per-word timing (ms)
+  scale?: number; // CSS scale transform
+  pauseAfter?: boolean; // Requires click to continue
+  centered?: boolean; // Center this line
+};
+
+type Beat = {
+  lines: (string | BeatLine)[];
+  centered?: boolean; // Center entire beat
+  ownSlide?: boolean; // This is a standalone click-reveal slide
+};
+
+// V2 Script - 48 beats with all revisions
+const beats: Beat[] = [
+  // SLIDE 0: THE HOOK (centered)
+  {
+    centered: true,
+    lines: [
+      "16 years of fixing content operations that couldn't scale.",
+      "It keeps getting bigger. So do I.",
+      "Here's how."
+    ]
+  },
+
+  // CHAPTER 1: FUEL TV (2008-2011) - Condensed to 5 beats
+
   // Beat 1: The Setup
-  ["It's 2008.", "I'm staring at 47 browser tabs.", "MySpace. Facebook. YouTube. iTunes.", "All with different specs. Different formats. Different rules."],
-  // Beat 2: Flash Joke
-  ["We delivered in Flash.", "Yep."],
-  // Beat 3: New Media
-  ["My department was called \"New Media.\"", "Now it's just called media.", "No playbook. No training. Just \"figure it out.\""],
-  // Beat 4: The Turn
-  ["So I did."],
-  // Beat 5: Proof
-  ["Built 7 podcast channels from scratch.", "Discovered a timing trick no one knew existed.", "We could publish live sports clips within minutes.", "Management was impressed."],
-  // Beat 6: Mandatory Forever
-  ["Now it's mandatory forever."],
-  // Beat 7: Skills Earned
-  ["I learned to speak every platform's language.", "Got really good at figuring out things nobody taught me.", "Turns out, that's a skill people pay for."],
-  // Beat 8: Transition
-  ["📞", "Hey, it's Warner Bros."],
+  { lines: ["It's 2008. New Media department. No playbook."] },
 
-  // CHAPTER 2: WARNER BROS (2012-2014)
-  // Beat 9: The Problem
-  ["Warner Bros had a problem.", "iTunes was rejecting 68% of their film deliveries."],
-  // Beat 10: The Chaos
-  ["Castilian Spanish audio for Corpse Bride got sent to Watchmen.", "That kind of chaos."],
-  // Beat 11: The Cause
-  ["Wrong title casing for any of 25+ languages? You're out.", "I learned every spec. Every format. Every edge case."],
-  // Beat 12: iTunes Whisperer
-  ["Within a month, I became the iTunes Whisperer.", "32% acceptance became 96%. While tripling the volume.", "The rejection emails stopped."],
-  // Beat 13: Peter Jackson
-  ["📧", "Peter Jackson's team needs chapter updates.", "All three extended editions. Due tonight."],
-  // Beat 14: The Challenge
-  ["194 chapters. Multiple languages. Frame-specific timecodes.", "Personally approved by Pete.", "It landed on my desk."],
-  // Beat 15: Sorcery
-  ["I went \"hmmm... alright, here's my plan.\"", "Then I began my sorcery."],
-  // Beat 16: Delivered
-  ["They got it on time."],
-  // Beat 17: Recognition
-  ["Got an award.", "Apple's head of content partnerships had me on speed dial.", "When iTunes launched eBooks, I built that operation too. From scratch. Again."],
-  // Beat 18: Transition
-  ["📞", "SDI Media came looking for the iTunes guy.", "They found me."],
+  // Beat 2: Flash Joke (Split for comedic timing)
+  { lines: [
+    { text: "We delivered in Flash.", pauseAfter: true },
+  ]},
+  // Beat 2b: Click reveal
+  { ownSlide: true, lines: ["Yep."] },
 
-  // CHAPTER 3: SDI MEDIA (2016)
-  // Beat 19: Different Scale
-  ["SDI wanted the iTunes guy. But this was different.", "20+ languages. Global distribution.", "Hundreds of files a day, dragged and dropped by hand."],
-  // Beat 20: Netflix API
-  ["Until Netflix opened their API.", "I helped build the platform that replaced the drag-and-drop.", "Then automated our Apple deliveries too."],
-  // Beat 21: The Template
-  ["And somewhere in there, I designed a simple template.", "The foreign language dub credits.", "Those screens at the very end listing every voice actor."],
-  // Beat 22: Language List
-  ["French. German. Italian. Spanish. Portuguese. Dutch. Danish. Finnish. Norwegian. Swedish. Polish. Romanian. Russian. Turkish. Mandarin. Japanese. Korean. Arabic. Persian...", "You get the idea."],
-  // Beat 23: Still Used Today
-  ["I built that layout in 2016.", "It's still being used on new releases today."],
-  // Beat 24: Outlast
-  ["Some things outlast the job."],
-  // Beat 25: Transition
-  ["📞", "Fox came calling."],
+  // Beat 3: Proof
+  { lines: [
+    "Built 7 podcast channels. Discovered a timing trick.",
+    "Management was impressed. Now it's mandatory forever."
+  ]},
 
-  // CHAPTER 4: FOX CORPORATION (2017-2022)
-  // Beat 26: Scale
-  ["Fox was a different scale.", "70,000 titles. 250,000 assets."],
-  // Beat 27: Library Project
-  ["First up: the library project.", "15,000 titles. Every movie. Every episode Fox owned.", "I trained the team. Led the QC."],
-  // Beat 28: Caption Fix
-  ["Along the way, noticed we were bleeding money on captions.", "Bought some software, trained some pros, brought it in-house."],
-  // Beat 29: Savings
-  ["Saved $1.5 million in six months."],
-  // Beat 30: Ad Breaks
-  ["Built a tool to detect ad breaks automatically.", "10,000 episodes. Hours of work per file became five minutes."],
-  // Beat 31: Ready to Launch
-  ["We had 15,000 titles ready to launch."],
-  // Beat 32: Disney
-  ["Then Disney happened."],
-  // Beat 33: Pivot to Live
-  ["Fox pivoted to live content.", "Good thing I knew how to build for live."],
-  // Beat 34: World Cup
-  ["2018 FIFA World Cup.", "Over a billion minutes streamed.", "I built the CMS from scratch. Live. VOD. Every device. Every app."],
-  // Beat 35: It Worked
-  ["It worked."],
-  // Beat 36: Emmy
-  ["We won an Emmy.", "My name's on my trophy."],
-  // Beat 37: Not Done
-  ["But I wasn't done."],
-  // Beat 38: Fox Nation + Weather
-  ["Fox Nation needed a CMS. Built it.", "100 episodes ready on launch day.", "Then the new Fox content distribution platform.", "Team across 10 countries.", "Launched Fox Weather."],
-  // Beat 39: Building How We Build
-  ["I wasn't just building platforms anymore.", "I was building how we build."],
-  // Beat 40: The Pattern
-  ["Every company had the same problem.", "Content operations that couldn't scale.", "I knew how to fix it."],
+  // Beat 4: The Skill
+  { lines: [
+    "I learned to figure out things nobody taught me.",
+    "Turns out, that's a skill people pay for."
+  ]},
 
-  // CHAPTER 5: THE FUTURE
-  // Beat 41: New Media Redux
-  ["In 2008, they called it \"New Media.\"", "Nobody knew the rules yet.", "I figured them out anyway."],
-  // Beat 42: Happening Again
-  ["Now it's happening again."],
-  // Beat 43: AI
-  ["AI is changing everything about content.", "How we create it. How we scale it. How we deliver it."],
-  // Beat 44: Watching vs Building
-  ["Most people are watching."],
-  // Beat 45: I'm Building
-  ["I'm building.", "Built a content intelligence platform from scratch.", "AI-powered. Serving traffic."],
-  // Beat 46: Same Pattern
-  ["16 years ago, I was the person who figured out the new platforms.", "Now I'm the person who figures out AI.", "Same pattern. Bigger tools."],
-  // Beat 47: Been Here Before
-  ["Content operations is changing.", "I've been here before."],
+  // Beat 5: Transition
+  { lines: [
+    "📞",
+    "Hello, Tyler? It's Warner Bros."
+  ]},
 
-  // CLOSING
-  // Beat 48: Browser Tabs
-  ["A million browser tabs later...", "Half those platforms are dead."],
-  // Beat 49: The Best Part
-  ["Figuring things out is still mandatory.", "That's the best part."],
+  // CHAPTER 2: WARNER BROS (2012-2014) - 10 beats
+
+  // Beat 6: The Call
+  { lines: ["We have a problem..."] },
+
+  // Beat 7: The Problem
+  { lines: [
+    "iTunes is rejecting 68% of our film deliveries.",
+    "We sent Castilian Spanish audio for Corpse Bride to Watchmen."
+  ]},
+
+  // Beat 8: The Fix
+  { lines: [
+    "Wrong title casing for any of 25+ languages? You're out.",
+    "I learned every spec. Every format. Every edge case."
+  ]},
+
+  // Beat 9: iTunes Whisperer
+  { lines: [
+    "Within a month, I became the iTunes Whisperer.",
+    "32% acceptance became 96%. While tripling the volume.",
+    "The rejection emails stopped."
+  ]},
+
+  // Beat 10: Peter Jackson Setup
+  { lines: [
+    "📧",
+    "Peter Jackson's team needs chapter updates.",
+    "All three extended editions. Due tonight."
+  ]},
+
+  // Beat 11: The Challenge
+  { lines: [
+    "194 chapters. Multiple languages. Frame-specific timecodes.",
+    "Our tool only handled one language at a time."
+  ]},
+
+  // Beat 12: The Sorcery (Expanded)
+  { lines: [
+    { text: "I went \"hmmm... alright, here's my plan.\"", pauseAfter: true },
+    "Then..."
+  ]},
+  // Beat 12b: Click reveal - own slide
+  { ownSlide: true, lines: [
+    "I started jamming text files together.",
+    "Different formats. Different structures."
+  ]},
+
+  // Beat 13: The Result
+  { lines: [
+    "After a few tries... perfect XML.",
+    "Apple accepted it. Pete smiled."
+  ]},
+
+  // Beat 14: Recognition
+  { lines: [
+    "Got an award.",
+    "Apple's head of content partnerships had me on speed dial.",
+    "When iTunes launched eBooks, I built that operation too. From scratch. Again."
+  ]},
+
+  // Beat 15: Transition
+  { lines: [
+    "📞",
+    "Hello, iTunes guy? This is SDI Media."
+  ]},
+
+  // CHAPTER 3: SDI MEDIA (2016) - 6 beats
+
+  // Beat 16: The Scale
+  { lines: [
+    "20+ languages. Hundreds of files a day.",
+    "Dozens of points of failure."
+  ]},
+
+  // Beat 17: The Languages (⭐ ESCALATING EFFECT)
+  { lines: [
+    { text: "French. German. Italian. Spanish...", timing: 400, scale: 1 },
+    { text: "Portuguese. Dutch. Danish. Finnish. Norwegian. Swedish...", timing: 200, scale: 1.3 },
+    { text: "Polish. Romanian. Russian. Turkish...", timing: 100, scale: 1.8 },
+    { text: "MANDARIN. JAPANESE. KOREAN. ARABIC. PERSIAN...", timing: 50, scale: 2.5 },
+    { text: "You get the idea.", timing: 190, scale: 1 },
+  ]},
+
+  // Beat 18: The Template
+  { lines: [
+    "Somewhere in there, I designed a simple template.",
+    "Foreign language dub credits.",
+    "The screens listing every voice actor."
+  ]},
+
+  // Beat 19: The Legacy
+  { lines: [
+    "I built that in 2016.",
+    "It's still used today."
+  ]},
+
+  // Beat 20: The Lesson
+  { lines: ["Some things outlast the job."] },
+
+  // Beat 21: Transition
+  { lines: [
+    "📞",
+    { text: "Hello, Tyler? It's Fox. What's your favorite symphony?", pauseAfter: true },
+  ]},
+  // Beat 21b: Click reveal
+  { ownSlide: true, centered: true, lines: ["You're hired!"] },
+
+  // CHAPTER 4: FOX CORPORATION (2017-2022) - 16 beats
+
+  // Beat 22: Scale
+  { lines: [
+    "Fox was a different scale.",
+    "70,000 titles. 250,000 assets."
+  ]},
+
+  // Beat 23: Library Project
+  { lines: [
+    "First up: the library project.",
+    "15,000 titles. Every movie. Every episode Fox owned.",
+    "I trained the team. Led the QC."
+  ]},
+
+  // Beat 24: Caption Fix
+  { lines: [
+    "Along the way, noticed we were bleeding money on captions.",
+    "Bought some software, trained some pros, brought it in-house."
+  ]},
+
+  // Beat 25: Savings (own slide for impact)
+  { ownSlide: true, lines: ["Saved $1.5 million in six months."] },
+
+  // Beat 26: Ad Breaks
+  { lines: [
+    "Built a tool to detect ad breaks automatically.",
+    "10,000 episodes. Hours of work per file became five minutes."
+  ]},
+
+  // Beat 27: Ready
+  { lines: ["We had 15,000 titles ready to launch."] },
+
+  // Beat 28: Disney (Dramatic split)
+  { lines: [
+    { text: "Then...", pauseAfter: true },
+  ]},
+  // Beat 28b: Click reveal
+  { ownSlide: true, lines: ["Disney happened."] },
+
+  // Beat 29: Pivot
+  { lines: [
+    "Fox pivoted to live content.",
+    "Good thing I knew how to build for live."
+  ]},
+
+  // Beat 30: World Cup
+  { lines: [
+    "2018 FIFA World Cup.",
+    "Over a billion minutes streamed.",
+    "I built the CMS from scratch. Live. VOD. Every device. Every app."
+  ]},
+
+  // Beat 31: Emmy Fake-Out
+  { lines: [
+    { text: "It didn't work.", pauseAfter: true },
+  ]},
+  // Beat 31b: Click reveal
+  { ownSlide: true, lines: [
+    "Just kidding, we won an Emmy.",
+    "My name's on my trophy."
+  ]},
+
+  // Beat 32: Not Done
+  { lines: ["But I wasn't done."] },
+
+  // Beat 33: Fox Nation
+  { lines: [
+    "Fox Nation needed a CMS. Built it.",
+    "100 episodes ready on launch day."
+  ]},
+
+  // Beat 34: Distribution Platform
+  { lines: [
+    "Then, I got to help Fox build a new content distribution platform.",
+    "From scratch. Teams across 10 countries.",
+    "Launched Fox Weather."
+  ]},
+
+  // Beat 35: You're Welcome (own slide, centered)
+  { ownSlide: true, centered: true, lines: ["You're welcome!"] },
+
+  // Beat 36: Building How to Build
+  { lines: [
+    { text: "I wasn't just building platforms anymore.", pauseAfter: true },
+  ]},
+  // Beat 36b: Click reveal
+  { ownSlide: true, lines: ["I was building how TO build."] },
+
+  // Beat 37: The Pattern (Confident reframe)
+  { lines: [
+    "Every company had the same problem.",
+    { text: "Content operations that COULD scale...", pauseAfter: true },
+  ]},
+  // Beat 37b: Click reveal
+  { ownSlide: true, lines: ["...but needed me to fix it."] },
+
+  // CHAPTER 5: THE FUTURE - 8 beats
+
+  // Beat 38: New Media Redux
+  { lines: [
+    "In 2008, they called it \"New Media.\"",
+    { text: "Nobody knew the rules yet.", pauseAfter: true },
+  ]},
+  // Beat 38b: Click reveal
+  { ownSlide: true, lines: ["I figured them out anyway."] },
+
+  // Beat 39: Happening Again
+  { lines: ["Now it's happening again."] },
+
+  // Beat 40: AI (Deliberate pacing)
+  { lines: [
+    "AI is changing everything about content.",
+    { text: "How we create it.", timing: 400 },
+    { text: "How we scale it.", timing: 400 },
+    { text: "How we deliver it.", timing: 400 },
+  ]},
+
+  // Beat 41: Watching (setup)
+  { lines: ["Most people are watching."] },
+
+  // Beat 42: Building (own slide - THE thesis, centered)
+  { ownSlide: true, centered: true, lines: ["I'm building."] },
+
+  // Beat 43: FactSpark (Concrete proof)
+  { lines: [
+    "Built FactSpark.io from scratch.",
+    "An AI-powered news analysis pipeline.",
+    "170 articles analyzed. Live. Anyone can read it."
+  ]},
+
+  // Beat 44: Same Pattern
+  { lines: [
+    "16 years ago, I was the person who figured out the new platforms.",
+    "Now I'm the person who figures out AI.",
+    "Same pattern. Bigger tools."
+  ]},
+
+  // Beat 45: Been Here Before
+  { lines: [
+    "Content operations is changing.",
+    "I've been here before."
+  ]},
+
+  // CLOSING - 2 beats
+
+  // Beat 46: Browser Tabs Callback
+  { lines: [
+    "A million browser tabs later...",
+    "Half those platforms from earlier are dead."
+  ]},
+
+  // Beat 47: The Best Part (Click to reveal finale, centered)
+  { lines: [
+    { text: "Figuring things out is still mandatory.", pauseAfter: true },
+  ]},
+  // Beat 47b: Click reveal - final punchline
+  { ownSlide: true, centered: true, lines: ["That's the best part."] },
 ];
 
-// Helper to convert a line into word fragments
-function lineToFragments(line: string, isLastLine: boolean): React.ReactNode[] {
-  const words = line.split(' ');
+// Helper to convert a line into word fragments with timing support
+function lineToFragments(
+  line: string | BeatLine,
+  isLastLine: boolean,
+  beatIndex: number,
+  lineIndex: number
+): React.ReactNode[] {
+  const lineData = typeof line === 'string' ? { text: line } : line;
+  const words = lineData.text.split(' ');
+  const wordTiming = lineData.timing || 190; // Default 190ms per word
+  const scale = lineData.scale || 1;
+  const pauseAfter = lineData.pauseAfter || false;
+
   return words.map((word, wordIndex) => {
-    const isLastWord = isLastLine && wordIndex === words.length - 1;
+    const isLastWord = wordIndex === words.length - 1;
+    // Stop auto-advance if: last word of beat OR pauseAfter is true
+    const shouldStop = (isLastLine && isLastWord) || (isLastWord && pauseAfter);
+
+    const style: React.CSSProperties = {};
+    if (scale !== 1) {
+      style.display = 'inline-block';
+      style.transform = `scale(${scale})`;
+      style.transformOrigin = 'left center';
+    }
+
     return (
       <span
-        key={wordIndex}
+        key={`${beatIndex}-${lineIndex}-${wordIndex}`}
         className="fragment fade-in"
-        data-autoslide={isLastWord ? "0" : undefined}
+        data-autoslide={shouldStop ? "0" : String(wordTiming)}
+        style={style}
       >
         {word}{' '}
       </span>
@@ -165,7 +398,7 @@ export default function StoryPage() {
           fragments: true,
           fragmentInURL: false, // Don't track fragments in URL
 
-          // Auto-Slide (190ms per word fragment - baseline reading pace)
+          // Auto-Slide (190ms baseline - overridden per-fragment)
           autoSlide: 190,
           autoSlideStoppable: true,
 
@@ -237,6 +470,10 @@ export default function StoryPage() {
           justify-content: center;
         }
 
+        .reveal .slides section.centered-beat {
+          text-align: center;
+        }
+
         .reveal .slides section .beat-content {
           max-width: min(90vw, 700px);
           max-height: 80vh;
@@ -260,6 +497,16 @@ export default function StoryPage() {
         /* Emoji styling for phone/email animations */
         .reveal .slides section .beat-line:first-child .fragment:first-child {
           font-size: 1.3em;
+        }
+
+        /* Escalating effect - scale transforms handled inline */
+        .reveal .slides section .beat-line .fragment[style*="scale"] {
+          white-space: nowrap;
+        }
+
+        /* Own-slide beats get slightly larger text for impact */
+        .reveal .slides section.own-slide .beat-content {
+          font-size: 1.1em;
         }
 
         /* iPad and tablets */
@@ -304,21 +551,28 @@ export default function StoryPage() {
               </div>
             </section>
 
-            {/* All 49 beats */}
-            {beats.map((beat, beatIndex) => (
-              <section key={beatIndex}>
-                <div className="beat-content">
-                  {beat.map((line, lineIndex) => {
-                    const isLastLine = lineIndex === beat.length - 1;
-                    return (
-                      <span key={lineIndex} className="beat-line">
-                        {lineToFragments(line, isLastLine)}
-                      </span>
-                    );
-                  })}
-                </div>
-              </section>
-            ))}
+            {/* All V2 beats */}
+            {beats.map((beat, beatIndex) => {
+              const sectionClasses = [
+                beat.centered ? 'centered-beat' : '',
+                beat.ownSlide ? 'own-slide' : '',
+              ].filter(Boolean).join(' ');
+
+              return (
+                <section key={beatIndex} className={sectionClasses || undefined}>
+                  <div className="beat-content" style={beat.centered ? { textAlign: 'center' } : undefined}>
+                    {beat.lines.map((line, lineIndex) => {
+                      const isLastLine = lineIndex === beat.lines.length - 1;
+                      return (
+                        <span key={lineIndex} className="beat-line">
+                          {lineToFragments(line, isLastLine, beatIndex, lineIndex)}
+                        </span>
+                      );
+                    })}
+                  </div>
+                </section>
+              );
+            })}
 
             {/* End slide */}
             <section>
