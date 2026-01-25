@@ -1,7 +1,7 @@
 # Tyler Gohr - Career Story Script V2
 
 ## Overview
-Revised script incorporating prototype testing feedback, Claude/Gemini review feedback, and gap analysis decisions.
+Revised script incorporating prototype testing feedback, Claude/Gemini review feedback, gap analysis decisions, and **live implementation refinements from January 25, 2026 session**.
 
 **Changes from V1:**
 - Added TL;DR slide 0
@@ -11,9 +11,20 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 - Made AI section concrete (FactSpark.io)
 - All pacing/split decisions from prototype testing
 
+**Changes from initial V2 (Jan 25 session):**
+- Clarified timing trick was for live sports streaming
+- Simplified iTunes rejection line
+- Added Beethoven/Eroica answer slide
+- Added musical notes animation on Fox scale slide
+- Updated Emmy to full award name
+- Combined Fox Weather + "You're welcome!" with 2s pause
+- Changed emphasis: "HOW to build" instead of "how TO build"
+- Added slow dramatic timing on final punchline
+- "You get the idea." moved to own slide (not covered by scaled languages)
+
 ---
 
-## SLIDE 0: THE HOOK
+## SLIDE 0: THE HOOK (centered)
 
 > "16 years of fixing content operations that couldn't scale."
 > "It keeps getting bigger. So do I."
@@ -32,7 +43,7 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 > "Yep."
 
 ### Beat 3: Proof
-> "Built 7 podcast channels. Discovered a timing trick."
+> "Built 7 podcast channels. Discovered a timing trick for live sports streaming."
 > "Management was impressed. Now it's mandatory forever."
 
 ### Beat 4: The Skill
@@ -44,7 +55,7 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 > "Hello, Tyler? It's Warner Bros."
 
 ---
-**Chapter 1: 5 beats (was 8)**
+**Chapter 1: 5 beats**
 
 ---
 
@@ -58,8 +69,7 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 > "We sent Castilian Spanish audio for Corpse Bride to Watchmen."
 
 ### Beat 8: The Fix
-> "Wrong title casing for any of 25+ languages? You're out."
-> "I learned every spec. Every format. Every edge case."
+> "Every delivery had hundreds of ways to fail. I learned them all."
 
 ### Beat 9: iTunes Whisperer
 > "Within a month, I became the iTunes Whisperer."
@@ -96,7 +106,7 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 > "Hello, iTunes guy? This is SDI Media."
 
 ---
-**Chapter 2: 10 beats (expanded sorcery, dialogue rewrite)**
+**Chapter 2: 10 beats**
 
 ---
 
@@ -107,13 +117,15 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 > "Dozens of points of failure."
 
 ### Beat 17: The Languages (⭐ ESCALATING EFFECT)
-> "French. German. Italian. Spanish..."
-> [speeds up] "Portuguese. Dutch. Danish. Finnish. Norwegian. Swedish..."
-> [FASTER, BIGGER] "Polish. Romanian. Russian. Turkish..."
-> [MASSIVE] "MANDARIN. JAPANESE. KOREAN. ARABIC. PERSIAN..."
-> [tiny, deadpan] "You get the idea."
+> "French. German. Italian. Spanish..." [400ms, scale 1x]
+> "Portuguese. Dutch. Danish. Finnish. Norwegian. Swedish..." [200ms, scale 1.5x]
+> "Polish. Romanian. Russian. Turkish..." [100ms, scale 2.5x]
+> "MANDARIN. JAPANESE. KOREAN. ARABIC. PERSIAN..." [50ms, scale 4x]
 
-**Visual notes:** Text starts normal speed/size. Each line faster timing (400ms→200ms→100ms→50ms) AND larger scale (1x→1.5x→2x→3x). Final "You get the idea" snaps back to small, normal - comedic release.
+### Beat 17b: Punchline (own slide)
+> "You get the idea." [normal timing, normal size - comedic release]
+
+**Visual notes:** Text escalates in speed AND size. Final punchline on its own slide so it's not covered by scaled text.
 
 ### Beat 18: The Template
 > "Somewhere in there, I designed a simple template."
@@ -129,20 +141,25 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 
 ### Beat 21: Transition
 > "📞"
-> "Hello, Tyler? It's Fox. What's your favorite symphony?"
-> [CLICK - own slide]
+> "Hello, Tyler? It's Fox. What's your favorite Beethoven symphony?"
+> [CLICK - own slide, centered]
+> "The most important piece of music ever written, of course."
+> "Number 3. Eroica."
+> [CLICK - own slide, centered]
 > "You're hired!"
 
 ---
-**Chapter 3: 6 beats - tight but with signature visual moment**
+**Chapter 3: 7 beats (including Eroica answer)**
 
 ---
 
 ## CHAPTER 4: FOX CORPORATION (2017-2022)
 
-### Beat 22: Scale (Symphony double meaning 🎵)
+### Beat 22: Scale (🎵 Musical notes animation)
 > "Fox was a different scale."
 > "70,000 titles. 250,000 assets."
+
+**Visual notes:** Floating musical note emojis (🎵🎶) animate in background - callback to symphony question.
 
 ### Beat 23: Library Project
 > "First up: the library project."
@@ -180,7 +197,7 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 ### Beat 31: Emmy Fake-Out
 > "It didn't work."
 > [CLICK - own slide]
-> "Just kidding, we won an Emmy."
+> "Just kidding - we won an Emmy for Outstanding Trans-Media Sports Coverage."
 > "My name's on my trophy."
 
 ### Beat 32: Not Done
@@ -193,15 +210,16 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 ### Beat 34: Distribution Platform
 > "Then, I got to help Fox build a new content distribution platform."
 > "From scratch. Teams across 10 countries."
-> "Launched Fox Weather."
 
-### Beat 35: You're Welcome (own slide)
+### Beat 35: Fox Weather + You're Welcome (own slide, centered)
+> "Launched Fox Weather."
+> [2 SECOND PAUSE]
 > "You're welcome!"
 
-### Beat 36: Building How to Build (own slide)
+### Beat 36: Building How to Build
 > "I wasn't just building platforms anymore."
 > [CLICK - own slide]
-> "I was building how TO build."
+> "I was building HOW to build."
 
 ### Beat 37: The Pattern (Confident reframe)
 > "Every company had the same problem."
@@ -210,7 +228,7 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 > "...but needed me to fix it."
 
 ---
-**Chapter 4: 16 beats (reorganized, dramatic splits, Emmy fake-out)**
+**Chapter 4: 16 beats**
 
 ---
 
@@ -225,16 +243,16 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 ### Beat 39: Happening Again
 > "Now it's happening again."
 
-### Beat 40: AI (Deliberate pacing)
+### Beat 40: AI (Deliberate pacing - 400ms per word)
 > "AI is changing everything about content."
-> [pause] "How we create it."
-> [pause] "How we scale it."
-> [pause] "How we deliver it."
+> "How we create it."
+> "How we scale it."
+> "How we deliver it."
 
 ### Beat 41: Watching (setup)
 > "Most people are watching."
 
-### Beat 42: Building (own slide - THE thesis)
+### Beat 42: Building (own slide - THE thesis, centered)
 > "I'm building."
 
 ### Beat 43: FactSpark (Concrete proof)
@@ -243,7 +261,7 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 > "170 articles analyzed. Live. Anyone can read it."
 
 ### Beat 44: Same Pattern
-> "16 years ago, I was the person who figured out the new platforms."
+> "For years, I've been the person who figured out the new platforms."
 > "Now I'm the person who figures out AI."
 > "Same pattern. Bigger tools."
 
@@ -252,7 +270,7 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 > "I've been here before."
 
 ---
-**Chapter 5: 8 beats (AI section concrete, "I'm building" emphasized)**
+**Chapter 5: 8 beats**
 
 ---
 
@@ -264,7 +282,7 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 
 ### Beat 47: The Best Part (Click to reveal finale)
 > "Figuring things out is still mandatory."
-> [CLICK - deliberate pause]
+> [CLICK - own slide, centered, SLOW: 1000ms between each word]
 > "That's the best part."
 
 [END - no CTA slide needed, story lives on tylergohr.com]
@@ -276,79 +294,76 @@ Revised script incorporating prototype testing feedback, Claude/Gemini review fe
 
 ## SUMMARY
 
-| Chapter | V1 Beats | V2 Beats | Change |
-|---------|----------|----------|--------|
-| Hook | 0 | 1 | +1 (new) |
-| Fuel TV | 8 | 5 | -3 (condensed) |
-| Warner Bros | 10 | 10 | 0 (expanded sorcery, same count) |
-| SDI Media | 7 | 6 | -1 (trimmed + escalating effect) |
-| Fox | 15 | 16 | +1 (dramatic splits) |
-| Future | 7 | 8 | +1 (AI expanded) |
-| Closing | 2 | 2 | 0 |
-| **TOTAL** | **49** | **48** | **-1** |
+| Chapter | Beats | Notes |
+|---------|-------|-------|
+| Hook | 1 | TL;DR centered |
+| Fuel TV | 5 | Condensed, timing trick clarified |
+| Warner Bros | 10 | Expanded sorcery, simplified rejection line |
+| SDI Media | 7 | Escalating effect, Eroica answer added |
+| Fox | 16 | Emmy full name, Fox Weather + You're welcome combined |
+| Future | 8 | AI concrete, "For years" reframe |
+| Closing | 2 | Slow dramatic timing on finale |
+| **TOTAL** | **49** | |
 
 ---
 
 ## TEXT POSITIONING
 
 **Default:** Left-center anchor (first word always same X,Y)
-**Exception:** Centered for punchy moments ("I'm building.", "You're hired!", "That's the best part.")
+**Exception:** Centered for punchy moments:
+- Beat 0: Hook
+- Beat 21b: Eroica answer
+- Beat 21c: "You're hired!"
+- Beat 35: Fox Weather + "You're welcome!"
+- Beat 42: "I'm building."
+- Beat 47b: "That's the best part."
 
 ---
 
-## BASELINE PACING
+## TIMING REFERENCE
 
-**Default:** 190ms per word
-**Variable pacing (future):**
-- Fast: 100-150ms (lists, rapid moments)
-- Slow: 300-500ms (dramatic pauses, punchlines)
+| Type | Timing | Used For |
+|------|--------|----------|
+| Default | 190ms | Standard word pacing |
+| Fast | 50-100ms | Escalating languages |
+| Medium | 200-400ms | Deliberate emphasis (AI section) |
+| Slow | 1000ms | Dramatic finale |
+| Pause | 2000ms | Between Fox Weather and You're welcome |
 
 ---
 
+## IMPLEMENTATION STATUS
+
+### ✅ Implemented
+- All 49 beats in code
+- Click-to-reveal system
+- Escalating language effect (speed + scale)
+- Deliberate pacing on AI section
+- Centered beats
+- Musical notes animation
+- 2s delay between Fox Weather and You're welcome
+- 1s timing on "That's the best part."
+- Mobile viewport fixes
+
+### 🧪 Needs Testing
+- Mobile portrait mode
+- Mobile tap/swipe navigation
+- Auto-play consistency on mobile
+- All timing feels right across devices
+
+### 📋 Future Work (After Text is Locked)
+- Visual/graphic elements for slides
+- Background imagery
+- Additional animations beyond musical notes
+- Consider dedicated mobile experience if Reveal.js issues persist
+
 ---
 
-## IMPLEMENTATION GUIDE (For Next Session)
-
-### File to Update
+## IMPLEMENTATION FILE
 `/home/user/tylergohr.com/src/app/story/page.tsx`
-
-### Key Markers in This Script
-- `[CLICK]` = Requires user click to reveal (not auto-advance)
-- `[CLICK - own slide]` = This text is a separate slide entirely
-- `(own slide)` in beat title = Entire beat is its own slide
-- `[pause]` = Longer delay before this text (300-500ms instead of 190ms baseline)
-
-### Beats That Need Centered Text (Exception to Left-Anchor)
-- Beat 0: Hook (centered)
-- Beat 35: "You're welcome!" (centered)
-- Beat 42: "I'm building." (centered)
-- Beat 47: "That's the best part." (centered)
-
-### Special Implementation: Escalating Language Effect (Beat 17)
-Requires custom CSS/JS:
-1. Each language line is a fragment group
-2. Timing decreases: 400ms → 200ms → 100ms → 50ms
-3. Scale increases: transform scale(1) → scale(1.5) → scale(2) → scale(3)
-4. Final line "You get the idea" snaps back to normal size/speed
-5. Consider CSS keyframes or per-fragment data-autoslide + inline styles
-
-### Special Implementation: Deliberate Pacing (Beat 40)
-The three phrases need longer delays:
-> "How we create it." [400ms pause]
-> "How we scale it." [400ms pause]
-> "How we deliver it." [400ms pause]
-
-### Testing Checklist After Implementation
-- [ ] All 48 beats render correctly
-- [ ] Click-to-reveal beats pause properly
-- [ ] Own-slide beats are separate slides
-- [ ] Centered text beats are centered
-- [ ] 190ms baseline pacing feels right
-- [ ] Escalating effect works (if implemented)
-- [ ] Back navigation smooth
-- [ ] Mobile tap works
 
 ---
 
 *V2 created: January 25, 2026*
-*Incorporates: Prototype testing, Claude review, Gemini review, gap analysis*
+*Last updated: January 25, 2026 (implementation refinements)*
+*Incorporates: Prototype testing, Claude review, Gemini review, gap analysis, live testing feedback*
