@@ -150,7 +150,7 @@ export default function StoryPage() {
           // Display and Layout
           width: '100%',
           height: '100%',
-          margin: 0.1,
+          margin: 0.05,
           center: true,
 
           // Navigation and Controls
@@ -158,15 +158,15 @@ export default function StoryPage() {
           controlsLayout: 'bottom-right',
           progress: true,
           hash: true,
-          keyboard: true,
           touch: true,
+          keyboard: true,
 
           // Fragments
           fragments: true,
-          fragmentInURL: true,
+          fragmentInURL: false, // Don't track fragments in URL
 
-          // Auto-Slide (150ms per word fragment)
-          autoSlide: 150,
+          // Auto-Slide (300ms per word fragment - comfortable reading pace)
+          autoSlide: 300,
           autoSlideStoppable: true,
 
           // Transitions
@@ -180,6 +180,20 @@ export default function StoryPage() {
 
         await deck.initialize();
         revealRef.current = deck;
+
+        // Override arrow keys to jump slides instead of fragments
+        document.addEventListener('keydown', (e) => {
+          if (!revealRef.current) return;
+
+          // Arrow keys: jump to prev/next slide (skip fragments)
+          if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            revealRef.current.prev();
+          } else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            revealRef.current.next();
+          }
+        });
       }
     }
 
@@ -215,19 +229,23 @@ export default function StoryPage() {
 
         .reveal .slides section {
           text-align: left;
-          padding: 20px;
-          font-size: 1.5em;
-          line-height: 1.6;
+          padding: 5vh 5vw;
+          font-size: clamp(0.9rem, 2.5vw, 1.4rem);
+          line-height: 1.5;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .reveal .slides section .beat-content {
-          max-width: 800px;
-          margin: 0 auto;
+          max-width: min(90vw, 700px);
+          max-height: 80vh;
+          overflow-y: auto;
         }
 
         .reveal .slides section .beat-line {
           display: block;
-          margin-bottom: 0.5em;
+          margin-bottom: 0.4em;
         }
 
         .reveal .fragment.fade-in {
@@ -241,21 +259,26 @@ export default function StoryPage() {
 
         /* Emoji styling for phone/email animations */
         .reveal .slides section .beat-line:first-child .fragment:first-child {
-          font-size: 1.5em;
+          font-size: 1.3em;
         }
 
-        /* Mobile responsive */
-        @media (max-width: 768px) {
+        /* iPad and tablets */
+        @media (max-width: 1024px) {
           .reveal .slides section {
-            font-size: 1.2em;
-            padding: 15px;
+            font-size: clamp(0.85rem, 2.2vw, 1.2rem);
+            padding: 4vh 4vw;
           }
         }
 
+        /* Mobile phones */
         @media (max-width: 480px) {
           .reveal .slides section {
-            font-size: 1em;
-            padding: 10px;
+            font-size: clamp(0.8rem, 4vw, 1rem);
+            padding: 3vh 3vw;
+            line-height: 1.4;
+          }
+          .reveal .slides section .beat-line {
+            margin-bottom: 0.3em;
           }
         }
 
