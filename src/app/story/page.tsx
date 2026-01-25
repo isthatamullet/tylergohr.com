@@ -12,12 +12,14 @@ type BeatLine = {
   scale?: number; // CSS scale transform
   pauseAfter?: boolean; // Requires click to continue
   centered?: boolean; // Center this line
+  delayBefore?: number; // Delay before this line starts (ms)
 };
 
 type Beat = {
   lines: (string | BeatLine)[];
   centered?: boolean; // Center entire beat
   ownSlide?: boolean; // This is a standalone click-reveal slide
+  hasMusicalNotes?: boolean; // Add floating musical notes animation
 };
 
 // V2 Script - 48 beats with all revisions
@@ -46,7 +48,7 @@ const beats: Beat[] = [
 
   // Beat 3: Proof
   { lines: [
-    "Built 7 podcast channels. Discovered a timing trick.",
+    "Built 7 podcast channels. Discovered a timing trick for live sports streaming.",
     "Management was impressed. Now it's mandatory forever."
   ]},
 
@@ -75,8 +77,7 @@ const beats: Beat[] = [
 
   // Beat 8: The Fix
   { lines: [
-    "Wrong title casing for any of 25+ languages? You're out.",
-    "I learned every spec. Every format. Every edge case."
+    "Every delivery had hundreds of ways to fail. I learned them all."
   ]},
 
   // Beat 9: iTunes Whisperer
@@ -137,12 +138,12 @@ const beats: Beat[] = [
     "Dozens of points of failure."
   ]},
 
-  // Beat 17: The Languages (⭐ ESCALATING EFFECT)
+  // Beat 17: The Languages (⭐ ESCALATING EFFECT - nearly fills screen)
   { lines: [
     { text: "French. German. Italian. Spanish...", timing: 400, scale: 1 },
-    { text: "Portuguese. Dutch. Danish. Finnish. Norwegian. Swedish...", timing: 200, scale: 1.3 },
-    { text: "Polish. Romanian. Russian. Turkish...", timing: 100, scale: 1.8 },
-    { text: "MANDARIN. JAPANESE. KOREAN. ARABIC. PERSIAN...", timing: 50, scale: 2.5 },
+    { text: "Portuguese. Dutch. Danish. Finnish. Norwegian. Swedish...", timing: 200, scale: 2 },
+    { text: "Polish. Romanian. Russian. Turkish...", timing: 100, scale: 4 },
+    { text: "MANDARIN. JAPANESE. KOREAN. ARABIC. PERSIAN...", timing: 50, scale: 8 },
     { text: "You get the idea.", timing: 190, scale: 1 },
   ]},
 
@@ -165,18 +166,26 @@ const beats: Beat[] = [
   // Beat 21: Transition
   { lines: [
     "📞",
-    { text: "Hello, Tyler? It's Fox. What's your favorite symphony?", pauseAfter: true },
+    { text: "Hello, Tyler? It's Fox. What's your favorite Beethoven symphony?", pauseAfter: true },
   ]},
-  // Beat 21b: Click reveal
+  // Beat 21b: Click reveal - Eroica answer
+  { ownSlide: true, centered: true, lines: [
+    "The most important piece of music ever written, of course.",
+    "Number 3. Eroica."
+  ]},
+  // Beat 21c: Click reveal - You're hired
   { ownSlide: true, centered: true, lines: ["You're hired!"] },
 
   // CHAPTER 4: FOX CORPORATION (2017-2022) - 16 beats
 
-  // Beat 22: Scale
-  { lines: [
-    "Fox was a different scale.",
-    "70,000 titles. 250,000 assets."
-  ]},
+  // Beat 22: Scale (with musical notes callback to symphony question)
+  {
+    hasMusicalNotes: true,
+    lines: [
+      "Fox was a different scale.",
+      "70,000 titles. 250,000 assets."
+    ]
+  },
 
   // Beat 23: Library Project
   { lines: [
@@ -229,7 +238,7 @@ const beats: Beat[] = [
   ]},
   // Beat 31b: Click reveal
   { ownSlide: true, lines: [
-    "Just kidding, we won an Emmy.",
+    "Just kidding - we won an Emmy for Outstanding Trans-Media Sports Coverage.",
     "My name's on my trophy."
   ]},
 
@@ -245,19 +254,21 @@ const beats: Beat[] = [
   // Beat 34: Distribution Platform
   { lines: [
     "Then, I got to help Fox build a new content distribution platform.",
-    "From scratch. Teams across 10 countries.",
-    "Launched Fox Weather."
+    "From scratch. Teams across 10 countries."
   ]},
 
-  // Beat 35: You're Welcome (own slide, centered)
-  { ownSlide: true, centered: true, lines: ["You're welcome!"] },
+  // Beat 35: Fox Weather + You're Welcome (own slide, centered, with delay)
+  { ownSlide: true, centered: true, lines: [
+    "Launched Fox Weather.",
+    { text: "You're welcome!", delayBefore: 2000 }
+  ]},
 
   // Beat 36: Building How to Build
   { lines: [
     { text: "I wasn't just building platforms anymore.", pauseAfter: true },
   ]},
   // Beat 36b: Click reveal
-  { ownSlide: true, lines: ["I was building how TO build."] },
+  { ownSlide: true, lines: ["I was building HOW to build."] },
 
   // Beat 37: The Pattern (Confident reframe)
   { lines: [
@@ -342,11 +353,16 @@ function lineToFragments(
   const wordTiming = lineData.timing || 190; // Default 190ms per word
   const scale = lineData.scale || 1;
   const pauseAfter = lineData.pauseAfter || false;
+  const delayBefore = lineData.delayBefore || 0;
 
   return words.map((word, wordIndex) => {
     const isLastWord = wordIndex === words.length - 1;
+    const isFirstWord = wordIndex === 0;
     // Stop auto-advance if: last word of beat OR pauseAfter is true
     const shouldStop = (isLastLine && isLastWord) || (isLastWord && pauseAfter);
+
+    // For first word, use delayBefore if specified
+    const timing = isFirstWord && delayBefore > 0 ? delayBefore : wordTiming;
 
     const style: React.CSSProperties = {};
     if (scale !== 1) {
@@ -359,7 +375,7 @@ function lineToFragments(
       <span
         key={`${beatIndex}-${lineIndex}-${wordIndex}`}
         className="fragment fade-in"
-        data-autoslide={shouldStop ? "0" : String(wordTiming)}
+        data-autoslide={shouldStop ? "0" : String(timing)}
         style={style}
       >
         {word}{' '}
@@ -509,6 +525,36 @@ export default function StoryPage() {
           font-size: 1.1em;
         }
 
+        /* Musical notes animation for Fox scale slide */
+        .musical-notes {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+          overflow: hidden;
+        }
+
+        .musical-note {
+          position: absolute;
+          font-size: 2rem;
+          opacity: 0.3;
+          animation: floatNote 4s ease-in-out infinite;
+        }
+
+        .musical-note:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .musical-note:nth-child(2) { left: 85%; top: 15%; animation-delay: 0.5s; }
+        .musical-note:nth-child(3) { left: 15%; top: 70%; animation-delay: 1s; }
+        .musical-note:nth-child(4) { left: 80%; top: 75%; animation-delay: 1.5s; }
+        .musical-note:nth-child(5) { left: 50%; top: 10%; animation-delay: 2s; }
+        .musical-note:nth-child(6) { left: 45%; top: 85%; animation-delay: 2.5s; }
+
+        @keyframes floatNote {
+          0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+          50% { transform: translateY(-15px) rotate(10deg); opacity: 0.5; }
+        }
+
         /* iPad and tablets */
         @media (max-width: 1024px) {
           .reveal .slides section {
@@ -560,6 +606,17 @@ export default function StoryPage() {
 
               return (
                 <section key={beatIndex} className={sectionClasses || undefined}>
+                  {/* Musical notes animation for Fox scale slide */}
+                  {beat.hasMusicalNotes && (
+                    <div className="musical-notes">
+                      <span className="musical-note">🎵</span>
+                      <span className="musical-note">🎶</span>
+                      <span className="musical-note">🎵</span>
+                      <span className="musical-note">🎶</span>
+                      <span className="musical-note">🎵</span>
+                      <span className="musical-note">🎶</span>
+                    </div>
+                  )}
                   <div className="beat-content" style={beat.centered ? { textAlign: 'center' } : undefined}>
                     {beat.lines.map((line, lineIndex) => {
                       const isLastLine = lineIndex === beat.lines.length - 1;
