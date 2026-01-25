@@ -13,6 +13,7 @@ type BeatLine = {
   pauseAfter?: boolean; // Requires click to continue
   centered?: boolean; // Center this line
   delayBefore?: number; // Delay before this line starts (ms)
+  delayAfterLine?: number; // Delay after this line's last word (ms)
 };
 
 type Beat = {
@@ -138,13 +139,16 @@ const beats: Beat[] = [
     "Dozens of points of failure."
   ]},
 
-  // Beat 17: The Languages (⭐ ESCALATING EFFECT - nearly fills screen)
+  // Beat 17: The Languages (⭐ ESCALATING EFFECT - grows but leaves room for punchline)
   { lines: [
     { text: "French. German. Italian. Spanish...", timing: 400, scale: 1 },
-    { text: "Portuguese. Dutch. Danish. Finnish. Norwegian. Swedish...", timing: 200, scale: 2 },
-    { text: "Polish. Romanian. Russian. Turkish...", timing: 100, scale: 4 },
-    { text: "MANDARIN. JAPANESE. KOREAN. ARABIC. PERSIAN...", timing: 50, scale: 8 },
-    { text: "You get the idea.", timing: 190, scale: 1 },
+    { text: "Portuguese. Dutch. Danish. Finnish. Norwegian. Swedish...", timing: 200, scale: 1.5 },
+    { text: "Polish. Romanian. Russian. Turkish...", timing: 100, scale: 2.5 },
+    { text: "MANDARIN. JAPANESE. KOREAN. ARABIC. PERSIAN...", timing: 50, scale: 4 },
+  ]},
+  // Beat 17b: Punchline on its own slide (so it's not covered)
+  { ownSlide: true, lines: [
+    { text: "You get the idea.", timing: 190 },
   ]},
 
   // Beat 18: The Template
@@ -257,10 +261,10 @@ const beats: Beat[] = [
     "From scratch. Teams across 10 countries."
   ]},
 
-  // Beat 35: Fox Weather + You're Welcome (own slide, centered, with delay)
+  // Beat 35: Fox Weather + You're Welcome (own slide, centered, with 2s pause)
   { ownSlide: true, centered: true, lines: [
-    "Launched Fox Weather.",
-    { text: "You're welcome!", delayBefore: 2000 }
+    { text: "Launched Fox Weather.", delayAfterLine: 2000 },
+    "You're welcome!"
   ]},
 
   // Beat 36: Building How to Build
@@ -314,7 +318,7 @@ const beats: Beat[] = [
 
   // Beat 44: Same Pattern
   { lines: [
-    "16 years ago, I was the person who figured out the new platforms.",
+    "For years, I've been the person who figured out the new platforms.",
     "Now I'm the person who figures out AI.",
     "Same pattern. Bigger tools."
   ]},
@@ -337,8 +341,10 @@ const beats: Beat[] = [
   { lines: [
     { text: "Figuring things out is still mandatory.", pauseAfter: true },
   ]},
-  // Beat 47b: Click reveal - final punchline
-  { ownSlide: true, centered: true, lines: ["That's the best part."] },
+  // Beat 47b: Click reveal - final punchline (slow, dramatic timing)
+  { ownSlide: true, centered: true, lines: [
+    { text: "That's the best part.", timing: 1000 }
+  ]},
 ];
 
 // Helper to convert a line into word fragments with timing support
@@ -354,6 +360,7 @@ function lineToFragments(
   const scale = lineData.scale || 1;
   const pauseAfter = lineData.pauseAfter || false;
   const delayBefore = lineData.delayBefore || 0;
+  const delayAfterLine = lineData.delayAfterLine || 0;
 
   return words.map((word, wordIndex) => {
     const isLastWord = wordIndex === words.length - 1;
@@ -361,8 +368,14 @@ function lineToFragments(
     // Stop auto-advance if: last word of beat OR pauseAfter is true
     const shouldStop = (isLastLine && isLastWord) || (isLastWord && pauseAfter);
 
-    // For first word, use delayBefore if specified
-    const timing = isFirstWord && delayBefore > 0 ? delayBefore : wordTiming;
+    // Determine timing for this word
+    let timing = wordTiming;
+    if (isFirstWord && delayBefore > 0) {
+      timing = delayBefore;
+    } else if (isLastWord && delayAfterLine > 0 && !isLastLine) {
+      // Last word of this line (but not last line of beat) - add delay before next line
+      timing = delayAfterLine;
+    }
 
     const style: React.CSSProperties = {};
     if (scale !== 1) {
@@ -459,6 +472,11 @@ export default function StoryPage() {
   return (
     <>
       <style jsx global>{`
+        /* Hide the site navigation on story page */
+        nav, header, .navigation, .skip-nav, #accessibility-announcements {
+          display: none !important;
+        }
+
         html, body {
           margin: 0;
           padding: 0;
@@ -467,9 +485,13 @@ export default function StoryPage() {
         }
 
         .reveal-viewport {
+          position: fixed;
+          top: 0;
+          left: 0;
           height: 100vh;
           height: 100dvh;
           width: 100vw;
+          z-index: 9999;
         }
 
         .reveal {
