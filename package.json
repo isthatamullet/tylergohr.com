@@ -71,7 +71,7 @@
     "concurrently": "^7.6.0",
     "cssnano": "^7.0.7",
     "lighthouse": "^12.7.0",
-    "svgo": "^4.0.0",
+    "svgo": "^4.0.1",
     "wait-on": "^7.0.1"
   }
 }
